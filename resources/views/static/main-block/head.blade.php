@@ -22,9 +22,7 @@
     <link rel="stylesheet" href="{{asset('/css/styles.min.css?v=').time()}}">
     <link rel="stylesheet" href="{{asset('/css/modul.min.css?v=').time()}}">
     <link rel="stylesheet" href="{{asset('/css/page.min.css?v=').time()}}">
-    @if(Route::currentRouteName() === 'profile.show')
-        <link rel="stylesheet" href="{{asset('/css/private.min.css?v=').time()}}">
-    @endif
+    @stack('styles')
 
     <script src="{{asset('/js/jquery.min.js?v=').time()}}" defer></script>
     <script src="{{asset('/js/main.js?v=').time()}}" defer></script>

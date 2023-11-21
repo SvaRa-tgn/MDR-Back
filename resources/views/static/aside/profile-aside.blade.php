@@ -34,6 +34,9 @@
                     <a class="link-aside" href="{{route('oplata.index')}}"><h2 class="aside-h3">Оплата</h2></a>
                 </li>
             </ul>
+            @if(Auth::user()->role === 'admin')
+            <a class="link-aside" href="{{route('admin.index')}}"><h2 class="aside-h2">АДМИНКА</h2></a>
+            @endif
         </div>
     </div>
     <div class="wrap-aside-h1 wrap-a-left">

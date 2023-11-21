@@ -1,10 +1,5 @@
 <?php
 
-use App\Http\Controllers\Page\ProfilePage\Profile\DestroyController;
-use App\Http\Controllers\Page\ProfilePage\Profile\IndexController;
-use App\Http\Controllers\Page\ProfilePage\Profile\ShowController;
-use App\Http\Controllers\Page\ProfilePage\Profile\UpdateController;
-use App\Http\Controllers\Page\ProfilePage\Profile\UpdatePasswordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,13 +35,55 @@ Route::get('service/dostavka.mdr', [App\Http\Controllers\Page\ServicePage\Delive
 Route::get('service/samovyvoz.mdr', [App\Http\Controllers\Page\ServicePage\SamovyvozController::class, 'index'])->name('samovyvoz.index');
 Route::get('service/sborka.mdr', [App\Http\Controllers\Page\ServicePage\SborkaController::class, 'index'])->name('sborka.index');
 
+//СТРАНИЦА АДМИНКИ
+Route::prefix('admin')->group(function (){
+    //Профиль Админки
+    Route::namespace('App\Http\Controllers\Page\AdminPage\Profile')->group(function(){
+        Route::get('/profile.mdr', 'IndexController@index')->name('admin.index');
+        Route::get('/profile/{familia}_{name}_{father}.mdr', 'ShowController@show')->name('admin.show');
+
+    });
+
+    //Категории товара
+    Route::namespace('App\Http\Controllers\Page\AdminPage\Category')->group(function(){
+        Route::get('/category.mdr', 'ShowController@show')->name('category.show');
+        Route::get('/category/edit-category/{$name}.mdr', 'EditController@show')->name('editCategory.show');
+    });
+
+    //Подкатегории товара
+    Route::namespace('App\Http\Controllers\Page\AdminPage\SubCategory')->group(function(){
+        Route::get('/sub-category.mdr', 'ShowController@show')->name('subCategory.show');
+    });
+
+    //Товар
+    Route::namespace('App\Http\Controllers\Page\AdminPage\Product')->group(function(){
+        Route::get('/create-product.mdr', 'ShowController@show')->name('createProduct.show');
+        Route::get('/edit-product.mdr', 'EditController@show')->name('editProduct.show');
+    });
+
+    //Модульные коллекции
+    Route::namespace('App\Http\Controllers\Page\AdminPage\ModulCollection')->group(function(){
+        Route::get('/modul-collection.mdr', 'ShowController@show')->name('modulCollection.show');
+    });
+
+    //Готовые коллекции
+    Route::namespace('App\Http\Controllers\Page\AdminPage\ReadyCollection')->group(function(){
+        Route::get('/ready-collection.mdr', 'ShowController@show')->name('readyCollection.show');
+    });
+
+    //Цвет товара
+    Route::namespace('App\Http\Controllers\Page\AdminPage\ColorProduct')->group(function(){
+        Route::get('/color-product.mdr', 'ShowController@show')->name('colorProduct.show');
+    });
+});
+
 //Страница Личный кабинет
 Route::group(['namespace' => 'App\Http\Controllers\Page\ProfilePage\Profile'], function(){
-    Route::get('profile.mdr', 'IndexController@index')->name('profile.index');
-    Route::get('profile/{familia}_{name}_{father}.mdr', 'ShowController@show')->name('profile.show');
-    Route::put('profile/update.mdr', 'UpdateController@userUpdate')->name('profile.update');
-    Route::put('profile/update-password.mdr', 'UpdatePasswordController@updatePassword')->name('profilePassword.update');
-    Route::delete('profile/destroy/{user}.mdr', 'DestroyController@destroy')->name('profile.destroy');
+    Route::get('profile/private.mdr', 'IndexController@index')->name('profile.index');
+    Route::get('profile/private/{familia}_{name}_{father}.mdr', 'ShowController@show')->name('profile.show');
+    Route::put('profile/private/update.mdr', 'UpdateController@userUpdate')->name('profile.update');
+    Route::put('profile/private/update-password.mdr', 'UpdatePasswordController@updatePassword')->name('profilePassword.update');
+    Route::delete('profile/private/destroy/{user}.mdr', 'DestroyController@destroy')->name('profile.destroy');
 });
 
 Auth::routes();
