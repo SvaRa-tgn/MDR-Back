@@ -35,4 +35,5 @@ class ProfileRepository implements ProfileRepositoryInterface
 
         return $user;
     }
+
 }

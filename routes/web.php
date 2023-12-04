@@ -47,7 +47,10 @@ Route::prefix('admin')->group(function (){
     //Категории товара
     Route::namespace('App\Http\Controllers\Page\AdminPage\Category')->group(function(){
         Route::get('/category.mdr', 'ShowController@show')->name('category.show');
-        Route::get('/category/edit-category/{$name}.mdr', 'EditController@show')->name('editCategory.show');
+        Route::post('/category/create', 'CreateController@create')->name('createCategory.create');
+        Route::get('/category/edit-category/{id}/{name}.mdr', 'EditController@edit')->name('editCategory.edit');
+        Route::put('/category/update/{id}', 'UpdateController@update')->name('updateCategory.update');
+        Route::delete('/category/destroy/{id}', 'DestroyController@destroy')->name('destroyCategory.destroy');
     });
 
     //Подкатегории товара

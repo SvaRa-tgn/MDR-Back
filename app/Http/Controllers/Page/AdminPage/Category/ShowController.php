@@ -3,15 +3,16 @@
 
 namespace App\Http\Controllers\Page\AdminPage\Category;
 
-use App\Services\Page\ProfilePage\Profile\ProfileService;
+use App\Http\Resources\Page\AdminPage\Category\CategoryResource;
+use App\Services\Page\AdminPage\Category\CategoryService;
 
-class ShowController extends ProfileService
+class ShowController extends CategoryService
 {
     public function show()
     {
+        $categories = $this->service->show();
 
-
-        return view ('/app-page/admin-page/admin-box/category/category');
+        return view ('/app-page/admin-page/admin-box/category/category', compact('categories'));
     }
 
 }

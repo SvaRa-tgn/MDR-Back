@@ -18,7 +18,6 @@
                     <div class="wrap-input wrap-input-auth emailError" data-answer="">
                         <input id="password-auth" type="password" name="password" placeholder="Введите свой пароль" class="input-auth"  autocomplete="current-password" />
                     </div>
-                    <p class=""></p>
                     <button class="button-auth accept" type="submit" name="submit-auth">Войти</button>
                 </form>
                 <ul class="form-list">
@@ -45,26 +44,26 @@
                 <form class="form-auth-reg" method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="wrap-fio-form">
-                        <div class="wrap-input wrap-input-reg" data-answer="">
-                            <input id="name-reg" type="text" name="name" placeholder="Ваше имя" class="input-auth input-reg" autocomplete="name" />
+                        <div class="wrap-input wrap-input-reg input-width" data-answer="">
+                            <input id="name-reg" type="text" name="name" placeholder="Ваше имя" class="input-auth input-reg" value="{{ old('name') }}" autocomplete="name" />
                         </div>
-                        <div class="wrap-input wrap-input-reg" data-answer="">
-                            <input id="familia" type="text" name="familia" placeholder="Ваша фамилия" class="input-auth input-reg" autocomplete="familia" />
+                        <div class="wrap-input wrap-input-reg input-width" data-answer="">
+                            <input id="familia" type="text" name="familia" placeholder="Ваша фамилия" class="input-auth input-reg" value="{{ old('familia') }}" autocomplete="familia" />
                         </div>
-                        <div class="wrap-input wrap-input-reg" data-answer="">
-                            <input id="father-name" type="text" name="father_name" placeholder="Ваше отчество" class="input-auth input-reg" autocomplete="father-name" />
+                        <div class="wrap-input wrap-input-reg input-width" data-answer="">
+                            <input id="father-name" type="text" name="father_name" placeholder="Ваше отчество" class="input-auth input-reg" value="{{ old('father_name') }}" autocomplete="father-name" />
                         </div>
                     </div>
-                    <div class="wrap-input wrap-input-reg emailErrorReg" data-answer="">
+                    <div class="wrap-input wrap-input-reg input-width emailErrorReg" data-answer="">
                         <input id="email-reg" type="email" name="email" placeholder="Ваш email" value="{{ old('email') }}" class="input-auth input-reg" autocomplete="email" />
                     </div>
-                    <div class="wrap-input wrap-input-reg" data-answer="">
-                        <input id="phone" type="number" name="phone" placeholder="Ваш телефон" class="input-auth input-reg" autocomplete="phone" />
+                    <div class="wrap-input wrap-input-reg input-width" data-answer="">
+                        <input id="phone" type="number" name="phone" placeholder="Ваш телефон" class="input-auth input-reg" value="{{ old('phone') }}" autocomplete="phone" />
                     </div>
-                    <div class="wrap-input wrap-input-reg passwordErrorReg" data-answer="">
+                    <div class="wrap-input wrap-input-reg input-width passwordErrorReg" data-answer="">
                         <input id="password-reg" type="password" name="password" placeholder="Пароль" class="input-auth input-reg"  />
                     </div>
-                    <div class="wrap-input wrap-input-reg passwordErrorReg" data-answer="">
+                    <div class="wrap-input wrap-input-reg input-width passwordErrorReg" data-answer="">
                         <input id="password_confirmation" type="password" name="password_confirmation" placeholder="Подтвердите пароль" class="input-auth input-reg" />
                     </div>
                     <button class="button-auth accept btn-reg" type="submit" name="submit-auth">Регистрация</button>

@@ -30,146 +30,55 @@
                 <h1 class="page-h1">Редактировать категорию</h1>
             </div>
 
-            <div class="wrap-head-page-h3">
-                <h3 class="page-h3 color-admin">Данные о подкатегории:</h3>
-            </div>
+            <div class="main-private-data-item">
+                <div class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Информация о категории:</h3>
+                </div>
 
-            <div class="wrap-create-product-data">
-                <form class="create-product-data">
-                    <ul class="wrap-create-collection-list">
+                <div class="wrap-create-product-data">
+                    <div class="wrap-edit-data">
+                        <div class="db-product-label">
+                            Редактирование категории:
+                        </div>
+                        <form class=" form-create-category" method="POST" action="{{ route('createCategory.create') }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="wrap-input Error">
+                                <label class="create-product-label" for="input-category">
+                                    Новое название категории:
+                                </label>
+                                <input class="create-product-input input-category" type="text" id="new_category" name="category" value="{{ old('name') }}" />
+                            </div>
+                            <div class="wrap-input Error">
+                                <label class="create-product-label">
+                                    Новая фотография категории:
+                                </label>
+                                <input class="create-product-input-foto input-category" type="file" id="foto" name="image" accept="image/*" />
+                            </div>
+                            <div class="wrap-button">
+                                <button class="button-auth accept js-up-category" data-id="{{$category['id']}}" type="submit" name="submit-auth">Сохранить</button>
+                            </div>
+                        </form>
+                        <form class="itemDelete">
+                            <input type="submit" class="button-auth stop" value="Удалить категорию">
+                        </form>
 
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Изменить название категории
-                            </label>
-                            <div class="wrap-create-product-item">
-                                <input class="create-product-input" type="text" id="new_category" name="new_category"  />
-                            </div>
-                        </li>
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Изменить название категории по английски
-                            </label>
-                            <div class="wrap-create-product-item">
-                                <input class="create-product-input" type="text" id="new_category_inenglish" name="new_category_inenglish"  />
-                            </div>
-                        </li>
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Выберите новое фото
-                            </label>
-                            <div class="wrap-create-product-item">
-                                <input class="create-product-input-foto" type="file" id="foto" name="foto" accept="image/png, image/jpeg" />
-                            </div>
-                        </li>
-                        <li class="wrap-create-product-item">
-                            <button class="mdr-button accept modul-button">
-                                Сохранить изменения
-                            </button>
-                        </li>
-                    </ul>
-                </form>
+                    </div>
 
-                <div class="create-product-data">
-                    <ul class="wrap-create-collection-list">
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Категории в базе:
-                            </label>
-                            <ul class="create-product-list">
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <div class="create-product-data">
+                        <div class="db-product-label">
+                            Актуальные данные:
+                        </div>
+                        <ul class="create-product-list">
+                            <li class="create-product-item modul-admin-data">
+                                <article class="collect-article" >Название категории:</article>
+                                <article class="collect-article js-category-name" data-tag="Категорию">{{$category['name']}}</article>
+                                <div class="wrap-img-category">
+                                    <img class="main-block-item-img" src="{{asset($category['image'])}}" alt="Мебель в Рязани. {{$category['name']}}" />
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>

@@ -30,58 +30,57 @@
                 <h1 class="page-h1">Создать категорию</h1>
             </div>
 
-            <div class="wrap-head-page-h3">
-                <h3 class="page-h3 color-admin">Данные о категории:</h3>
-            </div>
+            <div class="main-private-data-item">
+                <div class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Данные о категории:</h3>
+                </div>
+                <div class="wrap-create-product-data">
 
-            <div class="wrap-create-product-data">
-                <form class="create-product-data">
-                    <ul class="wrap-create-collection-list">
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Название новой категории
-                            </label>
-                            <div class="wrap-create-product-item">
-                                <input class="create-product-input" type="text" id="new_category" name="new_category" required />
+                    <div class="wrap-edit-data">
+                        <div class="db-product-label">
+                            Создание новой категории:
+                        </div>
+                        <form class="create-product-data form-create-category" method="POST" action="{{ route('createCategory.create') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="wrap-input Error" data-answer="">
+                                <label class="create-product-label">
+                                    Название новой категории
+                                </label>
+                                <input class="create-product-input input-category" type="text" id="new_category" name="category" value="{{ old('name') }}" />
                             </div>
-                        </li>
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Выберите фото
-                            </label>
-                            <div class="wrap-create-product-item">
-                                <input class="create-product-input-foto" type="file" id="foto" name="foto" accept="image/png, image/jpeg" required/>
+                            <div class="wrap-input categoryError" data-answer="">
+                                <label class="create-product-label">
+                                    Выберите фото
+                                </label>
+                                <input class="create-product-input-foto input-category" type="file" id="foto" name="image" accept="image/*" />
                             </div>
-                        </li>
-                        <li class="wrap-create-product-item">
-                            <button class="mdr-button accept modul-button">
-                                Сохранить
-                            </button>
-                        </li>
-                    </ul>
-                </form>
+                            <div class="wrap-button">
+                                <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="create-product-data">
+                        <div class="db-product-label">
+                            Список Категорий в базе:
+                        </div>
+                        <ul class="create-product-list">
+                            @foreach($categories as $category)
+                                <li class="create-product-item modul-category-data" data-action="Категорию">
+                                    <article class="collect-article" data-id="{{$category->id}}">{{$category->name}}</article>
 
-                <div class="create-product-data">
-                    <ul class="wrap-create-collection-list">
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Модульные коллекции в базе:
-                            </label>
-                            <ul class="create-product-list">
-                                <li class="create-product-item modul-category-data">
-                                    <article class="collect-article">Модульная коллекция</article>
-                                    <button class="mdr-button stop modul-button-delete">
-                                        Удалить
-                                    </button>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-category.html">
+                                    <a class="mdr-button accept modul-button-delete" href="{{route('editCategory.edit', [$category->id, $name = str_slug($category->name)])}}">
                                         Редактировать
                                     </a>
                                 </li>
-                            </ul>
-                        </li>
-                    </ul>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
+
+
+
+
         </section>
     </section>
 @endsection
