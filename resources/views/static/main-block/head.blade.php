@@ -3,8 +3,14 @@
 
 <head>
     <meta charset="utf-8">
+    @if (isset($head))
+    <title>{{$head['title']}}</title>
+    <meta name="description" content="{{$head['description']}}">
+    @else
     <title>MDR</title>
     <meta name="description" content="">
+    @endif
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

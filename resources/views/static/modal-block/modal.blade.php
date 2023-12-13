@@ -16,6 +16,7 @@
             <div class="modal-link mdr-button stop js-close js-reload">Закрыть</div>
         </li>
     </ul>
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editCategory.edit')
     <ul class="modal-list js-link-3">
         <li class="modal-item">
             <form class="itemAdminDelete" data-id="{{$category['id']}}"  action="{{ route('destroyCategory.destroy', $category['id']) }}" method="post">
@@ -25,7 +26,8 @@
             </form>
         </li>
         <li class="modal-item">
-            <div class="modal-link mdr-button stop js-close">Остаться на странице</div>
+            <div class="modal-link mdr-button stop js-close">Не буду удалять</div>
         </li>
     </ul>
+    @endif
 </section>

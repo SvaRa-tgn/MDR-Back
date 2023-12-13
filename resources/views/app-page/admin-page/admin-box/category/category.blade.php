@@ -40,19 +40,22 @@
                         <div class="db-product-label">
                             Создание новой категории:
                         </div>
-                        <form class="create-product-data form-create-category" method="POST" action="{{ route('createCategory.create') }}" enctype="multipart/form-data">
+                        <form class="create-product-data form-create-category" data-form="category" method="POST"
+                              action="{{ route('createCategory.create') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="wrap-input Error" data-answer="">
                                 <label class="create-product-label">
                                     Название новой категории
                                 </label>
-                                <input class="create-product-input input-category" type="text" id="new_category" name="category" value="{{ old('name') }}" />
+                                <input class="create-product-input input-category" type="text" id="new_category"
+                                       name="category" value="{{ old('name') }}"/>
                             </div>
                             <div class="wrap-input categoryError" data-answer="">
                                 <label class="create-product-label">
                                     Выберите фото
                                 </label>
-                                <input class="create-product-input-foto input-category" type="file" id="foto" name="image" accept="image/*" />
+                                <input class="create-product-input-foto input-category" type="file" id="foto"
+                                       name="image" accept="image/*"/>
                             </div>
                             <div class="wrap-button">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
@@ -63,24 +66,28 @@
                         <div class="db-product-label">
                             Список Категорий в базе:
                         </div>
-                        <ul class="create-product-list">
-                            @foreach($categories as $category)
-                                <li class="create-product-item modul-category-data" data-action="Категорию">
-                                    <article class="collect-article" data-id="{{$category->id}}">{{$category->name}}</article>
 
-                                    <a class="mdr-button accept modul-button-delete" href="{{route('editCategory.edit', [$category->id, $name = str_slug($category->name)])}}">
-                                        Редактировать
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
+                        @if($categories->isEmpty())
+                            <div class="db-non-list">
+                                Вы пока не создали ни одной категории.
+                            </div>
+                        @else
+                            <ul class="create-product-list">
+                                @foreach($categories as $category)
+                                    <li class="create-product-item modul-category-data" data-action="Категорию">
+                                        <article class="collect-article" data-id="{{$category->id}}">{{$category->name}}</article>
+                                        <a class="mdr-button accept modul-button-delete"
+                                           href="{{route('editCategory.edit', [$category->id, $name = Transliterate::slugify($category->name)])}}">
+                                            Редактировать
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+
                     </div>
                 </div>
             </div>
-
-
-
-
         </section>
     </section>
 @endsection

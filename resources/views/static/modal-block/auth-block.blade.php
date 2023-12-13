@@ -58,7 +58,7 @@
                         <input id="email-reg" type="email" name="email" placeholder="Ваш email" value="{{ old('email') }}" class="input-auth input-reg" autocomplete="email" />
                     </div>
                     <div class="wrap-input wrap-input-reg input-width" data-answer="">
-                        <input id="phone" type="number" name="phone" placeholder="Ваш телефон" class="input-auth input-reg" value="{{ old('phone') }}" autocomplete="phone" />
+                        <input id="phone" type="text" name="phone" onkeypress="return /[0-9]/i.test(event.key)" minlength="11" maxlength="11" placeholder="Ваш телефон" class="input-auth input-reg" value="{{ old('phone') }}" autocomplete="phone" />
                     </div>
                     <div class="wrap-input wrap-input-reg input-width passwordErrorReg" data-answer="">
                         <input id="password-reg" type="password" name="password" placeholder="Пароль" class="input-auth input-reg"  />

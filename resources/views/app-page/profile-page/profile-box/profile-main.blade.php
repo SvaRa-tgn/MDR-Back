@@ -27,7 +27,8 @@
             <li class="main-private-data-item transform-start">
                 <div class="wrap-head-page-h3">
                     <h3 class="private-page-h3 alt-color">Личные данные:</h3>
-                    <form  action="{{route('profile.destroy', $user->id)}}" method="post">
+
+                    <form  action="{{route('profileUser.destroy', $user->id)}}" method="post">
                         @csrf
                         @method('DELETE')
                         <input type="submit" class="mdr-button stop fs-1-1 button-margin" value="удалить">
@@ -83,7 +84,7 @@
                 <div class="wrap-private-top">
                     <h3 class="private-page-h3 alt-color">Редактирование личных данных:</h3>
                 </div>
-                <form class="private-data-form" action="{{ route('profile.update', $user->id) }}" method="post">
+                <form class="private-data-form" action="{{ route('profileUser.update', $user->id) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="wrap-private-data-form">
@@ -124,7 +125,7 @@
                 <div class="wrap-private-top">
                     <h3 class="private-page-h3 alt-color">Изменить пароль:</h3>
                 </div>
-                <form class="private-data-form-password" action="{{ route('profilePassword.update', $user->id) }}" method="post">
+                <form class="private-data-form-password" action="{{ route('profilePasswordUser.update', $user->id) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="wrap-private-data-form">

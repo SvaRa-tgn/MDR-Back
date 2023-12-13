@@ -3,15 +3,13 @@
 
 namespace App\Http\Controllers\Page\AdminPage\Profile;
 
-use App\Services\Page\ProfilePage\Profile\ProfileService;
+use App\Actions\Profile\ProfileActions\UserAction;
 
-class ShowController extends ProfileService
+class ShowController extends UserAction
 {
-    public function show()
+    public function show(UserAction $action)
     {
-        $user = $this->service->show();
-
-        return view ('/app-page/admin-page/admin-box/profile/profile-admin', compact('user'));
+        return view ('/app-page/admin-page/admin-box/profile/profile-admin', $action->execute());
     }
 
 }

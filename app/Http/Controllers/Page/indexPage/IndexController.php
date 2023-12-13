@@ -4,13 +4,14 @@
 namespace App\Http\Controllers\Page\indexPage;
 
 
+use App\Actions\Index\IndexAction;
 use App\Http\Controllers\Controller;
 
 
 class IndexController extends Controller
 {
-    public function index()
+    public function index(IndexAction $action)
     {
-        return view('/app-page/index-page/index-page');
+        return $action->execute();
     }
 }

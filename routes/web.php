@@ -46,16 +46,18 @@ Route::prefix('admin')->group(function (){
 
     //Категории товара
     Route::namespace('App\Http\Controllers\Page\AdminPage\Category')->group(function(){
-        Route::get('/category.mdr', 'ShowController@show')->name('category.show');
-        Route::post('/category/create', 'CreateController@create')->name('createCategory.create');
-        Route::get('/category/edit-category/{id}/{name}.mdr', 'EditController@edit')->name('editCategory.edit');
-        Route::put('/category/update/{id}', 'UpdateController@update')->name('updateCategory.update');
-        Route::delete('/category/destroy/{id}', 'DestroyController@destroy')->name('destroyCategory.destroy');
+        Route::get('/category.mdr', 'ShowCategoryController@showCategory')->name('category.show');
+        Route::post('/category/create', 'CreateCategoryController@createCategory')->name('createCategory.create');
+        Route::get('/category/edit-category/{id}/{name}.mdr', 'EditCategoryController@editCategory')->name('editCategory.edit');
+        Route::put('/category/update/{id}', 'UpdateCategoryController@updateCategory')->name('updateCategory.update');
+        Route::delete('/category/destroy/{id}', 'DestroyCategoryController@destroyCategory')->name('destroyCategory.destroy');
     });
 
     //Подкатегории товара
     Route::namespace('App\Http\Controllers\Page\AdminPage\SubCategory')->group(function(){
-        Route::get('/sub-category.mdr', 'ShowController@show')->name('subCategory.show');
+        Route::get('/sub-category.mdr', 'ShowSubCategoryController@showSubCategory')->name('subCategory.show');
+        Route::post('/sub-category/create', 'CreateSubCategoryController@createSubCategory')->name('createSubCategory.create');
+        Route::get('/category/edit-sub-category/{id}/{name}.mdr', 'EditController@edit')->name('editSubCategory.edit');
     });
 
     //Товар
@@ -81,12 +83,12 @@ Route::prefix('admin')->group(function (){
 });
 
 //Страница Личный кабинет
-Route::group(['namespace' => 'App\Http\Controllers\Page\ProfilePage\Profile'], function(){
+Route::group(['middleware' => 'auth', 'namespace' => 'App\Http\Controllers\Page\ProfilePage\Profile'], function(){
     Route::get('profile/private.mdr', 'IndexController@index')->name('profile.index');
-    Route::get('profile/private/{familia}_{name}_{father}.mdr', 'ShowController@show')->name('profile.show');
-    Route::put('profile/private/update.mdr', 'UpdateController@userUpdate')->name('profile.update');
-    Route::put('profile/private/update-password.mdr', 'UpdatePasswordController@updatePassword')->name('profilePassword.update');
-    Route::delete('profile/private/destroy/{user}.mdr', 'DestroyController@destroy')->name('profile.destroy');
+    Route::get('profile/private/{familia}_{name}_{father}.mdr', 'UserController@show')->name('profile.user');
+    Route::put('profile/private/update.mdr', 'UpdateUserController@updateUser')->name('profileUser.update');
+    Route::put('profile/private/update-password.mdr', 'UpdatePasswordUserController@updatePasswordUser')->name('profilePasswordUser.update');
+    Route::delete('profile/private/destroy/{user}.mdr', 'DestroyUserController@destroyUser')->name('profileUser.destroy');
 });
 
 Auth::routes();

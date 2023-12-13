@@ -1,4 +1,5 @@
 @extends('/app-page/admin-page/admin')
+
 @section('admin')
     <section class="breadcrumbs">
         <div class="wrap-breadcrumbs">
@@ -40,7 +41,7 @@
                         <div class="db-product-label">
                             Редактирование категории:
                         </div>
-                        <form class=" form-create-category" method="POST" action="{{ route('createCategory.create') }}" enctype="multipart/form-data">
+                        <form class="form-create-category" data-form="category-update" method="POST" action="{{ route('updateCategory.update', $category['id'] )}}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="wrap-input Error">

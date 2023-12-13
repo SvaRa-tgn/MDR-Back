@@ -11,9 +11,14 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function imageStatic(): HasOne
+    public function CategoryImage(): HasOne
     {
-        return $this->HasOne(ImageStatic::class);
+        return $this->HasOne(CategoryImage::class);
+    }
+
+    public function SubCategory(): HasOne
+    {
+        return $this->HasOne(SubCategory::class);
     }
 }
 
