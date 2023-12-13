@@ -2,11 +2,7 @@
 
 namespace App\Actions\Admin\Category;
 
-use App\DTO\DTOcreateCategory;
-use App\DTO\DTOupdateCategory;
-use App\DTO\DTOupdateUser;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Page\AdminPage\Category\CategoryResource;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 
 class UpdateCategoryAction extends Controller
@@ -24,7 +20,5 @@ class UpdateCategoryAction extends Controller
 
         return redirect()->route('editCategory.edit', ['id'=>$category->id, 'name'=>$category->name]);
     }
-
-
 
 }

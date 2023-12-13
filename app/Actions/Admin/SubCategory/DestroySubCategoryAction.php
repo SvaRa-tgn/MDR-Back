@@ -2,11 +2,10 @@
 
 namespace App\Actions\Admin\SubCategory;
 
-use App\DTO\DTOcreateSubCategory;
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 
-class CreateSubCategoryAction extends Controller
+class DestroySubCategoryAction extends Controller
 {
     public $action;
 
@@ -15,11 +14,11 @@ class CreateSubCategoryAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request)
+    public function execute($id)
     {
-        $this->action->createSubCategory(DTOcreateSubCategory::fromCreateSubCategoryRequest($request));
+        $this->action->destroy($id);
 
-        return redirect()->route('category.show');;
+        return redirect()->route('subCategory.show')->with('success', 'Подкатегория удалена');
     }
 
 }

@@ -57,7 +57,9 @@ Route::prefix('admin')->group(function (){
     Route::namespace('App\Http\Controllers\Page\AdminPage\SubCategory')->group(function(){
         Route::get('/sub-category.mdr', 'ShowSubCategoryController@showSubCategory')->name('subCategory.show');
         Route::post('/sub-category/create', 'CreateSubCategoryController@createSubCategory')->name('createSubCategory.create');
-        Route::get('/category/edit-sub-category/{id}/{name}.mdr', 'EditController@edit')->name('editSubCategory.edit');
+        Route::get('/sub-category/edit-sub-category/{id}/{name}.mdr', 'EditSubCategoryController@editSubCategory')->name('editSubCategory.edit');
+        Route::put('/sub-category/update/{id}', 'UpdateSubCategoryController@updateSubCategory')->name('updateSubCategory.update');
+        Route::delete('/sub-category/destroy/{id}', 'DestroySubCategoryController@destroySubCategory')->name('destroySubCategory.destroy');
     });
 
     //Товар

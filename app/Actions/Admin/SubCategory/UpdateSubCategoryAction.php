@@ -2,11 +2,10 @@
 
 namespace App\Actions\Admin\SubCategory;
 
-use App\DTO\DTOcreateSubCategory;
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 
-class CreateSubCategoryAction extends Controller
+class UpdateSubCategoryAction extends Controller
 {
     public $action;
 
@@ -15,11 +14,11 @@ class CreateSubCategoryAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request)
+    public function execute($request, $id)
     {
-        $this->action->createSubCategory(DTOcreateSubCategory::fromCreateSubCategoryRequest($request));
+        $subCategory = $this->action->updateSubCategory($request, $id );
 
-        return redirect()->route('category.show');;
+        return redirect()->route('editSubCategory.edit', ['id'=>$subCategory->id, 'name'=>$subCategory->sub_category]);
     }
 
 }

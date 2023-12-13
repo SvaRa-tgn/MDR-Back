@@ -2,10 +2,7 @@
 
 namespace App\Actions\Admin\Category;
 
-use App\DTO\DTOcreateCategory;
-use App\DTO\DTOupdateUser;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Page\AdminPage\Category\CategoryResource;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 
 class CategoryAction extends Controller
@@ -31,7 +28,5 @@ class CategoryAction extends Controller
 
         return view ('/app-page/admin-page/admin-box/category/category', ['categories' => $categories, 'head' => $head]);
     }
-
-
 
 }

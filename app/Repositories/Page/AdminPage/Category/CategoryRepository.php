@@ -27,7 +27,6 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function showCategory()
     {
-
         $categories = Category::all();
         return $categories;
     }

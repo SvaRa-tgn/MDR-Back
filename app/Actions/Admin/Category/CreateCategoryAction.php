@@ -10,7 +10,6 @@ class CreateCategoryAction extends Controller
 {
     public $action;
 
-
     public function __construct(CategoryRepository $action)
     {
         $this->action = $action;
@@ -22,7 +21,5 @@ class CreateCategoryAction extends Controller
 
         return redirect()->route('category.show')->with('success', 'Категория создана');
     }
-
-
 
 }

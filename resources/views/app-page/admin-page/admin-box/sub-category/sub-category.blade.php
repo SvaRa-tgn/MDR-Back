@@ -64,7 +64,7 @@
                                 <label class="create-product-label">
                                     Название новой подкатегории
                                 </label>
-                                <input class="create-product-input input-category" type="text" id="sub_category" name="sub_category" value="{{ old('name') }}" />
+                                <input class="create-product-input input-category" type="text" id="sub_category" name="sub_category" value="{{ old('sub_category') }}" />
                             </div>
                             <div class="wrap-input categoryError" data-answer="">
                                 <label class="create-product-label">

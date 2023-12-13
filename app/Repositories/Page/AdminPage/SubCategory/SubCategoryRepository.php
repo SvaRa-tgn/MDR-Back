@@ -27,50 +27,72 @@ class SubCategoryRepository
         return $subCategories;
     }
 
-    public function edit($id)
+    public function editSubCategory($id)
     {
-        $category = Category::find($id);
-        $id = $category->id;
-        $name = $category->name;
+        $subCategory = SubCategory::find($id);
+        $id = $subCategory->id;
+        $name = $subCategory->sub_category;
+        $image = $subCategory->link;
+        $category = $subCategory->Category()->first();
+        $category = $category->name;
 
-        $image = $category->imageStatic()->first();
-        $image = $image->link;
+        $subCategory = collect(['id'=>$id, 'name'=>$name, 'image'=> $image, 'category' => $category ]);
 
-        $category = collect(['id'=>$id, 'name'=>$name, 'image'=> $image ]);
-
-        return $category;
+        return $subCategory;
     }
 
-    public function update($data, $id)
+    public function updateSubCategory($data, $id)
     {
-        if(empty($data['image'])){
-            $category = Category::find($id);
-            $category->name = $data['category'];
-            $category->save();
+        $category = Category::where('name', $data->category)->first();
+
+        if(empty($data->image)) {
+            $subCategory = SubCategory::find($id);
+
+            $subCategory->sub_category = $data->sub_category;
+
+            if($subCategory->category_id === $category->id){
+                $subCategory->save();
+            } else {
+                $category->SubCategory()->save($subCategory);
+            }
+
+        } elseif(empty($data->sub_category)){
+            $subCategory = SubCategory::find($id);
+
+            Storage::delete( $subCategory->link);
+            $path = Storage::putFile('catalog', $data->image);
+            $subCategory->link = $path;
+
+            if($subCategory->category_id === $category['id']){
+                $subCategory->save();
+            } else {
+                $category->SubCategory()->save($subCategory);
+            }
 
         } else {
-            $category = Category::find($id);
-            $category->name = $data['category'];
-            $category->save();
+            $subCategory = SubCategory::find($id);
 
-            $image = $category->imageStatic()->first();
-            Storage::delete( $image->link);
-            $path = Storage::putFile('catalog', $data['image']);
-            $image->link = $path;
-            $category->imageStatic()->save($image);
+            $subCategory->sub_category = $data->sub_category;
+            Storage::delete( $subCategory->link);
+            $path = Storage::putFile('catalog', $data->image);
+            $subCategory->link = $path;
+
+            if($subCategory->category_id === $category['id']){
+                $subCategory->save();
+            } else {
+                $category->SubCategory()->save($subCategory);
+            }
         }
 
-        return $category;
+        return $subCategory;
     }
 
     public function destroy($id)
     {
-        $category = Category::find($id);
+        $subCategory = SubCategory::find($id);
 
-        $image = $category->imageStatic()->first();
-        Storage::delete( $image->link);
-        $image->delete();
-        $category->delete();
+        Storage::delete( $subCategory->link);
+        $subCategory->delete();
     }
 
 }

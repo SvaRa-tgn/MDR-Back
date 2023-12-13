@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Actions\Admin\SubCategory;
 
 use App\Http\Controllers\Controller;
@@ -25,4 +24,5 @@ class SubCategoryAction extends Controller
 
         return ['categories' => $categories, 'subCategories' => $subCategories];
     }
+
 }

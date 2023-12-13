@@ -10,6 +10,7 @@ class EditCategoryAction extends Controller
     public $action;
 
     public function __construct(CategoryRepository $action)
+
     {
         $this->action = $action;
     }
@@ -25,7 +26,5 @@ class EditCategoryAction extends Controller
 
         return view ('/app-page/admin-page/admin-box/category/edit-category', ['category' => $category, 'head' => $head]);
     }
-
-
 
 }
