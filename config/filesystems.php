@@ -46,8 +46,8 @@ return [
 
         'catalog' => [
             'driver' => 'local',
-            'root' => storage_path('app/catalog'),
-            'url' => env('APP_URL').'/catalog',
+            'root' => storage_path('app/public/catalog'),
+            'url' => env('APP_URL').'/storage/catalog',
             'visibility' => 'public',
             'throw' => false,
         ],

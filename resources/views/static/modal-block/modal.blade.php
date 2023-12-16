@@ -19,7 +19,7 @@
     @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editCategory.edit')
     <ul class="modal-list js-link-3">
         <li class="modal-item">
-            <form class="itemAdminDelete" data-id="{{$category['id']}}"  action="{{ route('destroyCategory.destroy', $category['id']) }}" method="post">
+            <form class="itemAdminDelete" data-id="{{$category['id']}}"  action="{{ route('destroyCategory.destroy', $category['slug_category']) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить категорию">
@@ -36,7 +36,7 @@
                 <form class="itemAdminDelete" data-id="{{$subCategory['id']}}"  action="{{ route('destroySubCategory.destroy', $subCategory['id']) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить категорию">
+                    <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить подкатегорию">
                 </form>
             </li>
             <li class="modal-item">

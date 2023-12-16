@@ -72,7 +72,7 @@
                             </div>
                         </form>
                         <form class="itemDelete">
-                            <input type="submit" class="button-auth stop" value="Удалить категорию">
+                            <input type="submit" class="button-auth stop" value="Удалить подкатегорию">
                         </form>
 
                     </div>

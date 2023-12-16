@@ -62,7 +62,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="create-product-data">
+                    <div class="create-product-data js-reload-block">
                         <div class="db-product-label">
                             Список Категорий в базе:
                         </div>
@@ -75,9 +75,9 @@
                             <ul class="create-product-list">
                                 @foreach($categories as $category)
                                     <li class="create-product-item modul-category-data" data-action="Категорию">
-                                        <article class="collect-article" data-id="{{$category->id}}">{{$category->name}}</article>
+                                        <article class="collect-article" data-id="{{$category->id}}">{{$category->category}}</article>
                                         <a class="mdr-button accept modul-button-delete"
-                                           href="{{route('editCategory.edit', [$category->id, $name = Transliterate::slugify($category->name)])}}">
+                                           href="{{route('editCategory.edit', $name = $category->slug_category)}}">
                                             Редактировать
                                         </a>
                                     </li>

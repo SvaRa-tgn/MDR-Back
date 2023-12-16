@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('category_images', function (Blueprint $table) {
             $table->id();
             $table->string('link')->nullable();
+            $table->string('path')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();

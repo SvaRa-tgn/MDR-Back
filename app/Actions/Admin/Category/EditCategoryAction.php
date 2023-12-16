@@ -15,9 +15,9 @@ class EditCategoryAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($id, $name)
+    public function execute($slug_category)
     {
-        $category = $this->action->editCategory($id);
+        $category = $this->action->editCategory($slug_category);
 
         $head = [
             'title' => 'Админка - Категория '. $category['name'] . '. MDR',

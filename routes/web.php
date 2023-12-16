@@ -48,7 +48,7 @@ Route::prefix('admin')->group(function (){
     Route::namespace('App\Http\Controllers\Page\AdminPage\Category')->group(function(){
         Route::get('/category.mdr', 'ShowCategoryController@showCategory')->name('category.show');
         Route::post('/category/create', 'CreateCategoryController@createCategory')->name('createCategory.create');
-        Route::get('/category/edit-category/{id}/{name}.mdr', 'EditCategoryController@editCategory')->name('editCategory.edit');
+        Route::get('/category/edit-category/{slug_category}.mdr', 'EditCategoryController@editCategory')->name('editCategory.edit');
         Route::put('/category/update/{id}', 'UpdateCategoryController@updateCategory')->name('updateCategory.update');
         Route::delete('/category/destroy/{id}', 'DestroyCategoryController@destroyCategory')->name('destroyCategory.destroy');
     });

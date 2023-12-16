@@ -41,7 +41,7 @@
                         <div class="db-product-label">
                             Редактирование категории:
                         </div>
-                        <form class="form-create-category" data-form="category-update" method="POST" action="{{ route('updateCategory.update', $category['id'] )}}" enctype="multipart/form-data">
+                        <form class="form-update-category" data-form="category-update" method="POST" action="{{ route('updateCategory.update', $category['id'] )}}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="wrap-input Error">
@@ -71,7 +71,7 @@
                             Актуальные данные:
                         </div>
                         <ul class="create-product-list">
-                            <li class="create-product-item modul-admin-data">
+                            <li class="create-product-item modul-admin-data js-reload-block">
                                 <article class="collect-article" >Название категории:</article>
                                 <article class="collect-article js-category-name" data-tag="Категорию">{{$category['name']}}</article>
                                 <div class="wrap-img-category">

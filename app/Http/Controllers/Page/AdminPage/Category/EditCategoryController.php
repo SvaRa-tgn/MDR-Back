@@ -7,9 +7,9 @@ use App\Actions\Admin\Category\EditCategoryAction;
 
 class EditCategoryController extends EditCategoryAction
 {
-    public function editCategory(EditCategoryAction $action, $id, $name)
+    public function editCategory(EditCategoryAction $action, $slug_category)
     {
-        return $action->execute($id, $name);
+        return $action->execute($slug_category);
     }
 
 }

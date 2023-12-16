@@ -7,7 +7,6 @@ class IndexAction
 {
     public $action;
 
-
     public function execute()
     {
 

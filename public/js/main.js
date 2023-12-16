@@ -323,9 +323,8 @@ var appMaster = {
                 form = $(this).attr('data-form'),
                 link = $('.form-create-category').attr('action');
 
-
-            if (typeof(id) != "undefined" && id !== null){
-                if (input.eq(0).val() === '' && input.eq(1).val() === ''){
+            if (typeof (id) != "undefined" && id !== null) {
+                if (input.eq(0).val() === '' && input.eq(1).val() === '') {
                     error = true;
                     input.eq(1).parent().addClass('wrap-input-padding');
                     input.eq(1).parent().attr('data-answer', 'Вы не внесли изменения!');
@@ -333,14 +332,13 @@ var appMaster = {
                     error = false;
                     input.eq(1).parent().removeClass('wrap-input-padding');
                     input.eq(1).parent().removeAttr('data-answer');
-                    console.log(1);
                 }
             } else {
                 $.each(input, function (index, element) {
                     if ($(this).val() === '') {
                         error = true;
                         $(this).parent().addClass('wrap-input-padding');
-                        if($(this).parent().hasClass('js-select')){
+                        if ($(this).parent().hasClass('js-select')) {
                             $(this).parent().attr('data-answer', 'Выберите категорию');
                         } else {
                             $(this).parent().attr('data-answer', 'Заполните поле');
@@ -352,8 +350,6 @@ var appMaster = {
                 });
             }
             let formData = new FormData($('.form-create-category')[0]);
-
-            console.log(formData);
             if (error === false) {
 
                 $.ajax({
@@ -369,17 +365,16 @@ var appMaster = {
                     success: (data) => {
                         $('.modal-block').addClass('modal-block-open');
                         $('.js-link-1').addClass('open-box');
-                        if (typeof(id) != "undefined" && id !== null){
+                        if (typeof (id) != "undefined" && id !== null) {
                             $('.modal-content').text('Изменения сохранены');
                             $('.js-reload').text('Отлично!');
                         } else {
                             $('.modal-content').text('Категория успешно создана');
                         }
                         $('.form-create-category')[0].reset();
-                        $('.js-reload').click(function(html){
-                            window.location.reload();
+                        $('.js-reload').click(function (html) {
+                            $('.js-reload-block').load(location.href + ' .js-reload-block>*', '')
                         });
-
                     },
                     error: (response) => {
                         if (response.status === 422) {
@@ -395,15 +390,81 @@ var appMaster = {
         });
     },
 
-    deleteData: function (){
-        $('.itemDelete').submit(function (e){
+    updateCategory: function () {
+        $('.form-update-category').submit(function (e) {
+            e.preventDefault();
+            let input = $('.form-update-category').find('.input-category'),
+                error = false;
+            var id = $('.js-up-category').attr('data-id'),
+                link = $('.form-update-category').attr('action');
+
+            if (typeof (id) != "undefined" && id !== null) {
+                if (input.eq(0).val() === '' && input.eq(1).val() === '') {
+                    error = true;
+                    input.eq(1).parent().addClass('wrap-input-padding');
+                    input.eq(1).parent().attr('data-answer', 'Вы не внесли изменения!');
+                } else if (input.eq(0).val() !== '' || input.eq(1).val() !== '') {
+                    error = false;
+                    input.eq(1).parent().removeClass('wrap-input-padding');
+                    input.eq(1).parent().removeAttr('data-answer');
+                }
+            } else {
+                $.each(input, function (index, element) {
+                    if ($(this).val() === '') {
+                        error = true;
+                        $(this).parent().addClass('wrap-input-padding');
+                        if ($(this).parent().hasClass('js-select')) {
+                            $(this).parent().attr('data-answer', 'Выберите категорию');
+                        } else {
+                            $(this).parent().attr('data-answer', 'Заполните поле');
+                        }
+                    } else {
+                        $(this).parent().removeClass('wrap-input-padding');
+                        $(this).parent().removeAttr('data-answer');
+                    }
+                });
+            }
+            let formData = new FormData($('.form-update-category')[0]);
+            if (error === false) {
+
+                $.ajax({
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    url: link,
+                    data: formData,
+                    success: (data) => {
+                        $('.modal-block').addClass('modal-block-open');
+                        $('.js-link-1').addClass('open-box');
+                        if (typeof (id) != "undefined" && id !== null) {
+                            $('.modal-content').text('Изменения сохранены');
+                            $('.js-reload').text('Отлично!');
+                        } else {
+                            $('.modal-content').text('Категория успешно создана');
+                        }
+                        $('.form-update-category')[0].reset();
+                        $('.js-reload').click(function (html) {
+                            window.location.href = data;
+                        });
+                    },
+                })
+            }
+        });
+    },
+
+    deleteData: function () {
+        $('.itemDelete').submit(function (e) {
             e.preventDefault();
             var name = $('.js-category-name').text(),
                 tag = $('.js-category-name').attr('data-tag');
 
             $('.modal-block').addClass('modal-block-open');
             $('.js-link-3').addClass('open-box');
-            $('.modal-content').text('Вы действиетльно хотите удалить "'+tag+'" : '+name+'?');
+            $('.modal-content').text('Вы действиетльно хотите удалить "' + tag + '" : ' + name + '?');
         });
     },
 
@@ -697,7 +758,7 @@ $(document).ready(function () {
     appMaster.authBoxForm();
     appMaster.regBoxForm();
     appMaster.createCategory();
-
+    appMaster.updateCategory();
     appMaster.deleteData();
     appMaster.menu();
     appMaster.productSlider();

@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class DestroyCategoryController extends DestroyCategoryAction
 {
-    public function destroyCategory(DestroyCategoryAction $action, Request $request, $id)
+    public function destroyCategory(DestroyCategoryAction $action, Request $request, $slug_category)
     {
-        return $action->execute($id);
+        return $action->execute($slug_category);
     }
 
 }

@@ -3,25 +3,26 @@
 
 namespace App\Repositories\Page\AdminPage\Category;
 
-use App\Http\Requests\AdminPage\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Models\CategoryImage;
 use App\Repositories\Page\AdminPage\Category\Interfaces\CategoryRepositoryInterface;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
-
+use Transliterate;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
     public function createCategory($data)
     {
         $category = New Category();
-        $category->name = $data->category;
+        $category->category = $data->category;
+        $category->slug_category = Transliterate::slugify($data->category);
         $category->save();
 
         $image = New CategoryImage();
-        $path = Storage::putFile('/public', $data->image);
-        $image->link = $path;
+        $path = Storage::putFile('public/catalog', $data->image);
+        $url = Storage::url($path);
+        $image->path = $path;
+        $image->link = $url;
         $category->CategoryImage()->save($image);
     }
 
@@ -31,16 +32,17 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $categories;
     }
 
-    public function editCategory($id)
+    public function editCategory($slug_category)
     {
-        $category = Category::find($id);
+        $category = Category::where('slug_category', $slug_category)->first();
         $id = $category->id;
-        $name = $category->name;
+        $name = $category->category;
+        $slug_category = $category->slug_category;
 
         $image = $category->CategoryImage()->first();
         $image = $image->link;
 
-        $category = collect(['id'=>$id, 'name'=>$name, 'image'=>$image ]);
+        $category = collect(['id'=>$id, 'name'=>$name, 'slug_category'=>$slug_category, 'image'=>$image ]);
 
         return $category;
     }
@@ -49,39 +51,45 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         if(empty($data->image)) {
             $category = Category::find($id);
-            $category->name = $data->category;
+            $category->category = $data->category;
+            $category->slug_category = Transliterate::slugify($data->category);
             $category->save();
 
         } elseif(empty($data->category)){
             $category = Category::find($id);
 
             $image = $category->CategoryImage()->first();
-            Storage::delete( $image->link);
-            $path = Storage::putFile('catalog', $data->image);
-            $image->link = $path;
+            Storage::delete( $image->path);
+            $path = Storage::putFile('public/catalog', $data->image);
+            $url = Storage::url($path);
+            $image->path = $path;
+            $image->link = $url;
             $category->CategoryImage()->save($image);
 
         } else {
             $category = Category::find($id);
-            $category->name = $data->category;
+            $category->category = $data->category;
+            $category->slug_category = Transliterate::slugify($data->category);
             $category->save();
 
             $image = $category->CategoryImage()->first();
-            Storage::delete( $image->link);
-            $path = Storage::putFile('catalog', $data->image);
-            $image->link = $path;
+            Storage::delete( $image->path);
+            $path = Storage::putFile('public/catalog', $data->image);
+            $url = Storage::url($path);
+            $image->path = $path;
+            $image->link = $url;
             $category->CategoryImage()->save($image);
         }
 
         return $category;
     }
 
-    public function destroy($id)
+    public function destroy($slug_category)
     {
-        $category = Category::find($id);
+        $category = Category::where('slug_category', $slug_category)->first();
 
         $image = $category->CategoryImage()->first();
-        Storage::delete( $image->link);
+        Storage::delete($image->link);
         $image->delete();
         $category->delete();
     }

@@ -18,7 +18,7 @@ class UpdateCategoryAction extends Controller
     {
         $category = $this->action->updateCategory($request, $id );
 
-        return redirect()->route('editCategory.edit', ['id'=>$category->id, 'name'=>$category->name]);
+        return response()->json(route('editCategory.edit', $category->slug_category));
     }
 
 }

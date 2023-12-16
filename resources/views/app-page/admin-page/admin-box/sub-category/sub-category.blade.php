@@ -77,7 +77,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="create-product-data">
+                    <div class="create-product-data js-reload-block">
                         <div class="db-product-label">
                             Список Подкатегорий в базе:
                         </div>
