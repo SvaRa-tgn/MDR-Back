@@ -57,7 +57,7 @@ Route::prefix('admin')->group(function (){
     Route::namespace('App\Http\Controllers\Page\AdminPage\SubCategory')->group(function(){
         Route::get('/sub-category.mdr', 'ShowSubCategoryController@showSubCategory')->name('subCategory.show');
         Route::post('/sub-category/create', 'CreateSubCategoryController@createSubCategory')->name('createSubCategory.create');
-        Route::get('/sub-category/edit-sub-category/{id}/{name}.mdr', 'EditSubCategoryController@editSubCategory')->name('editSubCategory.edit');
+        Route::get('/sub-category/edit-sub-category/{slug_sub_category}.mdr', 'EditSubCategoryController@editSubCategory')->name('editSubCategory.edit');
         Route::put('/sub-category/update/{id}', 'UpdateSubCategoryController@updateSubCategory')->name('updateSubCategory.update');
         Route::delete('/sub-category/destroy/{id}', 'DestroySubCategoryController@destroySubCategory')->name('destroySubCategory.destroy');
     });

@@ -16,16 +16,16 @@ class EditSubCategoryAction extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function execute($id)
+    public function execute($slug_sub_category)
     {
         $categories = $this->categoryRepository->showCategory();
-        $subCategory = $this->action->editSubCategory($id);
+        $subCategory = $this->action->editSubCategory($slug_sub_category);
 
-        $categories = $categories->whereNotIn('name', $subCategory['category']);
+        $categories = $categories->whereNotIn('category',$subCategory['category']);
         $categories = $categories->all();
 
         $head = [
-            'title' => 'Админка - Подкатегория '. $subCategory['name'] . '. MDR',
+            'title' => 'Админка - Подкатегория '. $subCategory['sub_category'] . '. MDR',
             'description' => 'Админка - Создание, правки и удаления Подкатегории'
         ];
 

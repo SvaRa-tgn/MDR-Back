@@ -319,39 +319,25 @@ var appMaster = {
             e.preventDefault();
             let input = $('.form-create-category').find('.input-category'),
                 error = false;
-            var id = $('.js-up-category').attr('data-id'),
-                form = $(this).attr('data-form'),
-                link = $('.form-create-category').attr('action');
+            var link = $('.form-create-category').attr('action');
 
-            if (typeof (id) != "undefined" && id !== null) {
-                if (input.eq(0).val() === '' && input.eq(1).val() === '') {
+            $.each(input, function (index, element) {
+                if ($(this).val() === '') {
                     error = true;
-                    input.eq(1).parent().addClass('wrap-input-padding');
-                    input.eq(1).parent().attr('data-answer', 'Вы не внесли изменения!');
-                } else if (input.eq(0).val() !== '' || input.eq(1).val() !== '') {
-                    error = false;
-                    input.eq(1).parent().removeClass('wrap-input-padding');
-                    input.eq(1).parent().removeAttr('data-answer');
-                }
-            } else {
-                $.each(input, function (index, element) {
-                    if ($(this).val() === '') {
-                        error = true;
-                        $(this).parent().addClass('wrap-input-padding');
-                        if ($(this).parent().hasClass('js-select')) {
-                            $(this).parent().attr('data-answer', 'Выберите категорию');
-                        } else {
-                            $(this).parent().attr('data-answer', 'Заполните поле');
-                        }
+                    $(this).parent().addClass('wrap-input-padding');
+                    if ($(this).parent().hasClass('js-select')) {
+                        $(this).parent().attr('data-answer', 'Выберите категорию');
                     } else {
-                        $(this).parent().removeClass('wrap-input-padding');
-                        $(this).parent().removeAttr('data-answer');
+                        $(this).parent().attr('data-answer', 'Заполните поле');
                     }
-                });
-            }
+                } else {
+                    $(this).parent().removeClass('wrap-input-padding');
+                    $(this).parent().removeAttr('data-answer');
+                }
+            });
+
             let formData = new FormData($('.form-create-category')[0]);
             if (error === false) {
-
                 $.ajax({
                     method: "POST",
                     processData: false,
@@ -365,12 +351,7 @@ var appMaster = {
                     success: (data) => {
                         $('.modal-block').addClass('modal-block-open');
                         $('.js-link-1').addClass('open-box');
-                        if (typeof (id) != "undefined" && id !== null) {
-                            $('.modal-content').text('Изменения сохранены');
-                            $('.js-reload').text('Отлично!');
-                        } else {
-                            $('.modal-content').text('Категория успешно создана');
-                        }
+                        $('.modal-content').text('Категория успешно создана');
                         $('.form-create-category')[0].reset();
                         $('.js-reload').click(function (html) {
                             $('.js-reload-block').load(location.href + ' .js-reload-block>*', '')
@@ -398,32 +379,18 @@ var appMaster = {
             var id = $('.js-up-category').attr('data-id'),
                 link = $('.form-update-category').attr('action');
 
-            if (typeof (id) != "undefined" && id !== null) {
-                if (input.eq(0).val() === '' && input.eq(1).val() === '') {
-                    error = true;
-                    input.eq(1).parent().addClass('wrap-input-padding');
-                    input.eq(1).parent().attr('data-answer', 'Вы не внесли изменения!');
-                } else if (input.eq(0).val() !== '' || input.eq(1).val() !== '') {
-                    error = false;
-                    input.eq(1).parent().removeClass('wrap-input-padding');
-                    input.eq(1).parent().removeAttr('data-answer');
-                }
-            } else {
-                $.each(input, function (index, element) {
-                    if ($(this).val() === '') {
-                        error = true;
-                        $(this).parent().addClass('wrap-input-padding');
-                        if ($(this).parent().hasClass('js-select')) {
-                            $(this).parent().attr('data-answer', 'Выберите категорию');
-                        } else {
-                            $(this).parent().attr('data-answer', 'Заполните поле');
-                        }
-                    } else {
-                        $(this).parent().removeClass('wrap-input-padding');
-                        $(this).parent().removeAttr('data-answer');
-                    }
-                });
+            if (input.eq(0).val() === '' && input.eq(1).val() === '') {
+                error = true;
+                input.eq(1).parent().addClass('wrap-input-padding');
+                input.eq(1).parent().attr('data-answer', 'Вы не внесли изменения!');
+            } else if (input.eq(0).val() !== '' || input.eq(1).val() !== '') {
+                error = false;
+                input.eq(1).parent().removeClass('wrap-input-padding');
+                input.eq(1).parent().removeAttr('data-answer');
             }
+
+            console.log(error);
+
             let formData = new FormData($('.form-update-category')[0]);
             if (error === false) {
 
@@ -451,6 +418,15 @@ var appMaster = {
                             window.location.href = data;
                         });
                     },
+                    error: (response) => {
+                        if (response.status === 422) {
+                            let errors = response.responseJSON.errors;
+                            Object.keys(errors).forEach(function (key) {
+                                $("." + key + "Error").addClass('wrap-input-padding');
+                                $("." + key + "Error").attr('data-answer', errors[key][0]);
+                            });
+                        }
+                    }
                 })
             }
         });

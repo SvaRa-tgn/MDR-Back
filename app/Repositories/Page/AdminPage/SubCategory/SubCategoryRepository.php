@@ -6,17 +6,23 @@ namespace App\Repositories\Page\AdminPage\SubCategory;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Storage;
+use Transliterate;
 
 class SubCategoryRepository
 {
     public function createSubCategory($data)
     {
-        $category = Category::where('name', $data->category)->first();
+        $category = Category::where('category', $data->category)->first();
 
         $subCategory = New SubCategory();
         $subCategory->sub_category = $data->sub_category;
-        $path = Storage::putFile('catalog', $data->image);
-        $subCategory->link = $path;
+        $subCategory->slug_sub_category = Transliterate::slugify($data->sub_category);
+
+        $path = Storage::putFile('public/catalog', $data->image);
+        $url = Storage::url($path);
+        $subCategory->path = $path;
+        $subCategory->link = $url;
+
         $category->SubCategory()->save($subCategory);
     }
 
@@ -27,28 +33,28 @@ class SubCategoryRepository
         return $subCategories;
     }
 
-    public function editSubCategory($id)
+    public function editSubCategory($slug_sub_category)
     {
-        $subCategory = SubCategory::find($id);
+        $subCategory = SubCategory::where('slug_sub_category', $slug_sub_category)->first();
         $id = $subCategory->id;
-        $name = $subCategory->sub_category;
+        $sub_category = $subCategory->sub_category;
         $image = $subCategory->link;
         $category = $subCategory->Category()->first();
-        $category = $category->name;
+        $category = $category->category;
 
-        $subCategory = collect(['id'=>$id, 'name'=>$name, 'image'=> $image, 'category' => $category ]);
+        $subCategory = collect(['id'=>$id, 'sub_category'=>$sub_category, 'image'=> $image, 'category' => $category ]);
 
         return $subCategory;
     }
 
     public function updateSubCategory($data, $id)
     {
-        $category = Category::where('name', $data->category)->first();
+        $category = Category::where('category', $data->category)->first();
+        $subCategory = SubCategory::find($id);
 
         if(empty($data->image)) {
-            $subCategory = SubCategory::find($id);
-
             $subCategory->sub_category = $data->sub_category;
+            $subCategory->slug_sub_category = Transliterate::slugify($data->sub_category);
 
             if($subCategory->category_id === $category->id){
                 $subCategory->save();
@@ -57,11 +63,11 @@ class SubCategoryRepository
             }
 
         } elseif(empty($data->sub_category)){
-            $subCategory = SubCategory::find($id);
-
-            Storage::delete( $subCategory->link);
-            $path = Storage::putFile('catalog', $data->image);
-            $subCategory->link = $path;
+            Storage::delete($subCategory->path);
+            $path = Storage::putFile('public/catalog', $data->image);
+            $url = Storage::url($path);
+            $subCategory->path = $path;
+            $subCategory->link = $url;
 
             if($subCategory->category_id === $category['id']){
                 $subCategory->save();
@@ -70,12 +76,14 @@ class SubCategoryRepository
             }
 
         } else {
-            $subCategory = SubCategory::find($id);
-
             $subCategory->sub_category = $data->sub_category;
-            Storage::delete( $subCategory->link);
-            $path = Storage::putFile('catalog', $data->image);
-            $subCategory->link = $path;
+            $subCategory->slug_sub_category = Transliterate::slugify($data->sub_category);
+
+            Storage::delete( $subCategory->path);
+            $path = Storage::putFile('public/catalog', $data->image);
+            $url = Storage::url($path);
+            $subCategory->path = $path;
+            $subCategory->link = $url;
 
             if($subCategory->category_id === $category['id']){
                 $subCategory->save();
@@ -91,7 +99,7 @@ class SubCategoryRepository
     {
         $subCategory = SubCategory::find($id);
 
-        Storage::delete( $subCategory->link);
+        Storage::delete( $subCategory->path);
         $subCategory->delete();
     }
 

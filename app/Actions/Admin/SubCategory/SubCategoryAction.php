@@ -5,6 +5,7 @@ namespace App\Actions\Admin\SubCategory;
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
+use App\Models\Category;
 
 class SubCategoryAction extends Controller
 {

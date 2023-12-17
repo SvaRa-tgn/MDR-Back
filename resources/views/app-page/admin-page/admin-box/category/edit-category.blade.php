@@ -44,7 +44,7 @@
                         <form class="form-update-category" data-form="category-update" method="POST" action="{{ route('updateCategory.update', $category['id'] )}}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <div class="wrap-input Error">
+                            <div class="wrap-input categoryError">
                                 <label class="create-product-label" for="input-category">
                                     Новое название категории:
                                 </label>

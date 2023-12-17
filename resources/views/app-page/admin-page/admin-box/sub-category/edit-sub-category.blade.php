@@ -41,17 +41,17 @@
                         <div class="db-product-label">
                             Редактирование подкатегории:
                         </div>
-                        <form class="form-create-category" data-form="category-update" method="POST" action="{{ route('updateSubCategory.update', $subCategory['id'] )}}" enctype="multipart/form-data">
+                        <form class="form-update-category" data-form="category-update" method="POST" action="{{ route('updateSubCategory.update', $subCategory['id'] )}}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="wrap-input js-select">
                                 <label class="create-product-label">
                                     Новая категория товара
                                 </label>
-                                <select class="create-product-select input-category" name="category" id="class">
+                                <select class="create-product-select " name="category" id="class">
                                     <option class="class" value="{{$subCategory['category']}}" >{{$subCategory['category']}} - Текущая категория</option>
                                     @foreach($categories as $category)
-                                        <option class="class" data-categoryId = "{{$category->id}}" value="{{$category->name}}">{{$category->name}}</option>
+                                        <option class="class" data-categoryId = "{{$category->id}}" value="{{$category->category}}">{{$category->category}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -84,11 +84,11 @@
                         <ul class="create-product-list">
                             <li class="create-product-item modul-admin-data">
                                 <article class="collect-article" >Название подкатегории:</article>
-                                <article class="collect-article js-category-name" data-tag="Подкатегорию">{{$subCategory['name']}}</article>
+                                <article class="collect-article js-category-name" data-tag="Подкатегорию">{{$subCategory['sub_category']}}</article>
                                 <article class="collect-article" >Относится к категории:</article>
                                 <article class="collect-article" data-tag="Категорию">{{$subCategory['category']}}</article>
                                 <div class="wrap-img-category">
-                                    <img class="main-block-item-img" src="{{asset($subCategory['image'])}}" alt="Мебель в Рязани. {{$subCategory['name']}}" />
+                                    <img class="main-block-item-img" src="{{asset($subCategory['image'])}}" alt="Мебель в Рязани. {{$subCategory['sub_category']}}" />
                                 </div>
                             </li>
                         </ul>

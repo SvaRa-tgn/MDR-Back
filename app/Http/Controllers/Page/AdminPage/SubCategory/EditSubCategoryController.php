@@ -7,10 +7,10 @@ use App\Actions\Admin\SubCategory\EditSubCategoryAction;
 
 class EditSubCategoryController extends EditSubCategoryAction
 {
-    public function editSubCategory(EditSubCategoryAction $action, $id, $name)
+    public function editSubCategory(EditSubCategoryAction $action, $slug_sub_category)
     {
 
-        return $action->execute($id);
+        return $action->execute($slug_sub_category);
     }
 
 }

@@ -43,14 +43,14 @@
                         <form class="create-product-data form-create-category" data-form="category" method="POST"
                               action="{{ route('createCategory.create') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="wrap-input Error" data-answer="">
+                            <div class="wrap-input categoryError" data-answer="">
                                 <label class="create-product-label">
                                     Название новой категории
                                 </label>
                                 <input class="create-product-input input-category" type="text" id="new_category"
                                        name="category" value="{{ old('name') }}"/>
                             </div>
-                            <div class="wrap-input categoryError" data-answer="">
+                            <div class="wrap-input " data-answer="">
                                 <label class="create-product-label">
                                     Выберите фото
                                 </label>
