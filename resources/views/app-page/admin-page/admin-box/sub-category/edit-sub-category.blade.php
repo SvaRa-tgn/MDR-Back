@@ -61,7 +61,7 @@
                                 </label>
                                 <input class="create-product-input input-category" type="text" id="sub_category" name="sub_category" value="{{ old('sub_category') }}" />
                             </div>
-                            <div class="wrap-input Error">
+                            <div class="wrap-input sub_categoryError">
                                 <label class="create-product-label">
                                     Новая фотография подкатегории:
                                 </label>

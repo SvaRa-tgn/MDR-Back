@@ -99,7 +99,7 @@ class SubCategoryRepository
     {
         $subCategory = SubCategory::find($id);
 
-        Storage::delete( $subCategory->path);
+        Storage::delete($subCategory->path);
         $subCategory->delete();
     }
 

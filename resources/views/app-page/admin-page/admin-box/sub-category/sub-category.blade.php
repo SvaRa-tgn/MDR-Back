@@ -69,7 +69,7 @@
                                 <input class="create-product-input input-category" type="text" id="sub_category"
                                        name="sub_category" value="{{ old('sub_category') }}"/>
                             </div>
-                            <div class="wrap-input categoryError" data-answer="">
+                            <div class="wrap-input sub_categoryError" data-answer="">
                                 <label class="create-product-label">
                                     Выберите фото
                                 </label>

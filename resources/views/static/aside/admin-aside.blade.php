@@ -36,7 +36,7 @@
                     <a class="link-aside-admine" href="{{route('readyCollection.show')}}"><h2 class="admine-h3">Коллекция (Готовая)</h2></a>
                 </li>
                 <li class="aside-admine-nav-item">
-                    <a class="link-aside-admine" href="{{route('colorProduct.show')}}"><h2 class="admine-h3">Цвет для мебели</h2></a>
+                    <a class="link-aside-admine" href="{{route('color.show')}}"><h2 class="admine-h3">Цвет для мебели</h2></a>
                 </li>
             </ul>
 

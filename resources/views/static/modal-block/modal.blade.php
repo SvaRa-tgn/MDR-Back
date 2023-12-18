@@ -44,4 +44,18 @@
             </li>
         </ul>
     @endif
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editColor.edit')
+        <ul class="modal-list js-link-3">
+            <li class="modal-item">
+                <form class="itemAdminDelete" data-id="{{$color['id']}}"  action="{{ route('destroyColor.destroy', $color['id']) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить цвет">
+                </form>
+            </li>
+            <li class="modal-item">
+                <div class="modal-link mdr-button stop js-close">Не буду удалять</div>
+            </li>
+        </ul>
+    @endif
 </section>

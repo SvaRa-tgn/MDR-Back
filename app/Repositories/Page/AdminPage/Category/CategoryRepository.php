@@ -89,7 +89,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category = Category::where('slug_category', $slug_category)->first();
 
         $image = $category->CategoryImage()->first();
-        Storage::delete($image->link);
+        Storage::delete($image->path);
         $image->delete();
         $category->delete();
     }

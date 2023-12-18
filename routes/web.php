@@ -79,8 +79,12 @@ Route::prefix('admin')->group(function (){
     });
 
     //Цвет товара
-    Route::namespace('App\Http\Controllers\Page\AdminPage\ColorProduct')->group(function(){
-        Route::get('/color-product.mdr', 'ShowController@show')->name('colorProduct.show');
+    Route::namespace('App\Http\Controllers\Page\AdminPage\Color')->group(function(){
+        Route::get('/color.mdr', 'ShowColorController@showColor')->name('color.show');
+        Route::post('/color/create', 'CreateColorController@createColor')->name('createColor.create');
+        Route::get('/color/edit-color/{slug_color}.mdr', 'EditColorController@editColor')->name('editColor.edit');
+        Route::put('/color/update/{id}', 'UpdateColorController@updateColor')->name('updateColor.update');
+        Route::delete('/color/destroy/{id}', 'DestroyColorController@destroyColor')->name('destroyColor.destroy');
     });
 });
 
