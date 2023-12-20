@@ -48,7 +48,7 @@ Route::prefix('admin')->group(function (){
     Route::namespace('App\Http\Controllers\Page\AdminPage\Category')->group(function(){
         Route::get('/category.mdr', 'ShowCategoryController@showCategory')->name('category.show');
         Route::post('/category/create', 'CreateCategoryController@createCategory')->name('createCategory.create');
-        Route::get('/category/edit-category/{slug_category}.mdr', 'EditCategoryController@editCategory')->name('editCategory.edit');
+        Route::get('/category/{slug_category}.mdr', 'EditCategoryController@editCategory')->name('editCategory.edit');
         Route::put('/category/update/{id}', 'UpdateCategoryController@updateCategory')->name('updateCategory.update');
         Route::delete('/category/destroy/{id}', 'DestroyCategoryController@destroyCategory')->name('destroyCategory.destroy');
     });
@@ -57,7 +57,7 @@ Route::prefix('admin')->group(function (){
     Route::namespace('App\Http\Controllers\Page\AdminPage\SubCategory')->group(function(){
         Route::get('/sub-category.mdr', 'ShowSubCategoryController@showSubCategory')->name('subCategory.show');
         Route::post('/sub-category/create', 'CreateSubCategoryController@createSubCategory')->name('createSubCategory.create');
-        Route::get('/sub-category/edit-sub-category/{slug_sub_category}.mdr', 'EditSubCategoryController@editSubCategory')->name('editSubCategory.edit');
+        Route::get('/sub-category/{slug_sub_category}.mdr', 'EditSubCategoryController@editSubCategory')->name('editSubCategory.edit');
         Route::put('/sub-category/update/{id}', 'UpdateSubCategoryController@updateSubCategory')->name('updateSubCategory.update');
         Route::delete('/sub-category/destroy/{id}', 'DestroySubCategoryController@destroySubCategory')->name('destroySubCategory.destroy');
     });
@@ -70,12 +70,20 @@ Route::prefix('admin')->group(function (){
 
     //Модульные коллекции
     Route::namespace('App\Http\Controllers\Page\AdminPage\ModulCollection')->group(function(){
-        Route::get('/modul-collection.mdr', 'ShowController@show')->name('modulCollection.show');
+        Route::get('/modul-collection.mdr', 'ShowModulCollectionController@showModulCollection')->name('modulCollection.show');
+        Route::post('/modul-collection/create', 'CreateModulCollectionController@createModulCollection')->name('createModulCollection.create');
+        Route::get('/modul-collection/{slug_modul_collection}.mdr', 'EditModulCollectionController@editModulCollection')->name('editModulCollection.edit');
+        Route::put('/modul-collection/update/{id}', 'UpdateModulCollectionController@updateModulCollection')->name('updateModulCollection.update');
+        Route::delete('/modul-collection/destroy/{id}', 'DestroyModulCollectionController@destroyModulCollection')->name('destroyModulCollection.destroy');
     });
 
     //Готовые коллекции
     Route::namespace('App\Http\Controllers\Page\AdminPage\ReadyCollection')->group(function(){
-        Route::get('/ready-collection.mdr', 'ShowController@show')->name('readyCollection.show');
+        Route::get('/ready-collection.mdr', 'ShowReadyCollectionController@showReadyCollection')->name('readyCollection.show');
+        Route::post('/ready-collection/create', 'CreateReadyCollectionController@createReadyCollection')->name('createReadyCollection.create');
+        Route::get('/ready-collection/{slug_ready_collection}.mdr', 'EditReadyCollectionController@editReadyCollection')->name('editReadyCollection.edit');
+        Route::put('/ready-collection/update/{id}', 'UpdateReadyCollectionController@updateReadyCollection')->name('updateReadyCollection.update');
+        Route::delete('/ready-collection/destroy/{id}', 'DestroyReadyCollectionController@destroyReadyCollection')->name('destroyReadyCollection.destroy');
     });
 
     //Цвет товара

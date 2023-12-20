@@ -29,12 +29,17 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function showCategory()
     {
         $categories = Category::all();
-        return $categories;
+
+            return $categories;
     }
 
     public function editCategory($slug_category)
     {
         $category = Category::where('slug_category', $slug_category)->first();
+
+        if(empty($category) OR $category === null){
+            return abort(404);
+        } else {
         $id = $category->id;
         $name = $category->category;
         $slug_category = $category->slug_category;
@@ -44,7 +49,11 @@ class CategoryRepository implements CategoryRepositoryInterface
 
         $category = collect(['id'=>$id, 'name'=>$name, 'slug_category'=>$slug_category, 'image'=>$image ]);
 
-        return $category;
+
+
+            return $category;
+        }
+
     }
 
     public function updateCategory($data, $id)

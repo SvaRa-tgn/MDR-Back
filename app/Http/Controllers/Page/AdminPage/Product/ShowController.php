@@ -3,15 +3,13 @@
 
 namespace App\Http\Controllers\Page\AdminPage\Product;
 
-use App\Services\Page\ProfilePage\Profile\ProfileService;
+use App\Actions\Admin\Product\ProductAction;
 
-class ShowController extends ProfileService
+class ShowController extends ProductAction
 {
-    public function show()
+    public function show(ProductAction $action)
     {
-
-
-        return view ('/app-page/admin-page/admin-box/product/create-product');
+        return $action->execute();
     }
 
 }

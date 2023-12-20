@@ -36,15 +36,20 @@ class SubCategoryRepository
     public function editSubCategory($slug_sub_category)
     {
         $subCategory = SubCategory::where('slug_sub_category', $slug_sub_category)->first();
-        $id = $subCategory->id;
-        $sub_category = $subCategory->sub_category;
-        $image = $subCategory->link;
-        $category = $subCategory->Category()->first();
-        $category = $category->category;
 
-        $subCategory = collect(['id'=>$id, 'sub_category'=>$sub_category, 'image'=> $image, 'category' => $category ]);
+        if(empty($subCategory) OR $subCategory === null){
+            return abort(404);
+        } else {
+            $id = $subCategory->id;
+            $sub_category = $subCategory->sub_category;
+            $image = $subCategory->link;
+            $category = $subCategory->Category()->first();
+            $category = $category->category;
 
-        return $subCategory;
+            $subCategory = collect(['id' => $id, 'sub_category' => $sub_category, 'image' => $image, 'category' => $category]);
+
+            return $subCategory;
+        }
     }
 
     public function updateSubCategory($data, $id)

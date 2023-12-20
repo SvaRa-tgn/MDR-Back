@@ -94,7 +94,7 @@
                             @foreach($categories as $category)
                                 @foreach($subCategories as $subCategory)
                                     @if($category->id === $subCategory->category_id)
-                                        @if ($loop->index)
+                                        @if ($loop->iteration)
                                             <div class="db-product-list">
                                                 {{$category->category}}
                                             </div>

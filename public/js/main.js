@@ -538,23 +538,78 @@ var appMaster = {
         });
     },
 
-    createProduct: function () {
+    changeCategoryProduct: function () {
+        $('#class').change(function () {
+            $(this).find(":selected").each(function () {
+                $('.type-category').removeClass('visible-type-modul');
+                $('.type-category option:first').prop('selected',true)
+                $('.type-subcategory').eq(0).removeClass('visible-type-modul');
+                $('.type-modul').removeClass('visible-type-modul');
+                $('.type-collection').removeClass('visible-type-modul');
+                $('.type-ready').removeClass('visible-type-modul');
+
+                if ($(this).val() !== '') {
+                    $('.type-category').eq(0).addClass('visible-type-modul');
+                    $('.type-subcategory').eq(1).addClass('visible-type-modul');
+                    $('.type-modul').eq(2).addClass('visible-type-modul');
+                    $('.type-collection').eq(2).addClass('visible-type-modul');
+                    $('.type-ready').eq(2).addClass('visible-type-modul');
+                } else {
+                    $('.type-category').eq(1).addClass('visible-type-modul');
+                    $('.type-subcategory').eq(1).addClass('visible-type-modul');
+                    $('.type-modul').eq(2).addClass('visible-type-modul');
+                    $('.type-collection').eq(2).addClass('visible-type-modul');
+                    $('.type-ready').eq(2).addClass('visible-type-modul');
+                }
+            });
+        });
+    },
+
+    changeSubCategoryProduct: function () {
+        $('#sub-class').change(function () {
+            $(this).find(":selected").each(function () {
+                $('.type-subcategory').removeClass('visible-type-modul');
+                $('.type-subcategory option:first').prop('selected',true)
+                $('.type-modul').removeClass('visible-type-modul');
+                $('.type-collection').removeClass('visible-type-modul');
+                $('.type-ready').removeClass('visible-type-modul');
+                if ($(this).val() !== '') {
+                    $('.type-subcategory').eq(0).addClass('visible-type-modul');
+                    $('.type-modul').eq(2).addClass('visible-type-modul');
+                    $('.type-collection').eq(2).addClass('visible-type-modul');
+                    $('.type-ready').eq(2).addClass('visible-type-modul');
+                } else {
+                    $('.type-subcategory').eq(1).addClass('visible-type-modul');
+                    $('.type-modul').eq(2).addClass('visible-type-modul');
+                    $('.type-collection').eq(2).addClass('visible-type-modul');
+                    $('.type-ready').eq(2).addClass('visible-type-modul');
+                }
+            });
+        });
+    },
+
+    changeTypeProduct: function () {
         $('#type').change(function () {
             $(this).find(":selected").each(function () {
+
+                $('.type-modul').removeClass('visible-type-modul');
+                $('.type-modul option:first').prop('selected',true)
+                $('.type-collection').removeClass('visible-type-modul');
+                $('.type-collection option:first').prop('selected',true)
+                $('.type-ready').removeClass('visible-type-modul');
+                $('.type-ready option:first').prop('selected',true)
                 if ($(this).val() === 'Готовый') {
-                    $('.type-modul').eq(0).removeClass('visible-type-modul');
                     $('.type-modul').eq(1).addClass('visible-type-modul');
-                    $('.type-collection').eq(0).removeClass('visible-type-modul');
                     $('.type-collection').eq(1).addClass('visible-type-modul');
-                    $('.type-ready').eq(0).removeClass('visible-type-modul');
                     $('.type-ready').eq(1).addClass('visible-type-modul');
-                } else {
+                } else if ($(this).val() === 'Модульный') {
                     $('.type-modul').eq(0).addClass('visible-type-modul');
-                    $('.type-modul').eq(1).removeClass('visible-type-modul');
                     $('.type-collection').eq(0).addClass('visible-type-modul');
-                    $('.type-collection').eq(1).removeClass('visible-type-modul');
                     $('.type-ready').eq(0).addClass('visible-type-modul');
-                    $('.type-ready').eq(1).removeClass('visible-type-modul');
+                } else if ($(this).val() === '' || $('#type-null').val() === '') {
+                    $('.type-modul').eq(2).addClass('visible-type-modul');
+                    $('.type-collection').eq(2).addClass('visible-type-modul');
+                    $('.type-ready').eq(2).addClass('visible-type-modul');
                 }
             });
         });
@@ -741,7 +796,9 @@ $(document).ready(function () {
     appMaster.productSliderOpacity();
     appMaster.autoHeight();
     appMaster.privateItem();
-    appMaster.createProduct();
+    appMaster.changeCategoryProduct();
+    appMaster.changeSubCategoryProduct();
+    appMaster.changeTypeProduct();
     appMaster.editFoto();
     appMaster.checkboxCheckout();
     appMaster.sumPriceCheck();

@@ -3,7 +3,6 @@
 
 namespace App\DTO;
 
-
 use App\Http\Requests\AdminPage\SubCategory\SubCategoryCreateRequest;
 use Spatie\DataTransferObject\DataTransferObject;
 
