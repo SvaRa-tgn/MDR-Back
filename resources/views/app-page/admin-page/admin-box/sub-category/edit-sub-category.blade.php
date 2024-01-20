@@ -32,68 +32,85 @@
             </div>
 
             <div class="main-private-data-item">
-                <div class="wrap-head-page-h3">
-                    <h3 class="private-page-h3 color-admin">Информация о подкатегории:</h3>
-                </div>
+                <section class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Данные о Подкатегории:</h3>
+                </section>
 
-                <div class="wrap-create-product-data">
-                    <div class="wrap-edit-data">
-                        <div class="db-product-label">
-                            Редактирование подкатегории:
-                        </div>
-                        <form class="form-update-category" data-form="category-update" method="POST" action="{{ route('updateSubCategory.update', $subCategory['id'] )}}" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="wrap-input js-select">
-                                <label class="create-product-label">
-                                    Новая категория товара
-                                </label>
-                                <select class="create-product-select " name="category" id="class">
-                                    <option class="class" value="{{$subCategory['category']}}" >{{$subCategory['category']}} - Текущая категория</option>
-                                    @foreach($categories as $category)
-                                        <option class="class" data-categoryId = "{{$category->id}}" value="{{$category->category}}">{{$category->category}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="wrap-input Error">
-                                <label class="create-product-label" for="input-category">
-                                    Новое название подкатегории:
-                                </label>
-                                <input class="create-product-input input-category" type="text" id="sub_category" name="sub_category" value="{{ old('sub_category') }}" />
-                            </div>
-                            <div class="wrap-input sub_categoryError">
-                                <label class="create-product-label">
-                                    Новая фотография подкатегории:
-                                </label>
-                                <input class="create-product-input-foto input-category" type="file" id="foto" name="image" accept="image/*" />
-                            </div>
-                            <div class="wrap-button">
-                                <button class="button-auth accept js-up-category" data-id="{{$subCategory['id']}}" type="submit" name="submit-auth">Сохранить</button>
-                            </div>
-                        </form>
-                        <form class="itemDelete">
-                            <input type="submit" class="button-auth stop" value="Удалить подкатегорию">
-                        </form>
+                <section class="content-admin-block">
+                    <div class="admin-block-2fr">
+                        <div class="wrap-edit-data">
+                            <form class="form-update-data" data-form="sub-category-update" method="POST" action="{{ route('updateSubCategory.update', $subCategory['id'] )}}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <article class="name-admin-block">
+                                    Редактирование Подкатегории
+                                </article>
 
-                    </div>
-
-                    <div class="create-product-data">
-                        <div class="db-product-label">
-                            Актуальные данные:
-                        </div>
-                        <ul class="create-product-list">
-                            <li class="create-product-item modul-admin-data">
-                                <article class="collect-article" >Название подкатегории:</article>
-                                <article class="collect-article js-category-name" data-tag="Подкатегорию">{{$subCategory['sub_category']}}</article>
-                                <article class="collect-article" >Относится к категории:</article>
-                                <article class="collect-article" data-tag="Категорию">{{$subCategory['category']}}</article>
-                                <div class="wrap-img-category">
-                                    <img class="main-block-item-img" src="{{asset($subCategory['image'])}}" alt="Мебель в Рязани. {{$subCategory['sub_category']}}" />
+                                <div class="wrap-input js-select">
+                                    <label class="form-label">
+                                        Категория товара
+                                    </label>
+                                    <select class="admin-select" name="category" id="catSub">
+                                        <option class="class js-old-id" value="{{$subCategory['category']}}" >{{$subCategory['category']}} - Текущая категория</option>
+                                        @foreach($categories as $category)
+                                            <option class="class js-new-id" data-categoryId = "{{$category->id}}" value="{{$category->category}}">{{$category->category}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            </li>
-                        </ul>
+
+                                <div class="wrap-input sub_categoryError" data-answer="">
+                                    <label class="form-label">
+                                        Новое название Подкатегории
+                                    </label>
+                                    <input class="admin-select admin-input" type="text" id="sub_category" name="sub_category" value="{{ old('sub_category') }}" />
+                                </div>
+
+                                <div class="wrap-input imageError" data-answer="Вы не внесли изменения">
+                                    <label class="form-label">
+                                        Выберите новое фото Подкатегории
+                                    </label>
+                                    <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
+                                </div>
+
+                                <div class="wrap-button">
+                                    <button class="button-auth accept js-up-data" data-id="{{$subCategory['id']}}" type="submit" name="submit-auth">Сохранить</button>
+                                </div>
+
+                            </form>
+                            <form class="itemDelete">
+                                <input type="submit" class="button-auth stop" value="Удалить подкатегорию">
+                            </form>
+                        </div>
+
+                        <div class="wrap-relevant-info">
+                            <article class="db-admin-article">
+                                Актуальные данные Подкатегории:
+                            </article>
+                            <div class="db-admin-article db-admin-list">
+                                Категория для Подкатегории:
+                            </div>
+                            <ul class="relevant-info-list">
+                                <li class="db-relevant-info-item form-label admin-block-db">
+                                    <article class="collect-article" data-tag="Категорию">{{$subCategory['category']}}</article>
+                                </li>
+                            </ul>
+                            <div class="db-admin-article db-admin-list">
+                                Название Подкатегории:
+                            </div>
+                            <ul class="relevant-info-list">
+                                <li class="db-relevant-info-item form-label admin-block-db">
+                                    <article class="collect-article js-data-name" data-tag="Подкатегорию">{{$subCategory['sub_category']}}</article>
+                                </li>
+                            </ul>
+                            <div class="db-admin-article db-admin-list">
+                                Фотография подкатегории:
+                            </div>
+                            <div class="wrap-img-category">
+                                <img class="main-block-item-img" src="{{asset($subCategory['image'])}}" alt="Мебель в Рязани. {{$subCategory['sub_category']}}" />
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </section>
             </div>
         </section>
     </section>

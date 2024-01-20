@@ -28,50 +28,56 @@
 
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">Редактировать готовую коллекцию</h1>
+                <h1 class="page-h1">Редактировать Готовую коллекцию</h1>
             </div>
 
             <div class="main-private-data-item">
-                <div class="wrap-head-page-h3">
-                    <h3 class="private-page-h3 color-admin">Информация о готовой коллекции:</h3>
-                </div>
+                <section class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Данные Готовой коллекции:</h3>
+                </section>
 
-                <div class="wrap-create-product-data">
-                    <div class="wrap-edit-data">
-                        <div class="db-product-label">
-                            Редактирование Готовую коллекцию:
+                <section class="content-admin-block">
+                    <div class="admin-block-2fr">
+                        <div class="wrap-edit-data">
+                            <form class="form-update-data" data-form="ready_collection_update" method="POST" action="{{ route('updateReadyCollection.update', $ready_collection['id'] )}}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <article class="name-admin-block">
+                                    Редактирование Готовой коллекции:
+                                </article>
+
+                                <div class="wrap-input ready_collectionError" data-answer="Вы не ввели новое название Готовой коллекции">
+                                    <label class="form-label">
+                                        Новое название Готовой коллекции
+                                    </label>
+                                    <input class="admin-select admin-input" type="text" id="ready_collection" name="ready_collection" value="{{ old('ready_collection') }}" />
+                                </div>
+
+                                <div class="wrap-button">
+                                    <button class="button-auth accept js-up-data" data-id="{{$ready_collection['id']}}" type="submit" name="submit-auth">Сохранить</button>
+                                </div>
+                            </form>
+                            <form class="itemDelete">
+                                <input type="submit" class="button-auth stop" value="Удалить Готовую коллекцию">
+                            </form>
                         </div>
-                        <form class="form-update-category" data-form="category-update" method="POST" action="{{ route('updateReadyCollection.update', $ready_collection['id'] )}}" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="wrap-input categoryError">
-                                <label class="create-product-label" for="input-category">
-                                    Новое название Готовой коллекции:
-                                </label>
-                                <input class="create-product-input input-category" type="text" id="update_ready_collection" name="ready_collection" value="{{ old('name') }}" />
-                            </div>
-                            <div class="wrap-button">
-                                <button class="button-auth accept js-up-category" data-id="{{$ready_collection['id']}}" type="submit" name="submit-auth">Сохранить</button>
-                            </div>
-                        </form>
-                        <form class="itemDelete">
-                            <input type="submit" class="button-auth stop" value="Удалить готовую коллекцию">
-                        </form>
 
-                    </div>
 
-                    <div class="create-product-data">
-                        <div class="db-product-label">
-                            Актуальные данные:
+                        <div class="wrap-relevant-info">
+                            <article class="db-admin-article">
+                                Актуальные данные:
+                            </article>
+                            <div class="db-admin-article db-admin-list">
+                                Название Готовой коллекции:
+                            </div>
+                            <ul class="relevant-info-list">
+                                <li class="db-relevant-info-item form-label admin-block-db">
+                                    <article class="collect-article js-data-name" data-tag="Готовую коллекцию">{{$ready_collection['name']}}</article>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="create-product-list">
-                            <li class="create-product-item modul-admin-data js-reload-block">
-                                <article class="collect-article" >Название Готовой коллекции:</article>
-                                <article class="collect-article js-category-name" data-tag="Готовую коллекцию">{{$ready_collection['name']}}</article>
-                            </li>
-                        </ul>
                     </div>
-                </div>
+                </section>
             </div>
         </section>
     </section>

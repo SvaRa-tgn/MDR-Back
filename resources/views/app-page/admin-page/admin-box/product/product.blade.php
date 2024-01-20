@@ -31,328 +31,323 @@
             </div>
 
             <div class="main-private-data-item">
-                <div class="wrap-head-page-h3">
-                    <h3 class="private-page-h3 color-admin">Данные о товаре:</h3>
-                </div>
+                <section class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Данные товара:</h3>
+                </section>
 
-                <form class="create-product-data">
-                    <ul class="wrap-create-product-list">
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Категория товара
-                            </label>
+                <section class="content-admin-block">
+                    <div class="admin-block-1fr">
 
-                            <select class="create-product-select" name="class" id="class">
-                                <option class="class" value="">--Выберите категорию товара--</option>
-                                <option class="class" value="Гостиные">Гостиные</option>
-                                <option class="class" value="Кухни">Кухни</option>
-                                <option class="class" value="Детские">Детские</option>
-                                <option class="class" value="Домашний офис">Домашний офис</option>
-                                <option class="class" value="Прихожие">Прихожие</option>
-                                <option class="class" value="Спальни">Спальни</option>
-                                <option class="class" value="Шкафы">Шкафы</option>
-                                <option class="class" value="Мягкая мебель">Мягкая мебель</option>
-                            </select>
-                        </li>
+                        <form class="form-create-product" data-form="product" action="{{ route('createProduct.create') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="edit-foto">
+                                <article class="name-admin-block">
+                                    Добавление фотографий
+                                </article>
+                                <ul class="edit-foto-list">
+                                    <li class="wrap-edit-image" data-answer="Вы не выбрали фотографию">
+                                        <div class="edit-image imageError" >
+                                            <img class="main-block-item-img" src="{{asset('/img/icon/non-image.png')}}" alt="Гостиные">
+                                            <div class="filter wrap-update-input" >
+                                                <label class="form-label">
+                                                    Добавить Заглавную фотографию
+                                                </label>
 
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Подкатегория товара
-                            </label>
-                            <div class="type-modul-block ">
-                                <div class="wrap-create-product-item type-category">
-                                    <select class="create-product-select" name="sub-class" id="sub-class">
-                                        <option class="sub-class" value="">--Выберите подкатегорию товара--</option>
-                                        <option class="sub-class" value="Модульные гостиные">Модульные гостиные</option>
-                                        <option class="sub-class" value="Стенки">Стенки</option>
-                                        <option class="sub-class" value="Комоды">Комоды</option>
-                                        <option class="sub-class" value="Журнальные столы">Журнальные столы</option>
-                                        <option class="sub-class" value="Полки и антресоли">Полки и антресоли</option>
-                                    </select>
-                                </div>
-                                <div class="wrap-create-product-item type-category visible-type-modul">
-                                    <select class="create-product-select" name="sub-class-null"
-                                            id="sub-class-null" disabled>
-                                        <option class="sub-class" value="">Выберите категорию товара</option>
-                                    </select>
-                                </div>
+                                                <input class="update-input-foto js-image-input" type="file" id="foto" name="image_top" accept="image/png, image/jpeg"/>
+                                            </div>
+                                        </div>
+                                        <article class="info-image image-top">
+                                            Обязательно!
+                                        </article>
+                                    </li>
+
+                                    <li class="wrap-edit-image">
+                                        <div class="edit-image imageError" data-answer="Вы не выбрали фотографию">
+                                            <img class="main-block-item-img" src="{{asset('/img/icon/non-image.png')}}" alt="Гостиные">
+                                            <div class="filter wrap-update-input">
+                                                <label class="form-label">
+                                                    Добавить дополнительную фотографию
+                                                </label>
+
+                                                <input class="update-input-foto" type="file" id="foto1" name="image" accept="image/png, image/jpeg"/>
+                                            </div>
+                                        </div>
+                                        <article class="info-image">
+                                            При наличии
+                                        </article>
+                                    </li>
+
+                                    <li class="wrap-edit-image">
+                                        <div class="edit-image imageError" data-answer="Вы не выбрали фотографию">
+                                            <img class="main-block-item-img" src="{{asset('/img/icon/non-image.png')}}" alt="Гостиные">
+                                            <div class="filter wrap-update-input">
+                                                <label class="form-label">
+                                                    Добавить дополнительную фотографию
+                                                </label>
+
+                                                <input class="update-input-foto" type="file" id="foto2" name="image1" accept="image/png, image/jpeg"/>
+                                            </div>
+                                        </div>
+                                        <article class="info-image">
+                                            При наличии
+                                        </article>
+                                    </li>
+
+                                    <li class="wrap-edit-image">
+                                        <div class="edit-image imageError" data-answer="Вы не выбрали фотографию">
+                                            <img class="main-block-item-img" src="{{asset('/img/icon/non-image.png')}}" alt="Гостиные">
+                                            <div class="filter wrap-update-input">
+                                                <label class="form-label">
+                                                    Добавить дополнительную фотографию
+                                                </label>
+
+                                                <input class="update-input-foto" type="file" id="foto3" name="image2" accept="image/png, image/jpeg"/>
+                                            </div>
+                                        </div>
+                                        <article class="info-image">
+                                            При наличии
+                                        </article>
+                                    </li>
+
+                                    <li class="wrap-edit-image">
+                                        <div class="edit-image imageError" data-answer="Вы не выбрали фотографию">
+                                            <img class="main-block-item-img" src="{{asset('/img/icon/non-image.png')}}" alt="Гостиные">
+                                            <div class="filter wrap-update-input">
+                                                <label class="form-label">
+                                                    Добавить дополнительную фотографию
+                                                </label>
+
+                                                <input class="update-input-foto" type="file" id="foto4" name="image3" accept="image/png, image/jpeg"/>
+                                            </div>
+                                        </div>
+                                        <article class="info-image">
+                                            При наличии
+                                        </article>
+                                    </li>
+                                </ul>
                             </div>
-                        </li>
 
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Тип товара
-                            </label>
+                            <article class="name-admin-block">
+                                Введите данные товара
+                            </article>
+                            <ul class="admin-block-2fr">
+                                <li class="wrap-input categoryError" data-answer="Вы не выбрали Категорию товара">
+                                    <label class="form-label">
+                                        Категория товара
+                                    </label>
 
-                            <div class="type-modul-block ">
-                                <div class="wrap-create-product-item type-subcategory">
-                                    <select class="create-product-select" name="type" id="type">
-                                        <option class="type" value="">--Выберите тип товара--</option>
+                                    <select class="admin-select admin-input" name="category" id="class">
+                                        <option class="class" value="">--Выберите категорию товара--</option>
+                                        @foreach($categories as $category)
+                                            <option class="class" data-link="{{ route('sample.show', $category->id) }}" value="{{$category->id}}">{{$category->category}}</option>
+                                        @endforeach
+                                    </select>
+                                </li>
+
+                                <li class="wrap-input sub_categoryError" data-answer="Вы не выбрали Подкатегорию товара">
+                                    <label class="form-label">
+                                        Подкатегория товара
+                                    </label>
+                                    <select class="admin-select admin-input type-category visible-type-modul" name="sub_category" id="sub-class" disabled>
+                                        <option class="sub-class" value="">Сначала выберите Категорию товара</option>
+                                    </select>
+                                </li>
+
+                                <li class="wrap-input typeError" data-answer="Вы не выбрали Тип товара">
+                                    <label class="form-label">
+                                        Тип товара
+                                    </label>
+
+                                    <select class="admin-select admin-input type" name="type" id="type" disabled>
+                                        <option class="type-disable" value="">Сначала выберите подкатегорию товара</option>
                                         <option class="type" value="Модульный">Модульный</option>
                                         <option class="type" value="Готовый">Готовый</option>
                                     </select>
-                                </div>
-                                <div class="wrap-create-product-item type-subcategory visible-type-modul">
-                                    <select class="create-product-select" name="sub-class" id="type-null" disabled>
-                                        <option class="sub-class" value="">Выберите подкатегорию товара</option>
+                                </li>
+
+                                <li class="wrap-input type_modulError" data-answer="Вы не выбрали Тип модульного товара">
+                                    <label class="form-label">
+                                        Тип модульного товара
+                                    </label>
+
+                                    <select class="admin-select admin-input js-item-coll type-modul" name="type_modul" id="type-modul" disabled>
+                                        <option class="type-modul-disable option-null" value="">Выберите тип товара</option>
+                                        <option class="type-modul" value="Комплект">Комплект</option>
+                                        <option class="type-modul" value="модуль">Модуль</option>
                                     </select>
-                                </div>
-                            </div>
-                        </li>
+                                </li>
 
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Тип модульного товара
-                            </label>
+                                <li class=" wrap-input item_modulError" data-answer="Вы не выбрали Коллекцию модульного товара">
+                                    <label class="form-label">
+                                        Коллекция модульного товара
+                                    </label>
 
-                            <div class="type-modul-block">
-                                <div class="wrap-create-product-item type-modul">
-                                    <select class="create-product-select item-type" name="type_modul" id="type-modul">
-                                        <option value="">--Выберите тип модульного товара--</option>
-                                        <option value="Комплект">Комплект</option>
-                                        <option value="модуль">Модуль</option>
+                                    <select class="admin-select admin-input js-item-coll item-collection" name="item_modul" id="modul_collection" disabled>
+                                        <option class="modul-collection-disable option-null" value="">Выберите тип товара</option>
+                                        @if($modul_collections->isEmpty())
+                                            <option class="modul-collection" value="null">Без коллекции</option>
+                                        @else
+                                            <option class="modul-collection" value="null">Без коллекции</option>
+                                            @foreach($modul_collections as $modul_collection)
+                                                <option class="modul-collection" value="{{$modul_collection->modul_collection}}">{{$modul_collection->modul_collection}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
-                                </div>
-                                <div class="wrap-create-product-item type-modul ">
-                                    <select class="create-product-select item-type" name="type_modul"
-                                            id="type_modul_dis" disabled>
-                                        <option value="null">Нет выбора</option>
+                                </li>
+
+                                <li class=" wrap-input item_readyError" data-answer="Вы не выбрали Коллекцию готового товара">
+                                    <label class="form-label">
+                                        Коллекция готового товара
+                                    </label>
+
+                                    <select class="admin-select admin-input js-item-coll item-ready" name="item_ready" id="ready_collection" disabled>
+                                        <option class="ready-collection-disable option-null" value="">Выберите тип товара</option>
+                                        @if($ready_collections->isEmpty())
+                                            <option class="modul-collection" value="null">Без коллекции</option>
+                                        @else
+                                            <option class="modul-collection" value="null">Без коллекции</option>
+                                            @foreach($ready_collections as $ready_collection)
+                                                <option class="modul-collection" value="{{$ready_collection->ready_collection}}">{{$ready_collection->ready_collection}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
-                                </div>
-                                <div class="wrap-create-product-item type-modul visible-type-modul">
-                                    <select class="create-product-select item-type" name="type_modul"
-                                            id="type_modul_null" disabled>
-                                        <option value="">Выберите тип товара</option>
+                                </li>
+
+                                <li class="wrap-input full_nameError" data-answer="Введите Полное название товара">
+                                    <label class="form-label">
+                                        Полное название товара
+                                    </label>
+
+                                    <input class="admin-select admin-input" type="text" id="full-name" name="full_name" value="{{ old('full_name') }}"/>
+                                </li>
+
+                                <li class="wrap-input small_nameError" data-answer="Введите Короткое название товара">
+                                    <label class="form-label">
+                                        Короткое название товара
+                                    </label>
+
+                                    <input class="admin-select admin-input" type="text" id="name" name="small_name" value="{{ old('small_name') }}"/>
+                                </li>
+
+                                <li class="wrap-input articleError" data-answer="Введите Артикул товара">
+                                    <label class="form-label">
+                                        Артикул товара (только цифры(!!!))
+                                    </label>
+
+                                    <input class="admin-select admin-input" onkeypress="return /[0-9]/i.test(event.key)" type="text" id="article" name="article" value="{{ old('article') }}"/>
+                                </li>
+
+                                <li class="wrap-input" data-answer="Вы не выбрали новый статус">
+                                    <label class="form-label">
+                                        Статус товара
+                                    </label>
+
+                                    <select class="admin-select admin-input" name="status" id="status">
+                                        <option class="option" value="">--Выберите новый статус товара--</option>
+                                        <option class="option" value="Продажа">Продажа</option>
+                                        <option class="option" value="Резерв">Заказ</option>
+                                        <option class="option" value="Не отображать">Не отображать</option>
                                     </select>
-                                </div>
-                            </div>
-                        </li>
+                                </li>
 
-                        <li class=" wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Коллекция модульного товара
-                            </label>
-                            <div class="type-modul-block">
-                                <div class="wrap-create-product-item type-collection">
-                                    <select class="create-product-select item-collection" name="modul_collection"
-                                            id="modul_collection">
-                                        <option value="">--Выберите коллекцию модульного товара--</option>
-                                        <option value="Комплект">Комплект</option>
-                                        <option value="модуль">модуль</option>
+                                <li class="wrap-input heightError" data-answer="Введите Высоту товара">
+                                    <label class="form-label">
+                                        Высота
+                                    </label>
+
+                                    <input class="admin-select admin-input" onkeypress="return /[0-9]/i.test(event.key)" type="text" id="height" name="height" value="{{ old('height') }}"/>
+                                </li>
+
+                                <li class="wrap-input widthError" onkeypress="return /[0-9]/i.test(event.key)" data-answer="Введите Ширину товара">
+                                    <label class="form-label">
+                                        Ширина
+                                    </label>
+
+                                    <input class="admin-select admin-input" onkeypress="return /[0-9]/i.test(event.key)" type="text" id="width" name="width" value="{{ old('width') }}"/>
+                                </li>
+
+                                <li class="wrap-input deepError" data-answer="Введите Глубину товара">
+                                    <label class="form-label">
+                                        Глубина
+                                    </label>
+
+                                    <input class="admin-select admin-input" onkeypress="return /[0-9]/i.test(event.key)" type="text" id="deep" name="deep" value="{{ old('deep') }}"/>
+                                </li>
+
+                                <li class="wrap-input korpusError" data-answer="Выберите Материал корпус">
+                                    <label class="form-label">
+                                        Материал корпус
+                                    </label>
+
+                                    <select class="admin-select admin-input" name="korpus" id="korpus">
+                                        <option value="">--Выберите материал корпуса--</option>
+                                        <option value="ЛДСП">ЛДСП</option>
+                                        <option value="МДФ">МДФ</option>
                                     </select>
-                                </div>
-                                <div class="wrap-create-product-item type-collection ">
-                                    <select class="create-product-select item-collection" name="modul_collection"
-                                            id="modul_collection_dis" disabled>
-                                        <option value="null">Нет выбора</option>
+                                </li>
+
+                                <li class="wrap-input fasadError" data-answer="Выберите Материал фасада">
+                                    <label class="form-label">
+                                        Материал фасада
+                                    </label>
+
+                                    <select class="admin-select admin-input" name="fasad" id="fasad">
+                                        <option value="">--Выберите материал фасада--</option>
+                                        <option value="ЛДСП">ЛДСП</option>
+                                        <option value="МДФ">МДФ</option>
                                     </select>
-                                </div>
-                                <div class="wrap-create-product-item type-collection visible-type-modul">
-                                    <select class="create-product-select item-type" name="type_modul"
-                                            id="modul_collection_null" disabled>
-                                        <option value="">Выберите тип товара</option>
+                                </li>
+
+                                <li class="wrap-input color_korpus_idError" data-answer="Выберите Цвет корпуса">
+                                    <label class="form-label">
+                                        Цвет корпуса
+                                    </label>
+
+                                    <select class="admin-select admin-input" name="color_korpus_id" id="color-korpus">
+                                        <option value="">--Выберите цвет корпуса--</option>
+                                        @if($colors->isEmpty())
+                                            <option value="">Вы не создали ни одного цвета</option>
+                                        @else
+                                            @foreach($colors as $color)
+                                                <option value="{{$color->id}}">{{$color->color}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
-                                </div>
-                            </div>
-                        </li>
+                                </li>
 
-                        <li class=" wrap-input categoryError">
-                            <label class="create-product-label">
-                                Коллекция готового товара
-                            </label>
-                            <div class="type-modul-block">
-                                <div class="wrap-create-product-item type-ready">
-                                    <select class="create-product-select item-ready" name="modul_collection"
-                                            id="ready_collection_null" disabled>
-                                        <option value="null">Нет выбора</option>
+                                <li class="wrap-input color_fasad_idError" data-answer="Выберите Цвет фасада">
+                                    <label class="form-label">
+                                        Цвет фасада
+                                    </label>
+
+                                    <select class="admin-select admin-input" name="color_fasad_id" id="color-fasad">
+                                        <option value="">--Выберите цвет фасада--</option>
+                                        @if($colors->isEmpty())
+                                            <option value="">Вы не создали ни одного цвета</option>
+                                        @else
+                                            @foreach($colors as $color)
+                                                <option value="{{$color->id}}">{{$color->color}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
+                                </li>
+
+                                <li class="wrap-input priceError" data-answer="Введите цену">
+                                    <label class="form-label">
+                                        Цена
+                                    </label>
+
+                                    <input class="admin-select admin-input" onkeypress="return /[0-9]/i.test(event.key)" type="text" id="price" name="price"/>
+                                </li>
+
+                                <div class="wrap-button-big">
+                                    <button class="button-form accept" type="submit" name="submit">Сохранить</button>
                                 </div>
-                                <div class="wrap-create-product-item type-ready">
-                                    <select class="create-product-select item-ready" name="ready_collection"
-                                            id="ready_collection">
-                                        <option value="">--Выберите коллекцию готового товара--</option>
-                                        <option value="null">Нет коллекции</option>
-                                        <option value="Комплект">Комплект</option>
-                                        <option value="модуль">модуль</option>
-                                    </select>
-                                </div>
-                                <div class="wrap-create-product-item type-ready visible-type-modul">
-                                    <select class="create-product-select item-type" name="type_modul"
-                                            id="ready_collection_dis" disabled>
-                                        <option value="">Выберите тип товара</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Полное название товара
-                            </label>
-
-                            <input class="create-product-input" type="text" id="full-name" name="full-name"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Короткое название товара
-                            </label>
-
-                            <input class="create-product-input" type="text" id="name" name="name"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Артикул товара
-                            </label>
-
-                            <input class="create-product-input" type="text" id="article" name="article"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Высота
-                            </label>
-
-                            <input class="create-product-input" type="number" id="height" name="height"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Ширина
-                            </label>
-
-                            <input class="create-product-input" type="number" id="width" name="width"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Глубина
-                            </label>
-
-                            <input class="create-product-input" type="number" id="deep" name="deep"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Статус товара
-                            </label>
-
-                            <select class="create-product-select" name="status" id="status">
-                                <option class="status" value="">--Выберите статус товара--</option>
-                                <option class="status" value="Продажа">Продажа</option>
-                                <option class="status" value="Запас">Резерв</option>
-                            </select>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Выберите заглавное фото
-                            </label>
-
-                            <input class="create-product-input-foto" type="file" id="foto-top" name="foto-top"
-                                   accept="image/png, image/jpeg"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Выберите фото
-                            </label>
-
-                            <input class="create-product-input-foto" type="file" id="foto1" name="foto-top"
-                                   accept="image/png, image/jpeg"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Выберите фото
-                            </label>
-
-                            <input class="create-product-input-foto" type="file" id="foto2" name="foto-top"
-                                   accept="image/png, image/jpeg"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Выберите фото
-                            </label>
-
-                            <input class="create-product-input-foto" type="file" id="foto3" name="foto-top"
-                                   accept="image/png, image/jpeg"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Выберите фото
-                            </label>
-
-                            <input class="create-product-input-foto" type="file" id="foto4" name="foto-top"
-                                   accept="image/png, image/jpeg"/>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Материал корпус
-                            </label>
-
-                            <select class="create-product-select" name="korpus" id="korpus">
-                                <option value="">--Выберите статус товара--</option>
-                                <option value="ЛДСП">ЛДСП</option>
-                                <option value="МДФ">МДФ</option>
-                            </select>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Материал фасада
-                            </label>
-
-                            <select class="create-product-select" name="fasad" id="fasad">
-                                <option value="">--Выберите статус товара--</option>
-                                <option value="ЛДСП">ЛДСП</option>
-                                <option value="МДФ">МДФ</option>
-                            </select>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Цвет корпуса
-                            </label>
-
-                            <select class="create-product-select" name="color-korpus" id="color-korpus">
-                                <option value="">--Выберите статус товара--</option>
-                                <option value="ЛДСП">ЛДСП</option>
-                                <option value="МДФ">МДФ</option>
-                            </select>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Цвет фасада
-                            </label>
-
-                            <select class="create-product-select" name="color-korpus" id="color-fasad">
-                                <option value="">--Выберите статус товара--</option>
-                                <option value="ЛДСП">ЛДСП</option>
-                                <option value="МДФ">МДФ</option>
-                            </select>
-                        </li>
-
-                        <li class="wrap-input categoryError" data-answer="">
-                            <label class="create-product-label">
-                                Цена
-                            </label>
-
-                            <input class="create-product-input" type="number" id="price" name="price"/>
-                        </li>
-                    </ul>
-
-                    <button class="mdr-button accept admin-button">
-                        Сохранить
-                    </button>
-                </form>
+                            </ul>
+                        </form>
+                    </div>
+                </section>
             </div>
-
-
         </section>
+    </section>
 @endsection

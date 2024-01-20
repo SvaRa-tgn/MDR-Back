@@ -27,98 +27,82 @@
 
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">Редактировать товар</h1>
+                <h1 class="page-h1">Поиск товара</h1>
             </div>
 
-            <div class="wrap-head-page-h3">
-                <h3 class="page-h3 color-admin">Выбор товара</h3>
-            </div>
+            <div class="main-private-data-item">
+                <section class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Поиск товара:</h3>
+                </section>
 
-            <div class="wrap-create-product-data">
-                <form class="create-product-data">
-                    <ul class="wrap-create-collection-list">
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Поиск товара
-                            </label>
-                            <div class="wrap-create-product-item">
-                                <input class="create-product-input" type="search" id="edit_product" name="edit_product" required />
-                            </div>
-                        </li>
-                        <li class="wrap-create-product-item">
-                            <button class="mdr-button accept modul-button">
-                                Поиск
-                            </button>
-                        </li>
-                    </ul>
-                </form>
+                <section class="content-admin-block">
+                    <div class="admin-block-2fr">
+                        <div class="admin-block-1fr">
+                            <form class="create-product-data form-create-category" data-form="search" method="POST" action="{{ route('sampleProduct.show') }}" enctype="multipart/form-data">
+                                @csrf
+                                <article class="name-admin-block">
+                                    Найдите товар
+                                </article>
+                                <div class="wrap-input Error" data-answer="Вы не ввели название Товара">
+                                    <label class="form-label">
+                                        Поиск в базе:
+                                    </label>
+                                    <input class="admin-select admin-input" type="text" id="sub_category" name="sub_category" value="{{ old('sub_category') }}"/>
+                                </div>
+                                <div class="wrap-button">
+                                    <button class="button-auth accept" type="submit" name="submit-auth">Найти</button>
+                                </div>
+                            </form>
 
-                <div class="create-product-data">
-                    <ul class="wrap-create-collection-list">
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Модульные товары в базе:
-                            </label>
-                            <ul class="create-product-list">
-                                <li class="create-product-item modul-collection-data">
-                                    <article class="collect-article">Товар</article>
-                                    <a class="mdr-button accept modul-button-delete" href="/html/admin/edit-product.html">
-                                        Редактировать
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                            <form class="form-sample-product" data-form="sub-category" method="POST" action="{{ route('sampleProduct.show') }}" enctype="multipart/form-data">
+                                @csrf
+                                <article class="name-admin-block">
+                                    Или сделайте выборку
+                                </article>
+                                <li class="wrap-input categoryError" data-answer="Вы не выбрали Категорию товара">
+                                    <label class="form-label">
+                                        Категория товара
+                                    </label>
 
-                <form class="create-product-data">
-                    <div class="edit-head">
-                        Или создать выборку товара
-                    </div>
-                    <ul class="wrap-create-collection-list">
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Категория товара
-                            </label>
-                            <div class="wrap-create-product-item">
-                                <select class="create-product-select" name="class" id="class" required>
-                                    <option class="class" value="" >--Выберите категорию товара--</option>
-                                    <option class="class" value="Гостиные">Гостиные</option>
-                                    <option class="class" value="Кухни">Кухни</option>
-                                    <option class="class" value="Детские">Детские</option>
-                                    <option class="class" value="Домашний офис">Домашний офис</option>
-                                    <option class="class" value="Прихожие">Прихожие</option>
-                                    <option class="class" value="Спальни">Спальни</option>
-                                    <option class="class" value="Шкафы">Шкафы</option>
-                                    <option class="class" value="Мягкая мебель">Мягкая мебель</option>
-                                </select>
-                            </div>
-                        </li>
-
-                        <li class="wrap-create-product-item">
-                            <label class="create-product-label">
-                                Подкатегория товара
-                            </label>
-                            <ul class="create-product-list">
-                                <li class="create-product-item">
-                                    <select class="create-product-select" name="sub-class" id="sub-class" required>
-                                        <option class="sub-class" value="">--Выберите подкатегорию товара--</option>
-                                        <option class="sub-class" value="Модульные гостиные">Модульные гостиные</option>
-                                        <option class="sub-class" value="Стенки">Стенки</option>
-                                        <option class="sub-class" value="Комоды">Комоды</option>
-                                        <option class="sub-class" value="Журнальные столы">Журнальные столы</option>
-                                        <option class="sub-class" value="Полки и антресоли">Полки и антресоли</option>
+                                    <select class="admin-select input-sample-product" name="category" id="class">
+                                        <option class="class" value="">--Выберите категорию товара--</option>
+                                        @foreach($categories as $category)
+                                            <option class="class" data-link="{{ route('sample.show', $category->id) }}" value="{{$category->id}}">{{$category->category}}</option>
+                                        @endforeach
                                     </select>
                                 </li>
+
+                                <li class="wrap-input sub_categoryError" data-answer="Вы не выбрали Подкатегорию товара">
+                                    <label class="form-label">
+                                        Подкатегория товара
+                                    </label>
+                                    <select class="admin-select input-sample-product type-category visible-type-modul" name="sub_category" id="sub-class" disabled>
+                                        <option class="sub-class" value="">Сначала выберите Категорию товара</option>
+                                    </select>
+                                </li>
+                                <div class="wrap-button">
+                                    <button class="button-auth accept" type="submit" name="submit-auth">Сделать выборку</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="wrap-relevant-info">
+                            <article class="db-admin-article">
+                                Результат поиска или выборки:
+                            </article>
+
+                            <div class="db-non-list">
+                                Сделайте выборку товаров или найдите товар через поиск.
+                            </div>
+
+                            <ul class="relevant-info-list">
+
                             </ul>
-                        </li>
-                        <li class="wrap-create-product-item">
-                            <button class="mdr-button accept modul-button">
-                                Выборка товаров
-                            </button>
-                        </li>
-                    </ul>
-                </form>
+
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
+    </section>
 @endsection

@@ -31,55 +31,53 @@
             </div>
 
             <div class="main-private-data-item">
-                <div class="wrap-head-page-h3">
-                    <h3 class="private-page-h3 color-admin">Данные о Готовой коллекции:</h3>
-                </div>
-                <div class="wrap-create-product-data">
+                <section class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Данные Готовой коллекции:</h3>
+                </section>
 
-                    <div class="wrap-edit-data">
-                        <div class="db-product-label">
-                            Создание новой Готовой коллекции:
-                        </div>
-                        <form class="create-product-data form-create-category" data-form="modul_collection" method="POST"
-                              action="{{ route('createReadyCollection.create') }}" enctype="multipart/form-data">
+                <section class="content-admin-block">
+                    <div class="admin-block-2fr">
+                        <form class="form-create-data" data-form="ready_collection" method="POST" action="{{ route('createReadyCollection.create') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="wrap-input ready_collectionError" data-answer="">
-                                <label class="create-product-label">
-                                    Название готовой категории
+                            <article class="name-admin-block" data-success="Готовая коллекция успешно создана">
+                                Создание Готовой коллекции
+                            </article>
+
+                            <div class="wrap-input ready_collectionError" data-answer="Вы не ввели название новой Готовой коллекции">
+                                <label class="form-label">
+                                    Название новой Готовой коллекции
                                 </label>
-                                <input class="create-product-input input-category" type="text" id="new_ready_collection"
-                                       name="ready_collection" value="{{ old('name') }}"/>
+                                <input class="admin-select admin-input" type="text" id="ready_collection" name="ready_collection" value="{{ old('ready_collection') }}" />
                             </div>
+
                             <div class="wrap-button">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="create-product-data js-reload-block">
-                        <div class="db-product-label">
-                            Список Готовых коллекций в базе:
+
+                        <div class="wrap-relevant-info">
+                            <article class="db-admin-article">
+                                Список Готовых коллекций в базе:
+                            </article>
+                            @if($readyCollections->isEmpty())
+                                <div class="db-non-list">
+                                    Вы пока не создали ни одной Готовой коллекции.
+                                </div>
+                            @else
+                                <ul class="relevant-info-list js-reload-block">
+                                    @foreach($readyCollections as $readyCollection)
+                                        <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Готовую коллекцию">
+                                            <article class="collect-article" data-id="{{$readyCollection->id}}">{{$readyCollection->ready_collection}}</article>
+                                            <a class="mdr-button accept modul-button-delete" href="{{route('editReadyCollection.edit', $name = $readyCollection->slug_ready_collection)}}">
+                                                Редактировать
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
-
-                        @if($readyCollections->isEmpty())
-                            <div class="db-non-list">
-                                Вы пока не создали ни одной готовой коллекции.
-                            </div>
-                        @else
-                            <ul class="create-product-list">
-                                @foreach($readyCollections as $readyCollection)
-                                    <li class="create-product-item modul-category-data" data-action="Категорию">
-                                        <article class="collect-article" data-id="{{$readyCollection->id}}">{{$readyCollection->ready_collection}}</article>
-                                        <a class="mdr-button accept modul-button-delete"
-                                           href="{{route('editReadyCollection.edit', $name = $readyCollection->slug_ready_collection)}}">
-                                            Редактировать
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-
                     </div>
-                </div>
+                </section>
             </div>
         </section>
     </section>

@@ -37,88 +37,80 @@
             </div>
 
             <div class="main-private-data-item">
-                <div class="wrap-head-page-h3">
-                    <h3 class="private-page-h3 color-admin">Данные о подкатегории:</h3>
-                </div>
-                <div class="wrap-create-product-data">
+                <section class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Данные о Подкатегории:</h3>
+                </section>
 
-                    <div class="wrap-edit-data">
-                        <div class="db-product-label">
-                            Создание подкатегории:
-                        </div>
-
-                        <form class="create-product-data form-create-category" data-form="sub-category" method="POST"
-                              action="{{ route('createSubCategory.create') }}" enctype="multipart/form-data">
+                <section class="content-admin-block">
+                    <div class="admin-block-2fr">
+                        <form class="form-create-data" data-form="sub-category" method="POST" action="{{ route('createSubCategory.create') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="wrap-input js-select">
-                                <label class="create-product-label">
+                            <article class="name-admin-block" data-success="Подкатегория успешно создана">
+                                Создание Подкатегории
+                            </article>
+                            <div class="wrap-input js-select" data-answer="Вы не ввели выбрали Категории">
+                                <label class="form-label">
                                     Категория товара
                                 </label>
-                                <select class="create-product-select input-category" name="category" id="class">
-                                    <option class="class" value="">--Выберите категорию товара--</option>
+                                <select class="admin-select admin-input" name="category" id="class">
+                                    <option class="class" value="" >--Выберите категорию товара--</option>
                                     @foreach($categories as $category)
-                                        <option class="class" data-categoryId="{{$category->id}}"
-                                                value="{{$category->category}}">{{$category->category}}</option>
+                                        <option class="class" data-categoryId="{{$category->id}}" value="{{$category->category}}">{{$category->category}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="wrap-input Error" data-answer="">
-                                <label class="create-product-label">
-                                    Название новой подкатегории
+                            <div class="wrap-input sub_categoryError" data-answer="Вы не ввели название новой Подкатегории">
+                                <label class="form-label">
+                                    Название новой Подкатегории
                                 </label>
-                                <input class="create-product-input input-category" type="text" id="sub_category"
-                                       name="sub_category" value="{{ old('sub_category') }}"/>
+                                <input class="admin-select admin-input" type="text" id="sub_category" name="sub_category" value="{{ old('sub_category') }}" />
                             </div>
-                            <div class="wrap-input sub_categoryError" data-answer="">
-                                <label class="create-product-label">
-                                    Выберите фото
+                            <div class="wrap-input imageError" data-answer="Вы не добавили фото">
+                                <label class="form-label">
+                                    Выберите фото Подкатегории
                                 </label>
-                                <input class="create-product-input-foto input-category" type="file" id="foto"
-                                       name="image" accept="image/*"/>
+                                <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                             </div>
                             <div class="wrap-button">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="create-product-data js-reload-block">
-                        <div class="db-product-label">
-                            Список Подкатегорий в базе:
-                        </div>
 
-                        @if($subCategories->isEmpty())
-                            <div class="db-non-list">
-                                Вы пока не создали ни одной подкатегории.
-                            </div>
-                        @else
-                            @foreach($categories as $category)
-                                @foreach($subCategories as $subCategory)
-                                    @if($category->id === $subCategory->category_id)
-                                        @if ($loop->iteration)
-                                            <div class="db-product-list">
-                                                {{$category->category}}
-                                            </div>
-                                        @endif
-                                    @endif
-                                @endforeach
-                                <ul class="create-product-list">
+                        <div class="wrap-relevant-info js-reload-block">
+                            <article class="db-admin-article">
+                                Список Подкатегорий в базе:
+                            </article>
+                            @if($categories->isEmpty())
+                                <div class="db-non-list">
+                                    Вы пока не создали ни одной Подкатегории.
+                                </div>
+                            @else
+                                @foreach($categories as $category)
                                     @foreach($subCategories as $subCategory)
                                         @if($category->id === $subCategory->category_id)
-                                            <li class="create-product-item modul-category-data" data-action="Категорию">
-                                                <article class="collect-article"
-                                                         data-id="{{$subCategory->id}}">{{$subCategory->sub_category}}</article>
-                                                <a class="mdr-button accept modul-button-delete"
-                                                   href="{{route('editSubCategory.edit', [$subCategory->slug_sub_category])}}">
-                                                    Редактировать
-                                                </a>
-                                            </li>
+                                            <div class="db-admin-article db-admin-list">
+                                                {{$category->category}}
+                                            </div>
+                                            @break
                                         @endif
                                     @endforeach
-                                </ul>
-                            @endforeach
-                        @endif
+                                    <ul class="relevant-info-list ">
+                                        @foreach($subCategories as $subCategory)
+                                            @if($category->id === $subCategory->category_id)
+                                                <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Категорию">
+                                                    <article class="collect-article" data-id="{{$subCategory->id}}">{{$subCategory->sub_category}}</article>
+                                                    <a class="mdr-button accept modul-button-delete" href="{{route('editSubCategory.edit', [$subCategory->slug_sub_category])}}">
+                                                        Редактировать
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
-                </div>
+                </section>
             </div>
         </section>
     </section>

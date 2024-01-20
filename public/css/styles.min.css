@@ -337,8 +337,9 @@ body {
           box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  width: 100%;
   text-align: center;
-  border-radius: 10px 20px;
+  border-radius: 20px 10px;
   cursor: pointer;
   text-transform: uppercase;
   padding: 2vh;
@@ -380,10 +381,21 @@ body {
   width: 100%;
 }
 
+.button-article {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .fs-1-1 {
   font-size: 1.1em;
   width: 100%;
-  border-radius: 10px 15px;
+  border-radius: 10px 20px;
 }
 
 .fs-1-5 {

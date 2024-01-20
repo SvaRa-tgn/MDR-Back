@@ -49,8 +49,6 @@ class CategoryRepository implements CategoryRepositoryInterface
 
         $category = collect(['id'=>$id, 'name'=>$name, 'slug_category'=>$slug_category, 'image'=>$image ]);
 
-
-
             return $category;
         }
 

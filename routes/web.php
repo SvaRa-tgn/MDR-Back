@@ -38,10 +38,8 @@ Route::get('service/sborka.mdr', [App\Http\Controllers\Page\ServicePage\SborkaCo
 //СТРАНИЦА АДМИНКИ
 Route::prefix('admin')->group(function (){
     //Профиль Админки
-    Route::namespace('App\Http\Controllers\Page\AdminPage\Profile')->group(function(){
-        Route::get('/profile.mdr', 'IndexController@index')->name('admin.index');
-        Route::get('/profile/{familia}_{name}_{father}.mdr', 'ShowController@show')->name('admin.show');
-
+    Route::namespace('App\Http\Controllers\Page\AdminPage\Head')->group(function(){
+        Route::get('/adminka.mdr', 'HeadAdminController@index')->name('admin.index');
     });
 
     //Категории товара
@@ -64,8 +62,18 @@ Route::prefix('admin')->group(function (){
 
     //Товар
     Route::namespace('App\Http\Controllers\Page\AdminPage\Product')->group(function(){
-        Route::get('/create-product.mdr', 'ShowController@show')->name('createProduct.show');
-        Route::get('/edit-product.mdr', 'EditController@show')->name('editProduct.show');
+        Route::get('/create-product.mdr', 'ShowProductController@show')->name('createProduct.show');
+        Route::post('/create-product/create', 'CreateProductController@createProduct')->name('createProduct.create');
+        Route::get('/sample-sub-catagory/{id}.mdr', 'SampleController@sample')->name('sample.show');
+        Route::post('/sample-product', 'SampleProductController@sample')->name('sampleProduct.show');
+        Route::get('/edit-product.mdr', 'EditProductController@editShow')->name('editProduct.show');
+        Route::get('/update-product/{slug_full_name}.mdr', 'UpdateProductController@updateProduct')->name('updateProduct.show');
+        Route::put('/update-status/{id}', 'UpdateStatusController@updateStatus')->name('updateStatus.update');
+        Route::post('/add-image/{id}', 'AddImageController@addImage')->name('addImage.add');
+        Route::put('/update-image/{id}', 'UpdateImageController@updateImage')->name('updateImage.update');
+        Route::delete('/delete-image/{id}', 'DestroyImageController@destroyImage')->name('destroyImage.destroy');
+        Route::put('/update-data/{id}', 'UpdateDataController@updateData')->name('updateData.update');
+        Route::delete('/delete-product/{id}', 'DestroyProductController@destroyProduct')->name('destroyProduct.destroy');
     });
 
     //Модульные коллекции
@@ -74,7 +82,7 @@ Route::prefix('admin')->group(function (){
         Route::post('/modul-collection/create', 'CreateModulCollectionController@createModulCollection')->name('createModulCollection.create');
         Route::get('/modul-collection/{slug_modul_collection}.mdr', 'EditModulCollectionController@editModulCollection')->name('editModulCollection.edit');
         Route::put('/modul-collection/update/{id}', 'UpdateModulCollectionController@updateModulCollection')->name('updateModulCollection.update');
-        Route::delete('/modul-collection/destroy/{id}', 'DestroyModulCollectionController@destroyModulCollection')->name('destroyModulCollection.destroy');
+        Route::delete('/modul-collection/destroy/{id}.mdr', 'DestroyModulCollectionController@destroyModulCollection')->name('destroyModulCollection.destroy');
     });
 
     //Готовые коллекции

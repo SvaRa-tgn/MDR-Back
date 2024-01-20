@@ -31,62 +31,57 @@
             </div>
 
             <div class="main-private-data-item">
-                <div class="wrap-head-page-h3">
-                    <h3 class="private-page-h3 color-admin">Данные о категории:</h3>
-                </div>
-                <div class="wrap-create-product-data">
+                <section class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Данные Категории:</h3>
+                </section>
 
-                    <div class="wrap-edit-data">
-                        <div class="db-product-label">
-                            Создание новой категории:
-                        </div>
-                        <form class="create-product-data form-create-category" data-form="category" method="POST"
-                              action="{{ route('createCategory.create') }}" enctype="multipart/form-data">
+                <section class="content-admin-block">
+                    <div class="admin-block-2fr">
+                        <form class="form-create-data" data-form="category" method="POST" action="{{ route('createCategory.create') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="wrap-input categoryError" data-answer="">
-                                <label class="create-product-label">
-                                    Название новой категории
+                            <article class="name-admin-block" data-success="Категория успешно создана">
+                                Создание Категории
+                            </article>
+                            <div class="wrap-input categoryError" data-answer="Вы не ввели название новой Категории">
+                                <label class="form-label">
+                                    Название новой Категории
                                 </label>
-                                <input class="create-product-input input-category" type="text" id="new_category"
-                                       name="category" value="{{ old('name') }}"/>
+                                <input class="admin-select admin-input" type="text" id="new_category" name="category" value="{{ old('category') }}" />
                             </div>
-                            <div class="wrap-input " data-answer="">
-                                <label class="create-product-label">
-                                    Выберите фото
+                            <div class="wrap-input imageError" data-answer="Вы не добавили фото">
+                                <label class="form-label">
+                                    Выберите фото Категории
                                 </label>
-                                <input class="create-product-input-foto input-category" type="file" id="foto"
-                                       name="image" accept="image/*"/>
+                                <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                             </div>
                             <div class="wrap-button">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="create-product-data js-reload-block">
-                        <div class="db-product-label">
-                            Список Категорий в базе:
+
+                        <div class="wrap-relevant-info">
+                            <article class="db-admin-article">
+                                Список Категорий в базе:
+                            </article>
+                            @if($categories->isEmpty())
+                                <div class="db-non-list">
+                                    Вы пока не создали ни одной категории.
+                                </div>
+                            @else
+                                <ul class="relevant-info-list js-reload-block">
+                                    @foreach($categories as $category)
+                                        <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Категорию">
+                                            <article class="collect-article" data-id="{{$category->id}}">{{$category->category}}</article>
+                                            <a class="mdr-button accept modul-button-delete" href="{{route('editCategory.edit', $name = $category->slug_category)}}">
+                                                Редактировать
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
-
-                        @if($categories->isEmpty())
-                            <div class="db-non-list">
-                                Вы пока не создали ни одной категории.
-                            </div>
-                        @else
-                            <ul class="create-product-list">
-                                @foreach($categories as $category)
-                                    <li class="create-product-item modul-category-data" data-action="Категорию">
-                                        <article class="collect-article" data-id="{{$category->id}}">{{$category->category}}</article>
-                                        <a class="mdr-button accept modul-button-delete"
-                                           href="{{route('editCategory.edit', $name = $category->slug_category)}}">
-                                            Редактировать
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-
                     </div>
-                </div>
+                </section>
             </div>
         </section>
     </section>

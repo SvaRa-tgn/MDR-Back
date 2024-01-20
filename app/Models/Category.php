@@ -20,6 +20,11 @@ class Category extends Model
     {
         return $this->HasOne(SubCategory::class);
     }
+
+    public function Product(): HasOne
+    {
+        return $this->HasOne(Product::class);
+    }
 }
 
 

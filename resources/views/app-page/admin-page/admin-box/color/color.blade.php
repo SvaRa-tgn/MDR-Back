@@ -31,62 +31,57 @@
             </div>
 
             <div class="main-private-data-item">
-                <div class="wrap-head-page-h3">
+                <section class="wrap-head-page-h3">
                     <h3 class="private-page-h3 color-admin">Данные о цвете:</h3>
-                </div>
-                <div class="wrap-create-product-data">
+                </section>
 
-                    <div class="wrap-edit-data">
-                        <div class="db-product-label">
-                            Создание нового цвета:
-                        </div>
-                        <form class="create-product-data form-create-category" data-form="category" method="POST"
-                              action="{{ route('createColor.create') }}" enctype="multipart/form-data">
+                <section class="content-admin-block">
+                    <div class="admin-block-2fr">
+                        <form class="form-create-data" data-form="color" method="POST" action="{{ route('createColor.create') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="wrap-input colorError" data-answer="">
-                                <label class="create-product-label">
-                                    Название нового цвета
+                            <article class="name-admin-block" data-success="Цвет успешно создан">
+                                Создание Цвета
+                            </article>
+                            <div class="wrap-input colorError" data-answer="Вы не ввели название нового Цвета">
+                                <label class="form-label">
+                                    Название нового Цвета
                                 </label>
-                                <input class="create-product-input input-category" type="text" id="new_color"
-                                       name="color" value="{{ old('name') }}"/>
+                                <input class="admin-select admin-input" type="text" id="new_color" name="color" value="{{ old('color') }}" />
                             </div>
-                            <div class="wrap-input " data-answer="">
-                                <label class="create-product-label">
-                                    Выберите фото
+                            <div class="wrap-input imageError" data-answer="Вы не добавили фото">
+                                <label class="form-label">
+                                    Выберите фото Цвета
                                 </label>
-                                <input class="create-product-input-foto input-category" type="file" id="color"
-                                       name="image" accept="image/*"/>
+                                <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                             </div>
                             <div class="wrap-button">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="create-product-data js-reload-block">
-                        <div class="db-product-label">
-                            Список Цветов в базе:
+
+                        <div class="wrap-relevant-info">
+                            <article class="db-admin-article">
+                                Список Цветов в базе:
+                            </article>
+                            @if($colors->isEmpty())
+                                <div class="db-non-list">
+                                    Вы пока не создали ни одной Цвета.
+                                </div>
+                            @else
+                                <ul class="relevant-info-list js-reload-block">
+                                    @foreach($colors as $color)
+                                        <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Цвет">
+                                            <article class="collect-article" data-id="{{$color->id}}">{{$color->color}}</article>
+                                            <a class="mdr-button accept modul-button-delete" href="{{route('editColor.edit', $name = $color->slug_color)}}">
+                                                Редактировать
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
-
-                        @if($colors->isEmpty())
-                            <div class="db-non-list">
-                                Вы пока не создали ни одной категории.
-                            </div>
-                        @else
-                            <ul class="create-product-list">
-                                @foreach($colors as $color)
-                                    <li class="create-product-item modul-category-data" data-action="Категорию">
-                                        <article class="collect-article" data-id="{{$color->id}}">{{$color->color}}</article>
-                                        <a class="mdr-button accept modul-button-delete"
-                                           href="{{route('editColor.edit', $name = $color->slug_color)}}">
-                                            Редактировать
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-
                     </div>
-                </div>
+                </section>
             </div>
         </section>
     </section>

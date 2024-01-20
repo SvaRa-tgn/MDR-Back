@@ -57,7 +57,10 @@ class SubCategoryRepository
         $category = Category::where('category', $data->category)->first();
         $subCategory = SubCategory::find($id);
 
-        if(empty($data->image)) {
+        if(empty($data->image) && empty($data->sub_category)){
+            $category->SubCategory()->save($subCategory);
+
+        } elseif(empty($data->image)) {
             $subCategory->sub_category = $data->sub_category;
             $subCategory->slug_sub_category = Transliterate::slugify($data->sub_category);
 

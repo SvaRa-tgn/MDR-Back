@@ -31,55 +31,53 @@
             </div>
 
             <div class="main-private-data-item">
-                <div class="wrap-head-page-h3">
-                    <h3 class="private-page-h3 color-admin">Данные о Модульной коллекции:</h3>
-                </div>
-                <div class="wrap-create-product-data">
+                <section class="wrap-head-page-h3">
+                    <h3 class="private-page-h3 color-admin">Данные Модульной коллекции:</h3>
+                </section>
 
-                    <div class="wrap-edit-data">
-                        <div class="db-product-label">
-                            Создание новой Модульной коллекции:
-                        </div>
-                        <form class="create-product-data form-create-category" data-form="modul_collection" method="POST"
-                              action="{{ route('createModulCollection.create') }}" enctype="multipart/form-data">
+                <section class="content-admin-block">
+                    <div class="admin-block-2fr">
+                        <form class="form-create-data" data-form="modul_collection" method="POST" action="{{ route('createModulCollection.create') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="wrap-input modul_collectionError" data-answer="">
-                                <label class="create-product-label">
-                                    Название новой категории
+                            <article class="name-admin-block" data-success="Модульная коллекция успешно создана">
+                                Создание Модульной коллекции
+                            </article>
+
+                            <div class="wrap-input modul_collectionError" data-answer="Вы не ввели название новой Модульной коллекции">
+                                <label class="form-label">
+                                    Название новой Модульной коллекции
                                 </label>
-                                <input class="create-product-input input-category" type="text" id="new_modul_collection"
-                                       name="modul_collection" value="{{ old('name') }}"/>
+                                <input class="admin-select admin-input" type="text" id="modul_collection" name="modul_collection" value="{{ old('modul_collection') }}" />
                             </div>
+
                             <div class="wrap-button">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="create-product-data js-reload-block">
-                        <div class="db-product-label">
-                            Список Модульных коллекций в базе:
+
+                        <div class="wrap-relevant-info">
+                            <article class="db-admin-article">
+                                Список Модульных коллекций в базе:
+                            </article>
+                            @if($modulCollections->isEmpty())
+                                <div class="db-non-list">
+                                    Вы пока не создали ни одной Модульной коллекции.
+                                </div>
+                            @else
+                                <ul class="relevant-info-list js-reload-block">
+                                    @foreach($modulCollections as $modulCollection)
+                                        <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Модульную коллекцию">
+                                            <article class="collect-article" data-id="{{$modulCollection->id}}">{{$modulCollection->modul_collection}}</article>
+                                            <a class="mdr-button accept modul-button-delete" href="{{route('editModulCollection.edit', $name = $modulCollection->slug_modul_collection)}}">
+                                                Редактировать
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
-
-                        @if($modulCollections->isEmpty())
-                            <div class="db-non-list">
-                                Вы пока не создали ни одной модульной коллекции.
-                            </div>
-                        @else
-                            <ul class="create-product-list">
-                                @foreach($modulCollections as $modulCollection)
-                                    <li class="create-product-item modul-category-data" data-action="Категорию">
-                                        <article class="collect-article" data-id="{{$modulCollection->id}}">{{$modulCollection->modul_collection}}</article>
-                                        <a class="mdr-button accept modul-button-delete"
-                                           href="{{route('editModulCollection.edit', $name = $modulCollection->slug_modul_collection)}}">
-                                            Редактировать
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-
                     </div>
-                </div>
+                </section>
             </div>
         </section>
     </section>
