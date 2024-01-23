@@ -3,14 +3,12 @@
 
 namespace App\Http\Controllers\Page\InfoPage;
 
+use App\Actions\InfoPage\InfoPageAction;
 
-use App\Http\Controllers\Controller;
-
-
-class InfoMainController extends Controller
+class InfoMainController extends InfoPageAction
 {
-    public function index()
+    public function index(InfoPageAction $action)
     {
-        return view('/app-page/info-page/info-box/info-main');
+        return $action->execute();
     }
 }

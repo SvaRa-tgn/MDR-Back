@@ -3,14 +3,12 @@
 
 namespace App\Http\Controllers\Page\ServicePage;
 
+use App\Actions\ServicePage\ServicePageAction;
 
-use App\Http\Controllers\Controller;
-
-
-class ServiceMainController extends Controller
+class ServiceMainController extends ServicePageAction
 {
-    public function index()
+    public function servicePage(ServicePageAction $action)
     {
-        return view('/app-page/service-page/service-box/service-main');
+        return $action->execute();
     }
 }

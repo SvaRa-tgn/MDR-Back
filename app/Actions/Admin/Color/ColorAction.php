@@ -19,14 +19,14 @@ class ColorAction extends Controller
 
     public function execute()
     {
-        $colors = $this->colorRepository->showColor();
+        $colors = $this->colorRepository->color();
 
         $head = [
             'title' => 'Админка - Цвет для мебели. MDR',
             'description' => 'Админка - Создание, правки и удаления Категорий'
         ];
 
-        return view ('/app-page/admin-page/admin-box/color/color', compact('colors'));
+        return view ('/app-page/admin-page/admin-box/color/color', ['colors' => $colors, 'head' => $head]);
     }
 
 }

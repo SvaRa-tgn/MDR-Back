@@ -7,7 +7,7 @@ use App\Actions\Admin\ModulCollection\ModulCollectionAction;
 
 class ShowModulCollectionController extends ModulCollectionAction
 {
-    public function showModulCollection(ModulCollectionAction $action)
+    public function modulCollection(ModulCollectionAction $action)
     {
         return $action->execute();
     }

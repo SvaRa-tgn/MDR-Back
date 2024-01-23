@@ -7,7 +7,7 @@ use App\Actions\Admin\Category\CategoryAction;
 
 class ShowCategoryController extends CategoryAction
 {
-    public function showCategory(CategoryAction $action)
+    public function category(CategoryAction $action)
     {
         return $action->execute();
     }

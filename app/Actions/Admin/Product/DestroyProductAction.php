@@ -23,7 +23,7 @@ class DestroyProductAction extends Controller
     {
         $this->action->destroyProduct($id);
 
-        return redirect()->route('editProduct.show')->with('success', 'Товар удален');
+        return redirect()->route('editProduct')->with('success', 'Товар удален');
     }
 
 }

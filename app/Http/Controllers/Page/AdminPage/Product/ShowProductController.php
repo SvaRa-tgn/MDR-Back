@@ -7,7 +7,7 @@ use App\Actions\Admin\Product\ProductAction;
 
 class ShowProductController extends ProductAction
 {
-    public function show(ProductAction $action)
+    public function product(ProductAction $action)
     {
         return $action->execute();
     }

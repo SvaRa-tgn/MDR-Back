@@ -10,13 +10,13 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    Создать модульную коллекцию
+                    Модульные коллекции
                 </li>
             </ul>
         </div>
@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="modul_collection" method="POST" action="{{ route('createModulCollection.create') }}" enctype="multipart/form-data">
+                        <form class="form-create-data" data-form="modul_collection" method="POST" action="{{ route('createModulCollection') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Модульная коллекция успешно создана">
                                 Создание Модульной коллекции
@@ -68,7 +68,7 @@
                                     @foreach($modulCollections as $modulCollection)
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Модульную коллекцию">
                                             <article class="collect-article" data-id="{{$modulCollection->id}}">{{$modulCollection->modul_collection}}</article>
-                                            <a class="mdr-button accept modul-button-delete" href="{{route('editModulCollection.edit', $name = $modulCollection->slug_modul_collection)}}">
+                                            <a class="mdr-button accept modul-button-delete" href="{{route('editModulCollection', $name = $modulCollection->slug_modul_collection)}}">
                                                 Редактировать
                                             </a>
                                         </li>

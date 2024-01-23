@@ -18,7 +18,7 @@ class DestroySubCategoryAction extends Controller
     {
         $this->action->destroy($id);
 
-        return redirect()->route('subCategory.show')->with('success', 'Подкатегория удалена');
+        return redirect()->route('subCategory')->with('success', 'Подкатегория удалена');
     }
 
 }

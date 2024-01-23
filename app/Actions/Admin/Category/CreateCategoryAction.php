@@ -19,7 +19,7 @@ class CreateCategoryAction extends Controller
     {
         $this->action->createCategory(DTOcreateCategory::fromCreateCategoryRequest($request));
 
-        return redirect()->route('category.show')->with('success', 'Категория создана');
+        return redirect()->route('category')->with('success', 'Категория создана');
     }
 
 }

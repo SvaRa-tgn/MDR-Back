@@ -10,7 +10,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="ready_collection" method="POST" action="{{ route('createReadyCollection.create') }}" enctype="multipart/form-data">
+                        <form class="form-create-data" data-form="ready_collection" method="POST" action="{{ route('createReadyCollection') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Готовая коллекция успешно создана">
                                 Создание Готовой коллекции
@@ -68,7 +68,7 @@
                                     @foreach($readyCollections as $readyCollection)
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Готовую коллекцию">
                                             <article class="collect-article" data-id="{{$readyCollection->id}}">{{$readyCollection->ready_collection}}</article>
-                                            <a class="mdr-button accept modul-button-delete" href="{{route('editReadyCollection.edit', $name = $readyCollection->slug_ready_collection)}}">
+                                            <a class="mdr-button accept modul-button-delete" href="{{route('editReadyCollection', $name = $readyCollection->slug_ready_collection)}}">
                                                 Редактировать
                                             </a>
                                         </li>

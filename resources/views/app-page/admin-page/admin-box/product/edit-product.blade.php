@@ -10,7 +10,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
@@ -38,23 +38,23 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="admin-block-1fr">
-                            <form class="create-product-data form-create-category" data-form="search" method="POST" action="{{ route('sampleProduct.show') }}" enctype="multipart/form-data">
+                            <form class="form-sample-product" data-form="search" method="POST" action="{{ route('searchProduct') }}" enctype="multipart/form-data">
                                 @csrf
                                 <article class="name-admin-block">
                                     Найдите товар
                                 </article>
-                                <div class="wrap-input Error" data-answer="Вы не ввели название Товара">
+                                <div class="wrap-input Error" data-answer="Вы не ввели название Товара или его Артикль">
                                     <label class="form-label">
-                                        Поиск в базе:
+                                        Поиск в базе: по названию или артиклю.
                                     </label>
-                                    <input class="admin-select admin-input" type="text" id="sub_category" name="sub_category" value="{{ old('sub_category') }}"/>
+                                    <input class="admin-select input-sample-product" type="text" id="search" name="search" value="{{ old('search') }}"/>
                                 </div>
                                 <div class="wrap-button">
                                     <button class="button-auth accept" type="submit" name="submit-auth">Найти</button>
                                 </div>
                             </form>
 
-                            <form class="form-sample-product" data-form="sub-category" method="POST" action="{{ route('sampleProduct.show') }}" enctype="multipart/form-data">
+                            <form class="form-sample-product" data-form="sample" method="POST" action="{{ route('sampleProducts') }}" enctype="multipart/form-data">
                                 @csrf
                                 <article class="name-admin-block">
                                     Или сделайте выборку
@@ -67,7 +67,7 @@
                                     <select class="admin-select input-sample-product" name="category" id="class">
                                         <option class="class" value="">--Выберите категорию товара--</option>
                                         @foreach($categories as $category)
-                                            <option class="class" data-link="{{ route('sample.show', $category->id) }}" value="{{$category->id}}">{{$category->category}}</option>
+                                            <option class="class" data-link="{{ route('sample', $category->id) }}" value="{{$category->id}}">{{$category->category}}</option>
                                         @endforeach
                                     </select>
                                 </li>

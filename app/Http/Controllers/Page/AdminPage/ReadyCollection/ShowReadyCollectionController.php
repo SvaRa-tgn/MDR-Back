@@ -7,7 +7,7 @@ use App\Actions\Admin\ReadyCollection\ReadyCollectionAction;
 
 class ShowReadyCollectionController extends ReadyCollectionAction
 {
-    public function showReadyCollection(ReadyCollectionAction $action)
+    public function readyCollection(ReadyCollectionAction $action)
     {
         return $action->execute();
     }

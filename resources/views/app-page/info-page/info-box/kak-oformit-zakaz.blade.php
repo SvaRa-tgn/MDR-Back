@@ -67,7 +67,7 @@
             - оплата на сайте.
         </li>
         <li class="block-info-content-item">
-            Подробнее об оплате вы можете прочитать в разделе – <a class="inform-link" href="{{route('oplata.index')}}">Оплата</a>.
+            Подробнее об оплате вы можете прочитать в разделе – <a class="inform-link" href="{{route('oplata')}}">Оплата</a>.
         </li>
     </ul>
 @include('static.aside.info-aside')

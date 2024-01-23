@@ -63,7 +63,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/category.jpg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('category.show')}}">
+                        <a class="setup-link" href="{{route('category')}}">
                             Управление Категориями
                         </a>
                     </div>
@@ -72,7 +72,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/sub-category.jpg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('subCategory.show')}}">
+                        <a class="setup-link" href="{{route('subCategory')}}">
                             Управление Подкатегориями
                         </a>
                     </div>
@@ -81,7 +81,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/modul.png')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('modulCollection.show')}}">
+                        <a class="setup-link" href="{{route('modulCollection')}}">
                             Управление Коллекциями (модуль)
                         </a>
                     </div>
@@ -90,7 +90,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/ready.png')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('readyCollection.show')}}">
+                        <a class="setup-link" href="{{route('readyCollection')}}">
                             Управление Коллекциями (готовыми)
                         </a>
                     </div>
@@ -99,7 +99,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/color.jpg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('color.show')}}">
+                        <a class="setup-link" href="{{route('color')}}">
                             Цвет мебели
                         </a>
                     </div>
@@ -108,7 +108,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/product.jpg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('createProduct.show')}}">
+                        <a class="setup-link" href="{{route('product')}}">
                             Создать товар
                         </a>
                     </div>
@@ -117,7 +117,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/update.jpg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('editProduct.show')}}">
+                        <a class="setup-link" href="{{route('editProduct')}}">
                             Редактировать товар
                         </a>
                     </div>

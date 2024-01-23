@@ -18,7 +18,7 @@ class UpdateReadyCollectionAction extends Controller
     {
         $ready_collection = $this->action->updateReadyCollection($request, $id );
 
-        return response()->json(route('editReadyCollection.edit', $ready_collection->slug_ready_collection));
+        return response()->json(route('editReadyCollection', $ready_collection->slug_ready_collection));
     }
 
 }

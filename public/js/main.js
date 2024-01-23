@@ -807,10 +807,11 @@ var appMaster = {
     sampleProduct: function () {
         $('.form-sample-product').submit(function (e) {
             e.preventDefault();
-            let form = $('.form-sample-product'),
-                input = form.find('.input-sample-product'),
+            let input = $(this).find('.input-sample-product'),
                 error = false;
-            var link = form.attr('action');
+            var link = $(this).attr('action'),
+                dataForm = $(this).attr('data-form'),
+                subCategory = $('#sub-class option:selected').text();
 
             $.each(input, function (index, element) {
                 if ($(this).val() === '') {
@@ -821,7 +822,7 @@ var appMaster = {
                     $(this).parent().removeClass('wrap-input-padding');
                 }
             });
-            let formData = new FormData(form[0]);
+            let formData = new FormData($(this)[0]);
 
             if (error === false) {
                 $.ajax({
@@ -836,16 +837,22 @@ var appMaster = {
                     data: formData,
                     success: (data) => {
                         $('.db-non-list').remove();
+                        $('.db-relevant-info-item').remove();
                         if (data.length){
                             $.each(data, function(index, value){
                                 $('.relevant-info-list').append('<li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Категорию">' +
                                     '                                <article class="collect-article" data-id="'+value['id']+'">'+value['full_name']+'</article>' +
-                                    '                                <a class="mdr-button accept modul-button-delete" href="/admin/update-product/'+value['slug_full_name']+'.mdr">Редактировать</a>' +
+                                    '                                <a class="mdr-button accept modul-button-delete" href="/admin/product/'+value['slug_full_name']+'.mdr">Редактировать</a>' +
                                     '                             </li>');
                             })
                         } else {
                             $('.db-relevant-info-item').remove();
-                            $('.relevant-info-list').append('<div class="db-non-list">В этой подкатегории нет товаров</div>');
+                            if (dataForm === 'search'){
+                                $('.relevant-info-list').append('<div class="db-non-list">Товаров с таким Артиклем или Названием не найдено</div>');
+                            } else if (dataForm === 'sample'){
+                                $('.relevant-info-list').append('<div class="db-non-list">Товаров в Подкатегории "'+subCategory+'" нет.</div>');
+                            }
+
                         }
                     },
                     error: (response) => {

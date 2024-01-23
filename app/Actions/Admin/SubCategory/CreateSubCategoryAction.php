@@ -19,7 +19,7 @@ class CreateSubCategoryAction extends Controller
     {
         $this->action->createSubCategory(DTOcreateSubCategory::fromCreateSubCategoryRequest($request));
 
-        return redirect()->route('category.show');;
+        return redirect()->route('subCategory');
     }
 
 }

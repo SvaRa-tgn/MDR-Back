@@ -10,7 +10,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-update-product" data-form="update-status" method="POST" action="{{ route('updateStatus.update', $product->id )}}" enctype="multipart/form-data">
+                        <form class="form-update-product" data-form="update-status" method="POST" action="{{ route('updateStatus', $product->id )}}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <article class="name-admin-block">
@@ -97,7 +97,7 @@
                                                 </article>
                                             </div>
 
-                                            <form class="wrap-edit-image image-update-form form-update-product js-visibality-form" data-form="update-image" data-id="{{$product->id}}" action="{{ route('updateImage.update', $image->id) }}" method="post">
+                                            <form class="wrap-edit-image image-update-form form-update-product js-visibality-form" data-form="update-image" data-id="{{$product->id}}" action="{{ route('updateImage', $image->id) }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="edit-image imageError"
@@ -141,14 +141,14 @@
                                                     </div>
                                                 </div>
                                                 <button class="accept button-image js-image-change">Изменить</button>
-                                                <form class="form-update-product" data-form="delete-image" data-id="{{$product->id}}" action="{{ route('destroyImage.destroy', $image->id) }}" method="post">
+                                                <form class="form-update-product" data-form="delete-image" data-id="{{$product->id}}" action="{{ route('destroyImage', $image->id) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="submit" class="button-image stop" value="Удалить">
                                                 </form>
                                             </div>
 
-                                            <form class="wrap-edit-image image-update-form form-update-product js-visibality-form" data-form="update-image" data-id="{{$product->id}}" action="{{ route('updateImage.update', $image->id) }}" method="post">
+                                            <form class="wrap-edit-image image-update-form form-update-product js-visibality-form" data-form="update-image" data-id="{{$product->id}}" action="{{ route('updateImage', $image->id) }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="edit-image imageError"
@@ -175,7 +175,7 @@
                                     @endif
                                 @endforeach
 
-                                <form class="edit-block-foto-item js-up-foto form-update-product" data-form="add-image" data-id="" action="{{ route('addImage.add', $product->id) }}" method="post">
+                                <form class="edit-block-foto-item js-up-foto form-update-product" data-form="add-image" data-id="" action="{{ route('addImage', $product->id) }}" method="post">
                                     <div class="wrap-edit-image">
                                         <div class="edit-image imageError" data-answer="Вы не выбрали фотографию">
                                             <img class="main-block-item-img"
@@ -200,7 +200,7 @@
                     </div>
 
                     <div class="admin-block-2fr">
-                        <form class="form-update-product" data-form="update-product" action="{{ route('updateData.update', $product->id) }}"
+                        <form class="form-update-product" data-form="update-product" action="{{ route('updateData', $product->id) }}"
                               method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -216,7 +216,7 @@
                                     <select class="admin-select admin-input" name="category" id="class">
                                         <option class="class" value="">--Выберите категорию товара--</option>
                                         @foreach($categories as $category)
-                                            <option class="class" data-link="{{ route('sample.show', $category->id) }}"
+                                            <option class="class" data-link="{{ route('sample', $category->id) }}"
                                                     value="{{$category->id}}">{{$category->category}}</option>
                                         @endforeach
                                     </select>

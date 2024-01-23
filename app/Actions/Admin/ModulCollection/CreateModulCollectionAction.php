@@ -19,7 +19,7 @@ class CreateModulCollectionAction extends Controller
     {
         $this->action->createModulCollection(DTOmodulCollection::fromModulCollectionRequest($request));
 
-        return redirect()->route('modulCollection.show')->with('success', 'Модульная коллекция создана');
+        return redirect()->route('modulCollection')->with('success', 'Модульная коллекция создана');
     }
 
 }

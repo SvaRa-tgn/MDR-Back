@@ -10,7 +10,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="color" method="POST" action="{{ route('createColor.create') }}" enctype="multipart/form-data">
+                        <form class="form-create-data" data-form="color" method="POST" action="{{ route('createColor') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Цвет успешно создан">
                                 Создание Цвета
@@ -72,7 +72,7 @@
                                     @foreach($colors as $color)
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Цвет">
                                             <article class="collect-article" data-id="{{$color->id}}">{{$color->color}}</article>
-                                            <a class="mdr-button accept modul-button-delete" href="{{route('editColor.edit', $name = $color->slug_color)}}">
+                                            <a class="mdr-button accept modul-button-delete" href="{{route('editColor', $name = $color->slug_color)}}">
                                                 Редактировать
                                             </a>
                                         </li>

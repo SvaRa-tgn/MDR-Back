@@ -23,7 +23,7 @@ class SubCategoryCreateRequest extends FormRequest
     {
         return [
             'category' => ['required', 'string', 'max:255'],
-            'sub_category' => ['required', 'string', 'max:255'],
+            'sub_category' => ['required', 'string', 'max:255', 'unique:sub_categories'],
             'image' => ['required', 'image', 'max:2048']
         ];
 

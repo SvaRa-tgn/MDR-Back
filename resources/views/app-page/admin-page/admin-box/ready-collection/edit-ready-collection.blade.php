@@ -11,13 +11,19 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    Готовая коллекция
+                    <a class="breadcrumbs-link" href="{{route('readyCollection')}}">Готовые коллекции</a>
+                </li>
+                <li class="breadcrumbs-item">
+                    /
+                </li>
+                <li class="breadcrumbs-item">
+                    Редактирование Готовой коллекции - {{$ready_collection['name']}}
                 </li>
             </ul>
         </div>
@@ -39,7 +45,7 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="form-update-data" data-form="ready_collection_update" method="POST" action="{{ route('updateReadyCollection.update', $ready_collection['id'] )}}" enctype="multipart/form-data">
+                            <form class="form-update-data" data-form="ready_collection_update" method="POST" action="{{ route('updateReadyCollection', $ready_collection['id'] )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <article class="name-admin-block">

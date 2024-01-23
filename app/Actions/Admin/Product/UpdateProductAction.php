@@ -20,7 +20,7 @@ class UpdateProductAction extends Controller
 
     public function execute($slug_full_name)
     {
-        $categories = $this->categoryRepository->showCategory();
+        $categories = $this->categoryRepository->category();
         $sub_categories = $this->action->subCategoriesShow();
         $modul_collections = $this->action->modulCollectionShow();
         $ready_collections = $this->action->readyCollectionShow();

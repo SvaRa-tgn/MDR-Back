@@ -10,13 +10,13 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('category.show')}}">Категория товара</a>
+                    <a class="breadcrumbs-link" href="{{route('category')}}">Категория товара</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
@@ -43,7 +43,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="sub-category" method="POST" action="{{ route('createSubCategory.create') }}" enctype="multipart/form-data">
+                        <form class="form-create-data" data-form="sub-category" method="POST" action="{{ route('createSubCategory') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Подкатегория успешно создана">
                                 Создание Подкатегории
@@ -99,7 +99,7 @@
                                             @if($category->id === $subCategory->category_id)
                                                 <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Категорию">
                                                     <article class="collect-article" data-id="{{$subCategory->id}}">{{$subCategory->sub_category}}</article>
-                                                    <a class="mdr-button accept modul-button-delete" href="{{route('editSubCategory.edit', [$subCategory->slug_sub_category])}}">
+                                                    <a class="mdr-button accept modul-button-delete" href="{{route('editSubCategory', [$subCategory->slug_sub_category])}}">
                                                         Редактировать
                                                     </a>
                                                 </li>

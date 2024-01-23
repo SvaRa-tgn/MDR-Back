@@ -18,7 +18,7 @@ class UpdateSubCategoryAction extends Controller
     {
         $subCategory = $this->action->updateSubCategory($request, $id);
 
-        return response()->json(route('editSubCategory.edit', $subCategory->slug_sub_category));
+        return response()->json(route('editSubCategory', $subCategory->slug_sub_category));
     }
 
 }

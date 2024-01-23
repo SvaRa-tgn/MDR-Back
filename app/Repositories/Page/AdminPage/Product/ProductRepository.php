@@ -10,13 +10,15 @@ use App\Models\ModulCollection;
 use App\Models\Product;
 use App\Models\ReadyCollection;
 use App\Models\SubCategory;
+use App\Repositories\Page\AdminPage\Product\Interfaces\ProductRepositoryInterfaces;
+use App\Repositories\Page\ProfilePage\Profile\Interfaces\ProfileRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Transliterate;
 
-class ProductRepository
+class ProductRepository implements ProductRepositoryInterfaces
 {
-    public function Sample($id)
+    public function sample($id)
     {
         $sub_categories = SubCategory::where('category_id', $id)->get();
 
@@ -289,5 +291,13 @@ class ProductRepository
         }
 
         $product->delete();
+    }
+
+    public function searchProduct($data)
+    {
+        $products = Product::where('full_name', 'LIKE', '%'.$data->search.'%')
+            ->orWhere('article', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+
+        return $products;
     }
 }

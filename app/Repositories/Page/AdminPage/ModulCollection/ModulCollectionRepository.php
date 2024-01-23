@@ -3,13 +3,11 @@
 
 namespace App\Repositories\Page\AdminPage\ModulCollection;
 
-use App\Models\Category;
 use App\Models\ModulCollection;
-use App\Repositories\Page\AdminPage\Category\Interfaces\CategoryRepositoryInterface;
-use Illuminate\Support\Facades\Storage;
+use App\Repositories\Page\AdminPage\ModulCollection\Interfaces\ModulCollectionRepositoryInterfaces;
 use Transliterate;
 
-class ModulCollectionRepository
+class ModulCollectionRepository implements ModulCollectionRepositoryInterfaces
 {
     public function createModulCollection($data)
     {
@@ -19,7 +17,7 @@ class ModulCollectionRepository
         $modulCollection->save();
     }
 
-    public function showModulCollection()
+    public function modulCollection()
     {
         $modulCollections = ModulCollection::all();
 

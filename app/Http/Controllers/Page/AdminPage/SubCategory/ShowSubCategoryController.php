@@ -7,9 +7,9 @@ use App\Actions\Admin\SubCategory\SubCategoryAction;
 
 class ShowSubCategoryController extends SubCategoryAction
 {
-    public function showSubCategory(SubCategoryAction $action)
+    public function subCategory(SubCategoryAction $action)
     {
-        return view ('/app-page/admin-page/admin-box/sub-category/sub-category', $action->execute());
+        return $action->execute();
     }
 
 }

@@ -19,7 +19,7 @@ class ReadyCollectionAction extends Controller
 
     public function execute()
     {
-        $readyCollections = $this->readyCollectionRepository->showReadyCollection();
+        $readyCollections = $this->readyCollectionRepository->readyCollection();
 
         $head = [
             'title' => 'Админка - Готовая коллекция. MDR',

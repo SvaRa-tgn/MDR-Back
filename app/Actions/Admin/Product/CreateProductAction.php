@@ -19,8 +19,7 @@ class CreateProductAction extends Controller
     {
         $this->action->createProduct(DTOcreateProduct::fromCreateProductRequest($request));
 
-        //return redirect()->route('category.show')->with('success', 'Товар успешно создан');
-        return response()->json(route('createProduct.show'));
+        return response()->json(route('product'));
     }
 
 }

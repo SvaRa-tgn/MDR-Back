@@ -10,7 +10,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('service.index')}}">Услуги</a>
+                    <a class="breadcrumbs-link" href="{{route('servicePage')}}">Услуги</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /

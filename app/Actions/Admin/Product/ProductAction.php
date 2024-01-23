@@ -20,7 +20,7 @@ class ProductAction extends Controller
 
     public function execute()
     {
-        $categories = $this->categoryRepository->showCategory();
+        $categories = $this->categoryRepository->category();
         $modul_collections = $this->action->modulCollectionShow();
         $ready_collections = $this->action->readyCollectionShow();
         $colors = $this->action->colorShow();

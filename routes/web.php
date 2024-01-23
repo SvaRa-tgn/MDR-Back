@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,90 +19,93 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/', [App\Http\Controllers\Page\indexPage\IndexController::class, 'index'])->name('/.index');
+Route::get('/', [Page\indexPage\IndexController::class, 'index'])->name('/.index');
 
 //Страница Информация
-Route::get('information.mdr', [App\Http\Controllers\Page\InfoPage\InfoMainController::class, 'index'])->name('information.index');
-Route::get('information/information-dlya-pokupateley.mdr', [App\Http\Controllers\Page\InfoPage\InfoDlyaPokupateleyController::class, 'index'])->name('pokupateli.index');
-Route::get('information/kak-oformit-zakaz.mdr', [App\Http\Controllers\Page\InfoPage\KakOformitZakazController::class, 'index'])->name('zakaz.index');
-Route::get('information/obmen-i-vozvrat.mdr', [App\Http\Controllers\Page\InfoPage\ObmenVozvratController::class, 'index'])->name('obmen.index');
-Route::get('information/personalnye-dannye.mdr', [App\Http\Controllers\Page\InfoPage\PersonalnyeDannyeController::class, 'index'])->name('personality.index');
-Route::get('information/publichnaya-offerta.mdr', [App\Http\Controllers\Page\InfoPage\PublichnayaOffertaController::class, 'index'])->name('offerta.index');
-Route::get('information/cookies.mdr', [App\Http\Controllers\Page\InfoPage\CookiesController::class, 'index'])->name('cookies.index');
+Route::prefix('information')->group(function(){
+    Route::get('mdr', [Page\InfoPage\InfoMainController::class, 'index'])->name('information.index');
+    Route::get('information-dlya-pokupateley.mdr', [Page\InfoPage\InfoUserController::class, 'infoUser'])->name('infoUser');
+    Route::get('kak-oformit-zakaz.mdr', [Page\InfoPage\HowDesignOrderController::class, 'howDesignOrder'])->name('howDesignOrder');
+    Route::get('obmen-i-vozvrat.mdr', [Page\InfoPage\ObmenVozvratController::class, 'obmenVozvrat'])->name('obmenVozvrat');
+    Route::get('personalnye-dannye.mdr', [Page\InfoPage\PersonalDataController::class, 'personalData'])->name('personalData');
+    Route::get('publichnaya-offerta.mdr', [Page\InfoPage\PublicOffertaController::class, 'offerta'])->name('offerta');
+    Route::get('cookies.mdr', [Page\InfoPage\CookiesController::class, 'cookies'])->name('cookies');
+});
 
 //Страница Сервис
-Route::get('service.mdr', [App\Http\Controllers\Page\ServicePage\ServiceMainController::class, 'index'])->name('service.index');
-Route::get('service/oplata.mdr', [App\Http\Controllers\Page\ServicePage\OplataController::class, 'index'])->name('oplata.index');
-Route::get('service/dostavka.mdr', [App\Http\Controllers\Page\ServicePage\DeliveryController::class, 'index'])->name('delivery.index');
-Route::get('service/samovyvoz.mdr', [App\Http\Controllers\Page\ServicePage\SamovyvozController::class, 'index'])->name('samovyvoz.index');
-Route::get('service/sborka.mdr', [App\Http\Controllers\Page\ServicePage\SborkaController::class, 'index'])->name('sborka.index');
+Route::prefix('service')->group(function(){
+    Route::get('mdr', [Page\ServicePage\ServiceMainController::class, 'servicePage'])->name('servicePage');
+    Route::get('oplata.mdr', [Page\ServicePage\OplataController::class, 'oplata'])->name('oplata');
+    Route::get('dostavka.mdr', [Page\ServicePage\DeliveryController::class, 'delivery'])->name('delivery');
+    Route::get('samovyvoz.mdr', [Page\ServicePage\SamovyvozController::class, 'samovyvoz'])->name('samovyvoz');
+    Route::get('sborka.mdr', [Page\ServicePage\SborkaController::class, 'sborka'])->name('sborka');
+});
 
 //СТРАНИЦА АДМИНКИ
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->middleware('admin')->group(function (){
     //Профиль Админки
-    Route::namespace('App\Http\Controllers\Page\AdminPage\Head')->group(function(){
-        Route::get('/adminka.mdr', 'HeadAdminController@index')->name('admin.index');
-    });
+    Route::get('/adminka.mdr', [Page\Adminpage\Head\HeadAdminController::class, 'adminka'])->name('adminka');
 
     //Категории товара
-    Route::namespace('App\Http\Controllers\Page\AdminPage\Category')->group(function(){
-        Route::get('/category.mdr', 'ShowCategoryController@showCategory')->name('category.show');
-        Route::post('/category/create', 'CreateCategoryController@createCategory')->name('createCategory.create');
-        Route::get('/category/{slug_category}.mdr', 'EditCategoryController@editCategory')->name('editCategory.edit');
-        Route::put('/category/update/{id}', 'UpdateCategoryController@updateCategory')->name('updateCategory.update');
-        Route::delete('/category/destroy/{id}', 'DestroyCategoryController@destroyCategory')->name('destroyCategory.destroy');
+    Route::prefix('category')->group(function(){
+        Route::get('mdr', [Page\Adminpage\Category\ShowCategoryController::class, 'category'])->name('category');
+        Route::post('create', [Page\Adminpage\Category\CreateCategoryController::class, 'createCategory'])->name('createCategory');
+        Route::get('{slug_category}.mdr', [Page\Adminpage\Category\EditCategoryController::class, 'editCategory'])->name('editCategory');
+        Route::put('update/{id}', [Page\Adminpage\Category\UpdateCategoryController::class, 'updateCategory'])->name('updateCategory');
+        Route::delete('destroy/{id}', [Page\Adminpage\Category\DestroyCategoryController::class, 'destroyCategory'])->name('destroyCategory');
     });
 
     //Подкатегории товара
-    Route::namespace('App\Http\Controllers\Page\AdminPage\SubCategory')->group(function(){
-        Route::get('/sub-category.mdr', 'ShowSubCategoryController@showSubCategory')->name('subCategory.show');
-        Route::post('/sub-category/create', 'CreateSubCategoryController@createSubCategory')->name('createSubCategory.create');
-        Route::get('/sub-category/{slug_sub_category}.mdr', 'EditSubCategoryController@editSubCategory')->name('editSubCategory.edit');
-        Route::put('/sub-category/update/{id}', 'UpdateSubCategoryController@updateSubCategory')->name('updateSubCategory.update');
-        Route::delete('/sub-category/destroy/{id}', 'DestroySubCategoryController@destroySubCategory')->name('destroySubCategory.destroy');
-    });
-
-    //Товар
-    Route::namespace('App\Http\Controllers\Page\AdminPage\Product')->group(function(){
-        Route::get('/create-product.mdr', 'ShowProductController@show')->name('createProduct.show');
-        Route::post('/create-product/create', 'CreateProductController@createProduct')->name('createProduct.create');
-        Route::get('/sample-sub-catagory/{id}.mdr', 'SampleController@sample')->name('sample.show');
-        Route::post('/sample-product', 'SampleProductController@sample')->name('sampleProduct.show');
-        Route::get('/edit-product.mdr', 'EditProductController@editShow')->name('editProduct.show');
-        Route::get('/update-product/{slug_full_name}.mdr', 'UpdateProductController@updateProduct')->name('updateProduct.show');
-        Route::put('/update-status/{id}', 'UpdateStatusController@updateStatus')->name('updateStatus.update');
-        Route::post('/add-image/{id}', 'AddImageController@addImage')->name('addImage.add');
-        Route::put('/update-image/{id}', 'UpdateImageController@updateImage')->name('updateImage.update');
-        Route::delete('/delete-image/{id}', 'DestroyImageController@destroyImage')->name('destroyImage.destroy');
-        Route::put('/update-data/{id}', 'UpdateDataController@updateData')->name('updateData.update');
-        Route::delete('/delete-product/{id}', 'DestroyProductController@destroyProduct')->name('destroyProduct.destroy');
+    Route::prefix('sub-category')->group(function(){
+        Route::get('mdr', [Page\Adminpage\SubCategory\ShowSubCategoryController::class, 'subCategory'])->name('subCategory');
+        Route::post('create', [Page\Adminpage\SubCategory\CreateSubCategoryController::class, 'createSubCategory'])->name('createSubCategory');
+        Route::get('{slug_sub_category}.mdr', [Page\Adminpage\SubCategory\EditSubCategoryController::class, 'editSubCategory'])->name('editSubCategory');
+        Route::put('update/{id}', [Page\Adminpage\SubCategory\UpdateSubCategoryController::class, 'updateSubCategory'])->name('updateSubCategory');
+        Route::delete('destroy/{id}', [Page\Adminpage\SubCategory\DestroySubCategoryController::class, 'destroySubCategory'])->name('destroySubCategory');
     });
 
     //Модульные коллекции
-    Route::namespace('App\Http\Controllers\Page\AdminPage\ModulCollection')->group(function(){
-        Route::get('/modul-collection.mdr', 'ShowModulCollectionController@showModulCollection')->name('modulCollection.show');
-        Route::post('/modul-collection/create', 'CreateModulCollectionController@createModulCollection')->name('createModulCollection.create');
-        Route::get('/modul-collection/{slug_modul_collection}.mdr', 'EditModulCollectionController@editModulCollection')->name('editModulCollection.edit');
-        Route::put('/modul-collection/update/{id}', 'UpdateModulCollectionController@updateModulCollection')->name('updateModulCollection.update');
-        Route::delete('/modul-collection/destroy/{id}.mdr', 'DestroyModulCollectionController@destroyModulCollection')->name('destroyModulCollection.destroy');
+    Route::prefix('modul-collection')->group(function(){
+        Route::get('mdr', [Page\Adminpage\ModulCollection\ShowModulCollectionController::class, 'modulCollection'])->name('modulCollection');
+        Route::post('create', [Page\Adminpage\ModulCollection\CreateModulCollectionController::class, 'createModulCollection'])->name('createModulCollection');
+        Route::get('{slug_modul_collection}.mdr', [Page\Adminpage\ModulCollection\EditModulCollectionController::class, 'editModulCollection'])->name('editModulCollection');
+        Route::put('update/{id}', [Page\Adminpage\ModulCollection\UpdateModulCollectionController::class, 'updateModulCollection'])->name('updateModulCollection');
+        Route::delete('destroy/{id}.mdr', [Page\Adminpage\ModulCollection\DestroyModulCollectionController::class, 'destroyModulCollection'])->name('destroyModulCollection');
     });
 
     //Готовые коллекции
-    Route::namespace('App\Http\Controllers\Page\AdminPage\ReadyCollection')->group(function(){
-        Route::get('/ready-collection.mdr', 'ShowReadyCollectionController@showReadyCollection')->name('readyCollection.show');
-        Route::post('/ready-collection/create', 'CreateReadyCollectionController@createReadyCollection')->name('createReadyCollection.create');
-        Route::get('/ready-collection/{slug_ready_collection}.mdr', 'EditReadyCollectionController@editReadyCollection')->name('editReadyCollection.edit');
-        Route::put('/ready-collection/update/{id}', 'UpdateReadyCollectionController@updateReadyCollection')->name('updateReadyCollection.update');
-        Route::delete('/ready-collection/destroy/{id}', 'DestroyReadyCollectionController@destroyReadyCollection')->name('destroyReadyCollection.destroy');
+    Route::prefix('ready-collection')->group(function(){
+        Route::get('mdr', [Page\Adminpage\ReadyCollection\ShowReadyCollectionController::class, 'readyCollection'])->name('readyCollection');
+        Route::post('create', [Page\Adminpage\ReadyCollection\CreateReadyCollectionController::class, 'createReadyCollection'])->name('createReadyCollection');
+        Route::get('{slug_ready_collection}.mdr', [Page\Adminpage\ReadyCollection\EditReadyCollectionController::class, 'editReadyCollection'])->name('editReadyCollection');
+        Route::put('update/{id}', [Page\Adminpage\ReadyCollection\UpdateReadyCollectionController::class, 'updateReadyCollection'])->name('updateReadyCollection');
+        Route::delete('destroy/{id}', [Page\Adminpage\ReadyCollection\DestroyReadyCollectionController::class, 'destroyReadyCollection'])->name('destroyReadyCollection');
     });
 
     //Цвет товара
-    Route::namespace('App\Http\Controllers\Page\AdminPage\Color')->group(function(){
-        Route::get('/color.mdr', 'ShowColorController@showColor')->name('color.show');
-        Route::post('/color/create', 'CreateColorController@createColor')->name('createColor.create');
-        Route::get('/color/edit-color/{slug_color}.mdr', 'EditColorController@editColor')->name('editColor.edit');
-        Route::put('/color/update/{id}', 'UpdateColorController@updateColor')->name('updateColor.update');
-        Route::delete('/color/destroy/{id}', 'DestroyColorController@destroyColor')->name('destroyColor.destroy');
+    Route::prefix('color')->group(function(){
+        Route::get('mdr', [Page\Adminpage\Color\ShowColorController::class, 'color'])->name('color');
+        Route::post('create', [Page\Adminpage\Color\CreateColorController::class, 'createColor'])->name('createColor');
+        Route::get('edit-color/{slug_color}.mdr', [Page\Adminpage\Color\EditColorController::class, 'editColor'])->name('editColor');
+        Route::put('update/{id}', [Page\Adminpage\Color\UpdateColorController::class, 'updateColor'])->name('updateColor');
+        Route::delete('destroy/{id}', [Page\Adminpage\Color\DestroyColorController::class, 'destroyColor'])->name('destroyColor');
+    });
+
+    //Товар
+    Route::prefix('product')->group(function(){
+        Route::get('/create-product.mdr', [Page\Adminpage\Product\ShowProductController::class, 'product'])->name('product');
+        Route::post('/create-product', [Page\Adminpage\Product\CreateProductController::class, 'createProduct'])->name('createProduct');
+        Route::get('/sample-sub-catagory/{id}.mdr', [Page\Adminpage\Product\SampleController::class, 'sample'])->name('sample');
+        Route::post('/sample-product', [Page\Adminpage\Product\SampleProductController::class, 'sampleProducts'])->name('sampleProducts');
+        Route::get('/edit-product.mdr', [Page\Adminpage\Product\EditProductController::class, 'editProduct'])->name('editProduct');
+        Route::post('/search-product.mdr', [Page\Adminpage\Product\SearchProductController::class, 'searchProduct'])->name('searchProduct');
+        Route::get('/{slug_full_name}.mdr', [Page\Adminpage\Product\UpdateProductController::class, 'updateProduct'])->name('updateProduct');
+        Route::put('/update-status/{id}', [Page\Adminpage\Product\UpdateStatusController::class, 'updateStatus'])->name('updateStatus');
+        Route::post('/add-image/{id}', [Page\Adminpage\Product\AddImageController::class, 'addImage'])->name('addImage');
+        Route::put('/update-image/{id}', [Page\Adminpage\Product\UpdateImageController::class, 'updateImage'])->name('updateImage');
+        Route::delete('/delete-image/{id}', [Page\Adminpage\Product\DestroyImageController::class, 'destroyImage'])->name('destroyImage');
+        Route::put('/update-data/{id}', [Page\Adminpage\Product\UpdateDataController::class, 'updateData'])->name('updateData');
+        Route::delete('/delete-product/{id}', [Page\Adminpage\Product\DestroyProductController::class, 'destroyProduct'])->name('destroyProduct');
     });
 });
 
@@ -115,4 +120,4 @@ Route::group(['middleware' => 'auth', 'namespace' => 'App\Http\Controllers\Page\
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');

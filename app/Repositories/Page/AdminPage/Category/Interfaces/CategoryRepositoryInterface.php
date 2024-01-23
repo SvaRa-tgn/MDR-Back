@@ -8,7 +8,7 @@ interface CategoryRepositoryInterface
 {
     public function createCategory($data);
 
-    public function showCategory();
+    public function category();
 
     public function editCategory($id);
 

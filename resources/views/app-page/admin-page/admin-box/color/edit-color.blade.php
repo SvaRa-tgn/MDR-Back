@@ -11,13 +11,19 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    Категория товара
+                    <a class="breadcrumbs-link" href="{{route('color')}}">Цвет</a>
+                </li>
+                <li class="breadcrumbs-item">
+                    /
+                </li>
+                <li class="breadcrumbs-item">
+                    Редактирование Цвета - {{$color['name']}}
                 </li>
             </ul>
         </div>
@@ -28,7 +34,7 @@
 
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">Редактировать Цвет</h1>
+                <h1 class="page-h1">Редактирование Цвета</h1>
             </div>
 
             <div class="main-private-data-item">
@@ -39,7 +45,7 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="form-update-data" data-form="color-update" method="POST" action="{{ route('updateColor.update', $color['id'] )}}" enctype="multipart/form-data">
+                            <form class="form-update-data" data-form="color-update" method="POST" action="{{ route('updateColor', $color['id'] )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <article class="name-admin-block">

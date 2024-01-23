@@ -11,13 +11,19 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    Категория товара
+                    <a class="breadcrumbs-link" href="{{route('modulCollection')}}">Модульные коллекции</a>
+                </li>
+                <li class="breadcrumbs-item">
+                    /
+                </li>
+                <li class="breadcrumbs-item">
+                    Редактирование Модульной коллекции - {{$modul_collection['name']}}
                 </li>
             </ul>
         </div>
@@ -39,7 +45,7 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="form-update-data" data-form="modul_collection_update" method="POST" action="{{ route('updateModulCollection.update', $modul_collection['id'] )}}" enctype="multipart/form-data">
+                            <form class="form-update-data" data-form="modul_collection_update" method="POST" action="{{ route('updateModulCollection', $modul_collection['id'] )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <article class="name-admin-block">

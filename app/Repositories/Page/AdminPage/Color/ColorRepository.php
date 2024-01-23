@@ -4,11 +4,11 @@
 namespace App\Repositories\Page\AdminPage\Color;
 
 use App\Models\Color;
-use App\Repositories\Page\AdminPage\Category\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Page\AdminPage\Color\Interfaces\ColorRepositoryInterfaces;
 use Illuminate\Support\Facades\Storage;
 use Transliterate;
 
-class ColorRepository
+class ColorRepository implements ColorRepositoryInterfaces
 {
     public function createColor($data)
     {
@@ -22,7 +22,7 @@ class ColorRepository
         $color->save();
     }
 
-    public function showColor()
+    public function color()
     {
         $colors = Color::all();
 

@@ -18,7 +18,7 @@ class EditSubCategoryAction extends Controller
 
     public function execute($slug_sub_category)
     {
-        $categories = $this->categoryRepository->showCategory();
+        $categories = $this->categoryRepository->category();
         $subCategory = $this->action->editSubCategory($slug_sub_category);
 
         $categories = $categories->whereNotIn('category',$subCategory['category']);

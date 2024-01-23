@@ -5,10 +5,11 @@ namespace App\Repositories\Page\AdminPage\SubCategory;
 
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Repositories\Page\AdminPage\SubCategory\Interfaces\SubcategoryRepositoryInterface;
 use Illuminate\Support\Facades\Storage;
 use Transliterate;
 
-class SubCategoryRepository
+class SubCategoryRepository implements SubcategoryRepositoryInterface
 {
     public function createSubCategory($data)
     {
@@ -26,7 +27,7 @@ class SubCategoryRepository
         $category->SubCategory()->save($subCategory);
     }
 
-    public function showSubCategory()
+    public function subCategory()
     {
         $subCategories = SubCategory::all();
 

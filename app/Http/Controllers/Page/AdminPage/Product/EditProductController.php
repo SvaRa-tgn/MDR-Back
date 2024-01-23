@@ -8,7 +8,7 @@ use App\Http\Requests\AdminPage\Product\SampleProductRequest;
 
 class EditProductController extends EditProductAction
 {
-    public function editShow(EditProductAction $action)
+    public function editProduct(EditProductAction $action)
     {
         return $action->execute();
     }

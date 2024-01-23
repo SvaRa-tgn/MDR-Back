@@ -7,7 +7,7 @@
             <h2 class="aside-admin-h2">Админка:</h2>
             <ul class="aside-admin-nav-list">
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('admin.index')}}">Главная</a>
+                    <a class="link-aside-admin" href="{{route('adminka')}}">Главная</a>
                 </li>
                 <li class="aside-admin-nav-item">
                     <a class="link-aside-admin" href="/html/admin/slider.html">Слайдер</a>
@@ -26,29 +26,29 @@
             <h2 class="aside-admin-h2">Классификация:</h2>
             <ul class="aside-admin-nav-list">
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('category.show')}}">Категории</a>
+                    <a class="link-aside-admin" href="{{route('category')}}">Категории</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('subCategory.show')}}">Подкатегория</a>
+                    <a class="link-aside-admin" href="{{route('subCategory')}}">Подкатегория</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('modulCollection.show')}}">Коллекции (Модуль)</a>
+                    <a class="link-aside-admin" href="{{route('modulCollection')}}">Коллекции (Модуль)</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('readyCollection.show')}}">Коллекции (Готовая)</a>
+                    <a class="link-aside-admin" href="{{route('readyCollection')}}">Коллекции (Готовая)</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('color.show')}}">Цвет для мебели</a>
+                    <a class="link-aside-admin" href="{{route('color')}}">Цвет для мебели</a>
                 </li>
             </ul>
 
             <h2 class="aside-admin-h2">Товар:</h2>
             <ul class="aside-admin-nav-list">
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('createProduct.show')}}">Создать товар</a>
+                    <a class="link-aside-admin" href="{{route('product')}}">Создать товар</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('editProduct.show')}}">Редактировать товар</a>
+                    <a class="link-aside-admin" href="{{route('editProduct')}}">Редактировать товар</a>
                 </li>
             </ul>
 

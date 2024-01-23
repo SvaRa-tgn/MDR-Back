@@ -10,16 +10,9 @@ use Transliterate;
 
 class HeadAdminController extends Controller
 {
-    public function index(HeadAdminAction $action)
+    public function adminka(HeadAdminAction $action)
     {
-        if(Auth::user()->role === 'admin') {
-            return $action->execute();
-        } else {
-            return redirect()->route('profile.show', ['name'=>Transliterate::slugify(Auth::user()->name),
-                'familia'=>Transliterate::slugify(Auth::user()->familia),
-                'father'=>Transliterate::slugify(Auth::user()->father_name)]);
-        }
-
+        return $action->execute();
     }
 
 }

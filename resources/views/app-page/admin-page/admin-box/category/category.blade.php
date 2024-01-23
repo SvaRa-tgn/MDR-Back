@@ -10,7 +10,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="category" method="POST" action="{{ route('createCategory.create') }}" enctype="multipart/form-data">
+                        <form class="form-create-data" data-form="category" method="POST" action="{{ route('createCategory') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Категория успешно создана">
                                 Создание Категории
@@ -72,7 +72,7 @@
                                     @foreach($categories as $category)
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Категорию">
                                             <article class="collect-article" data-id="{{$category->id}}">{{$category->category}}</article>
-                                            <a class="mdr-button accept modul-button-delete" href="{{route('editCategory.edit', $name = $category->slug_category)}}">
+                                            <a class="mdr-button accept modul-button-delete" href="{{route('editCategory', $category->slug_category)}}">
                                                 Редактировать
                                             </a>
                                         </li>

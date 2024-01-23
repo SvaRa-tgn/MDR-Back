@@ -28,7 +28,7 @@
         <div class="content-main-block">
             <ul class="main-block-list block-3fr box-align-right">
                 <li class="main-block-item">
-                    <a class="main-block-link" href="{{route('oplata.index')}}">
+                    <a class="main-block-link" href="{{route('oplata')}}">
                         <img class="main-block-item-img" src="{{asset('/img/static/inform/4.jpg')}}" alt="Оплата">
                         <div class="filter-main" data-link="Посмотреть">
                             <div class="main-block-box-content position-for-catalog">
@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li class="main-block-item">
-                    <a class="main-block-link" href="{{route('delivery.index')}}">
+                    <a class="main-block-link" href="{{route('delivery')}}">
                         <img class="main-block-item-img" src="{{asset('/img/static/inform/7.jpg')}}" alt="Доставка">
                         <div class="filter-main" data-link="Посмотреть">
                             <div class="main-block-box-content position-for-catalog">
@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li class="main-block-item">
-                    <a class="main-block-link" href="{{route('samovyvoz.index')}}">
+                    <a class="main-block-link" href="{{route('samovyvoz')}}">
                         <img class="main-block-item-img" src="{{asset('/img/static/inform/10.jpeg')}}" alt="Самовывоз">
                         <div class="filter-main" data-link="Посмотреть">
                             <div class="main-block-box-content position-for-catalog">
@@ -70,7 +70,7 @@
                     </a>
                 </li>
                 <li class="main-block-item">
-                    <a class="main-block-link" href="{{route('sborka.index')}}">
+                    <a class="main-block-link" href="{{route('sborka')}}">
                         <img class="main-block-item-img" src="{{asset('/img/static/inform/8.jpg')}}" alt="Сборка">
                         <div class="filter-main" data-link="Посмотреть">
                             <div class="main-block-box-content position-for-catalog">

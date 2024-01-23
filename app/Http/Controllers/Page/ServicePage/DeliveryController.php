@@ -3,16 +3,12 @@
 
 namespace App\Http\Controllers\Page\ServicePage;
 
+use App\Actions\ServicePage\DeliveryAction;
 
-use App\Http\Controllers\Controller;
-
-
-class DeliveryController extends Controller
+class DeliveryController extends DeliveryAction
 {
-    public function index()
+    public function delivery(DeliveryAction $action)
     {
-        $infoTitle = 'Доставка';
-
-        return view('/app-page/service-page/service-box/delivery', compact('infoTitle'));
+        return $action->execute();
     }
 }

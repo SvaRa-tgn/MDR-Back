@@ -224,7 +224,7 @@
                     <a class="footer-link-link" href="{{route('information.index')}}">Информация</a>
                 </li>
                 <li class="footer-link-item">
-                    <a class="footer-link-link" href="{{route('service.index')}}">Услуги</a>
+                    <a class="footer-link-link" href="{{route('servicePage')}}">Услуги</a>
                 </li>
                 <li class="footer-link-item">
                     <div class="footer-link-link">Сотрудничество</div>

@@ -28,7 +28,7 @@
     <div class="content-main-block">
         <ul class="main-block-list block-3fr box-align-right">
             <li class="main-block-item">
-                <a class="main-block-link" href="{{route('pokupateli.index')}}">
+                <a class="main-block-link" href="{{route('infoUser')}}">
                     <img class="main-block-item-img" src="{{asset('/img/static/inform/1.jpg')}}" alt="Информация для покупателей">
                     <div class="filter-main" data-link="Посмотреть">
                         <div class="main-block-box-content position-for-catalog">
@@ -42,7 +42,7 @@
                 </a>
             </li>
             <li class="main-block-item">
-                <a class="main-block-link" href="{{route('zakaz.index')}}">
+                <a class="main-block-link" href="{{route('howDesignOrder')}}">
                     <img class="main-block-item-img" src="{{asset('/img/static/inform/2.jpg')}}" alt="Как оформить заказ">
                     <div class="filter-main" data-link="Посмотреть">
                         <div class="main-block-box-content position-for-catalog">
@@ -56,7 +56,7 @@
                 </a>
             </li>
             <li class="main-block-item">
-                <a class="main-block-link" href="{{route('obmen.index')}}">
+                <a class="main-block-link" href="{{route('obmenVozvrat')}}">
                     <img class="main-block-item-img" src="{{asset('/img/static/inform/3.jpg')}}" alt="Обмен и возврат">
                     <div class="filter-main" data-link="Посмотреть">
                         <div class="main-block-box-content position-for-catalog">
@@ -70,7 +70,7 @@
                 </a>
             </li>
             <li class="main-block-item">
-                <a class="main-block-link" href="{{route('personality.index')}}">
+                <a class="main-block-link" href="{{route('personalData')}}">
                     <img class="main-block-item-img" src="{{asset('/img/static/inform/5.jpg')}}" alt="Персональные данные">
                     <div class="filter-main" data-link="Посмотреть">
                         <div class="main-block-box-content position-for-catalog">
@@ -84,7 +84,7 @@
                 </a>
             </li>
             <li class="main-block-item">
-                <a class="main-block-link" href="{{route('offerta.index')}}">
+                <a class="main-block-link" href="{{route('offerta')}}">
                     <img class="main-block-item-img" src="{{asset('/img/static/inform/6.jpg')}}" alt="Публичная оферта">
                     <div class="filter-main" data-link="Посмотреть">
                         <div class="main-block-box-content position-for-catalog">
@@ -98,7 +98,7 @@
                 </a>
             </li>
             <li class="main-block-item">
-                <a class="main-block-link" href="{{route('cookies.index')}}">
+                <a class="main-block-link" href="{{route('cookies')}}">
                     <img class="main-block-item-img" src="{{asset('/img/static/inform/9.jpg')}}" alt="Cookies">
                     <div class="filter-main" data-link="Посмотреть">
                         <div class="main-block-box-content position-for-catalog">

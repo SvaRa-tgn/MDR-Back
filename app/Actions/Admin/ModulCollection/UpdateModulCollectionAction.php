@@ -18,7 +18,7 @@ class UpdateModulCollectionAction extends Controller
     {
         $modul_collection = $this->action->updateModulCollection($request, $id );
 
-        return response()->json(route('editModulCollection.edit', $modul_collection->slug_modul_collection));
+        return response()->json(route('editModulCollection', $modul_collection->slug_modul_collection));
     }
 
 }

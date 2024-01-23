@@ -100,7 +100,7 @@
                 Более подробные сведения о файлах cookie, их удалении и управлении ими содержатся на сайте <a class="inform-link" href="www.aboutcookies.org">www.aboutcookies.org</a> и в инструкциях к вашему браузеру (пункт меню «Помощь»).
             </li>
             <li class="block-info-content-item">
-                Для получения дополнительной информации о том, как мы используем ваши персональные данные, см. наше <a class="inform-link" href="{{route('personality.index')}}">Политика персональных данных</a>.
+                Для получения дополнительной информации о том, как мы используем ваши персональные данные, см. наше <a class="inform-link" href="{{route('personalData')}}">Политика персональных данных</a>.
             </li>
         </ul>
     @include('static.aside.info-aside')

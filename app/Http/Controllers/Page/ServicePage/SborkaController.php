@@ -3,16 +3,12 @@
 
 namespace App\Http\Controllers\Page\ServicePage;
 
+use App\Actions\ServicePage\SborkaAction;
 
-use App\Http\Controllers\Controller;
-
-
-class SborkaController extends Controller
+class SborkaController extends SborkaAction
 {
-    public function index()
+    public function sborka(SborkaAction $action)
     {
-        $infoTitle = 'Сборка';
-
-        return view('/app-page/service-page/service-box/sborka', compact('infoTitle'));
+        return $action->execute();
     }
 }

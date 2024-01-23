@@ -19,7 +19,7 @@ class CreateColorAction extends Controller
     {
         $this->action->createColor(DTOcreateColor::fromCreateColorRequest($request));
 
-        return redirect()->route('color.show')->with('success', 'Цвет создан');
+        return redirect()->route('color')->with('success', 'Цвет создан');
     }
 
 }

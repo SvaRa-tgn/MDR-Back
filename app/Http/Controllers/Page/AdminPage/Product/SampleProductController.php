@@ -8,7 +8,7 @@ use App\Http\Requests\AdminPage\Product\SampleProductRequest;
 
 class SampleProductController extends SampleProductAction
 {
-    public function sample(SampleProductAction $action, SampleProductRequest $request)
+    public function sampleProducts(SampleProductAction $action, SampleProductRequest $request)
     {
         return $action->execute($request);
     }

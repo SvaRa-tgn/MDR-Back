@@ -20,10 +20,10 @@ class SubCategoryAction extends Controller
 
     public function execute()
     {
-        $categories = $this->categoryRepository->showCategory();
-        $subCategories = $this->action->showSubCategory();
+        $categories = $this->categoryRepository->category();
+        $subCategories = $this->action->subCategory();
 
-        return ['categories' => $categories, 'subCategories' => $subCategories];
+        return view ('/app-page/admin-page/admin-box/sub-category/sub-category', ['categories' => $categories, 'subCategories' => $subCategories]);
     }
 
 }

@@ -19,9 +19,8 @@ class SampleAction extends Controller
 
     public function execute($id)
     {
-        $subcategories = $this->productRepository->Sample($id);
+        $subcategories = $this->productRepository->sample($id);
 
-        //return view ('/app-page/admin-page/admin-box/product/product', ['subcategories' => $subcategories]);
         return response()->json($subcategories);
     }
 

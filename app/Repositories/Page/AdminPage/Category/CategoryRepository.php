@@ -26,7 +26,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category->CategoryImage()->save($image);
     }
 
-    public function showCategory()
+    public function category()
     {
         $categories = Category::all();
 
@@ -91,9 +91,9 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $category;
     }
 
-    public function destroy($slug_category)
+    public function destroy($id)
     {
-        $category = Category::where('slug_category', $slug_category)->first();
+        $category = Category::find($id);
 
         $image = $category->CategoryImage()->first();
         Storage::delete($image->path);

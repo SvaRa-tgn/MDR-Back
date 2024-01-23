@@ -22,7 +22,7 @@ class UpdateImageAction extends Controller
     {
         $product = $this->action->updateImage(DTOupdateImage::fromUpdateImageRequest($request), $id);
 
-        return redirect()->route('updateProduct.show', $product->slug_full_name)->with('success', 'Фото удалено');
+        return redirect()->route('updateProduct', $product->slug_full_name)->with('success', 'Фото удалено');
     }
 
 }

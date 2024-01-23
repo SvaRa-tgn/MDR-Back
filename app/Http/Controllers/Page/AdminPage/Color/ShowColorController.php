@@ -6,7 +6,7 @@ use App\Actions\Admin\Color\ColorAction;
 
 class ShowColorController extends ColorAction
 {
-    public function showColor(ColorAction $action)
+    public function color(ColorAction $action)
     {
         return  $action->execute();
     }

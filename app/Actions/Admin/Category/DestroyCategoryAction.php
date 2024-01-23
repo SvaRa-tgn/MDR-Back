@@ -14,11 +14,11 @@ class DestroyCategoryAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($slug_category)
+    public function execute($id)
     {
-        $this->action->destroy($slug_category);
+        $this->action->destroy($id);
 
-        return redirect()->route('category.show')->with('success', 'Категория удалена');
+        return redirect()->route('category')->with('success', 'Категория удалена');
     }
 
 }

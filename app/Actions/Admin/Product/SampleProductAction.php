@@ -22,7 +22,6 @@ class SampleProductAction extends Controller
     {
         $products = $this->action->sampleProducts(DTOsampleProduct::fromSampleProductRequest($request));
 
-        //return view ('/app-page/admin-page/admin-box/product/edit-product', ['products' => $products]);
         return response()->json($products);
     }
 

@@ -3,16 +3,12 @@
 
 namespace App\Http\Controllers\Page\ServicePage;
 
+use App\Actions\ServicePage\SamovyvozAction;
 
-use App\Http\Controllers\Controller;
-
-
-class SamovyvozController extends Controller
+class SamovyvozController extends SamovyvozAction
 {
-    public function index()
+    public function samovyvoz(SamovyvozAction $action)
     {
-        $infoTitle = 'Самовывоз';
-
-        return view('/app-page/service-page/service-box/samovyvoz', compact('infoTitle'));
+        return $action->execute();
     }
 }

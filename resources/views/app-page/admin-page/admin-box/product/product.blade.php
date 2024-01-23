@@ -10,7 +10,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    <a class="breadcrumbs-link" href="{{route('admin.index')}}">Профиль админки</a>
+                    <a class="breadcrumbs-link" href="{{route('adminka')}}">Профиль админки</a>
                 </li>
                 <li class="breadcrumbs-item">
                     /
@@ -38,7 +38,7 @@
                 <section class="content-admin-block">
                     <div class="admin-block-1fr">
 
-                        <form class="form-create-product" data-form="product" action="{{ route('createProduct.create') }}" method="POST" enctype="multipart/form-data">
+                        <form class="form-create-product" data-form="product" action="{{ route('createProduct') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="edit-foto">
                                 <article class="name-admin-block">
@@ -139,7 +139,7 @@
                                     <select class="admin-select admin-input" name="category" id="class">
                                         <option class="class" value="">--Выберите категорию товара--</option>
                                         @foreach($categories as $category)
-                                            <option class="class" data-link="{{ route('sample.show', $category->id) }}" value="{{$category->id}}">{{$category->category}}</option>
+                                            <option class="class" data-link="{{ route('sample', $category->id) }}" value="{{$category->id}}">{{$category->category}}</option>
                                         @endforeach
                                     </select>
                                 </li>

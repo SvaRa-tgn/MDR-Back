@@ -18,7 +18,7 @@ class DestroyModulCollectionAction extends Controller
     {
         $this->action->destroyModulCollection($id);
 
-        return redirect()->route('modulCollection.show')->with('success', 'Модульная коллекция удалена');
+        return redirect()->route('modulCollection')->with('success', 'Модульная коллекция удалена');
     }
 
 }

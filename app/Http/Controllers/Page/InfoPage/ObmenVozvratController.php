@@ -3,16 +3,12 @@
 
 namespace App\Http\Controllers\Page\InfoPage;
 
+use App\Actions\InfoPage\ObmenVozvratAction;
 
-use App\Http\Controllers\Controller;
-
-
-class ObmenVozvratController extends Controller
+class ObmenVozvratController extends ObmenVozvratAction
 {
-    public function index()
+    public function obmenVozvrat(ObmenVozvratAction $action)
     {
-        $infoTitle = 'Обмен и возврат';
-
-        return view('/app-page/info-page/info-box/obmen-i-vozvrat', compact('infoTitle'));
+        return $action->execute();
     }
 }

@@ -20,7 +20,7 @@ class CreateReadyCollectionAction extends Controller
     {
         $this->action->createReadyCollection(DTOreadyCollection::fromReadyCollectionRequest($request));
 
-        return redirect()->route('readyCollection.show')->with('success', 'Готовая коллекция создана');
+        return redirect()->route('readyCollection')->with('success', 'Готовая коллекция создана');
     }
 
 }

@@ -3,16 +3,12 @@
 
 namespace App\Http\Controllers\Page\InfoPage;
 
+use App\Actions\InfoPage\CookiesAction;
 
-use App\Http\Controllers\Controller;
-
-
-class CookiesController extends Controller
+class CookiesController extends CookiesAction
 {
-    public function index()
+    public function cookies(CookiesAction $action)
     {
-        $infoTitle = 'Cookies';
-
-        return view('/app-page/info-page/info-box/cookies', compact('infoTitle'));
+        return $action->execute();
     }
 }

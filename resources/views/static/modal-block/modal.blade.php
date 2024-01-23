@@ -16,10 +16,10 @@
             <div class="modal-link mdr-button stop js-close js-reload">Закрыть</div>
         </li>
     </ul>
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editCategory.edit')
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editCategory')
     <ul class="modal-list js-link-3">
         <li class="modal-item">
-            <form class="itemAdminDelete" data-id="{{$category['id']}}"  action="{{ route('destroyCategory.destroy', $category['slug_category']) }}" method="post">
+            <form class="itemAdminDelete" data-id="{{$category['id']}}"  action="{{ route('destroyCategory', $category['id']) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить категорию">
@@ -30,10 +30,10 @@
         </li>
     </ul>
     @endif
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editSubCategory.edit')
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editSubCategory')
         <ul class="modal-list js-link-3">
             <li class="modal-item">
-                <form class="itemAdminDelete" data-id="{{$subCategory['id']}}"  action="{{ route('destroySubCategory.destroy', $subCategory['id']) }}" method="post">
+                <form class="itemAdminDelete" data-id="{{$subCategory['id']}}"  action="{{ route('destroySubCategory', $subCategory['id']) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить подкатегорию">
@@ -44,10 +44,10 @@
             </li>
         </ul>
     @endif
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editColor.edit')
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editColor')
         <ul class="modal-list js-link-3">
             <li class="modal-item">
-                <form class="itemAdminDelete" data-id="{{$color['id']}}"  action="{{ route('destroyColor.destroy', $color['id']) }}" method="post">
+                <form class="itemAdminDelete" data-id="{{$color['id']}}"  action="{{ route('destroyColor', $color['id']) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить цвет">
@@ -58,10 +58,10 @@
             </li>
         </ul>
     @endif
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editModulCollection.edit')
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editModulCollection')
         <ul class="modal-list js-link-3">
             <li class="modal-item">
-                <form class="itemAdminDelete" data-id="{{$modul_collection['id']}}"  action="{{ route('destroyModulCollection.destroy', $modul_collection['id']) }}" method="post">
+                <form class="itemAdminDelete" data-id="{{$modul_collection['id']}}"  action="{{ route('destroyModulCollection', $modul_collection['id']) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить Модульную коллекцию">
@@ -72,10 +72,10 @@
             </li>
         </ul>
     @endif
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editReadyCollection.edit')
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editReadyCollection')
         <ul class="modal-list js-link-3">
             <li class="modal-item">
-                <form class="itemAdminDelete" data-id="{{$ready_collection['id']}}"  action="{{ route('destroyReadyCollection.destroy', $ready_collection['id']) }}" method="post">
+                <form class="itemAdminDelete" data-id="{{$ready_collection['id']}}"  action="{{ route('destroyReadyCollection', $ready_collection['id']) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить Готовую коллекцию">
@@ -86,10 +86,10 @@
             </li>
         </ul>
     @endif
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'updateProduct.show')
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'updateProduct')
         <ul class="modal-list js-link-3">
             <li class="modal-item">
-                <form class="itemAdminDelete" data-id="{{$product->id}}"  action="{{ route('destroyProduct.destroy', $product->id) }}" method="post">
+                <form class="itemAdminDelete" data-id="{{$product->id}}"  action="{{ route('destroyProduct', $product->id) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить Товар">

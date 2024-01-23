@@ -19,7 +19,7 @@ class ModulCollectionAction extends Controller
 
     public function execute()
     {
-        $modulCollections = $this->modulCollectionRepository->showModulCollection();
+        $modulCollections = $this->modulCollectionRepository->modulCollection();
 
         $head = [
             'title' => 'Админка - Модульная коллекция. MDR',

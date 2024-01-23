@@ -18,7 +18,7 @@ class DestroyReadyCollectionAction extends Controller
     {
         $this->action->destroyReadyCollection($id);
 
-        return redirect()->route('readyCollection.show')->with('success', 'Готовая коллекция удалена');
+        return redirect()->route('readyCollection')->with('success', 'Готовая коллекция удалена');
     }
 
 }

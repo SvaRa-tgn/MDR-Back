@@ -19,7 +19,7 @@ class CategoryAction extends Controller
 
     public function execute()
     {
-        $categories = $this->categoryRepository->showCategory();
+        $categories = $this->categoryRepository->category();
 
         $head = [
             'title' => 'Админка - Категории. MDR',

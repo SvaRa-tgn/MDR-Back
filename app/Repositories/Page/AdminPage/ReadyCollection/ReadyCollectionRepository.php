@@ -4,11 +4,10 @@
 namespace App\Repositories\Page\AdminPage\ReadyCollection;
 
 use App\Models\ReadyCollection;
-use App\Repositories\Page\AdminPage\Category\Interfaces\CategoryRepositoryInterface;
-use Illuminate\Support\Facades\Storage;
+use App\Repositories\Page\AdminPage\ReadyCollection\Interfaces\ReadyCollectionRepositoryInterfaces;
 use Transliterate;
 
-class ReadyCollectionRepository
+class ReadyCollectionRepository implements ReadyCollectionRepositoryInterfaces
 {
     public function createReadyCollection($data)
     {
@@ -18,7 +17,7 @@ class ReadyCollectionRepository
         $readyCollection->save();
     }
 
-    public function showReadyCollection()
+    public function readyCollection()
     {
         $readyCollections = ReadyCollection::all();
 

@@ -3,16 +3,12 @@
 
 namespace App\Http\Controllers\Page\ServicePage;
 
+use App\Actions\ServicePage\OplataAction;
 
-use App\Http\Controllers\Controller;
-
-
-class OplataController extends Controller
+class OplataController extends OplataAction
 {
-    public function index()
+    public function oplata(OplataAction $action)
     {
-        $infoTitle = 'Оплата';
-
-        return view('/app-page/service-page/service-box/oplata', compact('infoTitle'));
+        return $action->execute();
     }
 }

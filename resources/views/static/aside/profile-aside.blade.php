@@ -19,23 +19,23 @@
                     <a class="link-aside" href=""><h2 class="aside-h3">Избранные товары</h2></a>
                 </li>
             </ul>
-            <a class="link-aside" href="{{route('service.index')}}"><h2 class="aside-h2">Услуги:</h2></a>
+            <a class="link-aside" href="{{route('servicePage')}}"><h2 class="aside-h2">Услуги:</h2></a>
             <ul class="aside-nav-list">
                 <li class="aside-nav-item">
-                    <a class="link-aside" href="{{route('delivery.index')}}"><h2 class="aside-h3">Доставка</h2></a>
+                    <a class="link-aside" href="{{route('delivery')}}"><h2 class="aside-h3">Доставка</h2></a>
                 </li>
                 <li class="aside-nav-item">
-                    <a class="link-aside" href="{{route('samovyvoz.index')}}"><h2 class="aside-h3">Самовывоз</h2></a>
+                    <a class="link-aside" href="{{route('samovyvoz')}}"><h2 class="aside-h3">Самовывоз</h2></a>
                 </li>
                 <li class="aside-nav-item">
-                    <a class="link-aside" href="{{route('sborka.index')}}"><h2 class="aside-h3">Сборка</h2></a>
+                    <a class="link-aside" href="{{route('sborka')}}"><h2 class="aside-h3">Сборка</h2></a>
                 </li>
                 <li class="aside-nav-item">
-                    <a class="link-aside" href="{{route('oplata.index')}}"><h2 class="aside-h3">Оплата</h2></a>
+                    <a class="link-aside" href="{{route('oplata')}}"><h2 class="aside-h3">Оплата</h2></a>
                 </li>
             </ul>
             @if(Auth::user()->role === 'admin')
-            <a class="link-aside" href="{{route('admin.index')}}"><h2 class="aside-h2">АДМИНКА</h2></a>
+            <a class="link-aside" href="{{route('adminka')}}"><h2 class="aside-h2">АДМИНКА</h2></a>
             @endif
         </div>
     </div>

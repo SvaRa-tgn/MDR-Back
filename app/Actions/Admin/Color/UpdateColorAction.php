@@ -18,7 +18,7 @@ class UpdateColorAction extends Controller
     {
         $color = $this->action->updateColor($request, $id );
 
-        return response()->json(route('editColor.edit', $color->slug_color));
+        return response()->json(route('editColor', $color->slug_color));
     }
 
 }

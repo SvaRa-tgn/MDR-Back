@@ -22,7 +22,7 @@ class UpdateStatusAction extends Controller
     {
         $product = $this->action->updateStatus(DTOupdateStatus::fromUpdateStatusRequest($request), $id);
 
-        return redirect()->route('updateProduct.show', $product->slug_full_name)->with('success', 'Статус продукта изменен');
+        return redirect()->route('updateProduct', $product->slug_full_name)->with('success', 'Статус продукта изменен');
     }
 
 }

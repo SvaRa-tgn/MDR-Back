@@ -24,7 +24,7 @@ class UpdateSubCategoryRequest extends FormRequest
 
         return ([
                 'category' => ['string', 'max:255'],
-                'sub_category' => ['sometimes','nullable', 'string', 'max:255'],
+                'sub_category' => ['sometimes','nullable', 'string', 'max:255', 'unique:sub_categories'],
                 'image' => ['sometimes','nullable','image', 'max:2048']
             ]);
 

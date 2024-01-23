@@ -19,8 +19,7 @@ class UpdateDataAction extends Controller
     {
         $product = $this->action->updateData(DTOupdateProduct::fromUpdateProductRequest($request), $id);
 
-        //return redirect()->route('category.show')->with('success', 'Товар успешно создан');
-        return response()->json(route('updateProduct.show', $product->slug_full_name));
+        return response()->json(route('updateProduct', $product->slug_full_name));
     }
 
 }
