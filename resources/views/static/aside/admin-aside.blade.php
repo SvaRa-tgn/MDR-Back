@@ -19,7 +19,7 @@
                     <a class="link-aside-admin" href="/html/admin/user.html">Пользователи</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="/html/admin/excel.html">Excel</a>
+                    <a class="link-aside-admin" href="{{route('excel')}}">Excel</a>
                 </li>
             </ul>
 

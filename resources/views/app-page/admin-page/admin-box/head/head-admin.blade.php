@@ -54,7 +54,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/execl.jpeg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="/html/admin/excel.html">
+                        <a class="setup-link" href="{{route('excel')}}">
                             Загрузка Excel
                         </a>
                     </div>

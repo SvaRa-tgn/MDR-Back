@@ -477,6 +477,15 @@
   background: #714b4f;
 }
 
+.warning-article {
+  font-size: 1.2em;
+  color: #714b4f;
+}
+
+.warning {
+  color: #714b4f;
+}
+
 .wrap-footer {
   display: none;
 }

@@ -107,6 +107,12 @@ Route::prefix('admin')->middleware('admin')->group(function (){
         Route::put('/update-data/{id}', [Page\Adminpage\Product\UpdateDataController::class, 'updateData'])->name('updateData');
         Route::delete('/delete-product/{id}', [Page\Adminpage\Product\DestroyProductController::class, 'destroyProduct'])->name('destroyProduct');
     });
+
+    //Excel
+    Route::prefix('excel')->group(function(){
+        Route::get('mdr', [Page\Adminpage\Excel\ExcelController::class, 'excel'])->name('excel');
+        Route::post('/excel-upload', [Page\Adminpage\Excel\ExcelUploadController::class, 'excelUpload'])->name('excelUpload');
+    });
 });
 
 //Страница Личный кабинет
