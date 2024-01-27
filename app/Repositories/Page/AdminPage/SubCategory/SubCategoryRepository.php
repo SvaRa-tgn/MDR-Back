@@ -108,6 +108,19 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
     {
         $subCategory = SubCategory::find($id);
 
+        $products = $subCategory->products;
+        foreach ($products as $product) {
+            $images = $product->image;
+
+            if(isset($images) && $images !== 'null') {
+                foreach ($images as $image){
+                    Storage::delete($image->path);
+                    $image->delete();
+                }
+                $product->delete();
+            }
+        }
+
         Storage::delete($subCategory->path);
         $subCategory->delete();
     }

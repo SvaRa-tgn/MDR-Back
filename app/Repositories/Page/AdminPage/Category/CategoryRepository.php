@@ -95,6 +95,25 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         $category = Category::find($id);
 
+        $products = $category->Product;
+        foreach ($products as $product) {
+            $images = $product->image;
+
+            if(isset($images) && $images !== 'null') {
+                foreach ($images as $image){
+                    Storage::delete($image->path);
+                    $image->delete();
+                }
+                $product->delete();
+            }
+        }
+
+        $sub_categories = $category->SubCategory;
+        foreach ($sub_categories as $sub_category) {
+            Storage::delete($sub_category->path);
+            $sub_category->delete();
+        }
+
         $image = $category->CategoryImage()->first();
         Storage::delete($image->path);
         $image->delete();

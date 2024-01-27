@@ -16,14 +16,14 @@ class Category extends Model
         return $this->HasOne(CategoryImage::class);
     }
 
-    public function SubCategory(): HasOne
+    public function SubCategory(): HasMany
     {
-        return $this->HasOne(SubCategory::class);
+        return $this->HasMany(SubCategory::class);
     }
 
-    public function Product(): HasOne
+    public function Product(): HasMany
     {
-        return $this->HasOne(Product::class);
+        return $this->HasMany(Product::class);
     }
 }
 

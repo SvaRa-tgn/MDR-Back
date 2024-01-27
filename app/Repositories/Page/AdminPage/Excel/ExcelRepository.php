@@ -3,13 +3,11 @@
 
 namespace App\Repositories\Page\AdminPage\Excel;
 
-use App\Models\Category;
-use App\Models\CategoryImage;
-use App\Repositories\Page\AdminPage\Category\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Page\AdminPage\Excel\Interfaces\ExcelInterfaces;
 use Illuminate\Support\Facades\Storage;
 use Transliterate;
 
-class ExcelRepository
+class ExcelRepository implements ExcelInterfaces
 {
     public function excelupload($request)
     {
