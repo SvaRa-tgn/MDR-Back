@@ -2,6 +2,7 @@
 
 namespace App\Actions\Admin\Color;
 
+use App\DTO\DTOupdateColor;
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
 
@@ -16,7 +17,7 @@ class UpdateColorAction extends Controller
 
     public function execute($request, $id)
     {
-        $color = $this->action->updateColor($request, $id );
+        $color = $this->action->updateColor(DTOupdateColor::fromUpdateColorRequest($request), $id );
 
         return response()->json(route('editColor', $color->slug_color));
     }

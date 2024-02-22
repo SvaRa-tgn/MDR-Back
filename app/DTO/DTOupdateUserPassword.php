@@ -3,7 +3,7 @@
 
 namespace App\DTO;
 
-use App\Http\Requests\ProfilePage\Profile\UpdateUserPasswordRequest;
+use App\Http\Requests\UsersUpdate\UpdateUserPasswordRequest;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class DTOupdateUserPassword extends DataTransferObject

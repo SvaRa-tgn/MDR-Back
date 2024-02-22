@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Page\AdminPage\Category;
 
 use App\Actions\Admin\Category\EditCategoryAction;

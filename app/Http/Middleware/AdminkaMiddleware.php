@@ -16,9 +16,9 @@ class AdminkaMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role !== 'admin'){
-            return redirect()->route('/.index');
+        if (Auth::check() && Auth::user()->role === 'admin'){
+            return $next($request);
         }
-        return $next($request);
+        return redirect()->route('/.index');
     }
 }

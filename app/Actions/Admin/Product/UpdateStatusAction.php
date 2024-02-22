@@ -10,19 +10,16 @@ class UpdateStatusAction extends Controller
 {
     public $action;
 
-    private ProductRepository $productRepository;
-
-    public function __construct(ProductRepository $action, ProductRepository $productRepository)
+    public function __construct(ProductRepository $action)
     {
         $this->action = $action;
-        $this->productRepository = $productRepository;
     }
 
     public function execute($request, $id)
     {
         $product = $this->action->updateStatus(DTOupdateStatus::fromUpdateStatusRequest($request), $id);
 
-        return redirect()->route('updateProduct', $product->slug_full_name)->with('success', 'Статус продукта изменен');
+        return redirect()->route('updateProduct', $product->slug_full_name);
     }
 
 }

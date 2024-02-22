@@ -23,8 +23,8 @@ class UpdateColorRequest extends FormRequest
     {
 
         return ([
-                'color' => ['sometimes','nullable', 'string', 'max:255', 'unique:colors'],
-                'image' => ['sometimes','nullable','image', 'max:2048']
+                'color' => ['nullable', 'string', 'max:30', 'unique:colors'],
+                'image' => ['nullable','image', 'max:30000']
             ]);
 
 

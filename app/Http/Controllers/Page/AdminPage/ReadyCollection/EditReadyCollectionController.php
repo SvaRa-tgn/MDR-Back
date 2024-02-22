@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Page\AdminPage\ReadyCollection;
 
 use App\Actions\Admin\ReadyCollection\EditReadyCollectionAction;

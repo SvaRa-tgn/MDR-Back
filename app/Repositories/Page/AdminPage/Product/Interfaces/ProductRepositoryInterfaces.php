@@ -10,12 +10,6 @@ interface ProductRepositoryInterfaces
 
     public function subCategoriesShow();
 
-    public function modulCollectionShow();
-
-    public function readyCollectionShow();
-
-    public function colorShow();
-
     public function createProduct($data);
 
     public function showUpdateProduct($slug_full_name);

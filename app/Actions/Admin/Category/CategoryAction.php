@@ -2,29 +2,27 @@
 
 namespace App\Actions\Admin\Category;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
+use App\Services\Admin\Category\CategoryService;
 
-class CategoryAction extends Controller
+class CategoryAction
 {
     public $action;
 
-    private CategoryRepository $categoryRepository;
+    public $service;
 
-    public function __construct(CategoryRepository $action, CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepository $action, CategoryService $service)
     {
         $this->action = $action;
-        $this->categoryRepository = $categoryRepository;
+
+        $this->service = $service;
     }
 
     public function execute()
     {
-        $categories = $this->categoryRepository->category();
+        $categories = $this->action->category();
 
-        $head = [
-            'title' => 'Админка - Категории. MDR',
-            'description' => 'Админка - Создание, правки и удаления Категорий'
-        ];
+        $head = $this->service->title();
 
         return view ('/app-page/admin-page/admin-box/category/category', ['categories' => $categories, 'head' => $head]);
     }

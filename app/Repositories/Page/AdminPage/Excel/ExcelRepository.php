@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Page\AdminPage\Excel;
 
 use App\Repositories\Page\AdminPage\Excel\Interfaces\ExcelInterfaces;

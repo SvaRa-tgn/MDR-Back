@@ -44,7 +44,7 @@ class ProductImport implements ToModel, WithHeadingRow
                 'height'    => $row['height'],
                 'width'    => $row['width'],
                 'deep'    => $row['deep'],
-                'status'    => $row['status'],
+                'status'    => 'Не публиковать',
                 'price'    => $row['price'],
                 'korpus'    => $row['korpus'],
                 'fasad'    => $row['fasad'],

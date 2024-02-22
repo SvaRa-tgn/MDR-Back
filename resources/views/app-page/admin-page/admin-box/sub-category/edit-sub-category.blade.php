@@ -51,10 +51,10 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="form-update-data" data-form="sub-category-update" method="POST" action="{{ route('updateSubCategory', $subCategory['id'] )}}" enctype="multipart/form-data">
+                            <form class="update-form-data" data-form="sub-category-update" method="POST" action="{{ route('updateSubCategory', $subCategory['id'] )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <article class="name-admin-block">
+                                <article class="name-admin-block" data-success="Подкатегория отредактирована">
                                     Редактирование Подкатегории
                                 </article>
 
@@ -62,10 +62,10 @@
                                     <label class="form-label">
                                         Категория товара
                                     </label>
-                                    <select class="admin-select" name="category" id="catSub">
+                                    <select class="admin-select admin-input" name="category" id="catSub">
                                         <option class="class js-old-id" value="{{$subCategory['category']}}" >{{$subCategory['category']}} - Текущая категория</option>
                                         @foreach($categories as $category)
-                                            <option class="class js-new-id" data-categoryId = "{{$category->id}}" value="{{$category->category}}">{{$category->category}}</option>
+                                            <option class="class js-new-id"  value="{{$category->category}}">{{$category->category}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -84,13 +84,13 @@
                                     <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                                 </div>
 
-                                <div class="wrap-button">
+                                <div class="wrap-button" data-search="Редактируем Подкатегорию">
                                     <button class="button-auth accept js-up-data" data-id="{{$subCategory['id']}}" type="submit" name="submit-auth">Сохранить</button>
                                 </div>
 
                             </form>
                             <form class="itemDelete">
-                                <input type="submit" class="button-auth stop" value="Удалить подкатегорию">
+                                <input type="submit" class="button-auth stop" value="Удалить Подкатегорию">
                             </form>
                         </div>
 
@@ -99,7 +99,7 @@
                                 Актуальные данные Подкатегории:
                             </article>
                             <div class="db-admin-article db-admin-list">
-                                Категория для Подкатегории:
+                                Категория:
                             </div>
                             <ul class="relevant-info-list">
                                 <li class="db-relevant-info-item form-label admin-block-db">

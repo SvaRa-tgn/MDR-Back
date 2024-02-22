@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Http\Controllers\Page\AdminPage\Excel;
 
 use App\Actions\Admin\Excel\ExcelAction;
-use App\Http\Requests\AdminPage\Excel\ExcelRequest;
 
 class ExcelController extends ExcelAction
 {

@@ -3,20 +3,23 @@
 namespace App\Actions\Admin\Head;
 
 use App\Http\Controllers\Controller;
+use App\Services\Admin\Head\HeadAdminService;
 
 class HeadAdminAction extends Controller
 {
-    public $action;
+
+    public $service;
+
+    public function __construct(HeadAdminService $service)
+    {
+        $this->service = $service;
+    }
 
     public function execute()
     {
+        $head = $this->service->title();
 
-        $head = [
-            'title' => 'Админка MDR',
-            'description' => 'Лучшая мебель на любой вкус по низким ценам в Рязани. Интернет-магазин My Decor Room'
-        ];
-
-        return view('/app-page/admin-page/admin-box/head/head-admin', ['head' => $head]);
+        return view('/app-page/admin-page/admin-box/head/head-admin', compact('head'));
     }
 
 }

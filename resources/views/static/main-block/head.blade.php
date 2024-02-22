@@ -31,6 +31,7 @@
 
     <script src="{{asset('/js/jquery.min.js?v=').time()}}" defer></script>
     <script src="{{asset('/js/main.js?v=').time()}}" defer></script>
+    <script src="{{asset('/js/form.js?v=').time()}}" defer></script>
 
     <meta name="theme-color" content="#fafafa">
 </head>

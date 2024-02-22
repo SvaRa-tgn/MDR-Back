@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="ready_collection" method="POST" action="{{ route('createReadyCollection') }}" enctype="multipart/form-data">
+                        <form class="create-form-data" data-form="ready_collection" method="POST" action="{{ route('createReadyCollection') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Готовая коллекция успешно создана">
                                 Создание Готовой коллекции
@@ -50,12 +50,12 @@
                                 <input class="admin-select admin-input" type="text" id="ready_collection" name="ready_collection" value="{{ old('ready_collection') }}" />
                             </div>
 
-                            <div class="wrap-button">
+                            <div class="wrap-button" data-search="Создаем Готовую коллекцию">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
 
-                        <div class="wrap-relevant-info">
+                        <div class="wrap-relevant-info js-reload-block">
                             <article class="db-admin-article">
                                 Список Готовых коллекций в базе:
                             </article>
@@ -64,7 +64,7 @@
                                     Вы пока не создали ни одной Готовой коллекции.
                                 </div>
                             @else
-                                <ul class="relevant-info-list js-reload-block">
+                                <ul class="relevant-info-list">
                                     @foreach($readyCollections as $readyCollection)
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Готовую коллекцию">
                                             <article class="collect-article" data-id="{{$readyCollection->id}}">{{$readyCollection->ready_collection}}</article>

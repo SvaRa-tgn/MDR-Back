@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Page\AdminPage\Color;
 
 use App\Actions\Admin\Color\EditColorAction;

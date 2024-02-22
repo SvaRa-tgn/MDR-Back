@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="modul_collection" method="POST" action="{{ route('createModulCollection') }}" enctype="multipart/form-data">
+                        <form class="create-form-data" data-form="modul_collection" method="POST" action="{{ route('createModulCollection') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Модульная коллекция успешно создана">
                                 Создание Модульной коллекции
@@ -50,12 +50,12 @@
                                 <input class="admin-select admin-input" type="text" id="modul_collection" name="modul_collection" value="{{ old('modul_collection') }}" />
                             </div>
 
-                            <div class="wrap-button">
+                            <div class="wrap-button" data-search="Создаем Модульную коллекцию">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
 
-                        <div class="wrap-relevant-info">
+                        <div class="wrap-relevant-info js-reload-block">
                             <article class="db-admin-article">
                                 Список Модульных коллекций в базе:
                             </article>
@@ -64,7 +64,7 @@
                                     Вы пока не создали ни одной Модульной коллекции.
                                 </div>
                             @else
-                                <ul class="relevant-info-list js-reload-block">
+                                <ul class="relevant-info-list">
                                     @foreach($modulCollections as $modulCollection)
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Модульную коллекцию">
                                             <article class="collect-article" data-id="{{$modulCollection->id}}">{{$modulCollection->modul_collection}}</article>

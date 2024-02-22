@@ -45,10 +45,10 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="form-update-data" data-form="color-update" method="POST" action="{{ route('updateColor', $color['id'] )}}" enctype="multipart/form-data">
+                            <form class="update-form-data" data-form="color-update" method="POST" action="{{ route('updateColor', $color['id'] )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <article class="name-admin-block">
+                                <article class="name-admin-block" data-success="Цвет товара отредактирован">
                                     Редактирование Цвет
                                 </article>
                                 <div class="wrap-input colorError" data-answer="">
@@ -63,7 +63,7 @@
                                     </label>
                                     <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                                 </div>
-                                <div class="wrap-button">
+                                <div class="wrap-button" data-search="Редактируем Цвет">
                                     <button class="button-auth accept js-up-data" data-id="{{$color['id']}}" type="submit" name="submit-auth">Сохранить</button>
                                 </div>
                             </form>

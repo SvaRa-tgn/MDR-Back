@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Page\AdminPage\ModulCollection;
 
 use App\Actions\Admin\ModulCollection\UpdateModulCollectionAction;

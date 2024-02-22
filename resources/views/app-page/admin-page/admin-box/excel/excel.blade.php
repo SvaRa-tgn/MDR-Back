@@ -16,7 +16,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    Категория товара
+                    Загрузка Excel файла
                 </li>
             </ul>
         </div>
@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="category" method="POST" action="{{ route('excelUpload') }}" enctype="multipart/form-data">
+                        <form class="create-form-data" data-form="category" method="POST" action="{{ route('excelUpload') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Данные загружены в базу данных">
                                 Загрузка файла:
@@ -48,7 +48,7 @@
                                 </label>
                                 <input class="admin-select admin-foto admin-input" type="file" id="excel" name="excel" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                             </div>
-                            <div class="wrap-button">
+                            <div class="wrap-button" data-search="Обрабатываем Excel файл">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>

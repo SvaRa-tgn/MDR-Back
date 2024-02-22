@@ -38,15 +38,15 @@
                 <section class="content-admin-block">
                     <div class="admin-block-1fr">
 
-                        <form class="form-create-product" data-form="product" action="{{ route('createProduct') }}" method="POST" enctype="multipart/form-data">
+                        <form class="create-form-data" data-form="create-product" action="{{ route('createProduct') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="edit-foto">
-                                <article class="name-admin-block">
+                                <article class="name-admin-block" data-success="Товар успешно создан">
                                     Добавление фотографий
                                 </article>
                                 <ul class="edit-foto-list">
                                     <li class="wrap-edit-image" data-answer="Вы не выбрали фотографию">
-                                        <div class="edit-image imageError" >
+                                        <div class="edit-image " >
                                             <img class="main-block-item-img" src="{{asset('/img/icon/non-image.png')}}" alt="Гостиные">
                                             <div class="filter wrap-update-input" >
                                                 <label class="form-label">
@@ -246,7 +246,7 @@
                                         <option class="option" value="">--Выберите новый статус товара--</option>
                                         <option class="option" value="Продажа">Продажа</option>
                                         <option class="option" value="Резерв">Заказ</option>
-                                        <option class="option" value="Не отображать">Не отображать</option>
+                                        <option class="option" value="Не отображать">Не публиковать</option>
                                     </select>
                                 </li>
 

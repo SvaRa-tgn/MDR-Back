@@ -14,10 +14,22 @@ class ProfileRepository implements ProfileRepositoryInterface
     {
         $user = User::find(Auth::id());
 
-        $user->name = $data->name;
-        $user->familia = $data->familia;
-        $user->father_name = $data->father_name;
-        $user->phone = $data->phone;
+        if ($data->name !== 'null'){
+            $user->name = $data->name;
+        }
+
+        if ($data->familia !== 'null'){
+            $user->familia = $data->familia;
+        }
+
+        if ($data->father_name !== 'null'){
+            $user->father_name = $data->father_name;
+        }
+
+        if ($data->phone !== 'null'){
+            $user->phone = $data->phone;
+        }
+
         $user->save();
     }
 

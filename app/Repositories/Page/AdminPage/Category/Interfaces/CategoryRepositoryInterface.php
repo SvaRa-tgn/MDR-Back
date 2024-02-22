@@ -4,9 +4,11 @@
 namespace App\Repositories\Page\AdminPage\Category\Interfaces;
 
 
+use App\DTO\DTOcreateCategory;
+
 interface CategoryRepositoryInterface
 {
-    public function createCategory($data);
+    public function createCategory(DTOcreateCategory $data);
 
     public function category();
 

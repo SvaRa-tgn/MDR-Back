@@ -22,7 +22,7 @@ class ModulCollectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'modul_collection' => ['required', 'string', 'max:255', 'unique:modul_collections'],
+            'modul_collection' => ['required', 'string', 'max:40', 'unique:modul_collections'],
         ];
 
     }

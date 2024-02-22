@@ -16,7 +16,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    Редактировать {{$product->full_name}}
+                    Редактировать - {{$product->full_name}}
                 </li>
             </ul>
         </div>
@@ -27,7 +27,7 @@
 
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">{{$product->full_name}}</h1>
+                <h1 class="page-h1">{{$product->small_name}}</h1>
             </div>
 
             <div class="main-private-data-item">
@@ -37,10 +37,10 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-update-product" data-form="update-status" method="POST" action="{{ route('updateStatus', $product->id )}}" enctype="multipart/form-data">
+                        <form class="update-form-data" data-form="update-status" method="POST" action="{{ route('updateStatus', $product->id )}}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <article class="name-admin-block">
+                            <article class="name-admin-block" data-success="Статус товара изменен">
                                 Изменение статуса товара
                             </article>
                             <div class="wrap-input" data-answer="Вы не выбрали новый статус">
@@ -49,13 +49,17 @@
                                 </label>
 
                                 <select class="admin-select admin-input" name="status" id="status">
+                                    @if($images->isEmpty())
+                                    <option class="option" value="">--Без заглавной фотографиий вы не можете менять статус--</option>
+                                    @else
                                     <option class="option" value="">--Выберите новый статус товара--</option>
                                     <option class="option" value="Продажа">Продажа</option>
                                     <option class="option" value="Резерв">Заказ</option>
                                     <option class="option" value="Не отображать">Не отображать</option>
+                                    @endif
                                 </select>
                             </div>
-                            <div class="wrap-button">
+                            <div class="wrap-button" data-search="Изменяем статус товара">
                                 <button class="button-form accept" type="submit" name="submit">Изменить</button>
                             </div>
                         </form>
@@ -70,15 +74,15 @@
                         </div>
                     </div>
 
-                    <div class="edit-foto js-reload-block-image">
+                    <div class="edit-foto ">
                         <article class="name-admin-block">
                             Изменение, добавление и удаление фотографий
                         </article>
                         <div class="wrap-edit-foto-list">
-                            <ul class="edit-foto-list ">
+                            <ul class="edit-foto-list">
                                 @foreach($images as $image)
                                     @if($image->status === 'top')
-                                        <li class="edit-block-foto-item ">
+                                        <li class="edit-block-foto-item">
                                             <div class="wrap-edit-image ">
                                                 <div class="edit-image">
                                                     <img class="main-block-item-img" src="{{asset($image->link)}}"
@@ -97,7 +101,7 @@
                                                 </article>
                                             </div>
 
-                                            <form class="wrap-edit-image image-update-form form-update-product js-visibality-form" data-form="update-image" data-id="{{$product->id}}" action="{{ route('updateImage', $image->id) }}" method="post">
+                                            <form class="wrap-edit-image image-update-form update-form-data js-visibality-form" data-form="update-image" data-id="{{$product->id}}" action="{{ route('updateImage', $image->id) }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="edit-image imageError"
@@ -111,14 +115,13 @@
                                                         <label class="form-label">
                                                             Изменить фото
                                                         </label>
-                                                        <input class="update-input-foto admin-input" type="file" id="foto4"
+                                                        <input class="update-input-foto admin-input" type="file" id="image_top"
                                                                name="image"
                                                                accept="image/png, image/jpeg"/>
                                                     </div>
                                                 </div>
-                                                <button class="accept button-image">Сохранить</button>
-                                                <article
-                                                    class="neutral button-image button-article js-image-back-change">
+                                                <button class="accept button-image" data-search="Изменяем главную фотографию">Сохранить</button>
+                                                <article class="neutral button-image button-article js-image-back-change">
                                                     Отменить
                                                 </article>
                                             </form>
@@ -141,14 +144,14 @@
                                                     </div>
                                                 </div>
                                                 <button class="accept button-image js-image-change">Изменить</button>
-                                                <form class="form-update-product" data-form="delete-image" data-id="{{$product->id}}" action="{{ route('destroyImage', $image->id) }}" method="post">
+                                                <form class="update-form-data" data-form="delete-image" data-id="{{$product->id}}" action="{{ route('destroyImage', $image->id) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="submit" class="button-image stop" value="Удалить">
                                                 </form>
                                             </div>
 
-                                            <form class="wrap-edit-image image-update-form form-update-product js-visibality-form" data-form="update-image" data-id="{{$product->id}}" action="{{ route('updateImage', $image->id) }}" method="post">
+                                            <form class="wrap-edit-image image-update-form update-form-data js-visibality-form" data-form="update-image" data-id="{{$product->id}}" action="{{ route('updateImage', $image->id) }}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="edit-image imageError"
@@ -161,12 +164,12 @@
                                                         <label class="form-label">
                                                             Изменить фото
                                                         </label>
-                                                        <input class="update-input-foto admin-input" type="file" id="foto4"
+                                                        <input class="update-input-foto admin-input" type="file" id="image"
                                                                name="image"
                                                                accept="image/png, image/jpeg"/>
                                                     </div>
                                                 </div>
-                                                <button class="accept button-image">Сохранить</button>
+                                                <button class="accept button-image" data-search="Изменяем фотографию">Сохранить</button>
                                                 <article class="neutral button-image button-article js-image-back-change">
                                                     Отменить
                                                 </article>
@@ -175,7 +178,7 @@
                                     @endif
                                 @endforeach
 
-                                <form class="edit-block-foto-item js-up-foto form-update-product" data-form="add-image" data-id="" action="{{ route('addImage', $product->id) }}" method="post">
+                                <form class="edit-block-foto-item js-up-foto update-form-data" data-form="add-image" data-id="" action="{{ route('addImage', $product->id) }}" method="post">
                                     <div class="wrap-edit-image">
                                         <div class="edit-image imageError" data-answer="Вы не выбрали фотографию">
                                             <img class="main-block-item-img"
@@ -185,11 +188,11 @@
                                                     Добавить фото
                                                 </label>
 
-                                                <input class="update-input-foto admin-input" type="file" id="foto4" name="image"
+                                                <input class="update-input-foto admin-input" type="file" id="image_delete" name="image"
                                                        accept="image/png, image/jpeg"/>
                                             </div>
                                         </div>
-                                        <button class="accept button-image">Добавить</button>
+                                        <button class="accept button-image" data-search="Добавляем фотографию">Добавить</button>
                                         <article class="info-image">
                                             При наличии
                                         </article>
@@ -200,11 +203,11 @@
                     </div>
 
                     <div class="admin-block-2fr">
-                        <form class="form-update-product" data-form="update-product" action="{{ route('updateData', $product->id) }}"
+                        <form class="update-form-data" data-form="update-product" action="{{ route('updateData', $product->id) }}"
                               method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <article class="name-admin-block">
+                            <article class="name-admin-block" data-success="Изменения в товаре сохранены">
                                 Редактировать товар
                             </article>
                             <ul class="admin-block-1fr">
@@ -430,7 +433,7 @@
                                 </li>
                             </ul>
 
-                            <div class="wrap-button-big">
+                            <div class="wrap-button-big" data-search="Изменяем данные товара">
                                 <button class="button-form accept" type="submit" name="submit">Сохранить</button>
                             </div>
                         </form>

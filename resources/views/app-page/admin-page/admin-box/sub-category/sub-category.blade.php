@@ -43,12 +43,12 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="sub-category" method="POST" action="{{ route('createSubCategory') }}" enctype="multipart/form-data">
+                        <form class="create-form-data" data-form="sub-category" method="POST" action="{{ route('createSubCategory') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Подкатегория успешно создана">
                                 Создание Подкатегории
                             </article>
-                            <div class="wrap-input js-select" data-answer="Вы не ввели выбрали Категории">
+                            <div class="wrap-input js-select" data-answer="Вы не выбрали Категорию">
                                 <label class="form-label">
                                     Категория товара
                                 </label>
@@ -71,7 +71,7 @@
                                 </label>
                                 <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                             </div>
-                            <div class="wrap-button">
+                            <div class="wrap-button" data-search="Создаем Подкатегорию">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
@@ -80,7 +80,7 @@
                             <article class="db-admin-article">
                                 Список Подкатегорий в базе:
                             </article>
-                            @if($categories->isEmpty())
+                            @if($subCategories->isEmpty())
                                 <div class="db-non-list">
                                     Вы пока не создали ни одной Подкатегории.
                                 </div>

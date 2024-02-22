@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="category" method="POST" action="{{ route('createCategory') }}" enctype="multipart/form-data">
+                        <form class="create-form-data" data-form="create-category" method="POST" action="{{ route('createCategory') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Категория успешно создана">
                                 Создание Категории
@@ -54,12 +54,12 @@
                                 </label>
                                 <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                             </div>
-                            <div class="wrap-button">
+                            <div class="wrap-button" data-search="Создаем Категорию">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
 
-                        <div class="wrap-relevant-info">
+                        <div class="wrap-relevant-info js-reload-block">
                             <article class="db-admin-article">
                                 Список Категорий в базе:
                             </article>
@@ -68,7 +68,7 @@
                                     Вы пока не создали ни одной категории.
                                 </div>
                             @else
-                                <ul class="relevant-info-list js-reload-block">
+                                <ul class="relevant-info-list ">
                                     @foreach($categories as $category)
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Категорию">
                                             <article class="collect-article" data-id="{{$category->id}}">{{$category->category}}</article>

@@ -37,7 +37,7 @@
 
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
-                        <form class="form-create-data" data-form="color" method="POST" action="{{ route('createColor') }}" enctype="multipart/form-data">
+                        <form class="create-form-data" data-form="color" method="POST" action="{{ route('createColor') }}" enctype="multipart/form-data">
                             @csrf
                             <article class="name-admin-block" data-success="Цвет успешно создан">
                                 Создание Цвета
@@ -54,12 +54,12 @@
                                 </label>
                                 <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                             </div>
-                            <div class="wrap-button">
+                            <div class="wrap-button" data-search="Создаем Цвет">
                                 <button class="button-auth accept" type="submit" name="submit-auth">Сохранить</button>
                             </div>
                         </form>
 
-                        <div class="wrap-relevant-info">
+                        <div class="wrap-relevant-info js-reload-block">
                             <article class="db-admin-article">
                                 Список Цветов в базе:
                             </article>
@@ -68,7 +68,7 @@
                                     Вы пока не создали ни одной Цвета.
                                 </div>
                             @else
-                                <ul class="relevant-info-list js-reload-block">
+                                <ul class="relevant-info-list ">
                                     @foreach($colors as $color)
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Цвет">
                                             <article class="collect-article" data-id="{{$color->id}}">{{$color->color}}</article>

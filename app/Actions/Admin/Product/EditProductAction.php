@@ -2,31 +2,28 @@
 
 namespace App\Actions\Admin\Product;
 
-use App\DTO\DTOsampleProduct;
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
-use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use App\Services\Admin\Product\EditProductService;
 
 class EditProductAction extends Controller
 {
-    public $action;
+    private CategoryRepository $category;
 
-    private CategoryRepository $categoryRepository;
+    private EditProductService $service;
 
-    public function __construct(ProductRepository $action, CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepository $category, EditProductService $service)
     {
-        $this->action = $action;
-        $this->categoryRepository = $categoryRepository;
+        $this->category = $category;
+
+        $this->service = $service;
     }
 
     public function execute()
     {
-        $categories = $this->categoryRepository->category();
+        $categories = $this->category->category();
 
-        $head = [
-            'title' => 'Админка - Поиск товара. MDR',
-            'description' => 'Админка - Создание, правки и удаления Товаров'
-        ];
+        $head = $this->service->title();
 
         return view ('/app-page/admin-page/admin-box/product/edit-product',
             [

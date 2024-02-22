@@ -4,31 +4,49 @@ namespace App\Actions\Admin\Product;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
+use App\Repositories\Page\AdminPage\Color\ColorRepository;
+use App\Repositories\Page\AdminPage\ModulCollection\ModulCollectionRepository;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use App\Repositories\Page\AdminPage\ReadyCollection\ReadyCollectionRepository;
+use App\Services\Admin\Product\ProductService;
 
 class ProductAction extends Controller
 {
     public $action;
 
-    private CategoryRepository $categoryRepository;
+    private CategoryRepository $category;
 
-    public function __construct(ProductRepository $action, CategoryRepository $categoryRepository)
+    private ModulCollectionRepository $modulCollection;
+
+    private ReadyCollectionRepository $readyCollection;
+
+    private ColorRepository $color;
+
+    private ProductService $service;
+
+    public function __construct(ProductRepository $action,
+                                CategoryRepository $category,
+                                ModulCollectionRepository $modulCollection,
+                                ReadyCollectionRepository $readyCollection,
+                                ColorRepository $color,
+                                ProductService $service)
     {
         $this->action = $action;
-        $this->categoryRepository = $categoryRepository;
+        $this->category = $category;
+        $this->modulCollection = $modulCollection;
+        $this->readyCollection = $readyCollection;
+        $this->color = $color;
+        $this->service = $service;
     }
 
     public function execute()
     {
-        $categories = $this->categoryRepository->category();
-        $modul_collections = $this->action->modulCollectionShow();
-        $ready_collections = $this->action->readyCollectionShow();
-        $colors = $this->action->colorShow();
+        $categories = $this->category->category();
+        $modul_collections = $this->modulCollection->modulCollection();
+        $ready_collections = $this->readyCollection->readyCollection();
+        $colors = $this->color->color();
 
-        $head = [
-            'title' => 'Админка - Товар. MDR',
-            'description' => 'Админка - Создание, правки и удаления Товаров'
-        ];
+        $head = $this->service->title();
 
         return view ('/app-page/admin-page/admin-box/product/product',
             [

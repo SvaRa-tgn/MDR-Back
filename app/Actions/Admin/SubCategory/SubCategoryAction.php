@@ -5,25 +5,34 @@ namespace App\Actions\Admin\SubCategory;
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
-use App\Models\Category;
+use App\Services\Admin\SubCategory\SubCategoryService;
 
 class SubCategoryAction extends Controller
 {
     public $action;
-    private CategoryRepository $categoryRepository;
 
-    public function __construct(SubCategoryRepository $action, CategoryRepository $categoryRepository)
+    private $categoryRepository;
+
+    private $service;
+
+    public function __construct(SubCategoryRepository $action, CategoryRepository $categoryRepository, SubCategoryService $service)
     {
         $this->action = $action;
+
         $this->categoryRepository = $categoryRepository;
+
+        $this->service = $service;
     }
 
     public function execute()
     {
         $categories = $this->categoryRepository->category();
+
         $subCategories = $this->action->subCategory();
 
-        return view ('/app-page/admin-page/admin-box/sub-category/sub-category', ['categories' => $categories, 'subCategories' => $subCategories]);
+        $head = $this->service->title();
+
+        return view ('/app-page/admin-page/admin-box/sub-category/sub-category', ['categories' => $categories, 'subCategories' => $subCategories, 'head' => $head]);
     }
 
 }

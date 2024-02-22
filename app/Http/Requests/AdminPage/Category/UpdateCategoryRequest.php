@@ -23,8 +23,8 @@ class UpdateCategoryRequest extends FormRequest
     {
 
         return ([
-                'category' => ['sometimes','nullable', 'string', 'max:255', 'unique:categories'],
-                'image' => ['sometimes','nullable','image', 'max:2048']
+                'category' => ['nullable', 'string', 'max:255', 'unique:categories'],
+                'image' => ['nullable','image', 'max:30000']
             ]);
 
 

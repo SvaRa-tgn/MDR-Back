@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Page\AdminPage\Product;
 
 use App\Models\Category;
@@ -38,27 +37,6 @@ class ProductRepository implements ProductRepositoryInterfaces
         $sub_categories = SubCategory::all();
 
         return $sub_categories;
-    }
-
-    public function modulCollectionShow()
-    {
-        $modul_collection = ModulCollection::all();
-
-        return $modul_collection;
-    }
-
-    public function readyCollectionShow()
-    {
-        $ready_collection = ReadyCollection::all();
-
-        return $ready_collection;
-    }
-
-    public function colorShow()
-    {
-        $color = Color::all();
-
-        return $color;
     }
 
     public function createProduct($data)
@@ -164,12 +142,20 @@ class ProductRepository implements ProductRepositoryInterfaces
     {
         $product = Product::find($id);
 
+        $images = $product->image;
+
+        if($images->isEmpty()) {
+            $status = 'top';
+        } else {
+            $status = 'stock';
+        }
+
         $image = new Image();
         $path = Storage::putFile('public/image', $data->image);
         $url = Storage::url($path);
         $image->path = $path;
         $image->link = $url;
-        $image->status = 'stock';
+        $image->status = $status;
         $product->image()->save($image);
 
         return $product;
@@ -297,6 +283,34 @@ class ProductRepository implements ProductRepositoryInterfaces
     {
         $products = Product::where('full_name', 'LIKE', '%'.$data->search.'%')
             ->orWhere('article', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+
+        return $products;
+    }
+
+    public function searchSetupProduct($data, $page)
+    {
+        if($page === 'v_prodazhe'){
+            $products = Product::where('status', 'Продажа')->where('full_name', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+        } else if ($page === 'rezerved') {
+            $products = Product::where('status', 'Резерв')->where('full_name', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+        } else if ($page === 'dont_display') {
+            $products = Product::where('status', 'Не отображать')->where('full_name', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+        }
+
+        return $products;
+    }
+
+    public function products($page)
+    {
+        if($page === 'all_products') {
+            $products = Product::all()->toArray();
+        } else if($page === 'v_prodazhe'){
+            $products = Product::where('status', 'Продажа')->get()->toArray();
+        } else if ($page === 'rezerved') {
+            $products = Product::where('status', 'Резерв')->get()->toArray();
+        } else if ($page === 'dont_display') {
+            $products = Product::where('status', 'Не отображать')->get()->toArray();
+        }
 
         return $products;
     }

@@ -2,7 +2,6 @@
 
 namespace App\Actions\Admin\ReadyCollection;
 
-use App\DTO\DTOmodulCollection;
 use App\DTO\DTOreadyCollection;
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\ReadyCollection\ReadyCollectionRepository;

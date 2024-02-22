@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Page\AdminPage\Color;
 
 use App\Models\Color;
@@ -49,27 +48,15 @@ class ColorRepository implements ColorRepositoryInterfaces
 
     public function updateColor($data, $id)
     {
-        if(empty($data->image)) {
-            $color = Color::find($id);
+        $color = Color::find($id);
+
+        if($data->color !== 'null'){
             $color->color = $data->color;
             $color->slug_color = Transliterate::slugify($data->color);
             $color->save();
+        }
 
-        } elseif(empty($data->color)){
-            $color = Color::find($id);
-
-            Storage::delete($color->path);
-            $path = Storage::putFile('public/color', $data->image);
-            $url = Storage::url($path);
-            $color->path = $path;
-            $color->link = $url;
-            $color->save();
-
-        } else {
-            $color = Color::find($id);
-            $color->color = $data->color;
-            $color->slug_color = Transliterate::slugify($data->color);
-
+        if($data->image !== 'null'){
             Storage::delete($color->path);
             $path = Storage::putFile('public/color', $data->image);
             $url = Storage::url($path);

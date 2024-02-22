@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Page\AdminPage\SubCategory;
 
 use App\Actions\Admin\SubCategory\UpdateSubCategoryAction;

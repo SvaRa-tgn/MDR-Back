@@ -22,7 +22,7 @@ class ReadyCollectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ready_collection' => ['required', 'string', 'max:255', 'unique:ready_collections'],
+            'ready_collection' => ['required', 'string', 'max:40', 'unique:ready_collections'],
         ];
 
     }

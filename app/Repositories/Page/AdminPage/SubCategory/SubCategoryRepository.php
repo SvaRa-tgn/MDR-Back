@@ -58,48 +58,24 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
         $category = Category::where('category', $data->category)->first();
         $subCategory = SubCategory::find($id);
 
-        if(empty($data->image) && empty($data->sub_category)){
+        if($subCategory->category_id !== $category->id){
             $category->SubCategory()->save($subCategory);
+        }
 
-        } elseif(empty($data->image)) {
+        if($data->sub_category !== 'null'){
             $subCategory->sub_category = $data->sub_category;
             $subCategory->slug_sub_category = Transliterate::slugify($data->sub_category);
+        }
 
-            if($subCategory->category_id === $category->id){
-                $subCategory->save();
-            } else {
-                $category->SubCategory()->save($subCategory);
-            }
-
-        } elseif(empty($data->sub_category)){
-            Storage::delete($subCategory->path);
-            $path = Storage::putFile('public/catalog', $data->image);
-            $url = Storage::url($path);
-            $subCategory->path = $path;
-            $subCategory->link = $url;
-
-            if($subCategory->category_id === $category['id']){
-                $subCategory->save();
-            } else {
-                $category->SubCategory()->save($subCategory);
-            }
-
-        } else {
-            $subCategory->sub_category = $data->sub_category;
-            $subCategory->slug_sub_category = Transliterate::slugify($data->sub_category);
-
+        if($data->image !== 'null'){
             Storage::delete( $subCategory->path);
             $path = Storage::putFile('public/catalog', $data->image);
             $url = Storage::url($path);
             $subCategory->path = $path;
             $subCategory->link = $url;
-
-            if($subCategory->category_id === $category['id']){
-                $subCategory->save();
-            } else {
-                $category->SubCategory()->save($subCategory);
-            }
         }
+
+        $subCategory->save();
 
         return $subCategory;
     }

@@ -49,7 +49,7 @@
                                     </label>
                                     <input class="admin-select input-sample-product" type="text" id="search" name="search" value="{{ old('search') }}"/>
                                 </div>
-                                <div class="wrap-button">
+                                <div class="wrap-button" data-search="Ищем товар">
                                     <button class="button-auth accept" type="submit" name="submit-auth">Найти</button>
                                 </div>
                             </form>
@@ -80,7 +80,7 @@
                                         <option class="sub-class" value="">Сначала выберите Категорию товара</option>
                                     </select>
                                 </li>
-                                <div class="wrap-button">
+                                <div class="wrap-button" data-search="Делаем выборку товара">
                                     <button class="button-auth accept" type="submit" name="submit-auth">Сделать выборку</button>
                                 </div>
                             </form>

@@ -45,10 +45,10 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="form-update-data" data-form="modul_collection_update" method="POST" action="{{ route('updateModulCollection', $modul_collection['id'] )}}" enctype="multipart/form-data">
+                            <form class="update-form-data" data-form="modul_collection_update" method="POST" action="{{ route('updateModulCollection', $modul_collection['id'] )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <article class="name-admin-block">
+                                <article class="name-admin-block" data-success="Модульная коллекция отредактирована">
                                     Редактирование Модульной коллекции:
                                 </article>
 
@@ -59,7 +59,7 @@
                                     <input class="admin-select admin-input" type="text" id="modul_collection" name="modul_collection" value="{{ old('modul_collection') }}" />
                                 </div>
 
-                                <div class="wrap-button">
+                                <div class="wrap-button" data-search="Редактируем Модульную коллекцию">
                                     <button class="button-auth accept js-up-data" data-id="{{$modul_collection['id']}}" type="submit" name="submit-auth">Сохранить</button>
                                 </div>
                             </form>

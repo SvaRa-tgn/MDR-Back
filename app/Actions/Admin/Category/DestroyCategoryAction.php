@@ -3,6 +3,7 @@
 namespace App\Actions\Admin\Category;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\DestroyInterface;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 
 class DestroyCategoryAction extends Controller
@@ -18,7 +19,7 @@ class DestroyCategoryAction extends Controller
     {
         $this->action->destroy($id);
 
-        return redirect()->route('category')->with('success', 'Категория удалена');
+        return response()->json(route('category'));
     }
 
 }

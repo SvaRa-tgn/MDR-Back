@@ -10,17 +10,14 @@ class SearchProductAction extends Controller
 {
     public $action;
 
-    private ProductRepository $productRepository;
-
-    public function __construct(ProductRepository $action, ProductRepository $productRepository)
+    public function __construct(ProductRepository $action)
     {
         $this->action = $action;
-        $this->productRepository = $productRepository;
     }
 
     public function execute($request)
     {
-        $products = $this->productRepository->searchProduct(DTOsearchProduct::fromSearchProductRequest($request));
+        $products = $this->action->searchProduct(DTOsearchProduct::fromSearchProductRequest($request));
 
         return response()->json($products);
     }

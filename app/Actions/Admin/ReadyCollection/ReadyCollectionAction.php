@@ -4,27 +4,26 @@ namespace App\Actions\Admin\ReadyCollection;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\ReadyCollection\ReadyCollectionRepository;
+use App\Services\Admin\ReadyCollection\ReadyCollectionService;
 
 class ReadyCollectionAction extends Controller
 {
     public $action;
 
-    private ReadyCollectionRepository $readyCollectionRepository;
+    private $service;
 
-    public function __construct(ReadyCollectionRepository $action, ReadyCollectionRepository $readyCollectionRepository)
+    public function __construct(ReadyCollectionRepository $action, ReadyCollectionService $service)
     {
         $this->action = $action;
-        $this->readyCollectionRepository = $readyCollectionRepository;
+
+        $this->service = $service;
     }
 
     public function execute()
     {
-        $readyCollections = $this->readyCollectionRepository->readyCollection();
+        $readyCollections = $this->action->readyCollection();
 
-        $head = [
-            'title' => 'Админка - Готовая коллекция. MDR',
-            'description' => 'Админка - Создание, правки и удаления Готовых коллекций'
-        ];
+        $head = $this->service->title();
 
         return view ('/app-page/admin-page/admin-box/ready-collection/ready-collection',
             ['readyCollections' => $readyCollections, 'head' => $head]);

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\DTO;
 
 use App\Http\Requests\AdminPage\Category\UpdateCategoryRequest;
@@ -14,11 +13,23 @@ class DTOupdateCategory extends DataTransferObject
     public static function fromUpdateCategoryRequest(UpdateCategoryRequest $request): self
     {
 
-    $data = $request->validated();
+        $data = $request->validated();
+
+        if (empty($data['category'])) {
+            $category = 'null';
+        } else {
+            $category = $data['category'];
+        }
+
+        if (empty($data['image'])) {
+            $image = 'null';
+        } else {
+            $image = $data['image'];
+        }
 
         return new self([
-            'category' => $data['category'],
-            'image' => $data['image']
+            'category' => $category,
+            'image' => $image
         ]);
     }
 

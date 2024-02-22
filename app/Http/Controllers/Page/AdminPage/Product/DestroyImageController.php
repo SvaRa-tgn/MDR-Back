@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Page\AdminPage\Product;
 
 use App\Actions\Admin\Product\DestroyImageAction;

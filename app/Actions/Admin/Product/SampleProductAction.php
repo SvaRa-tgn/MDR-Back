@@ -10,12 +10,9 @@ class SampleProductAction extends Controller
 {
     public $action;
 
-    private ProductRepository $productRepository;
-
-    public function __construct(ProductRepository $action, ProductRepository $productRepository)
+    public function __construct(ProductRepository $action)
     {
         $this->action = $action;
-        $this->productRepository = $productRepository;
     }
 
     public function execute($request)

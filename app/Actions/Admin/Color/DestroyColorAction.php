@@ -18,7 +18,7 @@ class DestroyColorAction extends Controller
     {
         $this->action->destroyColor($id);
 
-        return redirect()->route('color')->with('success', 'Цвет удален');
+        return response()->json(route('color'));
     }
 
 }

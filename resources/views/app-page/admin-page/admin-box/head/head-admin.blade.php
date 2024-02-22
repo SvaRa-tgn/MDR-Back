@@ -45,7 +45,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/user.jpg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="/html/admin/user.html">
+                        <a class="setup-link" href="{{route('users')}}">
                             Управление пользователями
                         </a>
                     </div>
@@ -108,7 +108,7 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/product.jpg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('product')}}">
+                        <a class="setup-link" href="{{route('productCreate')}}">
                             Создать товар
                         </a>
                     </div>
@@ -119,6 +119,15 @@
                     <div class="filter-setup">
                         <a class="setup-link" href="{{route('editProduct')}}">
                             Редактировать товар
+                        </a>
+                    </div>
+                </li>
+
+                <li class="admin-setup-item">
+                    <img class="main-block-item-img" src="{{asset('/img/static/setup/product-setup.jpg')}}" />
+                    <div class="filter-setup">
+                        <a class="setup-link" href="{{route('product')}}">
+                            Управление товарами
                         </a>
                     </div>
                 </li>

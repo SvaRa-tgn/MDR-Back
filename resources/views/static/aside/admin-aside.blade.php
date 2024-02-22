@@ -16,7 +16,7 @@
                     <a class="link-aside-admin" href="/html/admin/mail.html">Рассылка</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="/html/admin/user.html">Пользователи</a>
+                    <a class="link-aside-admin" href="{{route('users')}}">Пользователи</a>
                 </li>
                 <li class="aside-admin-nav-item">
                     <a class="link-aside-admin" href="{{route('excel')}}">Excel</a>
@@ -45,10 +45,13 @@
             <h2 class="aside-admin-h2">Товар:</h2>
             <ul class="aside-admin-nav-list">
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('product')}}">Создать товар</a>
+                    <a class="link-aside-admin" href="{{route('productCreate')}}">Создать товар</a>
                 </li>
                 <li class="aside-admin-nav-item">
                     <a class="link-aside-admin" href="{{route('editProduct')}}">Редактировать товар</a>
+                </li>
+                <li class="aside-admin-nav-item">
+                    <a class="link-aside-admin" href="{{route('product')}}">Управление товарами</a>
                 </li>
             </ul>
 

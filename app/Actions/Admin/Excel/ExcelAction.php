@@ -3,18 +3,21 @@
 namespace App\Actions\Admin\Excel;
 
 use App\Http\Controllers\Controller;
+use App\Services\Admin\Excel\ExcelService;
 
 class ExcelAction extends Controller
 {
-    public $action;
+    public $service;
+
+    public function __construct(ExcelService $service)
+    {
+        $this->service = $service;
+    }
 
     public function execute()
     {
 
-        $head = [
-            'title' => 'Загрузка Excel - Админка. MDR',
-            'description' => 'Админка - Загрузка файла Excel'
-        ];
+        $head = $this->service->title();
 
         return view ('/app-page/admin-page/admin-box/excel/excel', compact('head'));
     }

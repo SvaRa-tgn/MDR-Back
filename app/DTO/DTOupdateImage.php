@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\DTO;
 
 use App\Http\Requests\AdminPage\Product\DestroyImageRequest;
