@@ -2,10 +2,9 @@
 
 namespace App\Actions\Admin\Users;
 
-use App\Http\Controllers\Controller;
 use App\Services\Admin\Users\UsersService;
 
-class UsersAction extends Controller
+class UsersAction
 {
     public $service;
 
@@ -17,9 +16,6 @@ class UsersAction extends Controller
     {
         $head = $this->service->title();
 
-        return view ('/app-page/admin-page/admin-box/users/users',
-            [
-                'head' => $head
-            ]);
+        return view ('/app-page/admin-page/admin-box/users/users', ['head' => $head]);
     }
 }

@@ -2,19 +2,10 @@
 
 namespace App\Services\Admin\Category;
 
-use App\Http\Controllers\Controller;
+use App\Services\Admin\SeoService;
 
-class EditCategoryService extends Controller
+class EditCategoryService extends SeoService
 {
-
-    public function title($category)
-    {
-        $head = [
-            'title' => 'Категория '. $category['name'] .'. Админка MDR',
-            'description' => 'Управление Категорией - '. $category['name'] .'. Редактирование и удаление.'
-        ];
-
-        return $head;
-    }
-
+    const TITLE = 'Категория ';
+    const DESC = 'Управление Категорией - ';
 }

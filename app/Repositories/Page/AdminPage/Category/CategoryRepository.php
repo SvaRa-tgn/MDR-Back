@@ -2,74 +2,62 @@
 namespace App\Repositories\Page\AdminPage\Category;
 
 use App\DTO\DTOcreateCategory;
+use App\DTO\DTOupdateCategory;
 use App\Models\Category;
 use App\Repositories\Page\AdminPage\Category\Interfaces\CategoryRepositoryInterface;
-use Illuminate\Support\Facades\Storage;
+use App\Services\Admin\UpdateStroageService;
+use Illuminate\Support\Collection;
 use Transliterate;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    public function category()
+    public function category(): Collection
     {
-        $categories = Category::all();
-
-        return $categories;
+        return Category::all();
     }
 
-    public function createCategory(DTOcreateCategory $data): Category
+    public function createCategory(DTOcreateCategory $dto): Category
     {
         $category = New Category();
-        $category->category = $data->category;
-        $category->slug_category = $data->slug_category;
+        $category->category = $dto->category;
+        $category->slug_category = $dto->slug_category;
+        $storage = 'public/catalog';
+        $image = UpdateStroageService::updateImage($storage, $dto->image);
+        $category->link = $image['url'];
+        $category->path = $image['path'];
         $category->save();
 
         return $category;
     }
 
-    public function editCategory($slug_category)
+    public function editCategory($slug_category): Category
     {
-        $category = Category::where('slug_category', $slug_category)->first();
-
-        if(empty($category) OR $category === null){
-            return abort(404);
-        } else {
-        $id = $category->id;
-        $name = $category->category;
-        $slug_category = $category->slug_category;
-
-        $image = $category->CategoryImage()->first();
-        $image = $image->link;
-
-        $category = collect(['id'=>$id, 'name'=>$name, 'slug_category'=>$slug_category, 'image'=>$image ]);
-
-            return $category;
-        }
+        return Category::where('slug_category', $slug_category)->first();
     }
 
-    public function updateCategory($data, $id)
+    public function updateCategory(DTOupdateCategory $dto, $id): Category
     {
         $category = Category::find($id);
 
-        if($data->category !== 'null'){
-            $category->category = $data->category;
-            $category->slug_category = Transliterate::slugify($data->category);
-            $category->save();
+        if($dto->category !== 'null'){
+            $category->category = $dto->category;
+            $category->slug_category = $dto->slug_category;
         }
 
-        if($data->image !== 'null'){
-            $image = $category->CategoryImage()->first();
-            Storage::delete( $image->path);
-            $path = Storage::putFile('public/catalog', $data->image);
-            $url = Storage::url($path);
-            $image->path = $path;
-            $image->link = $url;
-            $category->CategoryImage()->save($image);
+        if($dto->image !== 'null'){
+            UpdateStroageService::deleteImage($category->path);
+            $storage = 'public/catalog';
+            $image = UpdateStroageService::updateImage($storage, $dto->image);
+            $category->link = $image['url'];
+            $category->path = $image['path'];
         }
+
+        $category->save();
 
         return $category;
     }
 
-    public function destroy($id)
+    public function destroy($id): void
     {
         $category = Category::find($id);
 
@@ -79,7 +67,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
             if(isset($images) && $images !== 'null') {
                 foreach ($images as $image){
-                    Storage::delete($image->path);
+                    UpdateStroageService::deleteImage($image->path);
                     $image->delete();
                 }
                 $product->delete();
@@ -88,13 +76,11 @@ class CategoryRepository implements CategoryRepositoryInterface
 
         $sub_categories = $category->SubCategory;
         foreach ($sub_categories as $sub_category) {
-            Storage::delete($sub_category->path);
+            UpdateStroageService::deleteImage($sub_category->path);
             $sub_category->delete();
         }
 
-        $image = $category->CategoryImage()->first();
-        Storage::delete($image->path);
-        $image->delete();
+        UpdateStroageService::deleteImage($category->path);
         $category->delete();
     }
 

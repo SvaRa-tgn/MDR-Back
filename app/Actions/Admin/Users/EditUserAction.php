@@ -2,11 +2,10 @@
 
 namespace App\Actions\Admin\Users;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\Users\UsersRepository;
 use App\Services\Admin\Users\EditUsersService;
 
-class EditUserAction extends Controller
+class EditUserAction
 {
     public $action;
 

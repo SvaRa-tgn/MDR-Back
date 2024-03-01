@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\SubCategory;
 
 use App\DTO\DTOcreateSubCategory;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
+use Illuminate\Http\RedirectResponse;
 
-class CreateSubCategoryAction extends Controller
+class CreateSubCategoryAction
 {
     public $action;
 
@@ -15,7 +15,7 @@ class CreateSubCategoryAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request)
+    public function execute($request): RedirectResponse
     {
         $this->action->createSubCategory(DTOcreateSubCategory::fromCreateSubCategoryRequest($request));
 

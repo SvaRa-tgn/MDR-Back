@@ -2,12 +2,11 @@
 
 namespace App\Actions\Admin\SubCategory;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 use App\Services\Admin\SubCategory\SubCategoryService;
 
-class SubCategoryAction extends Controller
+class SubCategoryAction
 {
     public $action;
 

@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\Color;
 
 use App\DTO\DTOupdateColor;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
+use Illuminate\Http\JsonResponse;
 
-class UpdateColorAction extends Controller
+class UpdateColorAction
 {
     public $action;
 
@@ -15,7 +15,7 @@ class UpdateColorAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request, $id)
+    public function execute($request, $id): JsonResponse
     {
         $color = $this->action->updateColor(DTOupdateColor::fromUpdateColorRequest($request), $id );
 

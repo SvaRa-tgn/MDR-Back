@@ -45,7 +45,7 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="update-form-data" data-form="modul_collection_update" method="POST" action="{{ route('updateModulCollection', $modul_collection['id'] )}}" enctype="multipart/form-data">
+                            <form class="update-form-data" data-form="modul_collection_update" method="POST" action="{{ route('updateModulCollection', $modul_collection->id )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <article class="name-admin-block" data-success="Модульная коллекция отредактирована">
@@ -60,7 +60,7 @@
                                 </div>
 
                                 <div class="wrap-button" data-search="Редактируем Модульную коллекцию">
-                                    <button class="button-auth accept js-up-data" data-id="{{$modul_collection['id']}}" type="submit" name="submit-auth">Сохранить</button>
+                                    <button class="button-auth accept js-up-data" data-id="{{$modul_collection->id}}" type="submit" name="submit-auth">Сохранить</button>
                                 </div>
                             </form>
                             <form class="itemDelete">
@@ -78,7 +78,7 @@
                             </div>
                             <ul class="relevant-info-list">
                                 <li class="db-relevant-info-item form-label admin-block-db">
-                                    <article class="collect-article js-data-name" data-tag="Модульную коллекцию">{{$modul_collection['name']}}</article>
+                                    <article class="collect-article js-data-name" data-tag="Модульную коллекцию">{{$modul_collection->modul_collection}}</article>
                                 </li>
                             </ul>
                         </div>

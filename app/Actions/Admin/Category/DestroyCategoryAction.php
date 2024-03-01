@@ -2,11 +2,11 @@
 
 namespace App\Actions\Admin\Category;
 
-use App\Http\Controllers\Controller;
 use App\Interfaces\DestroyInterface;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
+use Illuminate\Http\JsonResponse;
 
-class DestroyCategoryAction extends Controller
+class DestroyCategoryAction
 {
     public $action;
 
@@ -15,7 +15,7 @@ class DestroyCategoryAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($id)
+    public function execute($id): JsonResponse
     {
         $this->action->destroy($id);
 

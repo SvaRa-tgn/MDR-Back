@@ -144,7 +144,7 @@
                                                     </div>
                                                 </div>
                                                 <button class="accept button-image js-image-change">Изменить</button>
-                                                <form class="update-form-data" data-form="delete-image" data-id="{{$product->id}}" action="{{ route('destroyImage', $image->id) }}" method="post">
+                                                <form class="delete-form-data" data-form="delete-image" data-success="Фотография успешно удалена" data-id="{{$product->id}}" action="{{ route('destroyImage', $image->id) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="submit" class="button-image stop" value="Удалить">
@@ -448,11 +448,7 @@
                                         Категория:
                                     </article>
                                     <article class="relevant-info">
-                                        @foreach($categories as $category)
-                                            @if($category->id === $product->category_id)
-                                                {{$category->category}}
-                                            @endif
-                                        @endforeach
+                                        {{$product->category}}
                                     </article>
                                 </li>
                                 <li class="relevant-info-item admin-block-1fr">
@@ -460,11 +456,7 @@
                                         Подкатегория:
                                     </article>
                                     <article class="relevant-info">
-                                        @foreach($sub_categories as $sub_category)
-                                            @if($sub_category->id === $product->sub_category_id)
-                                                {{$sub_category->sub_category}}
-                                            @endif
-                                        @endforeach
+                                        {{$product->sub_category}}
                                     </article>
                                 </li>
                                 <li class="relevant-info-item admin-block-1fr">
@@ -580,11 +572,7 @@
                                         Цвет корпуса:
                                     </article>
                                     <article class="relevant-info">
-                                        @foreach($colors as $color)
-                                            @if($color->id === $product->color_korpus_id)
-                                                {{$color->color}}
-                                            @endif
-                                        @endforeach
+                                        {{$product->color_fasad}}
                                     </article>
                                 </li>
                                 <li class="relevant-info-item admin-block-1fr">
@@ -592,11 +580,7 @@
                                         Цвет фасада:
                                     </article>
                                     <article class="relevant-info">
-                                        @foreach($colors as $color)
-                                            @if($color->id === $product->color_fasad_id)
-                                                {{$color->color}}
-                                            @endif
-                                        @endforeach
+                                        {{$product->color_korpus}}
                                     </article>
                                 </li>
                                 <li class="relevant-info-item admin-block-1fr">

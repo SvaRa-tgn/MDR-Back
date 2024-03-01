@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOupdateProduct;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use Illuminate\Http\JsonResponse;
 
-class UpdateDataAction extends Controller
+class UpdateDataAction
 {
     public $action;
 
@@ -15,7 +15,7 @@ class UpdateDataAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request, $id)
+    public function execute($request, $id): JsonResponse
     {
         $product = $this->action->updateData(DTOupdateProduct::fromUpdateProductRequest($request), $id);
 

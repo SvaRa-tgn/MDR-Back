@@ -30,10 +30,15 @@ class EditSubCategoryAction extends Controller
 
         $subCategory = $this->action->editSubCategory($slug_sub_category);
 
-        $head = $this->service->title($subCategory);
+        if(empty($subCategory) OR $subCategory === null){
+            return abort(404);
+        } else {
+            $head = $this->service->editTitle($subCategory->subCategory);
 
-        return view ('/app-page/admin-page/admin-box/sub-category/edit-sub-category',
-            ['categories' => $categories, 'subCategory' => $subCategory, 'head' => $head]);
+            return view ('/app-page/admin-page/admin-box/sub-category/edit-sub-category',
+                ['categories' => $categories, 'subCategory' => $subCategory, 'head' => $head]);
+        }
+
     }
 
 }

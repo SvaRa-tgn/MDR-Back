@@ -5,8 +5,9 @@ namespace App\Actions\Admin\Product;
 use App\DTO\DTOupdateStatus;
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use Illuminate\Http\RedirectResponse;
 
-class UpdateStatusAction extends Controller
+class UpdateStatusAction
 {
     public $action;
 
@@ -15,7 +16,7 @@ class UpdateStatusAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request, $id)
+    public function execute($request, $id): RedirectResponse
     {
         $product = $this->action->updateStatus(DTOupdateStatus::fromUpdateStatusRequest($request), $id);
 

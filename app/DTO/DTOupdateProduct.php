@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\DTO;
 
-use App\Http\Requests\AdminPage\Product\CreateProductRequest;
 use App\Http\Requests\AdminPage\Product\UpdateProductRequest;
 use Spatie\DataTransferObject\DataTransferObject;
+use Transliterate;
 
 class DTOupdateProduct extends DataTransferObject
 {
@@ -16,7 +15,9 @@ class DTOupdateProduct extends DataTransferObject
     public string $item_modul;
     public string $item_ready;
     public string $full_name;
+    public string $slug_full_name;
     public string $small_name;
+    public string $slug_small_name;
     public string $article;
     public int $height;
     public int $width;
@@ -69,14 +70,18 @@ class DTOupdateProduct extends DataTransferObject
 
         if(empty($data['full_name'])){
             $full_name = 'null';
+            $slug_full_name = 'null';
         } else {
             $full_name = $data['full_name'];
+            $slug_full_name = Transliterate::slugify($data['full_name']);
         }
 
         if(empty($data['small_name'])){
             $small_name = 'null';
+            $slug_small_name = 'null';
         } else {
             $small_name = $data['small_name'];
+            $slug_small_name = Transliterate::slugify($data['small_name']);
         }
 
         if(empty($data['article'])){
@@ -141,7 +146,9 @@ class DTOupdateProduct extends DataTransferObject
             'item_modul' => $item_modul,
             'item_ready' => $item_ready,
             'full_name' => $full_name,
+            'slug_full_name' => $slug_full_name,
             'small_name' => $small_name,
+            'slug_small_name' => $slug_small_name,
             'article' => $article,
             'height' => $height,
             'width' => $width,

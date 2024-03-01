@@ -2,15 +2,20 @@
 namespace App\Repositories\Page\AdminPage\Color\Interfaces;
 
 
+use App\DTO\DTOcreateColor;
+use App\DTO\DTOupdateColor;
+use App\Models\Color;
+use Illuminate\Database\Eloquent\Collection;
+
 interface ColorRepositoryInterfaces
 {
-    public function createColor($data);
+    public function color(): Collection;
 
-    public function color();
+    public function createColor(DTOcreateColor $dto): Color;
 
-    public function editColor($slug_color);
+    public function editColor($slug_color): Color;
 
-    public function  updateColor($data, $id);
+    public function  updateColor(DTOupdateColor $dto, $id): Color;
 
-    public function destroyColor($id);
+    public function destroyColor($id): void;
 }

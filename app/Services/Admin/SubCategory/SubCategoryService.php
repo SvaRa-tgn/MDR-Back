@@ -2,19 +2,10 @@
 
 namespace App\Services\Admin\SubCategory;
 
-use App\Http\Controllers\Controller;
+use App\Services\Admin\SeoService;
 
-class SubCategoryService extends Controller
+class SubCategoryService extends SeoService
 {
-
-    public function title()
-    {
-        $head = [
-            'title' => 'Управление Подкатегорями - Админка MDR',
-            'description' => 'Админка - Управление подкатегориями сайта My Decor Room'
-        ];
-
-        return $head;
-    }
-
+    const TITLE = 'Управление Подкатегорями';
+    const DESC = 'Управление подкатегориями сайта My Decor Room';
 }

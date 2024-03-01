@@ -11,20 +11,14 @@ use App\Repositories\Page\AdminPage\ReadyCollection\ReadyCollectionRepository;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 use App\Services\Admin\Product\UpdateProductService;
 
-class UpdateProductAction extends Controller
+class UpdateProductAction
 {
     public $action;
-
     private CategoryRepository $category;
-
     private SubCategoryRepository $sub_category;
-
     private ModulCollectionRepository $modulCollection;
-
     private ReadyCollectionRepository $readyCollection;
-
     private ColorRepository $color;
-
     private UpdateProductService $service;
 
     public function __construct(ProductRepository $action,
@@ -53,7 +47,7 @@ class UpdateProductAction extends Controller
         $colors = $this->color->color();
         $images = $this->action->showImageProduct($slug_full_name);
         $product = $this->action->showUpdateProduct($slug_full_name);
-        $head = $this->service->title();
+        $head = $this->service->editTitle($product->full_name);
 
         return view ('/app-page/admin-page/admin-box/product/update-product',
             [

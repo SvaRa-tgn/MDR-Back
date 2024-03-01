@@ -2,19 +2,10 @@
 
 namespace App\Services\Admin\ModulCollection;
 
-use App\Http\Controllers\Controller;
+use App\Services\Admin\SeoService;
 
-class ModulCollectionService extends Controller
+class ModulCollectionService extends SeoService
 {
-
-    public function title()
-    {
-        $head = [
-            'title' => 'Управление Модульными Коллекциями - Админка MDR',
-            'description' => 'Админка - Управление Модульными Коллекциями сайта My Decor Room'
-        ];
-
-        return $head;
-    }
-
+    const TITLE = 'Управление Модульными Коллекциями';
+    const DESC = 'Управление Модульными Коллекциями сайта My Decor Room';
 }

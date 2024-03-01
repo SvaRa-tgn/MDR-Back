@@ -2,11 +2,10 @@
 
 namespace App\Actions\Admin\ModulCollection;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\ModulCollection\ModulCollectionRepository;
 use App\Services\Admin\ModulCollection\ModulCollectionService;
 
-class ModulCollectionAction extends Controller
+class ModulCollectionAction
 {
     public $action;
 

@@ -2,19 +2,10 @@
 
 namespace App\Services\Admin\Product;
 
-use App\Http\Controllers\Controller;
+use App\Services\Admin\SeoService;
 
-class ProductService extends Controller
+class ProductService extends SeoService
 {
-
-    public function title()
-    {
-        $head = [
-            'title' => 'Создание Товара. Админка MDR',
-            'description' => 'Админка - Создание, правки и удаления Товаров'
-        ];
-
-        return $head;
-    }
-
+    const TITLE = 'Создание Товара';
+    const DESC = 'Создание, правки и удаления Товаров';
 }

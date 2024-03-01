@@ -2,9 +2,7 @@
 
 namespace App\Services\Admin\Product;
 
-use App\Http\Controllers\Controller;
-
-class AllProductsService extends Controller
+class AllProductsService
 {
 
     public function title($page)
@@ -19,12 +17,10 @@ class AllProductsService extends Controller
             $title = 'Все товары. Админка MDR';
         }
 
-        $head = [
+        return [
             'title' => $title,
             'description' => 'Админка - Создание, правки и удаления Товаров'
         ];
-
-        return $head;
     }
 
 }

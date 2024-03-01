@@ -1,32 +1,42 @@
 <?php
 namespace App\Repositories\Page\AdminPage\Product\Interfaces;
 
+use App\DTO\DTOaddImage;
+use App\DTO\DTOcreateProduct;
+use App\DTO\DTOdestroyImage;
+use App\DTO\DTOsampleProduct;
+use App\DTO\DTOsearchProduct;
+use App\DTO\DTOupdateImage;
+use App\DTO\DTOupdateProduct;
+use App\DTO\DTOupdateStatus;
+use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 interface ProductRepositoryInterfaces
 {
-    public function sample($id);
+    public function sample($id): Collection;
 
-    public function sampleProducts($data);
+    public function sampleProducts(DTOsampleProduct $dto): Collection;
 
-    public function subCategoriesShow();
+    public function createProduct(DTOcreateProduct $dto): Product;
 
-    public function createProduct($data);
+    public function showUpdateProduct($slug_full_name): Product;
 
-    public function showUpdateProduct($slug_full_name);
+    public function showImageProduct($slug_full_name): Collection;
 
-    public function showImageProduct($slug_full_name);
+    public function updateStatus(DTOupdateStatus $dto, $id): Product;
 
-    public function updateStatus($data, $id);
+    public function addImage(DTOaddImage $dto, $id): Product;
 
-    public function addImage($data, $id);
+    public function updateImage(DTOupdateImage $dto, $id): Product;
 
-    public function updateImage($data, $id);
+    public function destroyImage(DTOdestroyImage $dto, $id): Product;
 
-    public function destroyImage($data, $id);
+    public function updateData(DTOupdateProduct $dto, $id): Product;
 
-    public function updateData($data, $id);
+    public function destroyProduct($id): void;
 
-    public function destroyProduct($id);
+    public function searchProduct(DTOsearchProduct $dto): array;
 
-    public function searchProduct($data);
+    public function searchSetupProduct(DTOsearchProduct $dto, $page): array;
 }

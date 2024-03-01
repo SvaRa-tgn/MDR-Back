@@ -4,11 +4,11 @@
 namespace App\Http\Controllers\Page\AdminPage\Color;
 
 use App\Actions\Admin\Color\DestroyColorAction;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class DestroyColorController extends DestroyColorAction
+class DestroyColorController extends Controller
 {
-    public function destroyColor(DestroyColorAction $action, Request $request, $id)
+    public function destroyColor(DestroyColorAction $action, $id)
     {
         return $action->execute($id);
     }

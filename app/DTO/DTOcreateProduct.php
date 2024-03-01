@@ -4,6 +4,7 @@ namespace App\DTO;
 
 use App\Http\Requests\AdminPage\Product\CreateProductRequest;
 use Spatie\DataTransferObject\DataTransferObject;
+use Transliterate;
 
 class DTOcreateProduct extends DataTransferObject
 {
@@ -14,17 +15,15 @@ class DTOcreateProduct extends DataTransferObject
     public string $item_modul;
     public string $item_ready;
     public string $full_name;
+    public string $slug_full_name;
     public string $small_name;
+    public string $slug_small_name;
     public string $article;
     public int $height;
     public int $width;
     public int $deep;
     public string $status;
-    public string $image_top;
-    public string $image;
-    public string $image1;
-    public string $image2;
-    public string $image3;
+    public array $imageArr;
     public string $korpus;
     public string $fasad;
     public string $color_korpus_id;
@@ -34,6 +33,8 @@ class DTOcreateProduct extends DataTransferObject
     public static function fromCreateProductRequest(CreateProductRequest $request): self
     {
         $data = $request->validated();
+        $slug_full_name = Transliterate::slugify($data['full_name']);
+        $slug_small_name = Transliterate::slugify($data['small_name']);
 
         if(empty($data['type_modul'])){
             $type_modul = 'null';
@@ -77,6 +78,14 @@ class DTOcreateProduct extends DataTransferObject
             $image3 = $data['image3'];
         }
 
+        $imageArr = [
+            'image_top' => $data['image_top'],
+            'image' => $image,
+            'image1' => $image1,
+            'image2' => $image2,
+            'image3' => $image3
+        ];
+
         return new self([
             'category' => $data['category'],
             'sub_category' => $data['sub_category'],
@@ -85,17 +94,15 @@ class DTOcreateProduct extends DataTransferObject
             'item_modul' => $item_modul,
             'item_ready' => $item_ready,
             'full_name' => $data['full_name'],
+            'slug_full_name' => $slug_full_name,
             'small_name' => $data['small_name'],
+            'slug_small_name' => $slug_small_name,
             'article' => $data['article'],
             'height' => $data['height'],
             'width' => $data['width'],
             'deep' => $data['deep'],
             'status' => $data['status'],
-            'image_top' => $data['image_top'],
-            'image' => $image,
-            'image1' => $image1,
-            'image2' => $image2,
-            'image3' => $image3,
+            'imageArr' => $imageArr,
             'korpus' => $data['korpus'],
             'fasad' => $data['fasad'],
             'color_korpus_id' => $data['color_korpus_id'],

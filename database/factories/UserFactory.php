@@ -22,11 +22,14 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'slug_name' => fake()->name(),
             'father_name' => fake()->firstName(),
+            'slug_father_name' => fake()->firstName(),
             'familia' => fake()->lastName(),
+            'slug_familia' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->e164PhoneNumber(),
-            'role' => 'admin',
+            'role' => 'user',
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];

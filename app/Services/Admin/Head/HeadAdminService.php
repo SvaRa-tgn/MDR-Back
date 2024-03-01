@@ -2,19 +2,10 @@
 
 namespace App\Services\Admin\Head;
 
-use App\Http\Controllers\Controller;
+use App\Services\Admin\SeoService;
 
-class HeadAdminService extends Controller
+class HeadAdminService extends SeoService
 {
-
-    public function title()
-    {
-        $head = [
-            'title' => 'Управление сайтом. Админка - MDR',
-            'description' => 'Лучшая мебель на любой вкус по низким ценам в Рязани. Интернет-магазин My Decor Room'
-        ];
-
-        return $head;
-    }
-
+    const TITLE = 'Управление сайтом';
+    const DESC = 'Управление сайтом MDR. CRUD.';
 }

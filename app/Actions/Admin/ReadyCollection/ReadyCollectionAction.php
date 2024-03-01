@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\ReadyCollection\ReadyCollectionRepository;
 use App\Services\Admin\ReadyCollection\ReadyCollectionService;
 
-class ReadyCollectionAction extends Controller
+class ReadyCollectionAction
 {
     public $action;
 

@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\Color;
 
 use App\DTO\DTOcreateColor;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
+use Illuminate\Http\RedirectResponse;
 
-class CreateColorAction extends Controller
+class CreateColorAction
 {
     public $action;
 
@@ -15,11 +15,11 @@ class CreateColorAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request)
+    public function execute($request): RedirectResponse
     {
         $this->action->createColor(DTOcreateColor::fromCreateColorRequest($request));
 
-        return redirect()->route('color')->with('success', 'Цвет создан');
+        return redirect()->route('color');
     }
 
 }

@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\Category;
 
 use App\DTO\DTOupdateCategory;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
+use Illuminate\Http\JsonResponse;
 
-class UpdateCategoryAction extends Controller
+class UpdateCategoryAction
 {
     public $action;
 
@@ -15,9 +15,9 @@ class UpdateCategoryAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request, $id)
+    public function execute($request, $id): JsonResponse
     {
-        $category = $this->action->updateCategory(DTOupdateCategory::fromUpdateCategoryRequest($request), $id );
+        $category = $this->action->updateCategory(DTOupdateCategory::fromUpdateCategoryRequest($request), $id);
 
         return response()->json(route('editCategory', $category->slug_category));
     }

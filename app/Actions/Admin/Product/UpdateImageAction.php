@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOupdateImage;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use Illuminate\Http\JsonResponse;
 
-class UpdateImageAction extends Controller
+class UpdateImageAction
 {
     public $action;
 
@@ -15,7 +15,7 @@ class UpdateImageAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request, $id)
+    public function execute($request, $id): JsonResponse
     {
         $product = $this->action->updateImage(DTOupdateImage::fromUpdateImageRequest($request), $id);
 

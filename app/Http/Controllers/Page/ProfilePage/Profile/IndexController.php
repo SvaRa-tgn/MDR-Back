@@ -12,9 +12,9 @@ class IndexController extends Controller
     public function index()
     {
         return redirect()->route('profile.user',
-            ['name'=>Transliterate::slugify(Auth::user()->name),
-                'familia'=>Transliterate::slugify(Auth::user()->familia),
-                'father'=>Transliterate::slugify(Auth::user()->father_name)]);
+            ['name'=>Auth::user()->slug_name,
+                'familia'=>Auth::user()->slug_familia,
+                'father'=>Auth::user()->slug_father_name]);
     }
 
 }

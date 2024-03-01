@@ -2,19 +2,10 @@
 
 namespace App\Services\Admin\Excel;
 
-use App\Http\Controllers\Controller;
+use App\Services\Admin\SeoService;
 
-class ExcelService extends Controller
+class ExcelService extends SeoService
 {
-
-    public function title()
-    {
-        $head = [
-            'title' => 'Загрузка Excel. Админка - MDR',
-            'description' => 'Загрузка файлов Excel. Интернет-магазин My Decor Room'
-        ];
-
-        return $head;
-    }
-
+    const TITLE = 'Загрузка Excel';
+    const DESC = 'Загрузка файлов Excel. Интернет-магазин My Decor Room';
 }

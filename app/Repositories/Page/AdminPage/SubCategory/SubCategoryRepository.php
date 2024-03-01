@@ -1,78 +1,70 @@
 <?php
 
-
 namespace App\Repositories\Page\AdminPage\SubCategory;
 
+use App\DTO\DTOcreateSubCategory;
+use App\DTO\DTOupdateSubCategory;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Repositories\Page\AdminPage\SubCategory\Interfaces\SubcategoryRepositoryInterface;
+use App\Services\Admin\UpdateStroageService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 use Transliterate;
 
 class SubCategoryRepository implements SubcategoryRepositoryInterface
 {
-    public function createSubCategory($data)
+    public function subCategory(): Collection
     {
-        $category = Category::where('category', $data->category)->first();
+        return SubCategory::all();
+    }
 
-        $subCategory = New SubCategory();
-        $subCategory->sub_category = $data->sub_category;
-        $subCategory->slug_sub_category = Transliterate::slugify($data->sub_category);
+    public function createSubCategory(DTOcreateSubCategory $dto): SubCategory
+    {
+        $category = Category::where('category', $dto->category)->first();
 
-        $path = Storage::putFile('public/catalog', $data->image);
-        $url = Storage::url($path);
-        $subCategory->path = $path;
-        $subCategory->link = $url;
+        $subCategory = new SubCategory();
+        $subCategory->sub_category = $dto->sub_category;
+        $subCategory->slug_sub_category = $dto->slug_sub_category;;
+        $storage = 'public/catalog';
+        $image = UpdateStroageService::updateImage($storage, $dto->image);
+        $subCategory->link = $image['url'];
+        $subCategory->path = $image['path'];
 
         $category->SubCategory()->save($subCategory);
+
+        return $subCategory;
     }
 
-    public function subCategory()
+    public function editSubCategory($slug_sub_category): SubCategory
     {
-        $subCategories = SubCategory::all();
+        $subCategory = SubCategory::join('categories', 'sub_categories.category_id', '=', 'categories.id')
+            ->select('sub_categories.*', 'categories.category')
+            ->where('slug_sub_category', $slug_sub_category)->first();
 
-        return $subCategories;
+        return $subCategory;
     }
 
-    public function editSubCategory($slug_sub_category)
+    public function updateSubCategory(DTOupdateSubCategory $dto, $id): SubCategory
     {
-        $subCategory = SubCategory::where('slug_sub_category', $slug_sub_category)->first();
-
-        if(empty($subCategory) OR $subCategory === null){
-            return abort(404);
-        } else {
-            $id = $subCategory->id;
-            $sub_category = $subCategory->sub_category;
-            $image = $subCategory->link;
-            $category = $subCategory->Category()->first();
-            $category = $category->category;
-
-            $subCategory = collect(['id' => $id, 'sub_category' => $sub_category, 'image' => $image, 'category' => $category]);
-
-            return $subCategory;
-        }
-    }
-
-    public function updateSubCategory($data, $id)
-    {
-        $category = Category::where('category', $data->category)->first();
+        $category = Category::where('category', $dto->category)->first();
         $subCategory = SubCategory::find($id);
 
-        if($subCategory->category_id !== $category->id){
+        if ($subCategory->category_id !== $category->id) {
             $category->SubCategory()->save($subCategory);
         }
 
-        if($data->sub_category !== 'null'){
-            $subCategory->sub_category = $data->sub_category;
-            $subCategory->slug_sub_category = Transliterate::slugify($data->sub_category);
+        if ($dto->sub_category !== 'null') {
+            $subCategory->sub_category = $dto->sub_category;
+            $subCategory->slug_sub_category = $dto->slug_sub_category;
         }
 
-        if($data->image !== 'null'){
-            Storage::delete( $subCategory->path);
-            $path = Storage::putFile('public/catalog', $data->image);
-            $url = Storage::url($path);
-            $subCategory->path = $path;
-            $subCategory->link = $url;
+        if ($dto->image !== 'null') {
+            UpdateStroageService::deleteImage($subCategory->path);
+            $storage = 'public/catalog';
+            $image = UpdateStroageService::updateImage($storage, $dto->image);
+            $subCategory->link = $image['url'];
+            $subCategory->path = $image['path'];
         }
 
         $subCategory->save();
@@ -80,7 +72,7 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
         return $subCategory;
     }
 
-    public function destroy($id)
+    public function destroy($id): void
     {
         $subCategory = SubCategory::find($id);
 
@@ -88,16 +80,16 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
         foreach ($products as $product) {
             $images = $product->image;
 
-            if(isset($images) && $images !== 'null') {
-                foreach ($images as $image){
-                    Storage::delete($image->path);
+            if (isset($images) && $images !== 'null') {
+                foreach ($images as $image) {
+                    UpdateStroageService::deleteImage($image->path);
                     $image->delete();
                 }
                 $product->delete();
             }
         }
 
-        Storage::delete($subCategory->path);
+        UpdateStroageService::deleteImage($subCategory->path);
         $subCategory->delete();
     }
 

@@ -2,10 +2,10 @@
 namespace App\Actions\Admin\Users;
 
 use App\DTO\DTOupdateUserRole;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\Users\UsersRepository;
+use Illuminate\Http\RedirectResponse;
 
-class UpdateUserRoleAction extends Controller
+class UpdateUserRoleAction
 {
     public $action;
 
@@ -14,11 +14,11 @@ class UpdateUserRoleAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request, $id)
+    public function execute($request, $id): RedirectResponse
     {
         $user = $this->action->updateUserRole(DTOupdateUserRole::fromUpdateUserRoleRequest($request), $id);
 
-        return redirect()->route('editUser', $user->id)->with('success', 'Роль пользователя изменена');
+        return redirect()->route('editUser', $user->id);
     }
 
 }

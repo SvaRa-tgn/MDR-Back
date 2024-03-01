@@ -2,11 +2,10 @@
 
 namespace App\Actions\Admin\Product;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Services\Admin\Product\EditProductService;
 
-class EditProductAction extends Controller
+class EditProductAction
 {
     private CategoryRepository $category;
 

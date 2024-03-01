@@ -2,16 +2,10 @@
 
 namespace App\Services\Admin\Category;
 
+use App\Services\Admin\SeoService;
 
-class CategoryService
+class CategoryService extends SeoService
 {
-
-    public function title(): array
-    {
-        return [
-            'title' => 'Управление Категорями - Админка MDR',
-            'description' => 'Админка - Управление категориями сайта My Decor Room'
-        ];
-    }
-
+    const TITLE = 'Управление Категорями';
+    const DESC = 'Админка - Управление категориями сайта My Decor Room';
 }

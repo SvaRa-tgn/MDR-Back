@@ -2,19 +2,10 @@
 
 namespace App\Services\Admin\Color;
 
-use App\Http\Controllers\Controller;
+use App\Services\Admin\SeoService;
 
-class EditColorService extends Controller
+class EditColorService extends SeoService
 {
-
-    public function title($color)
-    {
-        $head = [
-            'title' => 'Цвет товара '. $color['name'] .'. Админка MDR',
-            'description' => 'Управление Цветом товара - '. $color['name'] .'. Редактирование и удаление.'
-        ];
-
-        return $head;
-    }
-
+    const TITLE = 'Цвет товара ';
+    const DESC = 'Управление Цветом товара - ';
 }

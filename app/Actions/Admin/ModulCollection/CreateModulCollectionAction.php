@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\ModulCollection;
 
 use App\DTO\DTOmodulCollection;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\ModulCollection\ModulCollectionRepository;
+use Illuminate\Http\RedirectResponse;
 
-class CreateModulCollectionAction extends Controller
+class CreateModulCollectionAction
 {
     public $action;
 
@@ -15,11 +15,11 @@ class CreateModulCollectionAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request)
+    public function execute($request): RedirectResponse
     {
         $this->action->createModulCollection(DTOmodulCollection::fromModulCollectionRequest($request));
 
-        return redirect()->route('modulCollection')->with('success', 'Модульная коллекция создана');
+        return redirect()->route('modulCollection');
     }
 
 }

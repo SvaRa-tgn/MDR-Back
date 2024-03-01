@@ -157,7 +157,7 @@ Route::prefix('admin')->middleware('admin')->group(function (){
     //Товар
     Route::prefix('product')->group(function(){
         Route::get('/mdr', [SetupProductsController::class, 'product'])->name('product');
-        Route::get('/{page}.mdr', [AllProductsController::class, 'products'])->name('productAll');
+        Route::get('/setup/{page}.mdr', [AllProductsController::class, 'productsClass'])->name('productAll');
         Route::get('/create-product.mdr', [ProductController::class, 'productCreate'])->name('productCreate');
         Route::get('/sample-sub-catagory/{id}.mdr', [SampleSubCategoriesController::class, 'sample'])->name('sample');
         Route::post('/create-product', [CreateProductController::class, 'createProduct'])->name('createProduct');

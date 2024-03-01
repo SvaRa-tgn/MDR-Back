@@ -2,6 +2,7 @@
 namespace App\Actions\Admin\Users;
 
 use App\Repositories\Page\Users\UsersRepository;
+use Illuminate\Http\JsonResponse;
 use Transliterate;
 
 class DestroyUserAction
@@ -13,7 +14,7 @@ class DestroyUserAction
         $this->action = $action;
     }
 
-    public function execute($id)
+    public function execute($id): JsonResponse
     {
         $this->action->destroyUser($id);
 

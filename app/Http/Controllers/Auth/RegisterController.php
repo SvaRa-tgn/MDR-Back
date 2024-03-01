@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Transliterate;
 
 class RegisterController extends Controller
 {
@@ -69,8 +70,11 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'slug_name' => Transliterate::slugify($data['name']),
             'familia' => $data['familia'],
+            'slug_familia' => Transliterate::slugify($data['familia']),
             'father_name' => $data['father_name'],
+            'slug_father_name' => Transliterate::slugify($data['father_name']),
             'email' => $data['email'],
             'phone' => $data['phone'],
             'role' => 'user',

@@ -198,6 +198,17 @@ var appData = {
                                 let errorData = $("." + key + "Error");
                                 errorData.addClass('wrap-input-padding');
                                 errorData.attr('data-answer', errors[key][0]);
+                                if (key === 'image_top' || key === 'image' || key === 'image1' || key === 'image2' || key === 'image3'){
+                                    var reload = $('.js-reload');
+                                    $('.modal-block').addClass('modal-block-open');
+                                    $('.js-link-1').addClass('open-box');
+                                    $('.modal-content').text(errors[key][0] + ' Переформатируйте фотографии, скорее всего ошибка в формате фотографий.');
+                                    reload.text('Хрень');
+                                    form[0].reset();
+                                    reload.click(function (html) {
+                                        window.location.reload();
+                                    });
+                                }
                             });
                         } else if (response.status === 500) {
                             var reload = $('.js-reload');
@@ -222,11 +233,12 @@ var appData = {
             $('.js-link-3').removeClass('open-box');
             let form = $(this),
                 success = form.attr('data-success'),
+                id = $(this).attr('data-id'),
                 loader = $(this).find('.wrap-button').attr('data-search'),
                 link = form.attr('action');
 
             let formData = new FormData(form[0]);
-
+            formData.append('id', id);
             $('body').addClass('noscroll');
             $('.preloader').addClass('preloader-load');
             $('.loader-text').text('Удаляем');

@@ -51,7 +51,7 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="update-form-data" data-form="sub-category-update" method="POST" action="{{ route('updateSubCategory', $subCategory['id'] )}}" enctype="multipart/form-data">
+                            <form class="update-form-data" data-form="sub-category-update" method="POST" action="{{ route('updateSubCategory', $subCategory->id )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <article class="name-admin-block" data-success="Подкатегория отредактирована">
@@ -63,7 +63,7 @@
                                         Категория товара
                                     </label>
                                     <select class="admin-select admin-input" name="category" id="catSub">
-                                        <option class="class js-old-id" value="{{$subCategory['category']}}" >{{$subCategory['category']}} - Текущая категория</option>
+                                        <option class="class js-old-id" value="{{$subCategory->category}}" >{{$subCategory->category}} - Текущая категория</option>
                                         @foreach($categories as $category)
                                             <option class="class js-new-id"  value="{{$category->category}}">{{$category->category}}</option>
                                         @endforeach
@@ -85,7 +85,7 @@
                                 </div>
 
                                 <div class="wrap-button" data-search="Редактируем Подкатегорию">
-                                    <button class="button-auth accept js-up-data" data-id="{{$subCategory['id']}}" type="submit" name="submit-auth">Сохранить</button>
+                                    <button class="button-auth accept js-up-data" data-id="{{$subCategory->id}}" type="submit" name="submit-auth">Сохранить</button>
                                 </div>
 
                             </form>
@@ -103,7 +103,7 @@
                             </div>
                             <ul class="relevant-info-list">
                                 <li class="db-relevant-info-item form-label admin-block-db">
-                                    <article class="collect-article" data-tag="Категорию">{{$subCategory['category']}}</article>
+                                    <article class="collect-article" data-tag="Категорию">{{$subCategory->category}}</article>
                                 </li>
                             </ul>
                             <div class="db-admin-article db-admin-list">
@@ -111,14 +111,14 @@
                             </div>
                             <ul class="relevant-info-list">
                                 <li class="db-relevant-info-item form-label admin-block-db">
-                                    <article class="collect-article js-data-name" data-tag="Подкатегорию">{{$subCategory['sub_category']}}</article>
+                                    <article class="collect-article js-data-name" data-tag="Подкатегорию">{{$subCategory->sub_category}}</article>
                                 </li>
                             </ul>
                             <div class="db-admin-article db-admin-list">
                                 Фотография подкатегории:
                             </div>
                             <div class="wrap-img-category">
-                                <img class="main-block-item-img" src="{{asset($subCategory['image'])}}" alt="Мебель в Рязани. {{$subCategory['sub_category']}}" />
+                                <img class="main-block-item-img" src="{{asset($subCategory->link)}}" alt="Мебель в Рязани. {{$subCategory->sub_category}}" />
                             </div>
                         </div>
                     </div>

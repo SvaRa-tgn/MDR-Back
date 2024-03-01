@@ -45,7 +45,7 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="update-form-data" data-form="color-update" method="POST" action="{{ route('updateColor', $color['id'] )}}" enctype="multipart/form-data">
+                            <form class="update-form-data" data-form="color-update" method="POST" action="{{ route('updateColor', $color->id )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <article class="name-admin-block" data-success="Цвет товара отредактирован">
@@ -64,7 +64,7 @@
                                     <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                                 </div>
                                 <div class="wrap-button" data-search="Редактируем Цвет">
-                                    <button class="button-auth accept js-up-data" data-id="{{$color['id']}}" type="submit" name="submit-auth">Сохранить</button>
+                                    <button class="button-auth accept js-up-data" data-id="{{$color->id}}" type="submit" name="submit-auth">Сохранить</button>
                                 </div>
                             </form>
                             <form class="itemDelete">
@@ -82,14 +82,14 @@
                             </div>
                             <ul class="relevant-info-list">
                                 <li class="db-relevant-info-item form-label admin-block-db">
-                                    <article class="collect-article js-data-name" data-tag="Цвет">{{$color['name']}}</article>
+                                    <article class="collect-article js-data-name" data-tag="Цвет">{{$color->color}}</article>
                                 </li>
                             </ul>
                             <div class="db-admin-article db-admin-list">
                                 Фотография Цвета:
                             </div>
                             <div class="wrap-img-category">
-                                <img class="main-block-item-img" src="{{asset($color['image'])}}" alt="Мебель в Рязани. {{$color['name']}}" />
+                                <img class="main-block-item-img" src="{{asset($color->link)}}" alt="Мебель в Рязани. {{$color->color}}" />
                             </div>
                         </div>
                     </div>

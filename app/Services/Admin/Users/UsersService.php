@@ -2,19 +2,10 @@
 
 namespace App\Services\Admin\Users;
 
-use App\Http\Controllers\Controller;
+use App\Services\Admin\SeoService;
 
-class UsersService extends Controller
+class UsersService extends SeoService
 {
-
-    public function title()
-    {
-        $head = [
-            'title' => 'Управление Пользователями - Админка MDR',
-            'description' => 'Админка - Управление пользователями сайта My Decor Room'
-        ];
-
-        return $head;
-    }
-
+    const TITLE = 'Управление Пользователями';
+    const DESC = 'Управление пользователями сайта My Decor Room';
 }

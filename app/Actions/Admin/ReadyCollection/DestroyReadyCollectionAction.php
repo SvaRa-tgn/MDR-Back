@@ -2,10 +2,10 @@
 
 namespace App\Actions\Admin\ReadyCollection;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\ReadyCollection\ReadyCollectionRepository;
+use Illuminate\Http\JsonResponse;
 
-class DestroyReadyCollectionAction extends Controller
+class DestroyReadyCollectionAction
 {
     public $action;
 
@@ -14,7 +14,7 @@ class DestroyReadyCollectionAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($id)
+    public function execute($id): JsonResponse
     {
         $this->action->destroyReadyCollection($id);
 

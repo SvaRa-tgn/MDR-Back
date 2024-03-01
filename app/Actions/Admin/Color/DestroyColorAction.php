@@ -2,10 +2,10 @@
 
 namespace App\Actions\Admin\Color;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
+use Illuminate\Http\JsonResponse;
 
-class DestroyColorAction extends Controller
+class DestroyColorAction
 {
     public $action;
 
@@ -14,7 +14,7 @@ class DestroyColorAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($id)
+    public function execute($id): JsonResponse
     {
         $this->action->destroyColor($id);
 

@@ -2,7 +2,6 @@
 
 namespace App\Actions\Admin\Product;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
 use App\Repositories\Page\AdminPage\ModulCollection\ModulCollectionRepository;
@@ -10,18 +9,13 @@ use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use App\Repositories\Page\AdminPage\ReadyCollection\ReadyCollectionRepository;
 use App\Services\Admin\Product\ProductService;
 
-class ProductAction extends Controller
+class ProductAction
 {
     public $action;
-
     private CategoryRepository $category;
-
     private ModulCollectionRepository $modulCollection;
-
     private ReadyCollectionRepository $readyCollection;
-
     private ColorRepository $color;
-
     private ProductService $service;
 
     public function __construct(ProductRepository $action,

@@ -2,11 +2,10 @@
 
 namespace App\Actions\Admin\Color;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
 use App\Services\Admin\Color\ColorService;
 
-class ColorAction extends Controller
+class ColorAction
 {
     public $action;
 

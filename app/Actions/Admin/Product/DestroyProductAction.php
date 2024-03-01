@@ -2,10 +2,10 @@
 
 namespace App\Actions\Admin\Product;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use Illuminate\Http\JsonResponse;
 
-class DestroyProductAction extends Controller
+class DestroyProductAction
 {
     public $action;
 
@@ -14,7 +14,7 @@ class DestroyProductAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($id)
+    public function execute($id): JsonResponse
     {
         $this->action->destroyProduct($id);
 

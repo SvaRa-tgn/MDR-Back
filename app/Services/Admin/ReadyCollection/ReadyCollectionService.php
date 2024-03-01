@@ -2,19 +2,10 @@
 
 namespace App\Services\Admin\ReadyCollection;
 
-use App\Http\Controllers\Controller;
+use App\Services\Admin\SeoService;
 
-class ReadyCollectionService extends Controller
+class ReadyCollectionService extends SeoService
 {
-
-    public function title()
-    {
-        $head = [
-            'title' => 'Управление Готовыми Коллекциями - Админка MDR',
-            'description' => 'Админка - Управление Готовыми Коллекциями сайта My Decor Room'
-        ];
-
-        return $head;
-    }
-
+    const TITLE = 'Управление Готовыми Коллекциями';
+    const DESC = 'Управление Готовыми Коллекциями сайта My Decor Room';
 }

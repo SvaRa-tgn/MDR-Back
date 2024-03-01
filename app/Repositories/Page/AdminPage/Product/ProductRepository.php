@@ -2,125 +2,98 @@
 
 namespace App\Repositories\Page\AdminPage\Product;
 
-use App\Models\Category;
-use App\Models\Color;
+use App\DTO\DTOaddImage;
+use App\DTO\DTOcreateProduct;
+use App\DTO\DTOdestroyImage;
+use App\DTO\DTOsampleProduct;
+use App\DTO\DTOsearchProduct;
+use App\DTO\DTOupdateImage;
+use App\DTO\DTOupdateProduct;
+use App\DTO\DTOupdateStatus;
 use App\Models\Image;
-use App\Models\ModulCollection;
 use App\Models\Product;
-use App\Models\ReadyCollection;
 use App\Models\SubCategory;
 use App\Repositories\Page\AdminPage\Product\Interfaces\ProductRepositoryInterfaces;
-use App\Repositories\Page\ProfilePage\Profile\Interfaces\ProfileRepositoryInterface;
-use Illuminate\Database\Eloquent\Model;
+use App\Services\Admin\UpdateStroageService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 use Transliterate;
 
 class ProductRepository implements ProductRepositoryInterfaces
 {
-    public function sample($id)
+    public function sample($id): Collection
     {
         $sub_categories = SubCategory::where('category_id', $id)->get();
 
         return $sub_categories;
     }
 
-    public function sampleProducts($data)
+    public function sampleProducts(DTOsampleProduct $dto): Collection
     {
-        $sub_category = SubCategory::find($data->sub_category);
+        $sub_category = SubCategory::find($dto->sub_category);
         $products = $sub_category->products;
 
         return $products;
     }
 
-    public function subCategoriesShow()
-    {
-        $sub_categories = SubCategory::all();
-
-        return $sub_categories;
-    }
-
-    public function createProduct($data)
+    public function createProduct(DTOcreateProduct $dto): Product
     {
         $product = new Product();
-        $product->category_id = $data->category;
-        $product->sub_category_id = $data->sub_category;
-        $product->type = $data->type;
-        $product->type_modul = $data->type_modul;
-        $product->item_modul = $data->item_modul;
-        $product->item_ready = $data->item_ready;
-        $product->full_name = $data->full_name;
-        $product->slug_full_name = Transliterate::slugify($data->full_name);
-        $product->small_name = $data->small_name;
-        $product->slug_small_name = Transliterate::slugify($data->small_name);
-        $product->article = 'ЦБ-'.$data->article;
-        $product->height = $data->height;
-        $product->width = $data->width;
-        $product->deep = $data->deep;
-        $product->status = $data->status;
-        $product->korpus = $data->korpus;
-        $product->fasad = $data->fasad;
-        $product->color_korpus_id = $data->color_korpus_id;
-        $product->color_fasad_id = $data->color_fasad_id;
-        $product->price = $data->price;
+        $product->category_id = $dto->category;
+        $product->sub_category_id = $dto->sub_category;
+        $product->type = $dto->type;
+        $product->type_modul = $dto->type_modul;
+        $product->item_modul = $dto->item_modul;
+        $product->item_ready = $dto->item_ready;
+        $product->full_name = $dto->full_name;
+        $product->slug_full_name = $dto->slug_full_name;;
+        $product->small_name = $dto->small_name;
+        $product->slug_small_name = $dto->slug_small_name;;
+        $product->article = 'ЦБ-'.$dto->article;
+        $product->height = $dto->height;
+        $product->width = $dto->width;
+        $product->deep = $dto->deep;
+        $product->status = $dto->status;
+        $product->korpus = $dto->korpus;
+        $product->fasad = $dto->fasad;
+        $product->color_korpus_id = $dto->color_korpus_id;
+        $product->color_fasad_id = $dto->color_fasad_id;
+        $product->price = $dto->price;
         $product->save();
 
-        $image = new Image();
-        $path = Storage::putFile('public/image', $data->image_top);
-        $url = Storage::url($path);
-        $image->path = $path;
-        $image->link = $url;
-        $image->status = 'top';
-        $product->image()->save($image);
+        foreach ($dto->imageArr as $key => $item){
+            if($item !== 'null'){
+                $image = new Image();
+                $storage = 'public/image';
+                $result = UpdateStroageService::updateImage($storage, $item);
+                $image->link = $result['url'];
+                $image->path = $result['path'];
+                if($key === 'image_top'){
+                    $image->status = 'top';
+                } else {
+                    $image->status = 'stock';
+                }
+                $product->image()->save($image);
+            }
+        };
 
-        if (isset($data->image) and $data->image !== 'null') {
-            $image = new Image();
-            $path = Storage::putFile('public/image', $data->image);
-            $url = Storage::url($path);
-            $image->path = $path;
-            $image->link = $url;
-            $image->status = 'stock';
-            $product->image()->save($image);
-        }
-
-        if (isset($data->image1) and $data->image1 !== 'null') {
-            $image = new Image();
-            $path = Storage::putFile('public/image', $data->image1);
-            $url = Storage::url($path);
-            $image->path = $path;
-            $image->link = $url;
-            $image->status = 'stock';
-            $product->image()->save($image);
-        }
-
-        if (isset($data->image2) and $data->image2 !== 'null') {
-            $image = new Image();
-            $path = Storage::putFile('public/image', $data->image2);
-            $url = Storage::url($path);
-            $image->path = $path;
-            $image->link = $url;
-            $image->status = 'stock';
-            $product->image()->save($image);
-        }
-
-        if (isset($data->image3) and $data->image3 !== 'null') {
-            $image = new Image();
-            $path = Storage::putFile('public/image', $data->image3);
-            $url = Storage::url($path);
-            $image->path = $path;
-            $image->link = $url;
-            $image->status = 'stock';
-            $product->image()->save($image);
-        }
-    }
-
-    public function showUpdateProduct($slug_full_name)
-    {
-        $id = Product::where('slug_full_name', $slug_full_name)->pluck('id')->collect();
-        $product = Product::find($id['0']);
         return $product;
     }
 
-    public function showImageProduct($slug_full_name)
+    public function showUpdateProduct($slug_full_name): Product
+    {
+        $product = Product::join('colors as c1', 'products.color_fasad_id', '=', 'c1.id')
+            ->join('colors as c2', 'products.color_korpus_id', '=', 'c2.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->join('sub_categories', 'products.category_id', '=', 'sub_categories.id')
+            ->select('products.*', 'categories.category', 'sub_categories.sub_category', 'c1.color as color_fasad', 'c1.link as link_fasad',
+                'c2.color as color_korpus', 'c2.link as link_korpus')
+            ->where('slug_full_name', $slug_full_name)->first();
+
+        return $product;
+    }
+
+    public function showImageProduct($slug_full_name): Collection
     {
         $id = Product::where('slug_full_name', $slug_full_name)->pluck('id')->collect();
         $product = Product::find($id['0']);
@@ -128,17 +101,17 @@ class ProductRepository implements ProductRepositoryInterfaces
         return $images;
     }
 
-    public function updateStatus($data, $id)
+    public function updateStatus(DTOupdateStatus $dto, $id): Product
     {
         $product = Product::find($id);
 
-        $product->status = $data->status;
+        $product->status = $dto->status;
         $product->save();
 
         return $product;
     }
 
-    public function addImage($data, $id)
+    public function addImage(DTOaddImage $dto, $id): Product
     {
         $product = Product::find($id);
 
@@ -151,114 +124,114 @@ class ProductRepository implements ProductRepositoryInterfaces
         }
 
         $image = new Image();
-        $path = Storage::putFile('public/image', $data->image);
-        $url = Storage::url($path);
-        $image->path = $path;
-        $image->link = $url;
+        $storage = 'public/image';
+        $result = UpdateStroageService::updateImage($storage, $dto->image);
+        $image->link = $result['url'];
+        $image->path = $result['path'];
         $image->status = $status;
         $product->image()->save($image);
 
         return $product;
     }
 
-    public function updateImage($data, $id)
+    public function updateImage(DTOupdateImage $dto, $id): Product
     {
-        $product = Product::find($data->id);
+        $product = Product::find($dto->id);
 
         $image = Image::find($id);
-        Storage::delete($image->path);
-        $path = Storage::putFile('public/image', $data->image);
-        $url = Storage::url($path);
-        $image->path = $path;
-        $image->link = $url;
+        UpdateStroageService::deleteImage($image->path);
+        $storage = 'public/image';
+        $result = UpdateStroageService::updateImage($storage, $dto->image);
+        $image->link = $result['url'];
+        $image->path = $result['path'];
         $image->save();
 
         return $product;
     }
 
-    public function destroyImage($data, $id)
+    public function destroyImage(DTOdestroyImage $dto, $id): Product
     {
-        $product = Product::find($data->id);
+        $product = Product::find($dto->id);
 
         $image = Image::find($id);
-        Storage::delete($image->path);
+        UpdateStroageService::deleteImage($image->path);
         $image->delete();
 
         return $product;
     }
 
-    public function updateData($data, $id)
+    public function updateData(DTOupdateProduct $dto, $id): Product
     {
         $product = Product::find($id);
 
-        if($data->category != 'null'){
-            $product->category_id = $data->category;
+        if($dto->category != 'null'){
+            $product->category_id = $dto->category;
         }
 
-        if($data->sub_category != 'null'){
-            $product->sub_category_id = $data->sub_category;
+        if($dto->sub_category != 'null'){
+            $product->sub_category_id = $dto->sub_category;
         }
 
-        if($data->type != 'null'){
-            $product->type = $data->type;
+        if($dto->type != 'null'){
+            $product->type = $dto->type;
         }
 
-        if($data->type_modul != 'null'){
-            $product->type_modul = $data->type_modul;
+        if($dto->type_modul != 'null'){
+            $product->type_modul = $dto->type_modul;
         }
 
-        if($data->item_modul != 'null'){
-            $product->item_modul = $data->item_modul;
+        if($dto->item_modul != 'null'){
+            $product->item_modul = $dto->item_modul;
         }
 
-        if($data->item_ready != 'null'){
-            $product->item_ready = $data->item_ready;
+        if($dto->item_ready != 'null'){
+            $product->item_ready = $dto->item_ready;
         }
 
-        if($data->full_name != 'null'){
-            $product->full_name = $data->full_name;
-            $product->slug_full_name = Transliterate::slugify($data->full_name);
+        if($dto->full_name != 'null'){
+            $product->full_name = $dto->full_name;
+            $product->slug_full_name = $dto->slug_full_name;
         }
 
-        if($data->small_name != 'null'){
-            $product->small_name = $data->small_name;
-            $product->slug_small_name = Transliterate::slugify($data->small_name);
+        if($dto->small_name != 'null'){
+            $product->small_name = $dto->small_name;
+            $product->slug_small_name = $dto->slug_small_name;;
         }
 
-        if($data->article != 'null'){
-            $product->article = 'ЦБ-'.$data->article;
+        if($dto->article != 'null'){
+            $product->article = 'ЦБ-'.$dto->article;
         }
 
-        if($data->height != 0){
-            $product->height = $data->height;
+        if($dto->height != 0){
+            $product->height = $dto->height;
         }
 
-        if($data->width != 0){
-            $product->width = $data->width;
+        if($dto->width != 0){
+            $product->width = $dto->width;
         }
 
-        if($data->deep != 0){
-            $product->deep = $data->deep;
+        if($dto->deep != 0){
+            $product->deep = $dto->deep;
         }
 
-        if($data->korpus != 'null'){
-            $product->korpus = $data->korpus;
+        if($dto->korpus != 'null'){
+            $product->korpus = $dto->korpus;
         }
 
-        if($data->fasad != 'null'){
-            $product->fasad = $data->fasad;
+        if($dto->fasad != 'null'){
+            $product->fasad = $dto->fasad;
         }
 
-        if($data->color_korpus_id != 'null'){
-            $product->color_korpus_id = $data->color_korpus_id;
+        if($dto->color_korpus_id != 'null'){
+            $product->color_korpus_id = $dto->color_korpus_id;
         }
 
-        if($data->color_fasad_id != 'null'){
-            $product->color_fasad_id = $data->color_fasad_id;
+        if($dto->color_fasad_id != 'null'){
+            $product->color_fasad_id = $dto->color_fasad_id;
         }
 
-        if($data->price != 0){
-            $product->price = $data->price;
+        if($dto->price != 0){
+            $product->price = $dto->price;
         }
 
         $product->save();
@@ -266,41 +239,43 @@ class ProductRepository implements ProductRepositoryInterfaces
         return $product;
     }
 
-    public function destroyProduct($id)
+    public function destroyProduct($id): void
     {
         $product = Product::find($id);
 
         $images = $product->image;
         foreach ($images as $image){
-            Storage::delete($image->path);
+            UpdateStroageService::deleteImage($image->path);
             $image->delete();
         }
 
         $product->delete();
     }
 
-    public function searchProduct($data)
+    public function searchProduct(DTOsearchProduct $dto): array
     {
-        $products = Product::where('full_name', 'LIKE', '%'.$data->search.'%')
-            ->orWhere('article', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+        $products = Product::where('full_name', 'LIKE', '%'.$dto->search.'%')
+            ->orWhere('article', 'LIKE', '%'.$dto->search.'%')->get()->toArray();
 
         return $products;
     }
 
-    public function searchSetupProduct($data, $page)
+    public function searchSetupProduct(DTOsearchProduct $dto, $page): array
     {
         if($page === 'v_prodazhe'){
-            $products = Product::where('status', 'Продажа')->where('full_name', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+            $products = Product::where('status', 'Продажа')->where('full_name', 'LIKE', '%'.$dto->search.'%')->get()->toArray();
         } else if ($page === 'rezerved') {
-            $products = Product::where('status', 'Резерв')->where('full_name', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+            $products = Product::where('status', 'Резерв')->where('full_name', 'LIKE', '%'.$dto->search.'%')->get()->toArray();
         } else if ($page === 'dont_display') {
-            $products = Product::where('status', 'Не отображать')->where('full_name', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+            $products = Product::where('status', 'Не отображать')->where('full_name', 'LIKE', '%'.$dto->search.'%')->get()->toArray();
+        } else if ($page === 'all_products'){
+            $products = Product::where('full_name', 'LIKE', '%'.$dto->search.'%')->get()->toArray();
         }
 
         return $products;
     }
 
-    public function products($page)
+    public function productsClass($page): array
     {
         if($page === 'all_products') {
             $products = Product::all()->toArray();

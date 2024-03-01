@@ -2,10 +2,9 @@
 
 namespace App\Actions\Admin\Excel;
 
-use App\Http\Controllers\Controller;
 use App\Services\Admin\Excel\ExcelService;
 
-class ExcelAction extends Controller
+class ExcelAction
 {
     public $service;
 

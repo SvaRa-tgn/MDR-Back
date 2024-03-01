@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('category')->nullable();
             $table->string('slug_category')->nullable();
+            $table->string('link')->nullable();
+            $table->string('path')->nullable();
             $table->timestamps();
         });
     }

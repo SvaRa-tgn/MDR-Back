@@ -2,11 +2,10 @@
 
 namespace App\Actions\Admin\Color;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
 use App\Services\Admin\Color\EditColorService;
 
-class EditColorAction extends Controller
+class EditColorAction
 {
     public $action;
 
@@ -23,9 +22,12 @@ class EditColorAction extends Controller
     {
         $color = $this->action->editColor($slug_color);
 
-        $head = $this->service->title($color);
+        if(empty($color) OR $color === null){
+            return abort(404);
+        } else {
+            $head = $this->service->editTitle($color->color);
 
-        return view ('/app-page/admin-page/admin-box/color/edit-color', ['color' => $color, 'head' => $head]);
+            return view ('/app-page/admin-page/admin-box/color/edit-color', ['color' => $color, 'head' => $head]);
+        }
     }
-
 }

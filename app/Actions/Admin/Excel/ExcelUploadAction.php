@@ -2,27 +2,19 @@
 
 namespace App\Actions\Admin\Excel;
 
-use App\Http\Controllers\Controller;
 use App\Imports\ProductImport;
-use App\Repositories\Page\AdminPage\Excel\ExcelRepository;
+use App\Services\Admin\UpdateStroageService;
+use Illuminate\Http\RedirectResponse;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ExcelUploadAction extends Controller
+class ExcelUploadAction
 {
-    public $action;
-
-    public function __construct(ExcelRepository $action)
+    public function execute($request): RedirectResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request)
-    {
-        $path = $this->action->excelupload($request);
+        $path = UpdateStroageService::excelupload($request);
         Excel::import(new ProductImport(), $path);
-        $this->action->destroyExcel($path);
+        UpdateStroageService::destroyExcel($path);
 
-        return redirect()->route('excel')->with('success', 'Данные сохранены');
+        return redirect()->route('excel');
     }
-
 }

@@ -11,11 +11,6 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function CategoryImage(): HasOne
-    {
-        return $this->HasOne(CategoryImage::class);
-    }
-
     public function SubCategory(): HasMany
     {
         return $this->HasMany(SubCategory::class);

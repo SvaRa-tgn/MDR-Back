@@ -2,77 +2,67 @@
 
 namespace App\Repositories\Page\AdminPage\Color;
 
+use App\DTO\DTOcreateColor;
+use App\DTO\DTOupdateColor;
 use App\Models\Color;
 use App\Repositories\Page\AdminPage\Color\Interfaces\ColorRepositoryInterfaces;
-use Illuminate\Support\Facades\Storage;
+use App\Services\Admin\UpdateStroageService;
+use Illuminate\Database\Eloquent\Collection;
 use Transliterate;
 
 class ColorRepository implements ColorRepositoryInterfaces
 {
-    public function createColor($data)
+    public function color(): Collection
+    {
+        return Color::all();
+    }
+
+    public function createColor(DTOcreateColor $dto): Color
     {
         $color = New Color();
-        $color->color = $data->color;
-        $color->slug_color = Transliterate::slugify($data->color);
-        $path = Storage::putFile('public/color', $data->image);
-        $url = Storage::url($path);
-        $color->path = $path;
-        $color->link = $url;
+        $color->color = $dto->color;
+        $color->slug_color = $dto->slug_color;
+        $storage = 'public/color';
+        $image = UpdateStroageService::updateImage($storage, $dto->image);
+        $color->path = $image['path'];
+        $color->link = $image['url'];
         $color->save();
+
+        return $color;
     }
 
-    public function color()
+    public function editColor($slug_color): Color
     {
-        $colors = Color::all();
-
-        return $colors;
+        return Color::where('slug_color', $slug_color)->first();
     }
 
-    public function editColor($slug_color)
-    {
-        $color = Color::where('slug_color', $slug_color)->first();
-
-        if(empty($color) OR $color === null){
-            return abort(404);
-        } else {
-            $id = $color->id;
-            $name = $color->color;
-            $slug_color = $color->slug_color;
-            $image = $color->link;
-
-            $color = collect(['id' => $id, 'name' => $name, 'slug_color' => $slug_color, 'image' => $image]);
-
-            return $color;
-        }
-    }
-
-    public function updateColor($data, $id)
+    public function updateColor(DTOupdateColor $dto, $id): Color
     {
         $color = Color::find($id);
 
-        if($data->color !== 'null'){
-            $color->color = $data->color;
-            $color->slug_color = Transliterate::slugify($data->color);
+        if($dto->color !== 'null'){
+            $color->color = $dto->color;
+            $color->slug_color = $dto->slug_color;;
             $color->save();
         }
 
-        if($data->image !== 'null'){
-            Storage::delete($color->path);
-            $path = Storage::putFile('public/color', $data->image);
-            $url = Storage::url($path);
-            $color->path = $path;
-            $color->link = $url;
+        if($dto->image !== 'null'){
+            UpdateStroageService::deleteImage($color->path);
+            $storage = 'public/color';
+            $image = UpdateStroageService::updateImage($storage, $dto->image);
+            $color->path = $image['path'];
+            $color->link = $image['url'];
             $color->save();
         }
 
         return $color;
     }
 
-    public function destroyColor($id)
+    public function destroyColor($id): void
     {
         $color = Color::find($id);
 
-        Storage::delete($color->path);
+        UpdateStroageService::deleteImage($color->path);
         $color->delete();
     }
 

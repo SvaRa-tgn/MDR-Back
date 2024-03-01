@@ -23,7 +23,7 @@
                     /
                 </li>
                 <li class="breadcrumbs-item">
-                    Редактирование категории - {{$category['name']}}
+                    Редактирование категории - {{$category->category}}
                 </li>
             </ul>
         </div>
@@ -45,7 +45,7 @@
                 <section class="content-admin-block">
                     <div class="admin-block-2fr">
                         <div class="wrap-edit-data">
-                            <form class="update-form-data" data-form="category-update" method="POST" action="{{ route('updateCategory', $category['id'] )}}" enctype="multipart/form-data">
+                            <form class="update-form-data" data-form="category-update" method="POST" action="{{ route('updateCategory', $category->id )}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <article class="name-admin-block" data-success="Категория отредактирована">
@@ -64,7 +64,7 @@
                                     <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                                 </div>
                                 <div class="wrap-button" data-search="Редактируем Категорию">
-                                    <button class="button-auth accept js-up-data" data-id="{{$category['id']}}" type="submit" name="submit-auth">Сохранить</button>
+                                    <button class="button-auth accept js-up-data" data-id="{{$category->id}}" type="submit" name="submit-auth">Сохранить</button>
                                 </div>
                             </form>
                             <form class="itemDelete">
@@ -82,14 +82,14 @@
                             </div>
                             <ul class="relevant-info-list">
                                 <li class="db-relevant-info-item form-label admin-block-db">
-                                    <article class="collect-article js-data-name" data-tag="Категорию">{{$category['name']}}</article>
+                                    <article class="collect-article js-data-name" data-tag="Категорию">{{$category->category}}</article>
                                 </li>
                             </ul>
                             <div class="db-admin-article db-admin-list">
                                 Фотография Категории:
                             </div>
                             <div class="wrap-img-category">
-                                <img class="main-block-item-img" src="{{asset($category['image'])}}" alt="Мебель в Рязани. {{$category['name']}}" />
+                                <img class="main-block-item-img" src="{{asset($category->link)}}" alt="Мебель в Рязани. {{$category->category}}" />
                             </div>
                         </div>
                     </div>

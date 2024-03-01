@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOsearchProduct;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use Illuminate\Http\JsonResponse;
 
-class SearchProductAction extends Controller
+class SearchProductAction
 {
     public $action;
 
@@ -15,7 +15,7 @@ class SearchProductAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request)
+    public function execute($request): JsonResponse
     {
         $products = $this->action->searchProduct(DTOsearchProduct::fromSearchProductRequest($request));
 

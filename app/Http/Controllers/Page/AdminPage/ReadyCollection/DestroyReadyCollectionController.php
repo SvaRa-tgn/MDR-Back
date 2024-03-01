@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Page\AdminPage\ReadyCollection;
 
 use App\Actions\Admin\ReadyCollection\DestroyReadyCollectionAction;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class DestroyReadyCollectionController extends DestroyReadyCollectionAction
+class DestroyReadyCollectionController extends Controller
 {
     public function destroyReadyCollection(DestroyReadyCollectionAction $action, $id)
     {

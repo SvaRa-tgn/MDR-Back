@@ -2,10 +2,10 @@
 
 namespace App\Actions\Admin\Product;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use Illuminate\Http\JsonResponse;
 
-class SampleSubCategoriesAction extends Controller
+class SampleSubCategoriesAction
 {
     public $action;
 
@@ -14,7 +14,7 @@ class SampleSubCategoriesAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($id)
+    public function execute($id): JsonResponse
     {
         $subcategories = $this->action->sample($id);
 

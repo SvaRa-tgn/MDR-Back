@@ -2,12 +2,11 @@
 
 namespace App\Actions\Admin\Product;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 use App\Services\Admin\Product\AllProductsService;
 
-class AllProductsAction extends Controller
+class AllProductsAction
 {
     public ProductRepository $action;
 
@@ -28,7 +27,7 @@ class AllProductsAction extends Controller
     {
         $subCategories = $this->subCategory->subCategory();
 
-        $products = $this->action->products($page);
+        $products = $this->action->productsClass($page);
 
         $head = $this->service->title($page);
 

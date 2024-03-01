@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOdestroyImage;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use Illuminate\Http\JsonResponse;
 
-class DestroyImageAction extends Controller
+class DestroyImageAction
 {
     public $action;
 
@@ -15,7 +15,7 @@ class DestroyImageAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request, $id)
+    public function execute($request, $id): JsonResponse
     {
         $product = $this->action->destroyImage(DTOdestroyImage::fromDestroyImageRequest($request), $id);
 

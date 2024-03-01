@@ -2,10 +2,9 @@
 
 namespace App\Actions\Admin\Product;
 
-use App\Http\Controllers\Controller;
 use App\Services\Admin\Product\SetupProductsService;
 
-class SetupProductsAction extends Controller
+class SetupProductsAction
 {
     private SetupProductsService $service;
 

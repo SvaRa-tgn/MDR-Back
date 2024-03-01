@@ -2,11 +2,10 @@
 
 namespace App\Actions\Admin\Category;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Services\Admin\Category\EditCategoryService;
 
-class EditCategoryAction extends Controller
+class EditCategoryAction
 {
     public $action;
 
@@ -22,9 +21,13 @@ class EditCategoryAction extends Controller
     {
         $category = $this->action->editCategory($slug_category);
 
-        $head = $this->service->title($category);
+        if(empty($category) OR $category === null){
+            return abort(404);
+        } else {
+            $head = $this->service->editTitle($category->category);
 
-        return view ('/app-page/admin-page/admin-box/category/edit-category', ['category' => $category, 'head' => $head]);
+            return view('/app-page/admin-page/admin-box/category/edit-category', ['category' => $category, 'head' => $head]);
+        }
     }
 
 }

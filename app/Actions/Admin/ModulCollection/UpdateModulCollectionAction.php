@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\ModulCollection;
 
 use App\DTO\DTOmodulCollection;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\ModulCollection\ModulCollectionRepository;
+use Illuminate\Http\JsonResponse;
 
-class UpdateModulCollectionAction extends Controller
+class UpdateModulCollectionAction
 {
     public $action;
 
@@ -15,7 +15,7 @@ class UpdateModulCollectionAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request, $id)
+    public function execute($request, $id): JsonResponse
     {
         $modul_collection = $this->action->updateModulCollection(DTOmodulCollection::fromModulCollectionRequest($request), $id );
 

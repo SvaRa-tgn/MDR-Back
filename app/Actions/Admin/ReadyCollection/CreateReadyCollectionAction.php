@@ -3,10 +3,10 @@
 namespace App\Actions\Admin\ReadyCollection;
 
 use App\DTO\DTOreadyCollection;
-use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\ReadyCollection\ReadyCollectionRepository;
+use Illuminate\Http\RedirectResponse;
 
-class CreateReadyCollectionAction extends Controller
+class CreateReadyCollectionAction
 {
     public $action;
 
@@ -15,11 +15,11 @@ class CreateReadyCollectionAction extends Controller
         $this->action = $action;
     }
 
-    public function execute($request)
+    public function execute($request): RedirectResponse
     {
         $this->action->createReadyCollection(DTOreadyCollection::fromReadyCollectionRequest($request));
 
-        return redirect()->route('readyCollection')->with('success', 'Готовая коллекция создана');
+        return redirect()->route('readyCollection');
     }
 
 }

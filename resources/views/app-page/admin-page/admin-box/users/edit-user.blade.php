@@ -124,7 +124,7 @@
                                         </label>
 
                                         <input class="admin-select admin-input" onkeypress="return /[0-9]/i.test(event.key)"
-                                               type="text" id="up_phone" name="phone" value="{{ old('height') }}"/>
+                                               type="text" id="up_phone" name="phone" value="{{ old('phone') }}"/>
                                     </li>
                                 </ul>
 
