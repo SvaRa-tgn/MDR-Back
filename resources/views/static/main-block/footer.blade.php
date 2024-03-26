@@ -7,155 +7,23 @@
                 </div>
             </div>
             <ul class="wrap-footer-nav-list">
+                @foreach($categories as $category)
                 <li class="wrap-footer-nav-item">
                     <ul class="footer-nav-list">
                         <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Гостиные</a>
+                            <a class="link-footer-nav" href="{{route('catalogSubcategories', $category->slug_category)}}">{{$category->category}}</a>
+
                         </li>
+                        @foreach($sub_categories as $sub_category)
+                            @if($category->id === $sub_category->category_id)
                         <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Модульные гостиные</a>
+                            <a class="link-footer-nav" href="#">{{$sub_category->sub_category}}</a>
                         </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Стенки</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Комоды</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Журнальные столы</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Полки и антресоли</a>
-                        </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </li>
-                <li class="wrap-footer-nav-item">
-                    <ul class="footer-nav-list">
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Детская мебель</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Модульные детские</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Кровати детские</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Письменные столы</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Шкафы и стеллажи</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="wrap-footer-nav-item">
-                    <ul class="footer-nav-list">
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Домашний офис</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Письменные столы</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Компьютерные столы</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Компьютерные кресла</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Стеллажи</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="wrap-footer-nav-item">
-                    <ul class="footer-nav-list">
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Прихожие</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Модульные прихожие</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Готовые прихожие</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Угловые прихожие</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Шкафы для прихожей</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="wrap-footer-nav-item">
-                    <ul class="footer-nav-list">
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Спальни</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Модульные спальни</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Прикроватные тумбы</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Комоды</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Столы туалетные</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="wrap-footer-nav-item">
-                    <ul class="footer-nav-list">
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Шкафы</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Шкафы-купе</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Распашные шкафы</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Шкафы для одежды</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="wrap-footer-nav-item">
-                    <ul class="footer-nav-list">
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Кухни</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Модульные кухни</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Готовые кухни</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Обеденые столы</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Кухонные диваны и уголки</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="wrap-footer-nav-item">
-                    <ul class="footer-nav-list">
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Мягкая мебель</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Диваны</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Кресла</a>
-                        </li>
-                        <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">Пуфы</a>
-                        </li>
-                    </ul>
-                </li>
+                @endforeach
             </ul>
         </section>
 

@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use App\Http\Requests\AdminPage\Color\UpdateColorRequest;
+use Illuminate\Support\Str;
 use Spatie\DataTransferObject\DataTransferObject;
 use Transliterate;
 
@@ -21,7 +22,9 @@ class DTOupdateColor extends DataTransferObject
             $color = 'null';
             $slug_color = 'null';
         } else {
-            $color = $data['color'];
+            $lover = Str::lower($data['color']);
+            $name = Str::title($lover);
+            $color = $name;
             $slug_color = Transliterate::slugify($data['color']);
         }
 

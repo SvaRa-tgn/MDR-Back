@@ -5,7 +5,7 @@
     <article class="modal-content">{{ session('success') }}</article>
     <ul class="modal-list js-link-2">
         <li class="modal-item">
-            <a class="modal-link mdr-button accept" href="{{route('profile.index')}}">Перейти в личный кабинет</a>
+            <a class="modal-link mdr-button accept" href="{{route('private')}}">Перейти в личный кабинет</a>
         </li>
         <li class="modal-item">
             <div class="modal-link mdr-button stop js-close">Остаться на странице</div>
@@ -58,13 +58,13 @@
             </li>
         </ul>
     @endif
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editModulCollection')
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editCollection')
         <ul class="modal-list js-link-3">
             <li class="modal-item">
-                <form class="itemAdminDelete delete-form-data" data-success="Модульная коллекция успешно удалена"  action="{{ route('destroyModulCollection', $modul_collection['id']) }}" method="post">
+                <form class="itemAdminDelete delete-form-data" data-success="Коллекция успешно удалена"  action="{{ route('destroyCollection', $item_collection['id']) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить Модульную коллекцию">
+                    <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить Коллекцию">
                 </form>
             </li>
             <li class="modal-item">
@@ -72,24 +72,25 @@
             </li>
         </ul>
     @endif
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editReadyCollection')
-        <ul class="modal-list js-link-3">
-            <li class="modal-item">
-                <form class="itemAdminDelete delete-form-data" data-success="Готовая коллекция успешно удалена"  action="{{ route('destroyReadyCollection', $ready_collection['id']) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить Готовую коллекцию">
-                </form>
-            </li>
-            <li class="modal-item">
-                <div class="modal-link mdr-button neutral js-close">Не буду удалять</div>
-            </li>
-        </ul>
-    @endif
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'updateProduct')
+
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editProduct')
         <ul class="modal-list js-link-3">
             <li class="modal-item">
                 <form class="itemAdminDelete delete-form-data" data-success="Товар успешно удален"  action="{{ route('destroyProduct', $product->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить Товар">
+                </form>
+            </li>
+            <li class="modal-item">
+                <div class="modal-link mdr-button neutral js-close">Не буду удалять</div>
+            </li>
+        </ul>
+    @endif
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'editModulCompilation')
+        <ul class="modal-list js-link-3">
+            <li class="modal-item">
+                <form class="itemAdminDelete delete-form-data" data-success="Товар успешно удален"  action="{{ route('destroyModulCompilation', $product->id) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить Товар">
@@ -107,6 +108,20 @@
                     @csrf
                     @method('DELETE')
                     <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить пользователя">
+                </form>
+            </li>
+            <li class="modal-item">
+                <div class="modal-link mdr-button neutral js-close">Не буду удалять</div>
+            </li>
+        </ul>
+    @endif
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'profile')
+        <ul class="modal-list js-link-3">
+            <li class="modal-item">
+                <form class="itemAdminDelete delete-form-data" data-acc="delete-accaunt" data-success="Аккаунт удален :( Нам жаль, что вы уходите."  action="{{ route('destroyProfile') }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" class="width-modal-form mdr-button stop modal-link" value="Удалить аккаунт">
                 </form>
             </li>
             <li class="modal-item">

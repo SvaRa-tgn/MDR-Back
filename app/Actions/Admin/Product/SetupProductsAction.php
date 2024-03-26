@@ -3,6 +3,7 @@
 namespace App\Actions\Admin\Product;
 
 use App\Services\Admin\Product\SetupProductsService;
+use Illuminate\View\View;
 
 class SetupProductsAction
 {
@@ -13,7 +14,7 @@ class SetupProductsAction
         $this->service = $service;
     }
 
-    public function execute()
+    public function execute(): View
     {
         $head = $this->service->title();
 

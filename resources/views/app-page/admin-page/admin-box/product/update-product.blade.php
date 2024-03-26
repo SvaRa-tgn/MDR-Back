@@ -27,7 +27,7 @@
 
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">{{$product->small_name}}</h1>
+                <h1 class="private-page-h1">{{$product->small_name}}</h1>
             </div>
 
             <div class="main-private-data-item">
@@ -48,13 +48,13 @@
                                     Статус товара
                                 </label>
 
-                                <select class="admin-select admin-input" name="status" id="status">
+                                <select class="admin-select admin-input" name="status_product" id="status">
                                     @if($images->isEmpty())
                                     <option class="option" value="">--Без заглавной фотографиий вы не можете менять статус--</option>
                                     @else
                                     <option class="option" value="">--Выберите новый статус товара--</option>
                                     <option class="option" value="Продажа">Продажа</option>
-                                    <option class="option" value="Резерв">Заказ</option>
+                                    <option class="option" value="Резерв">Резерв</option>
                                     <option class="option" value="Не отображать">Не отображать</option>
                                     @endif
                                 </select>
@@ -203,7 +203,7 @@
                     </div>
 
                     <div class="admin-block-2fr">
-                        <form class="update-form-data" data-form="update-product" action="{{ route('updateData', $product->id) }}"
+                        <form class="update-form-data" data-form="update-product" action="{{ route('updateProduct', $product->id) }}"
                               method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -219,7 +219,7 @@
                                     <select class="admin-select admin-input" name="category" id="class">
                                         <option class="class" value="">--Выберите категорию товара--</option>
                                         @foreach($categories as $category)
-                                            <option class="class" data-link="{{ route('sample', $category->id) }}"
+                                            <option class="class" data-link="{{ route('sampleSubCategories', ['id' => $category->id, 'type_item' => 'Товары']) }}"
                                                     value="{{$category->id}}">{{$category->category}}</option>
                                         @endforeach
                                     </select>
@@ -241,72 +241,20 @@
                                         Тип товара
                                     </label>
 
-                                    <select class="admin-select admin-input type" name="type" id="type" disabled>
-                                        <option class="type-disable" value="">Сначала выберите подкатегорию товара
-                                        </option>
-                                        <option class="type" value="Модульный">Модульный</option>
-                                        <option class="type" value="Готовый">Готовый</option>
+                                    <select class="admin-select admin-input type" name="type" id="type">
+                                        <option class="type-disable" value="">--Выберите тип товара--</option>
+                                        <option class="type" data-link="{{ route('sampleCollection', ['type' => 'Модульная коллекция']) }}" value="Модуль">Модуль</option>
+                                        <option class="type" data-link="{{ route('sampleCollection', ['type' => 'Готовая коллекция']) }}" value="Готовый">Готовый</option>
                                     </select>
                                 </li>
 
-                                <li class="wrap-input type_modulError"
-                                    data-answer="Вы не выбрали Тип модульного товара">
+                                <li class=" wrap-input item_readyError" data-answer="Вы не выбрали Коллекцию товара">
                                     <label class="form-label">
-                                        Тип модульного товара
+                                        Коллекция товара
                                     </label>
 
-                                    <select class="admin-select admin-input js-item-coll type-modul" name="type_modul"
-                                            id="type-modul" disabled>
-                                        <option class="type-modul-disable option-null" value="">Выберите тип товара
-                                        </option>
-                                        <option class="type-modul" value="Комплект">Комплект</option>
-                                        <option class="type-modul" value="модуль">Модуль</option>
-                                    </select>
-                                </li>
-
-                                <li class=" wrap-input item_modulError"
-                                    data-answer="Вы не выбрали Коллекцию модульного товара">
-                                    <label class="form-label">
-                                        Коллекция модульного товара
-                                    </label>
-
-                                    <select class="admin-select admin-input js-item-coll item-collection"
-                                            name="item_modul" id="modul_collection" disabled>
-                                        <option class="modul-collection-disable option-null" value="">Выберите тип
-                                            товара
-                                        </option>
-                                        @if($modul_collections->isEmpty())
-                                            <option class="modul-collection" value="null">Без коллекции</option>
-                                        @else
-                                            <option class="modul-collection" value="null">Без коллекции</option>
-                                            @foreach($modul_collections as $modul_collection)
-                                                <option class="modul-collection"
-                                                        value="{{$modul_collection->modul_collection}}">{{$modul_collection->modul_collection}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </li>
-
-                                <li class=" wrap-input item_readyError"
-                                    data-answer="Вы не выбрали Коллекцию готового товара">
-                                    <label class="form-label">
-                                        Коллекция готового товара
-                                    </label>
-
-                                    <select class="admin-select admin-input js-item-coll item-ready" name="item_ready"
-                                            id="ready_collection" disabled>
-                                        <option class="ready-collection-disable option-null" value="">Выберите тип
-                                            товара
-                                        </option>
-                                        @if($ready_collections->isEmpty())
-                                            <option class="modul-collection" value="null">Без коллекции</option>
-                                        @else
-                                            <option class="modul-collection" value="null">Без коллекции</option>
-                                            @foreach($ready_collections as $ready_collection)
-                                                <option class="modul-collection"
-                                                        value="{{$ready_collection->ready_collection}}">{{$ready_collection->ready_collection}}</option>
-                                            @endforeach
-                                        @endif
+                                    <select class="admin-select admin-input collection visible-type-modul" name="collection" id="collection" disabled>
+                                        <option class="sub-collection" value="">Сначала выберите Тип товара</option>
                                     </select>
                                 </li>
 
@@ -433,7 +381,7 @@
                                 </li>
                             </ul>
 
-                            <div class="wrap-button-big" data-search="Изменяем данные товара">
+                            <div class="wrap-button-big wrap-button" data-search="Изменяем данные товара">
                                 <button class="button-form accept" type="submit" name="submit">Сохранить</button>
                             </div>
                         </form>
@@ -469,37 +417,13 @@
                                 </li>
                                 <li class="relevant-info-item admin-block-1fr">
                                     <article class="form-label">
-                                        Тип модульного товара:
+                                        Коллекция:
                                     </article>
                                     <article class="relevant-info">
-                                        @if ($product->type_modul === 'null')
-                                            ---
+                                        @if($product->collection === null)
+                                        Без коллекции
                                         @else
-                                            {{$product->type_modul}}
-                                        @endif
-                                    </article>
-                                </li>
-                                <li class="relevant-info-item admin-block-1fr">
-                                    <article class="form-label">
-                                        Коллекция модульного товара:
-                                    </article>
-                                    <article class="relevant-info">
-                                        @if ($product->item_modul === 'null')
-                                            ---
-                                        @else
-                                            {{$product->item_modul}}
-                                        @endif
-                                    </article>
-                                </li>
-                                <li class="relevant-info-item admin-block-1fr">
-                                    <article class="form-label">
-                                        Коллекция готового товара:
-                                    </article>
-                                    <article class="relevant-info">
-                                        @if ($product->item_ready === 'null')
-                                            ---
-                                        @else
-                                            {{$product->item_ready}}
+                                            {{$product->collection}}
                                         @endif
                                     </article>
                                 </li>

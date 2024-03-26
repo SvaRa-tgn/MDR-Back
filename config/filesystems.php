@@ -68,6 +68,14 @@ return [
             'throw' => false,
         ],
 
+        'slider' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/slider'),
+            'url' => env('APP_URL').'/storage/slider',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'excel' => [
             'driver' => 'local',
             'root' => storage_path('app/public/excel'),

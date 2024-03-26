@@ -114,7 +114,7 @@ body {
   width: 200%;
   height: 150%;
   border-radius: 50%;
-  background: rgba(0, 33, 55, 0.4);
+  background: rgba(0, 0, 0, 0.4);
   top: 100%;
   right: 100%;
   z-index: 10;
@@ -178,6 +178,11 @@ body {
   font-size: 2.2em;
 }
 
+.fa-cart-profile {
+  font-size: 2.2em;
+  color: #6a8981;
+}
+
 .fa-heart, .fa-delete, .fa-cart, .fa-heart-price {
   -webkit-transition: 0.3s;
   transition: 0.3s;
@@ -226,6 +231,14 @@ body {
 
 .fa-font-mdr {
   font-family: "Montserrat", Arial, sans-serif;
+}
+
+.fa-heart-o {
+  color: #6a8981;
+}
+
+.fa-heart {
+  color: #ca7b83;
 }
 
 .fa-heart-price {

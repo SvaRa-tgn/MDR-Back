@@ -13,7 +13,7 @@ interface ColorRepositoryInterfaces
 
     public function createColor(DTOcreateColor $dto): Color;
 
-    public function editColor($slug_color): Color;
+    public function editColor($slug_color): Color| null;
 
     public function  updateColor(DTOupdateColor $dto, $id): Color;
 

@@ -13,7 +13,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 {
     public function category(): Collection
     {
-        return Category::all();
+        return Category::all()->sortBy('category');
     }
 
     public function createCategory(DTOcreateCategory $dto): Category
@@ -30,7 +30,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $category;
     }
 
-    public function editCategory($slug_category): Category
+    public function editCategory($slug_category): Category| null
     {
         return Category::where('slug_category', $slug_category)->first();
     }

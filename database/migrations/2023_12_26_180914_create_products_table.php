@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('sub_category_id')->nullable();
             $table->foreign('sub_category_id')->references('id')->on('sub_categories');
             $table->string('type')->nullable();
-            $table->string('type_modul')->nullable();
-            $table->string('item_modul')->nullable();
-            $table->string('item_ready')->nullable();
+            $table->string('collection_type')->nullable();
+            $table->unsignedBigInteger('collection_id')->nullable();
+            $table->foreign('collection_id')->references('id')->on('item_collections');
             $table->string('full_name')->nullable();
             $table->string('slug_full_name')->nullable();
             $table->string('small_name')->nullable();

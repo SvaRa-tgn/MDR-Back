@@ -27,7 +27,7 @@
 
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">Управление Категориями</h1>
+                <h1 class="private-page-h1">Управление Категориями</h1>
             </div>
 
             <div class="main-private-data-item">

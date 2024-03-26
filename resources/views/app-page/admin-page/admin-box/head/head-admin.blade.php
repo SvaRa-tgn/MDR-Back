@@ -20,14 +20,14 @@
     @include('static.aside.admin-aside')
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">Управление сайтом</h1>
+                <h1 class="private-page-h1">Управление сайтом</h1>
             </div>
 
             <ul class="admin-setup-list">
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/slide.jpeg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="/html/admin/slider.html">
+                        <a class="setup-link" href="{{route('sliders')}}">
                             Управление слайдером
                         </a>
                     </div>
@@ -81,17 +81,8 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/modul.png')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('modulCollection')}}">
-                            Управление Коллекциями (модуль)
-                        </a>
-                    </div>
-                </li>
-
-                <li class="admin-setup-item">
-                    <img class="main-block-item-img" src="{{asset('/img/static/setup/ready.png')}}" />
-                    <div class="filter-setup">
-                        <a class="setup-link" href="{{route('readyCollection')}}">
-                            Управление Коллекциями (готовыми)
+                        <a class="setup-link" href="{{route('itemCollection')}}">
+                            Управление Коллекциями
                         </a>
                     </div>
                 </li>
@@ -108,8 +99,8 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/product.jpg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('productCreate')}}">
-                            Создать товар
+                        <a class="setup-link" href="{{route('chooseProducts')}}">
+                            Создание товаров
                         </a>
                     </div>
                 </li>
@@ -117,8 +108,8 @@
                 <li class="admin-setup-item">
                     <img class="main-block-item-img" src="{{asset('/img/static/setup/update.jpg')}}" />
                     <div class="filter-setup">
-                        <a class="setup-link" href="{{route('editProduct')}}">
-                            Редактировать товар
+                        <a class="setup-link" href="{{route('searchEditProduct')}}">
+                            Редактирование товаров
                         </a>
                     </div>
                 </li>

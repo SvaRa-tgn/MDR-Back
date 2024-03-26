@@ -22,8 +22,9 @@ class SubCategoryCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category' => ['required', 'string', 'max:255'],
-            'sub_category' => ['required', 'string', 'max:255', 'unique:sub_categories'],
+            'category' => ['required', 'string', 'max:30'],
+            'sub_category' => ['required', 'string', 'max:50', 'unique:sub_categories'],
+            'type_item' => ['required', 'string', 'max:30'],
             'image' => ['required', 'image', 'max:30000']
         ];
 

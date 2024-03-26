@@ -23,4 +23,18 @@ class SeoService
             'description' => static::DESC. $name .'. Редактирование и удаление.'];
     }
 
+    #[ArrayShape(['title' => "string", 'description' => "string"])]
+    public function titlePage(): array
+    {
+        return ['title' => static::TITLE,
+            'description' => static::DESC];
+    }
+
+    #[ArrayShape(['title' => "string", 'description' => "string"])]
+    public function editTitlePage($name): array
+    {
+        return ['title' => $name. static::TITLE,
+            'description' => $name. static::DESC];
+    }
+
 }

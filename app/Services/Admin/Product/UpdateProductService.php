@@ -6,6 +6,6 @@ use App\Services\Admin\SeoService;
 
 class UpdateProductService extends SeoService
 {
-    const TITLE = 'Обновление - ';
-    const DESC = 'Обновление - ';
+    const TITLE = 'Редактирование - ';
+    const DESC = 'Редактирование - ';
 }

@@ -15,32 +15,43 @@ use App\Http\Controllers\Page\AdminPage\Color\UpdateColorController;
 use App\Http\Controllers\Page\AdminPage\Excel\ExcelController;
 use App\Http\Controllers\Page\AdminPage\Excel\ExcelUploadController;
 use App\Http\Controllers\Page\AdminPage\Head\HeadAdminController;
-use App\Http\Controllers\Page\AdminPage\ModulCollection\CreateModulCollectionController;
-use App\Http\Controllers\Page\AdminPage\ModulCollection\DestroyModulCollectionController;
-use App\Http\Controllers\Page\AdminPage\ModulCollection\EditModulCollectionController;
-use App\Http\Controllers\Page\AdminPage\ModulCollection\ModulCollectionController;
-use App\Http\Controllers\Page\AdminPage\ModulCollection\UpdateModulCollectionController;
+use App\Http\Controllers\Page\AdminPage\ItemCollection\CreateItemCollectionController;
+use App\Http\Controllers\Page\AdminPage\ItemCollection\DestroyItemCollectionController;
+use App\Http\Controllers\Page\AdminPage\ItemCollection\EditItemCollectionController;
+use App\Http\Controllers\Page\AdminPage\ItemCollection\ItemCollectionController;
+use App\Http\Controllers\Page\AdminPage\ItemCollection\UpdateItemCollectionController;
 use App\Http\Controllers\Page\AdminPage\Product\AddImageController;
+use App\Http\Controllers\Page\AdminPage\Product\AddModulController;
 use App\Http\Controllers\Page\AdminPage\Product\AllProductsController;
+use App\Http\Controllers\Page\AdminPage\Product\ChooseProductsController;
+use App\Http\Controllers\Page\AdminPage\Product\CreateModulCompilationController;
 use App\Http\Controllers\Page\AdminPage\Product\CreateProductController;
 use App\Http\Controllers\Page\AdminPage\Product\DestroyImageController;
+use App\Http\Controllers\Page\AdminPage\Product\DestroyModulCompilationController;
+use App\Http\Controllers\Page\AdminPage\Product\DestroyModulController;
 use App\Http\Controllers\Page\AdminPage\Product\DestroyProductController;
+use App\Http\Controllers\Page\AdminPage\Product\EditModulCompilationController;
 use App\Http\Controllers\Page\AdminPage\Product\EditProductController;
+use App\Http\Controllers\Page\AdminPage\Product\ModulCompilationController;
 use App\Http\Controllers\Page\AdminPage\Product\ProductController;
+use App\Http\Controllers\Page\AdminPage\Product\SampleCollectionController;
+use App\Http\Controllers\Page\AdminPage\Product\SampleModulController;
 use App\Http\Controllers\Page\AdminPage\Product\SampleProductController;
 use App\Http\Controllers\Page\AdminPage\Product\SampleSubCategoriesController;
+use App\Http\Controllers\Page\AdminPage\Product\SampleSubCategoriesCreateController;
+use App\Http\Controllers\Page\AdminPage\Product\SearchEditProductController;
 use App\Http\Controllers\Page\AdminPage\Product\SearchProductController;
 use App\Http\Controllers\Page\AdminPage\Product\SearchSetupProductController;
 use App\Http\Controllers\Page\AdminPage\Product\SetupProductsController;
-use App\Http\Controllers\Page\AdminPage\Product\UpdateDataController;
 use App\Http\Controllers\Page\AdminPage\Product\UpdateImageController;
 use App\Http\Controllers\Page\AdminPage\Product\UpdateProductController;
 use App\Http\Controllers\Page\AdminPage\Product\UpdateStatusController;
-use App\Http\Controllers\Page\AdminPage\ReadyCollection\CreateReadyCollectionController;
-use App\Http\Controllers\Page\AdminPage\ReadyCollection\DestroyReadyCollectionController;
-use App\Http\Controllers\Page\AdminPage\ReadyCollection\EditReadyCollectionController;
-use App\Http\Controllers\Page\AdminPage\ReadyCollection\ReadyCollectionController;
-use App\Http\Controllers\Page\AdminPage\ReadyCollection\UpdateReadyCollectionController;
+use App\Http\Controllers\Page\AdminPage\Sliders\AddImageSlidersController;
+use App\Http\Controllers\Page\AdminPage\Sliders\DestroyImageSlidersController;
+use App\Http\Controllers\Page\AdminPage\Sliders\SetupSliderController;
+use App\Http\Controllers\Page\AdminPage\Sliders\SlidersController;
+use App\Http\Controllers\Page\AdminPage\Sliders\UpdateImageSlidersController;
+use App\Http\Controllers\Page\AdminPage\Sliders\UpdateStatusSlidersController;
 use App\Http\Controllers\Page\AdminPage\SubCategory\CreateSubCategoryController;
 use App\Http\Controllers\Page\AdminPage\SubCategory\DestroySubCategoryController;
 use App\Http\Controllers\Page\AdminPage\SubCategory\EditSubCategoryController;
@@ -53,6 +64,9 @@ use App\Http\Controllers\Page\AdminPage\Users\UpdatePasswordUserController;
 use App\Http\Controllers\Page\AdminPage\Users\UpdateUserController;
 use App\Http\Controllers\Page\AdminPage\Users\UpdateUserRoleController;
 use App\Http\Controllers\Page\AdminPage\Users\UsersController;
+use App\Http\Controllers\Page\CatalogPage\CatalogController;
+use App\Http\Controllers\Page\CatalogPage\CatalogSubcategoriesController;
+use App\Http\Controllers\Page\indexPage\IndexController;
 use App\Http\Controllers\Page\InfoPage\CookiesController;
 use App\Http\Controllers\Page\InfoPage\HowDesignOrderController;
 use App\Http\Controllers\Page\InfoPage\InfoMainController;
@@ -60,6 +74,14 @@ use App\Http\Controllers\Page\InfoPage\InfoUserController;
 use App\Http\Controllers\Page\InfoPage\ObmenVozvratController;
 use App\Http\Controllers\Page\InfoPage\PersonalDataController;
 use App\Http\Controllers\Page\InfoPage\PublicOffertaController;
+use App\Http\Controllers\Page\ProfilePage\Profile\DestroyProfileController;
+use App\Http\Controllers\Page\ProfilePage\Profile\ProfileCheckController;
+use App\Http\Controllers\Page\ProfilePage\Profile\ProfileController;
+use App\Http\Controllers\Page\ProfilePage\Profile\UpdateProfileController;
+use App\Http\Controllers\Page\ProfilePage\Profile\UpdateProfilePasswordController;
+use App\Http\Controllers\Page\ProfilePage\ProfileCart\ProfileCartController;
+use App\Http\Controllers\Page\ProfilePage\ProfileFavorites\ProfileFavoritesController;
+use App\Http\Controllers\Page\ProfilePage\ProfilePurchased\ProfilePurchasedController;
 use App\Http\Controllers\Page\ServicePage\DeliveryController;
 use App\Http\Controllers\Page\ServicePage\OplataController;
 use App\Http\Controllers\Page\ServicePage\SamovyvozController;
@@ -82,7 +104,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/', [Page\indexPage\IndexController::class, 'index'])->name('/.index');
+Route::get('/', [IndexController::class, 'index'])->name('/.index');
+
+//Страница Каталог
+Route::prefix('catalog')->group(function(){
+    Route::get('mdr', [CatalogController::class, 'catalogCategory'])->name('catalogCategory');
+    Route::get('{category}.mdr', [CatalogSubcategoriesController::class, 'catalogSubcategories'])->name('catalogSubcategories');
+
+});
 
 //Страница Информация
 Route::prefix('information')->group(function(){
@@ -127,22 +156,13 @@ Route::prefix('admin')->middleware('admin')->group(function (){
         Route::delete('destroy/{id}', [DestroySubCategoryController::class, 'destroySubCategory'])->name('destroySubCategory');
     });
 
-    //Модульные коллекции
-    Route::prefix('modul-collection')->group(function(){
-        Route::get('mdr', [ModulCollectionController::class, 'modulCollection'])->name('modulCollection');
-        Route::post('create', [CreateModulCollectionController::class, 'createModulCollection'])->name('createModulCollection');
-        Route::get('{slug_modul_collection}.mdr', [EditModulCollectionController::class, 'editModulCollection'])->name('editModulCollection');
-        Route::put('update/{id}', [UpdateModulCollectionController::class, 'updateModulCollection'])->name('updateModulCollection');
-        Route::delete('destroy/{id}.mdr', [DestroyModulCollectionController::class, 'destroyModulCollection'])->name('destroyModulCollection');
-    });
-
-    //Готовые коллекции
-    Route::prefix('ready-collection')->group(function(){
-        Route::get('mdr', [ReadyCollectionController::class, 'readyCollection'])->name('readyCollection');
-        Route::post('create', [CreateReadyCollectionController::class, 'createReadyCollection'])->name('createReadyCollection');
-        Route::get('{slug_ready_collection}.mdr', [EditReadyCollectionController::class, 'editReadyCollection'])->name('editReadyCollection');
-        Route::put('update/{id}', [UpdateReadyCollectionController::class, 'updateReadyCollection'])->name('updateReadyCollection');
-        Route::delete('destroy/{id}', [DestroyReadyCollectionController::class, 'destroyReadyCollection'])->name('destroyReadyCollection');
+    //Коллекции
+    Route::prefix('collection')->group(function(){
+        Route::get('mdr', [ItemCollectionController::class, 'itemCollection'])->name('itemCollection');
+        Route::post('create', [CreateItemCollectionController::class, 'createCollection'])->name('createCollection');
+        Route::get('{slug_collection}.mdr', [EditItemCollectionController::class, 'editCollection'])->name('editCollection');
+        Route::put('update/{id}', [UpdateItemCollectionController::class, 'updateCollection'])->name('updateCollection');
+        Route::delete('destroy/{id}.mdr', [DestroyItemCollectionController::class, 'destroyCollection'])->name('destroyCollection');
     });
 
     //Цвет товара
@@ -154,24 +174,41 @@ Route::prefix('admin')->middleware('admin')->group(function (){
         Route::delete('destroy/{id}', [DestroyColorController::class, 'destroyColor'])->name('destroyColor');
     });
 
-    //Товар
-    Route::prefix('product')->group(function(){
+    //Управление Товарами. Модульные комплекты состоят из модулей(товаров). Товары отдельные единицы.
+    Route::prefix('products')->group(function(){
+        //Управление товарами
         Route::get('/mdr', [SetupProductsController::class, 'product'])->name('product');
         Route::get('/setup/{page}.mdr', [AllProductsController::class, 'productsClass'])->name('productAll');
+        //Создание товаров меню страницы
+        Route::get('/choose-products.mdr', [ChooseProductsController::class, 'chooseProducts'])->name('chooseProducts');
+        //Создание и редактирование товаров и модулей
         Route::get('/create-product.mdr', [ProductController::class, 'productCreate'])->name('productCreate');
-        Route::get('/sample-sub-catagory/{id}.mdr', [SampleSubCategoriesController::class, 'sample'])->name('sample');
         Route::post('/create-product', [CreateProductController::class, 'createProduct'])->name('createProduct');
-        Route::get('/edit-product.mdr', [EditProductController::class, 'editProduct'])->name('editProduct');
-        Route::post('/search-product.mdr', [SearchProductController::class, 'searchProduct'])->name('searchProduct');
-        Route::post('/search-product/{page}.mdr', [SearchSetupProductController::class, 'searchSetupProduct'])->name('searchSetupProduct');
-        Route::post('/sample-product', [SampleProductController::class, 'sampleProducts'])->name('sampleProducts');
-        Route::get('/update/{slug_full_name}.mdr', [UpdateProductController::class, 'updateProduct'])->name('updateProduct');
+        Route::get('/edit/{slug_full_name}.mdr', [EditProductController::class, 'editProduct'])->name('editProduct');
+        Route::put('/update-data/{id}', [UpdateProductController::class, 'updateProduct'])->name('updateProduct');
+        Route::delete('/delete-product/{id}', [DestroyProductController::class, 'destroyProduct'])->name('destroyProduct');
+        //Создание и редактирование  Модульных комплектов
+        Route::get('/create-modul-compilation.mdr', [ModulCompilationController::class, 'createCompilation'])->name('createCompilation');
+        Route::post('/create-modul-compilation', [CreateModulCompilationController::class, 'addCompilation'])->name('addCompilation');
+        Route::get('/edit-modul-compilation/{slug_full_name}.mdr', [EditModulCompilationController::class, 'editModulCompilation'])->name('editModulCompilation');
+        Route::delete('/delete-modul-compilation/{id}', [DestroyModulCompilationController::class, 'destroyModulCompilation'])->name('destroyModulCompilation');
+        //Загрузка, Обновление (фото статуса)
         Route::put('/update-status/{id}', [UpdateStatusController::class, 'updateStatus'])->name('updateStatus');
         Route::post('/add-image/{id}', [AddImageController::class, 'addImage'])->name('addImage');
         Route::put('/update-image/{id}', [UpdateImageController::class, 'updateImage'])->name('updateImage');
+        Route::put('/add-modul/{id}', [AddModulController::class, 'addModul'])->name('addModul');
         Route::delete('/delete-image/{id}', [DestroyImageController::class, 'destroyImage'])->name('destroyImage');
-        Route::put('/update-data/{id}', [UpdateDataController::class, 'updateData'])->name('updateData');
-        Route::delete('/delete-product/{id}', [DestroyProductController::class, 'destroyProduct'])->name('destroyProduct');
+        Route::delete('/delete-modul/{id}-{productId}', [DestroyModulController::class, 'destroyModul'])->name('destroyModul');
+        //JSON выборки для страниц
+        Route::get('/sample-sub-catagory/{id}.mdr', [SampleSubCategoriesController::class, 'sampleSubCategories'])->name('sampleSubCategories');
+        Route::get('/sample-sub-catagory-create/{id}_{type_item}.mdr', [SampleSubCategoriesCreateController::class, 'sampleSubCategoriesCreate'])->name('sampleSubCategoriesCreate');
+        Route::get('/sample-collection/{type}.mdr', [SampleCollectionController::class, 'sampleCollection'])->name('sampleCollection');
+        Route::post('/sample-product', [SampleProductController::class, 'sampleProducts'])->name('sampleProducts');
+        Route::get('/sample-modul/{id}', [SampleModulController::class, 'sampleModul'])->name('sampleModul');
+        //Поиск товара
+        Route::get('/search-edit-products.mdr', [SearchEditProductController::class, 'searchEditProduct'])->name('searchEditProduct');
+        Route::post('/search-product.mdr', [SearchProductController::class, 'searchProduct'])->name('searchProduct');
+        Route::post('/search-product/{page}.mdr', [SearchSetupProductController::class, 'searchSetupProduct'])->name('searchSetupProduct');
     });
 
     //Excel
@@ -190,15 +227,43 @@ Route::prefix('admin')->middleware('admin')->group(function (){
         Route::put('/update-user-password/{id}', [UpdatePasswordUserController::class, 'updateUserPassword'])->name('updateUserPassword');
         Route::delete('/destroy/{id}', [DestroyUserController::class, 'destroyUser'])->name('destroyUser');
     });
+
+    //Sliders
+    Route::prefix('sliders')->group(function(){
+        Route::get('mdr', [SlidersController::class, 'sliders'])->name('sliders');
+        Route::get('/setup-slider/{slider}.mdr', [SetupSliderController::class, 'setupSlider'])->name('setupSlider');
+        Route::put('/update-status/{id}', [UpdateStatusSlidersController::class, 'updateStatus'])->name('updateStatusSlider');
+        Route::put('/add-sliders', [AddImageSlidersController::class, 'addImage'])->name('addImageSlider');
+        Route::put('/update-sliders/{id}', [UpdateImageSlidersController::class, 'updateImage'])->name('updateImageSlider');
+        Route::delete('/destroy-sliders/{id}', [DestroyImageSlidersController::class, 'destroyImage'])->name('destroyImageSlider');
+    });
 });
 
 //Страница Личный кабинет
-Route::group(['middleware' => 'auth', 'namespace' => 'App\Http\Controllers\Page\ProfilePage\Profile'], function(){
-    Route::get('profile/private.mdr', 'IndexController@index')->name('profile.index');
-    Route::get('profile/private/{familia}_{name}_{father}.mdr', 'UserController@show')->name('profile.user');
-    Route::put('profile/private/update.mdr', 'UpdateUserController@updateUser')->name('profileUser.update');
-    Route::put('profile/private/update-password.mdr', 'UpdatePasswordUserController@updatePasswordUser')->name('profilePasswordUser.update');
-    Route::delete('profile/private/destroy/{user}.mdr', 'DestroyUserController@destroyUser')->name('profileUser.destroy');
+Route::prefix('profile')->middleware('auth')->group(function(){
+    //Личные данные
+    Route::prefix('private')->group(function(){
+        Route::get('mdr', [ProfileCheckController::class, 'profile'])->name('private');
+        Route::get('/{familia}_{name}_{father}.mdr', [ProfileController::class, 'profile'])->name('profile');
+        Route::put('/update', [UpdateProfileController::class, 'updateProfile'])->name('updateProfile');
+        Route::put('/update-password', [UpdateProfilePasswordController::class, 'updateProfilePassword'])->name('updateProfilePassword');
+        Route::delete('/destroy/profile', [DestroyProfileController::class, 'destroyProfile'])->name('destroyProfile');
+    });
+
+    //Корзина пользователя (зарегестрированного)
+    Route::prefix('cart')->group(function(){
+        Route::get('mdr', [ProfileCartController::class, 'profileCartItems'])->name('profileCart');
+    });
+
+    //Избранное пользователя (зарегестрированного)
+    Route::prefix('favorites')->group(function(){
+        Route::get('mdr', [ProfileFavoritesController::class, 'profileFavoritesItems'])->name('profileFavorites');
+    });
+
+    //Купленные товары (зарегестрированного)
+    Route::prefix('purchased')->group(function(){
+        Route::get('mdr', [ProfilePurchasedController::class, 'profilePurchasedItems'])->name('profilePurchased');
+    });
 });
 
 Auth::routes();

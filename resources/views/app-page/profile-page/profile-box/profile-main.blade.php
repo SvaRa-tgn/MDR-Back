@@ -20,142 +20,162 @@
     @include('static.aside.profile-aside')
     <section class="private-main-block">
         <div class="wrap-head-page alt-bg">
-            <h1 class="page-h1">Личный кабинет</h1>
+            <h1 class="private-page-h1">Личный кабинет</h1>
         </div>
 
-        <ul class="main-private-data-list">
-            <li class="main-private-data-item transform-start">
-                <div class="wrap-head-page-h3">
-                    <h3 class="private-page-h3 alt-color">Личные данные:</h3>
+        <div class="main-private-data-item">
+            <div class="wrap-head-page-h3">
+                <h3 class="private-page-h3 color-private">Личные данные:</h3>
+            </div>
 
-                    <form  action="{{route('profileUser.destroy', $user->id)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" class="mdr-button stop fs-1-1 button-margin" value="удалить">
-                    </form>
+            <div class="wrap-private-block-data">
+                <div class="private-block-data">
+                    <article class="name-admin-block">
+                        Актуальные данные:
+                    </article>
+                    <div class="private-relevant-block">
+                        <ul class="private-relevant-list">
+                            <li class="private-relevant-item">
+                                Email (логин):
+                            </li>
+                            <li class="private-relevant-item">
+                                {{$user->email}}
+                            </li>
+                            <li class="private-relevant-item">
+                                Телефон:
+                            </li>
+                            <li class="private-relevant-item">
+                                +7{{$user->phone}}
+                            </li>
+                        </ul>
+                        <ul class="private-relevant-list">
+                            <li class="private-relevant-item">
+                                Фамилия:
+                            </li>
+                            <li class="private-relevant-item">
+                                {{$user->familia}}
+                            </li>
+                            <li class="private-relevant-item">
+                                Имя:
+                            </li>
+                            <li class="private-relevant-item">
+                                {{$user->name}}
+                            </li>
+                            <li class="private-relevant-item">
+                                Отчество:
+                            </li>
+                            <li class="private-relevant-item">
+                                {{$user->father_name}}
+                            </li>
+                        </ul>
+                        <ul class="private-relevant-list">
+                            <li class="private-relevant-item">
+                                Дата рождения:
+                            </li>
+                            <li class="private-relevant-item">
+                                {{$data}}
+                            </li>
+                            <li class="private-relevant-item">
+                                Пол:
+                            </li>
+                            <li class="private-relevant-item">
+                                @if($user->gender !== 'null')
+                                {{$user->gender}}
+                                @else
+                                Не указан
+                                @endif
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="profile-button-box">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                            <div class="wrap-button" data-search="Выходим из аккаунта">
+                                <button class="dropdown-item button-auth neutral fs-1-5">Выйти из аккаунта</button>
+                            </div>
+                        </form>
 
-                </div>
-
-                <ul class="private-data-list">
-                    <li class="private-data-item">
-                        Фамилия:
-                    </li>
-                    <li class="private-data-item">
-                        {{$user->familia}}
-                    </li>
-                    <li class="private-data-item">
-                        Имя:
-                    </li>
-                    <li class="private-data-item">
-                        {{$user->name}}
-                    </li>
-                    <li class="private-data-item">
-                        Отчество:
-                    </li>
-                    <li class="private-data-item">
-                        {{$user->father_name}}
-                    </li>
-                    <li class="private-data-item">
-                        Телефон:
-                    </li>
-                    <li class="private-data-item">
-                        {{$user->phone}}
-                    </li>
-                    <li class="private-data-item">
-                        email:
-                    </li>
-                    <li class="private-data-item">
-                        {{$user->email}}
-                    </li>
-                </ul>
-                <div class="wrap-form-button">
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                        <button class="dropdown-item mdr-button neutral fs-1-5">Выйти из аккаунта</button>
-                    </form>
-                    <div class="mdr-button accept redaction fs-1-5">
-                        Редактировать
+                        <form class="wrap-button itemDelete">
+                            <button class="button-auth stop fs-1-1 button-margin" type="submit" name="submit">Удалить аккаунт</button>
+                        </form>
                     </div>
                 </div>
-            </li>
-
-            <li class="main-private-data-item transform-start-2">
-                <div class="wrap-private-top">
-                    <h3 class="private-page-h3 alt-color">Редактирование личных данных:</h3>
-                </div>
-                <form class="private-data-form" action="{{ route('profileUser.update', $user->id) }}" method="post">
-                    @csrf
-                    @method('PUT')
-                    <div class="wrap-private-data-form">
-                        <label class="private-data-form-ladel">
-                            Фамилия:
-                        </label>
-                        <div class="wrap-input wrap-input-reg" data-answer="">
-                            <input id="familia-update" type="text" name="familia" value="{{$user->familia}}" class="private-data-form-input input-update" />
-                        </div>
-                        <label class="private-data-form-ladel">
-                            Имя:
-                        </label>
-                        <div class="wrap-input wrap-input-reg" data-answer="">
-                            <input id="name-update" type="text" name="name" value="{{$user->name}}" class="private-data-form-input input-update" />
-                        </div>
-                        <label class="private-data-form-ladel">
-                            Отчество:
-                        </label>
-                        <div class="wrap-input wrap-input-reg" data-answer="">
-                            <input id="father-name-update" type="text" name="father_name" value="{{$user->father_name}}" class="private-data-form-input input-update" />
-                        </div>
-                        <label class="private-data-form-ladel">
+                <div class="private-block-form">
+                    <form class="update-profile-data" data-form="profile-update" method="POST" action="{{ route('updateProfile') }}">
+                        @csrf
+                        @method('PUT')
+                        <article class="name-admin-block" data-success="Личные данные обновлены">
+                            Редактирование личных данных:
+                        </article>
+                        <label class="form-label private-relevant-item">
                             Телефон:
                         </label>
-                        <div class="wrap-input wrap-input-reg" data-answer="">
-                            <input id="phone-update" type="phone" name="phone" value="{{$user->phone}}" class="private-data-form-input input-update" />
+                        <div class="wrap-input phoneError" data-answer="">
+                            <input class="admin-select profile-input" type="text" id="new_phone" name="phone" onkeypress="return /[0-9]/i.test(event.key)" minlength="10" maxlength="10" placeholder="{{$user->phone}}" />
                         </div>
-                    </div>
-                    <div class="wrap-form-button">
-                        <div class="mdr-button stop cancel fs-1-5">
-                            Отменить
+                        <label class="form-label private-relevant-item">
+                            ФИО:
+                        </label>
+                        <div class="wrap-input familiaError" data-answer="">
+                            <input class="admin-select profile-input" type="text" id="new_familia" name="familia" placeholder="{{$user->familia}}" />
                         </div>
-                        <button class="mdr-button accept fs-1-5">
-                            Сохранить
-                        </button>
-                    </div>
-                </form>
-                <div class="wrap-private-top">
-                    <h3 class="private-page-h3 alt-color">Изменить пароль:</h3>
-                </div>
-                <form class="private-data-form-password" action="{{ route('profilePasswordUser.update', $user->id) }}" method="post">
-                    @csrf
-                    @method('PUT')
-                    <div class="wrap-private-data-form">
+                        <div class="wrap-input nameError" data-answer="">
+                            <input class="admin-select profile-input" type="text" id="new_name" name="name" placeholder="{{$user->name}}" />
+                        </div>
+                        <div class="wrap-input father_nameError" data-answer="">
+                            <input class="admin-select profile-input" type="text" id="new_father_name" name="father_name" placeholder="{{$user->father_name}}" />
+                        </div>
+                        <label class="form-label private-relevant-item">
+                            Данные:
+                        </label>
+                        <div class="wrap-input dateError" data-answer="">
+                            @if ($user->date_of_birth !== null)
+                            <input class="admin-select profile-input" type="date" id="new_color" name="date" placeholder="{{$user->date_of_birth}}" />
+                            @else
+                            <input class="admin-select profile-input" type="date" id="new_color" name="date" value="" />
+                            @endif
+                        </div>
+                        <div class="wrap-input colorError" data-answer="Вы не внесли изменений">
+                            <select class="admin-select profile-input" name="gender" id="gender">
+                                @if($user->gender === 'null')
+                                <option class="class" value="">--Выберите свой пол--</option>
+                                <option class="class" value="Мужской">Мужской</option>
+                                <option class="class" value="Женский">Женский</option>
+                                @elseif($user->gender === 'Мужской')
+                                <option class="class" value="">{{$user->gender}}</option>
+                                <option class="class" value="Женский">Женский</option>
+                                @elseif($user->gender === 'Женский')
+                                <option class="class" value="">{{$user->gender}}</option>
+                                <option class="class" value="Мужской">Мужской</option>
+                                @endif
+                            </select>
+                        </div>
 
-                        <label class="private-data-form-ladel">
+                        <div class="wrap-button" data-search="Обновляем личные данные">
+                            <button class="button-auth accept js-up-category" type="submit" name="submit-auth">Сохранить</button>
+                        </div>
+                    </form>
+                    <form class="update-profile-data" method="POST" action="{{ route('updateProfilePassword') }}">
+                        @csrf
+                        @method('DELETE')
+                        <article class="name-admin-block" data-success="Пароль обновлен">
                             Новый пароль:
-                        </label>
-                        <div class="wrap-input wrap-input-reg passwordErrorPas" data-answer="">
-                            <input id="password-private-update" type="password" name="password" placeholder="Введите новый пароль" class="private-data-form-input" />
-                        </div>
-                        <label class="private-data-form-ladel">
-                            Подтверждение нового пароля:
-                        </label>
-                        <div class="wrap-input wrap-input-reg passwordErrorPas" data-answer="">
-                            <input id="password-confirmation-update" type="password" name="password_confirmation" placeholder="Подтвердите новый пароль" class="private-data-form-input" />
-                        </div>
-                    </div>
+                        </article>
 
-                    <div class="wrap-form-button">
-                        <div class="mdr-button stop cancel fs-1-5">
-                            Отменить
+                        <div class="wrap-input passwordError" data-answer="Вы не ввели новый пароль">
+                            <input class="admin-select profile-input" type="password" id="password" name="password"/>
                         </div>
-                        <button class="mdr-button accept fs-1-5">
-                            Сохранить
-                        </button>
-                    </div>
-                </form>
-            </li>
-        </ul>
+                        <div class="wrap-input passwordError" data-answer="Вы не ввели новый пароль">
+                            <input class="admin-select profile-input" type="password" id="profile_password_confirmation" name="password_confirmation" />
+                        </div>
+
+                        <div class="wrap-button" data-search="Изменяем пароль">
+                            <button class="button-auth accept js-up-category" type="submit" name="submit-auth">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 </section>
-@include('app-page.index-page.index-box.index-subscrible')
 @endsection

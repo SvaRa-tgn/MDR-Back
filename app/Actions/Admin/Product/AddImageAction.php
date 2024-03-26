@@ -19,7 +19,11 @@ class AddImageAction
     {
         $product = $this->action->addImage(DTOaddImage::fromAddImageRequest($request), $id);
 
-        return response()->json(route('updateProduct', $product->slug_full_name));
+        if($product->type === 'Комплект'){
+            return response()->json(route('editModulCompilation', $product->slug_full_name));
+        } else {
+            return response()->json(route('editProduct', $product->slug_full_name));
+        }
     }
 
 }

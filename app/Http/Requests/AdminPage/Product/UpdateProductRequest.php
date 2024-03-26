@@ -24,10 +24,8 @@ class UpdateProductRequest extends FormRequest
         return [
             'category' => ['nullable', 'string', 'max:255'],
             'sub_category' => ['nullable', 'string', 'max:255'],
-            'type' => ['nullable', 'string', 'max:255'],
-            'type_modul' => ['nullable', 'string', 'max:255'],
-            'item_modul' => ['nullable', 'string', 'max:255'],
-            'item_ready' => ['nullable', 'string', 'max:255'],
+            'type' => ['nullable', 'string', 'max:50'],
+            'collection' => ['nullable', 'string', 'max:50'],
             'full_name' => ['nullable', 'string', 'max:255', 'unique:products'],
             'small_name' => ['nullable', 'string', 'max:255', 'unique:products'],
             'article' => ['nullable', 'string', 'max:255'],

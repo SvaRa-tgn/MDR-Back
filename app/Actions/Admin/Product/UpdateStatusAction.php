@@ -20,7 +20,11 @@ class UpdateStatusAction
     {
         $product = $this->action->updateStatus(DTOupdateStatus::fromUpdateStatusRequest($request), $id);
 
-        return redirect()->route('updateProduct', $product->slug_full_name);
+        if($product->type === 'Комплект'){
+            return redirect()->route('editModulCompilation', $product->slug_full_name);
+        } else {
+            return redirect()->route('editProduct', $product->slug_full_name);
+        }
     }
 
 }

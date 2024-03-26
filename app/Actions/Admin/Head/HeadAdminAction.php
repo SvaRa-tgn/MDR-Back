@@ -4,6 +4,7 @@ namespace App\Actions\Admin\Head;
 
 use App\Http\Controllers\Controller;
 use App\Services\Admin\Head\HeadAdminService;
+use Illuminate\View\View;
 
 class HeadAdminAction extends Controller
 {
@@ -15,7 +16,7 @@ class HeadAdminAction extends Controller
         $this->service = $service;
     }
 
-    public function execute()
+    public function execute(): View
     {
         $head = $this->service->title();
 

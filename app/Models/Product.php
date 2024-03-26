@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Product extends Model
 {
@@ -52,5 +53,15 @@ class Product extends Model
     public function image(): HasMany
     {
         return $this->HasMany(Image::class);
+    }
+
+    public function collection(): BelongsTo
+    {
+        return $this->BelongsTo(ItemCollection::class);
+    }
+
+    public function compilation(): HasMany
+    {
+        return $this->HasMany(ModulCompilation::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Actions\Admin\Category;
 
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Services\Admin\Category\CategoryService;
+use Illuminate\View\View;
 
 class CategoryAction
 {
@@ -18,7 +19,7 @@ class CategoryAction
         $this->service = $service;
     }
 
-    public function execute()
+    public function execute(): View
     {
         $categories = $this->action->category();
 

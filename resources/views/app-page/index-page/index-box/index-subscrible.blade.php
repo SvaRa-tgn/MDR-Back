@@ -11,7 +11,7 @@
             </div>
             <form class="form-subscrible">
                 <div>
-                    <input id="email" name="subscribe" placeholder="Введите свой email" class="input-subscrible" />
+                    <input id="email" type="email" name="subscribe" placeholder="Введите свой email" class="input-subscrible" />
                 </div>
                 <div class="wrap-button-subscrible">
                     <button class="button-subscrible" type="submit" name="submit_form">Подписаться</button>

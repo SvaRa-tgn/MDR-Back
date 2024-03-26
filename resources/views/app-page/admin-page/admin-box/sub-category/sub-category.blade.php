@@ -33,7 +33,7 @@
 
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">Создать подкатегорию</h1>
+                <h1 class="private-page-h1">Создать подкатегорию</h1>
             </div>
 
             <div class="main-private-data-item">
@@ -59,12 +59,25 @@
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="wrap-input sub_categoryError" data-answer="Вы не ввели название новой Подкатегории">
                                 <label class="form-label">
                                     Название новой Подкатегории
                                 </label>
                                 <input class="admin-select admin-input" type="text" id="sub_category" name="sub_category" value="{{ old('sub_category') }}" />
                             </div>
+
+                            <div class="wrap-input js-select" data-answer="Вы не выбрали Тип товара">
+                                <label class="form-label">
+                                    Тип товара представленный в Подкатегории
+                                </label>
+                                <select class="admin-select admin-input" name="type_item" id="type_item">
+                                    <option class="class" value="" >--Выберите тип товара--</option>
+                                    <option class="class" value="Модульные комплекты" >Модульные комплекты</option>
+                                    <option class="class" value="Товары" >Товары</option>
+                                </select>
+                            </div>
+
                             <div class="wrap-input imageError" data-answer="Вы не добавили фото">
                                 <label class="form-label">
                                     Выберите фото Подкатегории

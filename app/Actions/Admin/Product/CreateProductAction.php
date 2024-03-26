@@ -19,7 +19,7 @@ class CreateProductAction
     {
         $this->action->createProduct(DTOcreateProduct::fromCreateProductRequest($request));
 
-        return response()->json(route('product'));
+        return response()->json(route('productCreate'));
     }
 
 }

@@ -3,6 +3,8 @@
 namespace App\Repositories\Page\AdminPage\Product;
 
 use App\DTO\DTOaddImage;
+use App\DTO\DTOaddModul;
+use App\DTO\DTOcreateModulCompilation;
 use App\DTO\DTOcreateProduct;
 use App\DTO\DTOdestroyImage;
 use App\DTO\DTOsampleProduct;
@@ -11,23 +13,18 @@ use App\DTO\DTOupdateImage;
 use App\DTO\DTOupdateProduct;
 use App\DTO\DTOupdateStatus;
 use App\Models\Image;
+use App\Models\ItemCollection;
+use App\Models\ModulCompilation;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Repositories\Page\AdminPage\Product\Interfaces\ProductRepositoryInterfaces;
 use App\Services\Admin\UpdateStroageService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Model;
 use Transliterate;
 
 class ProductRepository implements ProductRepositoryInterfaces
 {
-    public function sample($id): Collection
-    {
-        $sub_categories = SubCategory::where('category_id', $id)->get();
-
-        return $sub_categories;
-    }
-
     public function sampleProducts(DTOsampleProduct $dto): Collection
     {
         $sub_category = SubCategory::find($dto->sub_category);
@@ -42,9 +39,12 @@ class ProductRepository implements ProductRepositoryInterfaces
         $product->category_id = $dto->category;
         $product->sub_category_id = $dto->sub_category;
         $product->type = $dto->type;
-        $product->type_modul = $dto->type_modul;
-        $product->item_modul = $dto->item_modul;
-        $product->item_ready = $dto->item_ready;
+        if($dto->collection !== 'null'){
+            $collection = ItemCollection::find($dto->collection);
+
+            $product->collection_type = $collection->type_collection;
+            $product->collection_id = $dto->collection;
+        }
         $product->full_name = $dto->full_name;
         $product->slug_full_name = $dto->slug_full_name;;
         $product->small_name = $dto->small_name;
@@ -80,14 +80,78 @@ class ProductRepository implements ProductRepositoryInterfaces
         return $product;
     }
 
-    public function showUpdateProduct($slug_full_name): Product
+    public function createCompilation(DTOcreateModulCompilation $dto): Product
+    {
+        $product = new Product();
+        $product->category_id = $dto->category;
+        $product->sub_category_id = $dto->sub_category;
+        if($dto->collection !== 'null'){
+            $collection = ItemCollection::find($dto->collection);
+            $product->type = 'Комплект';
+            $product->collection_type = $collection->type_collection;
+            $product->collection_id = $dto->collection;
+        }
+        $product->full_name = $dto->full_name;
+        $product->slug_full_name = $dto->slug_full_name;;
+        $product->small_name = $dto->small_name;
+        $product->slug_small_name = $dto->slug_small_name;;
+        $product->article = 'ЦБ-'.$dto->article;
+        $product->status = $dto->status;
+        $product->korpus = $dto->korpus;
+        $product->fasad = $dto->fasad;
+        $product->color_korpus_id = $dto->color_korpus_id;
+        $product->color_fasad_id = $dto->color_fasad_id;
+        $product->save();
+
+        foreach ($dto->imageArr as $key => $item){
+            if($item !== 'null'){
+                $image = new Image();
+                $storage = 'public/image';
+                $result = UpdateStroageService::updateImage($storage, $item);
+                $image->link = $result['url'];
+                $image->path = $result['path'];
+                if($key === 'image_top'){
+                    $image->status = 'top';
+                } else {
+                    $image->status = 'stock';
+                }
+                $product->image()->save($image);
+            }
+        }
+
+        foreach ($dto->modul_items as $items){
+            $modul = Product::where('full_name', $items)->first();
+
+            if($product->height < $modul->height){
+                $product->height = $modul->height;
+            }
+
+            if($product->deep < $modul->deep){
+                $product->deep = $modul->deep;
+            }
+
+            $product->width = $product->width + $modul->width;
+            $product->price = $product->price + $modul->price;
+            $product->save();
+
+            $modul_compilation = new ModulCompilation();
+            $modul_compilation->compilation_id = $product->id;
+            $modul_compilation->product_id = $modul->id;
+            $modul_compilation->save();
+        }
+
+        return $product;
+    }
+
+    public function product($slug_full_name): Product| null
     {
         $product = Product::join('colors as c1', 'products.color_fasad_id', '=', 'c1.id')
             ->join('colors as c2', 'products.color_korpus_id', '=', 'c2.id')
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->join('sub_categories', 'products.category_id', '=', 'sub_categories.id')
+            ->leftjoin('item_collections', 'products.collection_id', '=', 'item_collections.id')
             ->select('products.*', 'categories.category', 'sub_categories.sub_category', 'c1.color as color_fasad', 'c1.link as link_fasad',
-                'c2.color as color_korpus', 'c2.link as link_korpus')
+                'c2.color as color_korpus', 'c2.link as link_korpus', 'item_collections.collection')
             ->where('slug_full_name', $slug_full_name)->first();
 
         return $product;
@@ -176,16 +240,11 @@ class ProductRepository implements ProductRepositoryInterfaces
             $product->type = $dto->type;
         }
 
-        if($dto->type_modul != 'null'){
-            $product->type_modul = $dto->type_modul;
-        }
+        if($dto->collection !== 'null'){
+            $collection = ItemCollection::find($dto->collection);
 
-        if($dto->item_modul != 'null'){
-            $product->item_modul = $dto->item_modul;
-        }
-
-        if($dto->item_ready != 'null'){
-            $product->item_ready = $dto->item_ready;
+            $product->collection_type = $collection->type_collection;
+            $product->collection_id = $dto->collection;
         }
 
         if($dto->full_name != 'null'){
@@ -252,6 +311,16 @@ class ProductRepository implements ProductRepositoryInterfaces
         $product->delete();
     }
 
+    public function destroyModulCompilation($id): void
+    {
+        $moduls = ModulCompilation::where('compilation_id', $id)->get();
+
+        foreach ($moduls as $modul){
+            $modul->delete();
+        }
+
+    }
+
     public function searchProduct(DTOsearchProduct $dto): array
     {
         $products = Product::where('full_name', 'LIKE', '%'.$dto->search.'%')
@@ -288,5 +357,44 @@ class ProductRepository implements ProductRepositoryInterfaces
         }
 
         return $products;
+    }
+
+    public function sampleModul($id): array
+    {
+        return Product::where('collection_id', $id)->where('type', 'Модуль')->get()->toArray();
+    }
+
+    public function productId(DTOaddModul $dto): Product
+    {
+        return Product::find($dto->modul_item);
+    }
+
+    public function updateModul($productId): Product
+    {
+        $moduls = ModulCompilation::leftjoin('products as p1', 'modul_compilations.compilation_id', '=', 'p1.id')
+            ->leftjoin('products as p2', 'modul_compilations.product_id', '=', 'p2.id')
+            ->select('modul_compilations.*', 'p1.slug_full_name as modul_name', 'p2.*')
+            ->where('compilation_id', $productId)->get();
+
+        $product = Product::find($productId);
+        $product->width = 0;
+        $product->price = 0;
+
+        foreach ($moduls as $modul){
+
+            if($product->height < $modul->height){
+                $product->height = $modul->height;
+            }
+
+            if($product->deep < $modul->deep){
+                $product->deep = $modul->deep;
+            }
+
+            $product->width = $product->width + $modul->width;
+            $product->price = $product->price + $modul->price;
+            $product->save();
+        }
+
+        return $product;
     }
 }

@@ -10,7 +10,7 @@
                     <a class="link-aside-admin" href="{{route('adminka')}}">Главная</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="/html/admin/slider.html">Слайдер</a>
+                    <a class="link-aside-admin" href="{{route('sliders')}}">Слайдер</a>
                 </li>
                 <li class="aside-admin-nav-item">
                     <a class="link-aside-admin" href="/html/admin/mail.html">Рассылка</a>
@@ -32,10 +32,7 @@
                     <a class="link-aside-admin" href="{{route('subCategory')}}">Подкатегория</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('modulCollection')}}">Коллекции (Модуль)</a>
-                </li>
-                <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('readyCollection')}}">Коллекции (Готовая)</a>
+                    <a class="link-aside-admin" href="{{route('itemCollection')}}">Колекции</a>
                 </li>
                 <li class="aside-admin-nav-item">
                     <a class="link-aside-admin" href="{{route('color')}}">Цвет для мебели</a>
@@ -45,10 +42,10 @@
             <h2 class="aside-admin-h2">Товар:</h2>
             <ul class="aside-admin-nav-list">
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('productCreate')}}">Создать товар</a>
+                    <a class="link-aside-admin" href="{{route('chooseProducts')}}">Создание товаров</a>
                 </li>
                 <li class="aside-admin-nav-item">
-                    <a class="link-aside-admin" href="{{route('editProduct')}}">Редактировать товар</a>
+                    <a class="link-aside-admin" href="{{route('searchEditProduct')}}">Редактирование товаров</a>
                 </li>
                 <li class="aside-admin-nav-item">
                     <a class="link-aside-admin" href="{{route('product')}}">Управление товарами</a>

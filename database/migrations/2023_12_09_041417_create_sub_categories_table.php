@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('sub_category')->nullable();
             $table->string('slug_sub_category')->nullable();
+            $table->string('type_item')->nullable();
             $table->string('link')->nullable();
             $table->string('path')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();

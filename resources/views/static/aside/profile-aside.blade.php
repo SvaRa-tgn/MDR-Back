@@ -4,38 +4,40 @@
             <div class="aside-logo">
                 <img class="aside-logo-img" src="{{asset('/img/logo/logo.svg')}}" alt="MDR">
             </div>
-            <h2 class="aside-private-h2">Личный кабинет:</h2>
-            <ul class="aside-nav-list">
-                <li class="aside-nav-item">
-                    <a class="link-aside" href="{{route('profile.index')}}"><h2 class="aside-h3">Личные даные</h2></a>
+
+            <h2 class="aside-profile-h2">Личный кабинет:</h2>
+            <ul class="aside-profile-nav-list">
+                <li class="aside-profile-nav-item">
+                    <a class="link-aside-profile" href="{{route('private')}}">Личные данные</a>
                 </li>
-                <li class="aside-nav-item">
-                    <a class="link-aside" href=""><h2 class="aside-h3">Корзина</h2></a>
+                <li class="aside-profile-nav-item">
+                    <a class="link-aside-profile" href="{{route('profileCart')}}">Корзина</a>
                 </li>
-                <li class="aside-nav-item">
-                    <a class="link-aside" href=""><h2 class="aside-h3">Купленные товары</h2></a>
+                <li class="aside-profile-nav-item">
+                    <a class="link-aside-profile" href="{{route('profileFavorites')}}">Избранные товары</a>
                 </li>
-                <li class="aside-nav-item">
-                    <a class="link-aside" href=""><h2 class="aside-h3">Избранные товары</h2></a>
+                <li class="aside-profile-nav-item">
+                    <a class="link-aside-profile" href="{{route('profilePurchased')}}">Купленные товары</a>
                 </li>
             </ul>
-            <a class="link-aside" href="{{route('servicePage')}}"><h2 class="aside-h2">Услуги:</h2></a>
-            <ul class="aside-nav-list">
-                <li class="aside-nav-item">
-                    <a class="link-aside" href="{{route('delivery')}}"><h2 class="aside-h3">Доставка</h2></a>
+
+            <a  href="{{route('servicePage')}}"><h2 class="aside-profile-h2">Услуги:</h2></a>
+            <ul class="aside-profile-nav-list">
+                <li class="aside-profile-nav-item">
+                    <a class="link-aside-profile" href="{{route('delivery')}}">Доставка</a>
                 </li>
-                <li class="aside-nav-item">
-                    <a class="link-aside" href="{{route('samovyvoz')}}"><h2 class="aside-h3">Самовывоз</h2></a>
+                <li class="aside-profile-nav-item">
+                    <a class="link-aside-profile" href="{{route('samovyvoz')}}">Самовывоз</a>
                 </li>
-                <li class="aside-nav-item">
-                    <a class="link-aside" href="{{route('sborka')}}"><h2 class="aside-h3">Сборка</h2></a>
+                <li class="aside-profile-nav-item">
+                    <a class="link-aside-profile" href="{{route('sborka')}}">Сборка</a>
                 </li>
-                <li class="aside-nav-item">
-                    <a class="link-aside" href="{{route('oplata')}}"><h2 class="aside-h3">Оплата</h2></a>
+                <li class="aside-profile-nav-item">
+                    <a class="link-aside-profile" href="{{route('oplata')}}">Оплата</a>
                 </li>
             </ul>
             @if(Auth::user()->role === 'admin')
-            <a class="link-aside" href="{{route('adminka')}}"><h2 class="aside-h2">АДМИНКА</h2></a>
+                <a class="link-aside" href="{{route('adminka')}}"><h2 class="aside-h2">АДМИНКА</h2></a>
             @endif
         </div>
     </div>

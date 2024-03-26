@@ -17,7 +17,7 @@ class UsersRepository
         return User::where('email', 'LIKE', '%'.$data->search.'%')->get()->toArray();
     }
 
-    public function editUser($id): User
+    public function editUser($id): User| null
     {
         return User::find($id);
     }

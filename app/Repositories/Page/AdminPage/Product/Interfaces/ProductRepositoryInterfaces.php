@@ -2,6 +2,7 @@
 namespace App\Repositories\Page\AdminPage\Product\Interfaces;
 
 use App\DTO\DTOaddImage;
+use App\DTO\DTOaddModul;
 use App\DTO\DTOcreateProduct;
 use App\DTO\DTOdestroyImage;
 use App\DTO\DTOsampleProduct;
@@ -14,13 +15,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface ProductRepositoryInterfaces
 {
-    public function sample($id): Collection;
-
     public function sampleProducts(DTOsampleProduct $dto): Collection;
 
     public function createProduct(DTOcreateProduct $dto): Product;
 
-    public function showUpdateProduct($slug_full_name): Product;
+    public function product($slug_full_name): Product| null;
 
     public function showImageProduct($slug_full_name): Collection;
 
@@ -36,7 +35,13 @@ interface ProductRepositoryInterfaces
 
     public function destroyProduct($id): void;
 
+    public function destroyModulCompilation($id): void;
+
     public function searchProduct(DTOsearchProduct $dto): array;
 
     public function searchSetupProduct(DTOsearchProduct $dto, $page): array;
+
+    public function productId(DTOaddModul $dto): Product;
+
+    public function updateModul($productId): Product;
 }

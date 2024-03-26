@@ -19,7 +19,11 @@ class UpdateImageAction
     {
         $product = $this->action->updateImage(DTOupdateImage::fromUpdateImageRequest($request), $id);
 
-        return response()->Json(route('updateProduct', $product->slug_full_name));
+        if($product->type === 'Комплект'){
+            return response()->json(route('editModulCompilation', $product->slug_full_name));
+        } else {
+            return response()->json(route('editProduct', $product->slug_full_name));
+        }
     }
 
 }

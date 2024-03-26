@@ -13,7 +13,7 @@ interface CategoryRepositoryInterface
 
     public function createCategory(DTOcreateCategory $dto): Category;
 
-    public function editCategory($slug_category): Category;
+    public function editCategory($slug_category): Category| null;
 
     public function updateCategory(DTOupdateCategory $dto, $id): Category;
 

@@ -15,7 +15,7 @@ class DTOupdateStatus extends DataTransferObject
         $data = $request->validated();
 
         return new self([
-            'status' => $data['status']
+            'status' => $data['status_product']
         ]);
     }
 

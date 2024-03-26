@@ -40,7 +40,7 @@
 
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">Редактировать Подкатегорию</h1>
+                <h1 class="private-page-h1">Редактировать Подкатегорию</h1>
             </div>
 
             <div class="main-private-data-item">
@@ -75,6 +75,20 @@
                                         Новое название Подкатегории
                                     </label>
                                     <input class="admin-select admin-input" type="text" id="sub_category" name="sub_category" value="{{ old('sub_category') }}" />
+                                </div>
+
+                                <div class="wrap-input js-select">
+                                    <label class="form-label">
+                                        Тип товара в Подкатегории
+                                    </label>
+                                    <select class="admin-select admin-input" name="type_item" id="catType_item">
+                                        <option class="class js-old-id" value="{{$subCategory->type_item}}" >{{$subCategory->type_item}} - Текущий Тип товара</option>
+                                        @if($subCategory->type_item === 'Товары')
+                                        <option class="class" value="Модульные комплекты" >Модульные комплекты</option>
+                                        @else
+                                        <option class="class" value="Товары" >Товары</option>
+                                        @endif
+                                    </select>
                                 </div>
 
                                 <div class="wrap-input imageError" data-answer="Вы не внесли изменения">
@@ -112,6 +126,14 @@
                             <ul class="relevant-info-list">
                                 <li class="db-relevant-info-item form-label admin-block-db">
                                     <article class="collect-article js-data-name" data-tag="Подкатегорию">{{$subCategory->sub_category}}</article>
+                                </li>
+                            </ul>
+                            <div class="db-admin-article db-admin-list">
+                                Тип товара в Подкатегории:
+                            </div>
+                            <ul class="relevant-info-list">
+                                <li class="db-relevant-info-item form-label admin-block-db">
+                                    <article class="collect-article" data-tag="Подкатегорию">{{$subCategory->type_item}}</article>
                                 </li>
                             </ul>
                             <div class="db-admin-article db-admin-list">

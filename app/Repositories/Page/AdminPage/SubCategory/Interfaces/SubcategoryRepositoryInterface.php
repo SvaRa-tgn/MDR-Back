@@ -13,9 +13,15 @@ interface SubcategoryRepositoryInterface
 
     public function createSubCategory(DTOcreateSubCategory $dto): SubCategory;
 
-    public function editSubCategory($slug_sub_category): SubCategory;
+    public function editSubCategory($slug_sub_category): SubCategory| null;
 
     public function updateSubCategory(DTOupdateSubCategory $dto, $id): SubCategory;
 
     public function destroy($id): void;
+
+    public function catalogSubcategories($article): Collection;
+
+    public function sampleSubCategories($id): Collection;
+
+    public function sampleSubCategoriesCreate($id, $type_item): Collection;
 }

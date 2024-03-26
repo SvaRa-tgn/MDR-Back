@@ -6,6 +6,6 @@ use App\Services\Admin\SeoService;
 
 class EditSubCategoryService extends SeoService
 {
-    const TITLE = 'Подкатегория ';
+    const TITLE = 'Подкатегория';
     const DESC = 'Управление Категорией - ';
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\UsersUpdate;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -19,13 +20,16 @@ class UpdateUserRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+    #[ArrayShape(['name' => "string[]", 'familia' => "string[]", 'father_name' => "string[]", 'phone' => "string[]", 'date' => "string[]", 'gender' => "string[]"])]
     public function rules(): array
     {
         return [
-            'name' => ['nullable', 'string', 'max:255'],
-            'familia' => ['nullable', 'string', 'max:250'],
-            'father_name' => ['nullable', 'string', 'max:250'],
-            'phone' => ['nullable', 'string', 'max:11'],
+            'name' => ['nullable', 'string', 'max:20'],
+            'familia' => ['nullable', 'string', 'max:20'],
+            'father_name' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:10'],
+            'date' => ['nullable', 'date'],
+            'gender' => ['nullable', 'string', 'max:10']
         ];
     }
 }

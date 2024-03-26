@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use App\Http\Requests\AdminPage\Product\CreateProductRequest;
+use Illuminate\Support\Str;
 use Spatie\DataTransferObject\DataTransferObject;
 use Transliterate;
 
@@ -11,9 +12,7 @@ class DTOcreateProduct extends DataTransferObject
     public string $category;
     public string $sub_category;
     public string $type;
-    public string $type_modul;
-    public string $item_modul;
-    public string $item_ready;
+    public string $collection;
     public string $full_name;
     public string $slug_full_name;
     public string $small_name;
@@ -33,26 +32,12 @@ class DTOcreateProduct extends DataTransferObject
     public static function fromCreateProductRequest(CreateProductRequest $request): self
     {
         $data = $request->validated();
+        $lover = Str::lower($data['full_name']);
+        $full_name = Str::title($lover);
+        $lover = Str::lower($data['small_name']);
+        $small_name = Str::title($lover);
         $slug_full_name = Transliterate::slugify($data['full_name']);
         $slug_small_name = Transliterate::slugify($data['small_name']);
-
-        if(empty($data['type_modul'])){
-            $type_modul = 'null';
-        } else {
-            $type_modul = $data['type_modul'];
-        }
-
-        if(empty($data['item_modul'])){
-            $item_modul = 'null';
-        } else {
-            $item_modul = $data['item_modul'];
-        }
-
-        if(empty($data['item_ready'])){
-            $item_ready = 'null';
-        } else {
-            $item_ready = $data['item_ready'];
-        }
 
         if(empty($data['image'])){
             $image = 'null';
@@ -90,12 +75,10 @@ class DTOcreateProduct extends DataTransferObject
             'category' => $data['category'],
             'sub_category' => $data['sub_category'],
             'type' => $data['type'],
-            'type_modul' => $type_modul,
-            'item_modul' => $item_modul,
-            'item_ready' => $item_ready,
-            'full_name' => $data['full_name'],
+            'collection' => $data['collection'],
+            'full_name' => $full_name,
             'slug_full_name' => $slug_full_name,
-            'small_name' => $data['small_name'],
+            'small_name' => $small_name,
             'slug_small_name' => $slug_small_name,
             'article' => $data['article'],
             'height' => $data['height'],

@@ -4,13 +4,17 @@
 namespace App\Repositories\Page\ProfilePage\Profile\Interfaces;
 
 
+use App\DTO\DTOupdateUser;
+use App\DTO\DTOupdateUserPassword;
+use App\Models\User;
+
 interface ProfileRepositoryInterface
 {
-    public function updateUser($data);
+    public function profile(): User;
 
-    public function updatePasswordUser($data);
+    public function updateProfile(DTOupdateUser $dto): User;
 
-    public function showUser();
+    public function updateProfilePassword(DTOupdateUserPassword $dto): User;
 
-    public function destroyUser($user);
+    public function destroyProfile(): void;
 }

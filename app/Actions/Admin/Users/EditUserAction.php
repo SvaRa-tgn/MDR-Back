@@ -4,6 +4,7 @@ namespace App\Actions\Admin\Users;
 
 use App\Repositories\Page\Users\UsersRepository;
 use App\Services\Admin\Users\EditUsersService;
+use Illuminate\View\View;
 
 class EditUserAction
 {
@@ -18,7 +19,7 @@ class EditUserAction
         $this->service = $service;
     }
 
-    public function execute($id)
+    public function execute($id): View
     {
         $user = $this->action->editUser($id);
 

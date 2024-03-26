@@ -1,5 +1,6 @@
 var appData = {
     createFormData: function () {
+        var modul_items = appData.modulItem();
         $('.create-form-data').submit(function (e) {
             e.preventDefault();
             let form = $(this),
@@ -10,12 +11,31 @@ var appData = {
                 link = form.attr('action'),
                 success = $('.name-admin-block').attr('data-success');
 
+
+
             if(dataForm === 'create-product') {
                 if($('.js-image-input').val() === ''){
                     error = true;
                     $('.image-top').addClass('js-warning-image');
                 } else {
                     $('.image-top').removeClass('js-warning-image');
+                }
+
+            }
+
+            if(dataForm === 'create-modul-product') {
+                if($('.js-image-input').val() === ''){
+                    error = true;
+                    $('.image-top').addClass('js-warning-image');
+                } else {
+                    $('.image-top').removeClass('js-warning-image');
+                }
+
+                if(modul_item.length === 0) {
+                    error = true;
+                    $('.js-admin-input').addClass('wrap-input-padding');
+                } else {
+                    $('.js-admin-input').removeClass('wrap-input-padding');
                 }
             }
 
@@ -29,9 +49,12 @@ var appData = {
             });
 
             let formData = new FormData(form[0]);
+            formData.append('modul_items', JSON.stringify(modul_items));
+
             if (error === false) {
                 $('body').addClass('noscroll');
                 $('.preloader').addClass('preloader-load');
+                $('.loader-text').text(loader);
                 $.ajax({
                     method: "POST",
                     processData: false,
@@ -110,7 +133,9 @@ var appData = {
                 loader = $(this).find('.wrap-button').attr('data-search'),
                 success = form.find('.name-admin-block').attr('data-success'),
                 id = $(this).attr('data-id'),
+                status = $(this).attr('data-status'),
                 link = form.attr('action');
+
             if (dataForm === 'update-image' || dataForm === 'add-image'){
                 loader = $(this).find('.button-image').attr('data-search');
             }
@@ -142,6 +167,7 @@ var appData = {
 
             let formData = new FormData(form[0]);
                 formData.append('id', id);
+                formData.append('status', status);
 
             if (error === false) {
                 $('body').addClass('noscroll');
@@ -172,15 +198,17 @@ var appData = {
                                 $('.modal-content').text('Фотография добавлена');
                             } else if (dataForm === 'delete-image'){
                                 $('.modal-content').text('Фотография удалена');
+                            } else if (dataForm === 'update-slider'){
+                                $('.modal-content').text('Слайдер подключен');
                             }
                             reload.text('Отлично!');
                         } else {
                             $('.modal-content').text(success);
                         }
-                        reload.text('Исправили!');
+                        reload.text('Отлично!');
                         form[0].reset();
                         reload.click(function (html) {
-                            if (dataForm === 'update-role' || dataForm === 'update-status' ) {
+                            if (dataForm === 'update-role' || dataForm === 'update-status') {
                                 $('.js-link-1').removeClass('open-box');
                                 $('.js-reload-block').load(location.href + ' .js-reload-block>*', '')
                             } else {
@@ -288,11 +316,16 @@ var appData = {
             e.preventDefault();
             var data = $('.js-data-name'),
                 name = data.text(),
+                acc = $('.delete-form-data').attr('data-acc'),
                 tag = data.attr('data-tag');
 
             $('.modal-block').addClass('modal-block-open');
             $('.js-link-3').addClass('open-box');
-            $('.modal-content').text('Вы действиетльно хотите удалить "' + tag + '" : ' + name + '?');
+            if(acc === 'delete-accaunt'){
+                $('.modal-content').text('Вы действиетльно хотите удалить свой аккаунт?');
+            } else {
+                $('.modal-content').text('Вы действиетльно хотите удалить "' + tag + '" : ' + name + '?');
+            }
             $('.js-close').click(function(){
                 $('.js-link-3').removeClass('open-box');
             });
@@ -349,14 +382,6 @@ var appData = {
                     $('.sub-class-option').remove();
                     $('.type-category').removeAttr('disabled');
                     $('.sub-class').text('--Выберите Подкатегорию товара--');
-                    $('.type option:first').prop('selected',true);
-                    $('.type').attr('disabled',true);
-                    $('.type-disable').text('Сначала выберите подкатегорию товара');
-                    $('.type-modul option:first').prop('selected',true);
-                    $('.item-collection option:first').prop('selected',true);
-                    $('.item-ready option:first').prop('selected',true);
-                    $('.js-item-coll').attr('disabled',true).children('.option-null').text('Выберите тип товара');
-                    $('.js-item-coll').addClass('admin-input');
                     var link = $(this).attr('data-link');
                     $.ajax({
                         method: "GET",
@@ -372,42 +397,11 @@ var appData = {
                             } else {
                                 $('#sub-class').append('<option class="sub-class-option" value="">Для этой категории не создано подкатегорий</option>');
                             }
-
                         }
                     })
                 } else {
                     $('.type-category').attr('disabled',true);
                     $('.sub-class').text('Сначала выберите Категорию товара');
-                    $('.type').attr('disabled',true);
-                    $('.type option:first').prop('selected',true);
-                    $('.type-disable').text('Сначала выберите подкатегорию товара');
-                    $('.type-modul').attr('disabled',true);
-                    $('.type-modul-disable').text('Сначала выберите тип товара');
-                    $('.type-modul option:first').prop('selected',true);
-                    $('.item-collection option:first').prop('selected',true);
-                    $('.item-ready option:first').prop('selected',true);
-                    $('.js-item-coll').addClass('admin-input');
-                    $('.js-item-coll').attr('disabled',true).children('.option-null').text('Выберите тип товара');
-                }
-            });
-        });
-    },
-
-    changeSubCategoryProduct: function () {
-        $('#sub-class').change(function () {
-            $(this).find(":selected").each(function () {
-                $('.type option:first').prop('selected',true);
-                $('.type-modul option:first').prop('selected',true);
-                $('.item-collection option:first').prop('selected',true);
-                $('.item-ready option:first').prop('selected',true);
-                $('.js-item-coll').attr('disabled',true).children('.option-null').text('Выберите тип товара');
-                $('.js-item-coll').addClass('admin-input');
-                if ($(this).val() !== '') {
-                    $('.type').removeAttr('disabled');
-                    $('.type-disable').text('--Выберите Тип товара--');
-                } else {
-                    $('.type').attr('disabled',true);
-                    $('.type-disable').text('Сначала выберите подкатегорию товара');
                 }
             });
         });
@@ -416,29 +410,105 @@ var appData = {
     changeTypeProduct: function () {
         $('#type').change(function () {
             $(this).find(":selected").each(function () {
-                $('.type-modul option:first').prop('selected',true);
-                $('.item-collection option:first').prop('selected',true);
-                $('.item-ready option:first').prop('selected',true);
-                $('.js-item-coll').removeClass('admin-input');
-                if ($(this).val() === 'Готовый') {
-                    $('.js-item-coll').attr('disabled',true);
-                    $('.item-ready').removeAttr('disabled');
-                    $('.ready-collection-disable').text('--Готовая коллекция товара--').parent().addClass('admin-input');
-                    $('.modul-collection-disable').text('Недоступно')
-                    $('.type-modul-disable').text('Недоступно')
-                } else if ($(this).val() === 'Модульный') {
-                    $('.js-item-coll').attr('disabled',true);
-                    $('.item-collection').removeAttr('disabled');
-                    $('.type-modul').removeAttr('disabled');
-                    $('.ready-collection-disable').text('Недоступно');
-                    $('.modul-collection-disable').text('--Модульная коллекция товара--').parent().addClass('admin-input');
-                    $('.type-modul-disable').text('--Тип модульного товара--').parent().addClass('admin-input');
-                } else if ($(this).val() === '') {
-                    $('.js-item-coll').attr('disabled',true).children('.option-null').text('Выберите тип товара');
-                    $('.js-item-coll').addClass('admin-input');
+                $('.collection option:first').prop('selected',true);
+                if ($(this).val() !== '') {
+                    $('.sub-collection-option').remove();
+                    $('.collection').removeAttr('disabled');
+                    $('.sub-collection').text('--Выберите Коллекцию товара--');
+                    var link = $(this).attr('data-link');
+                    $.ajax({
+                        method: "GET",
+                        headers: {
+                            Accept: "application/json"
+                        },
+                        url: link,
+                        success: (data) => {
+                            if (data.length){
+                                $('.sub-collection').remove();
+                                $('#collection').append('<option class="sub-collection-option" value="null">Без Коллекции или выберите коллекцию</option>');
+                                $.each(data, function(index, value){
+                                    $('#collection').append('<option class="sub-collection-option" value="'+value['id']+'">'+value['collection']+'</option>');
+                                })
+                            } else {
+                                $('.sub-collection').remove();
+                                $('#collection').append('<option class="sub-collection-option" value="null">Для этого Типа товара нет Коллекций</option>');
+                            }
+                        }
+                    })
+                } else {
+                    $('.collection').attr('disabled',true);
+                    $('.sub-collection-option').remove();
+                    $('#collection').append('<option class="sub-collection" value="">Выберите Тип товара</option>');
                 }
             });
         });
+    },
+
+    changeCollection: function () {
+        $('#collection').change(function () {
+            $(this).find(":selected").each(function () {
+                $('.modul_item option:first').prop('selected',true);
+                if ($(this).val() !== '') {
+                    $('.modul_item-option').remove();
+                    $('#modul_item').removeAttr('disabled')
+                    $('.modul_item').text('--Добавить Модуль к комплекту--');
+                    var link = $(this).attr('data-link');
+                    $.ajax({
+                        method: "GET",
+                        headers: {
+                            Accept: "application/json"
+                        },
+                        url: link,
+                        success: (data) => {
+                            if (data.length){
+                                $('.modul_item').remove();
+                                $('#modul_item').append('<option class="modul_item-option" value="">--Выберите Модуль--</option>');
+                                $.each(data, function(index, value){
+                                    $('#modul_item').append('<option class="modul_item-option" value="'+value['id']+'">'+value['full_name']+'</option>');
+                                })
+                            } else {
+                                $('.modul_item').remove();
+                                $('#modul_item').append('<option class="modul_item-option" value="null">Для этой Коллекции нет Модулей</option>');
+                            }
+                        }
+                    })
+                } else {
+                    $('#modul_item').attr('disabled',true).append('<option class="modul_item" value="">Выберите Коллекцию</option>');
+                    $('.modul_item-option').remove();
+                }
+            });
+        });
+    },
+
+    modulItem: function() {
+        var modul_items = Array();
+
+        $('.js-button').click(function(){
+            var name = $('#modul_item option:selected').text();
+            modul_items.push(name);
+            $('.js-admin-input').removeClass('wrap-input-padding');
+            $('.js-warning').css('display', 'none');
+            $('.db-relevant-info-item').remove();
+            $.each(modul_items, function(index, value){
+                $('.relevant-info-list').append('<li class="db-relevant-info-item form-label admin-block-2fr-db">\n' +
+                    '                                                <article class="collect-article">'+value+'</article>\n' +
+                    '                                        <a class="mdr-button stop modul-button-delete js-delete" data-index="'+index+'">Удалить</a>\n' +
+                    '                                           </li>');
+            })
+
+            $('.js-delete').click(function(){
+                var index = $(this).attr('data-index'),
+                    parent = $(this).parent();
+                modul_items.splice(index, 1);
+                parent.remove();
+                if(modul_items.length === 0){
+                    $('.js-warning').css('display', 'block');
+                }
+                return modul_items;
+            });
+
+        });
+        return modul_items;
     },
 
     sampleProduct: function () {
@@ -491,9 +561,15 @@ var appData = {
                                         '                                <a class="mdr-button accept modul-button-delete" href="/admin/users/edit-user/id-'+value['id']+'.mdr">Редактировать</a>' +
                                         '                             </li>');
                                 } else {
+                                    var linkEdit;
+                                    if (value['type'] === 'Комплект'){
+                                        linkEdit = '/admin/products/edit-modul-compilation/';
+                                    } else {
+                                        linkEdit = '/admin/products/edit/';
+                                    }
                                     $('.relevant-info-list').append('<li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Категорию">' +
                                         '                                <article class="collect-article" data-id="'+value['id']+'">'+value['full_name']+'</article>' +
-                                        '                                <a class="mdr-button accept modul-button-delete" href="/admin/product/update/'+value['slug_full_name']+'.mdr">Редактировать</a>' +
+                                        '                                <a class="mdr-button accept modul-button-delete" href="'+linkEdit+''+value['slug_full_name']+'.mdr">Редактировать</a>' +
                                         '                             </li>');
                                 }
                             })
@@ -536,9 +612,12 @@ var appData = {
             }
         });
     },
+
+
 };
 
 $(document).ready(function () {
+    appData.modulItem();
     appData.createFormData();
     appData.updateFormData();
     appData.deleteFormData();
@@ -546,7 +625,9 @@ $(document).ready(function () {
     appData.deleteErrorAlarm();
     appData.closeModal();
     appData.changeCategoryProduct();
-    appData.changeSubCategoryProduct();
     appData.changeTypeProduct();
+    appData.changeCollection();
     appData.sampleProduct();
+
+
 });

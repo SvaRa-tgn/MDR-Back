@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Page\AdminPage\Product;
 
 use App\Actions\Admin\Product\SampleSubCategoriesAction;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 
 class SampleSubCategoriesController extends Controller
 {
-    public function sample(SampleSubCategoriesAction $action, $id)
+    public function sampleSubCategories(SampleSubCategoriesAction $action, $id): JsonResponse
     {
         return $action->execute($id);
     }

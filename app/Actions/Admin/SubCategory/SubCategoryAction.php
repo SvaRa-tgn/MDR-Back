@@ -5,6 +5,7 @@ namespace App\Actions\Admin\SubCategory;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 use App\Services\Admin\SubCategory\SubCategoryService;
+use Illuminate\View\View;
 
 class SubCategoryAction
 {
@@ -23,7 +24,7 @@ class SubCategoryAction
         $this->service = $service;
     }
 
-    public function execute()
+    public function execute(): View
     {
         $categories = $this->categoryRepository->category();
 
@@ -31,7 +32,8 @@ class SubCategoryAction
 
         $head = $this->service->title();
 
-        return view ('/app-page/admin-page/admin-box/sub-category/sub-category', ['categories' => $categories, 'subCategories' => $subCategories, 'head' => $head]);
+        return view ('/app-page/admin-page/admin-box/sub-category/sub-category',
+            ['categories' => $categories, 'subCategories' => $subCategories, 'head' => $head]);
     }
 
 }

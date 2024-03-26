@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Transliterate;
 
 class RegisterController extends Controller
@@ -48,14 +49,14 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'familia' => ['required', 'string', 'max:250'],
             'father_name' => ['required', 'string', 'max:250'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'string', 'max:12'],
+            'phone' => ['required', 'string', 'max:11'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -66,18 +67,19 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
         return User::create([
-            'name' => $data['name'],
+            'name' => Str::title(Str::lower($data['name'])),
             'slug_name' => Transliterate::slugify($data['name']),
-            'familia' => $data['familia'],
+            'familia' => Str::title(Str::lower($data['familia'])),
             'slug_familia' => Transliterate::slugify($data['familia']),
-            'father_name' => $data['father_name'],
+            'father_name' => Str::title(Str::lower($data['father_name'])),
             'slug_father_name' => Transliterate::slugify($data['father_name']),
             'email' => $data['email'],
             'phone' => $data['phone'],
             'role' => 'user',
+            'gender' => 'null',
             'password' => Hash::make($data['password']),
         ]);
     }

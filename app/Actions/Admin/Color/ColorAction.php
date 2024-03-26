@@ -4,6 +4,7 @@ namespace App\Actions\Admin\Color;
 
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
 use App\Services\Admin\Color\ColorService;
+use Illuminate\View\View;
 
 class ColorAction
 {
@@ -18,7 +19,7 @@ class ColorAction
         $this->service = $service;
     }
 
-    public function execute()
+    public function execute(): View
     {
         $colors = $this->action->color();
 

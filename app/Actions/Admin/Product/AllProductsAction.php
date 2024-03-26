@@ -5,6 +5,7 @@ namespace App\Actions\Admin\Product;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 use App\Services\Admin\Product\AllProductsService;
+use Illuminate\View\View;
 
 class AllProductsAction
 {
@@ -23,7 +24,7 @@ class AllProductsAction
         $this->subCategory = $subCategory;
     }
 
-    public function execute($page)
+    public function execute($page): View
     {
         $subCategories = $this->subCategory->subCategory();
 

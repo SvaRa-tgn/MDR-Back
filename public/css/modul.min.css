@@ -442,7 +442,7 @@ main {
   grid-template-rows: auto 1fr auto;
 }
 
-.main-block {
+.main-block, .wrap-blue-bg, .wrap-blue-bg-rv {
   width: 100%;
   height: 100%;
   display: -ms-grid;
@@ -460,6 +460,11 @@ main {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: end;
+}
+
+.main-max-aside {
+  -ms-grid-columns: 80% 10%;
+  grid-template-columns: 80% 10%;
 }
 
 .main-medium-aside {
@@ -500,6 +505,61 @@ aside {
   display: grid;
   -ms-grid-columns: 1fr 7fr;
   grid-template-columns: 1fr 7fr;
+}
+
+.index-aside {
+  text-align: center;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
+  font-size: 7em;
+  text-transform: uppercase;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.article-catalog {
+  color: #fff;
+  font-weight: bold;
+  font-family: "Forum", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.wrap-img-background {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.wrap-index-img-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: -100;
+}
+
+.index-img-box {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
+.wrap-white-bg {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.wrap-blue-bg {
+  background: linear-gradient(125deg, rgb(76, 99, 115) 5%, rgba(76, 99, 115, 0.6) 30%, rgb(255, 255, 255) 100%);
+}
+
+.wrap-blue-bg-rv {
+  background: linear-gradient(25deg, rgb(76, 99, 115) 5%, rgba(76, 99, 115, 0.6) 30%, rgb(255, 255, 255) 100%);
 }
 
 .aside-name-block {
@@ -556,6 +616,10 @@ aside {
   height: 70vh;
   position: sticky;
   top: 15vh;
+  font-family: "Forum", serif;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 4px;
 }
 
 .info-h1 {
@@ -641,10 +705,12 @@ aside {
 }
 
 .aside-nav-list-sub {
-  height: 0;
   overflow: hidden;
-  -webkit-transition: height 0.5s linear;
-  transition: height 0.5s linear;
+  max-height: 0;
+  -webkit-transition: max-height 0.5s cubic-bezier(1, 0, 1, 0);
+  transition: max-height 0.5s cubic-bezier(1, 0, 1, 0);
+  -webkit-transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+          transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 .aside-nav-item-sub {
@@ -654,18 +720,33 @@ aside {
   font-weight: bold;
 }
 
+.aside-nav-item-sub a {
+  color: #B3CCDE;
+}
+
+.aside-nav-item-sub a:hover {
+  color: rgba(231, 67, 67, 0.7);
+}
+
 .aside-nav-item-h2 {
   font-size: 1.3em;
   padding: 1vh 0 1vh 0;
   text-transform: uppercase;
   display: block;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
   font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 1px;
 }
 
 .open-menu {
-  padding: 1vh 0 1.5vh 0;
+  max-height: 200px;
+  -webkit-transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+  -webkit-transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+          transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 .content-main-block {
@@ -694,8 +775,12 @@ aside {
   color: #fff;
   text-transform: uppercase;
   text-align: right;
-  font-size: 3em;
+  font-size: 4em;
   margin: 0 5vh -0.9vh 0;
+  font-family: "Forum", serif;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 3px;
 }
 
 .wrap-head-page-h3 {
@@ -711,9 +796,31 @@ aside {
   margin: 4vh 0 4vh 5vh;
 }
 
-.private-page-h3 {
-  font-size: 2em;
+.public-page-h3 {
+  font-size: 3em;
   margin: 0 0 2vh 2vh;
+  font-family: "Forum", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.color-admin {
+  color: #4C6373;
+}
+
+.main-page-data-item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  height: 100%;
+  padding: 2vh 0 5vh 2vw;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  opacity: 1;
+  -webkit-transition: 0.3s linear;
+  transition: 0.3s linear;
 }
 
 .main-block-list {
@@ -725,7 +832,7 @@ aside {
 .block-2fr {
   -ms-grid-columns: (1fr)[2];
   grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 38vh;
+  grid-auto-rows: 37vh;
 }
 
 .block-3fr {
@@ -786,7 +893,7 @@ aside {
   height: 100%;
   position: relative;
   overflow: hidden;
-  border-radius: 20px 40px;
+  border-radius: 40px 20px;
   -webkit-box-shadow: 7px 7px 10px 2px rgba(0, 0, 0, 0.2);
           box-shadow: 7px 7px 10px 2px rgba(0, 0, 0, 0.2);
   background: #fff;
@@ -862,7 +969,6 @@ aside {
 
 .height-box-content {
   grid-auto-rows: 47vh;
-  padding: 0 0 5vh 5vh;
 }
 
 .block-subscrible {
@@ -1480,7 +1586,7 @@ footer {
 
 .wrap-input {
   width: 25vw;
-  margin: 0 0 2vh 0;
+  margin: 0 0 1vh 0;
   position: relative;
   -webkit-transition: 0.3s;
   transition: 0.3s;

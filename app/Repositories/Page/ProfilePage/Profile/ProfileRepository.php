@@ -3,54 +3,66 @@
 
 namespace App\Repositories\Page\ProfilePage\Profile;
 
+use App\DTO\DTOupdateUser;
+use App\DTO\DTOupdateUserPassword;
 use App\Models\User;
 use App\Repositories\Page\ProfilePage\Profile\Interfaces\ProfileRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileRepository implements ProfileRepositoryInterface
 {
+    public function profile(): User
+    {
+        return User::find(Auth::id());
+    }
 
-    public function updateUser($data)
+    public function updateProfile(DTOupdateUser $dto): User
     {
         $user = User::find(Auth::id());
 
-        if ($data->name !== 'null'){
-            $user->name = $data->name;
+        if ($dto->name !== 'null'){
+            $user->name = $dto->name;
         }
 
-        if ($data->familia !== 'null'){
-            $user->familia = $data->familia;
+        if ($dto->familia !== 'null'){
+            $user->familia = $dto->familia;
         }
 
-        if ($data->father_name !== 'null'){
-            $user->father_name = $data->father_name;
+        if ($dto->father_name !== 'null'){
+            $user->father_name = $dto->father_name;
         }
 
-        if ($data->phone !== 'null'){
-            $user->phone = $data->phone;
+        if ($dto->phone !== 'null'){
+            $user->phone = $dto->phone;
+        }
+
+        if ($dto->date_of_birth !== 'null'){
+            $user->date_of_birth = $dto->date_of_birth;
+        }
+
+        if ($dto->gender !== 'null'){
+            $user->gender = $dto->gender;
         }
 
         $user->save();
-    }
-
-    public function updatePasswordUser($data)
-    {
-        $user = User::find(Auth::id());
-
-        $user->password = bcrypt($data->password);
-        $user->save();
-    }
-
-    public function showUser()
-    {
-        $user = User::find(Auth::id());
 
         return $user;
     }
 
-    public function destroyUser($user)
+    public function updateProfilePassword(DTOupdateUserPassword $dto): User
     {
-        $user = User::find($user);
+        $user = User::find(Auth::id());
+
+        $user->password = Hash::make($dto->password);
+        $user->save();
+
+        return $user;
+    }
+
+    public function destroyProfile(): void
+    {
+        $user = User::find(Auth::id());
         $user->delete();
     }
 

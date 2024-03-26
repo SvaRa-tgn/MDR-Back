@@ -18,7 +18,7 @@ class DestroyProductAction
     {
         $this->action->destroyProduct($id);
 
-        return response()->Json(route('editProduct'));
+        return response()->Json(route('searchEditProduct'));
     }
 
 }

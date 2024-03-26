@@ -3,6 +3,7 @@
 namespace App\Actions\Admin\Users;
 
 use App\Services\Admin\Users\UsersService;
+use Illuminate\View\View;
 
 class UsersAction
 {
@@ -12,7 +13,7 @@ class UsersAction
     {
         $this->service = $service;
     }
-    public function execute()
+    public function execute(): View
     {
         $head = $this->service->title();
 

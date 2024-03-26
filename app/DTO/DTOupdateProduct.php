@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use App\Http\Requests\AdminPage\Product\UpdateProductRequest;
+use Illuminate\Support\Str;
 use Spatie\DataTransferObject\DataTransferObject;
 use Transliterate;
 
@@ -11,9 +12,7 @@ class DTOupdateProduct extends DataTransferObject
     public string $category;
     public string $sub_category;
     public string $type;
-    public string $type_modul;
-    public string $item_modul;
-    public string $item_ready;
+    public string $collection;
     public string $full_name;
     public string $slug_full_name;
     public string $small_name;
@@ -50,29 +49,19 @@ class DTOupdateProduct extends DataTransferObject
             $type = $data['type'];
         }
 
-        if(empty($data['type_modul'])){
-            $type_modul = 'null';
+        if(empty($data['collection'])){
+            $collection = 'null';
         } else {
-            $type_modul = $data['type_modul'];
-        }
-
-        if(empty($data['item_modul'])){
-            $item_modul = 'null';
-        } else {
-            $item_modul = $data['item_modul'];
-        }
-
-        if(empty($data['item_ready'])){
-            $item_ready = 'null';
-        } else {
-            $item_ready = $data['item_ready'];
+            $collection= $data['collection'];
         }
 
         if(empty($data['full_name'])){
             $full_name = 'null';
             $slug_full_name = 'null';
         } else {
-            $full_name = $data['full_name'];
+            $lover = Str::lower($data['full_name']);
+            $f_name = Str::title($lover);
+            $full_name = $f_name;
             $slug_full_name = Transliterate::slugify($data['full_name']);
         }
 
@@ -80,7 +69,9 @@ class DTOupdateProduct extends DataTransferObject
             $small_name = 'null';
             $slug_small_name = 'null';
         } else {
-            $small_name = $data['small_name'];
+            $lover = Str::lower($data['small_name']);
+            $s_name = Str::title($lover);
+            $small_name = $s_name;
             $slug_small_name = Transliterate::slugify($data['small_name']);
         }
 
@@ -142,9 +133,7 @@ class DTOupdateProduct extends DataTransferObject
             'category' => $category,
             'sub_category' => $sub_category,
             'type' => $type,
-            'type_modul' => $type_modul,
-            'item_modul' => $item_modul,
-            'item_ready' => $item_ready,
+            'collection' => $collection,
             'full_name' => $full_name,
             'slug_full_name' => $slug_full_name,
             'small_name' => $small_name,

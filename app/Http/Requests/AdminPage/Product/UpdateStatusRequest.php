@@ -22,7 +22,7 @@ class UpdateStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['required', 'string', 'max:50']
+            'status_product' => ['required', 'string', 'max:50']
         ];
 
     }

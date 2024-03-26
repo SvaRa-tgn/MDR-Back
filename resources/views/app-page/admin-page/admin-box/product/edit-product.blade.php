@@ -27,7 +27,7 @@
 
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
-                <h1 class="page-h1">Поиск товара</h1>
+                <h1 class="private-page-h1">Поиск товара</h1>
             </div>
 
             <div class="main-private-data-item">
@@ -41,13 +41,13 @@
                             <form class="form-sample-product" data-form="search" method="POST" action="{{ route('searchProduct') }}" enctype="multipart/form-data">
                                 @csrf
                                 <article class="name-admin-block">
-                                    Найдите товар
+                                    Найдите товар для редактирования
                                 </article>
                                 <div class="wrap-input Error" data-answer="Вы не ввели название Товара или его Артикль">
                                     <label class="form-label">
                                         Поиск в базе: по названию или артиклю.
                                     </label>
-                                    <input class="admin-select input-sample-product" type="text" id="search" name="search" value="{{ old('search') }}"/>
+                                    <input class="admin-select input-sample-product" type="text" id="search-product" name="search" value="{{ old('search') }}"/>
                                 </div>
                                 <div class="wrap-button" data-search="Ищем товар">
                                     <button class="button-auth accept" type="submit" name="submit-auth">Найти</button>
@@ -67,7 +67,7 @@
                                     <select class="admin-select input-sample-product" name="category" id="class">
                                         <option class="class" value="">--Выберите категорию товара--</option>
                                         @foreach($categories as $category)
-                                            <option class="class" data-link="{{ route('sample', $category->id) }}" value="{{$category->id}}">{{$category->category}}</option>
+                                            <option class="class" data-link="{{ route('sampleSubCategories', $category->id) }}" value="{{$category->id}}">{{$category->category}}</option>
                                         @endforeach
                                     </select>
                                 </li>

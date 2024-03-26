@@ -53,26 +53,26 @@
                             <img class="img-auth-item" src="{{asset('/img/icon/search.png')}}" alt="Поиск по сайту">
                         </li>
                         <li class="auth-item" data-tooltipe="Избранное">
-                            <a class="link-auth-item" href="#">
+                            <a class="link-auth-item" href="{{route('profileFavorites')}}">
                                 <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li class="auth-item" data-tooltipe="Корзина">
-                            <a class="link-auth-item" href="#">
+                            <a class="link-auth-item" href="{{route('profileCart')}}">
                                 <i class="fa fa-shopping-cart fa-2x fa-cart" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li class="auth-item enter-profile" @if(Auth::check())data-tooltipe="Личный кабинет" @else data-tooltipe="Вход / Регистрация"@endif>
                             <div class="wrap-auth-item-box">
                                 @if(Auth::check())
-                                <a class="link-auth-item" href="{{route('profile.index')}}">
+                                <a class="link-auth-item" href="{{route('private')}}">
                                    <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                                 </a>
                                 <artical class="link-auth-item js-call">
                                    <i class="fa fa-sign-in fa-3x fa-sign" aria-hidden="true"></i>
                                 </artical>
                                 @else
-                                <a class="link-auth-item auth-item-slid" href="{{route('profile.index')}}">
+                                <a class="link-auth-item auth-item-slid" href="{{route('private')}}">
                                    <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                                 </a>
                                 <artical class="link-auth-item auth-item-slid js-call">

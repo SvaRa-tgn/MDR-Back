@@ -9,14 +9,13 @@ use App\Models\SubCategory;
 use App\Repositories\Page\AdminPage\SubCategory\Interfaces\SubcategoryRepositoryInterface;
 use App\Services\Admin\UpdateStroageService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
 use Transliterate;
 
 class SubCategoryRepository implements SubcategoryRepositoryInterface
 {
     public function subCategory(): Collection
     {
-        return SubCategory::all();
+        return SubCategory::all()->sortBy('sub_category');
     }
 
     public function createSubCategory(DTOcreateSubCategory $dto): SubCategory
@@ -25,7 +24,8 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
 
         $subCategory = new SubCategory();
         $subCategory->sub_category = $dto->sub_category;
-        $subCategory->slug_sub_category = $dto->slug_sub_category;;
+        $subCategory->slug_sub_category = $dto->slug_sub_category;
+        $subCategory->type_item = $dto->type_item;
         $storage = 'public/catalog';
         $image = UpdateStroageService::updateImage($storage, $dto->image);
         $subCategory->link = $image['url'];
@@ -36,13 +36,11 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
         return $subCategory;
     }
 
-    public function editSubCategory($slug_sub_category): SubCategory
+    public function editSubCategory($slug_sub_category): SubCategory| null
     {
-        $subCategory = SubCategory::join('categories', 'sub_categories.category_id', '=', 'categories.id')
+        return SubCategory::join('categories', 'sub_categories.category_id', '=', 'categories.id')
             ->select('sub_categories.*', 'categories.category')
             ->where('slug_sub_category', $slug_sub_category)->first();
-
-        return $subCategory;
     }
 
     public function updateSubCategory(DTOupdateSubCategory $dto, $id): SubCategory
@@ -57,6 +55,10 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
         if ($dto->sub_category !== 'null') {
             $subCategory->sub_category = $dto->sub_category;
             $subCategory->slug_sub_category = $dto->slug_sub_category;
+        }
+
+        if ($subCategory->type_item !== $dto->type_item) {
+            $subCategory->type_item = $dto->type_item;
         }
 
         if ($dto->image !== 'null') {
@@ -91,6 +93,24 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
 
         UpdateStroageService::deleteImage($subCategory->path);
         $subCategory->delete();
+    }
+
+    public function catalogSubcategories($article): Collection
+    {
+        return SubCategory::leftjoin('categories', 'sub_categories.category_id', '=', 'categories.id')
+            ->select('sub_categories.*', 'categories.category')
+            ->orderBy('sub_category')
+            ->where('category_id', $article->id)->get()->toArray();
+    }
+
+    public function sampleSubCategories($id): Collection
+    {
+        return SubCategory::where('category_id', $id)->get();
+    }
+
+    public function sampleSubCategoriesCreate($id, $type_item): Collection
+    {
+        return SubCategory::where('category_id', $id)->where('type_item', $type_item)->get();
     }
 
 }

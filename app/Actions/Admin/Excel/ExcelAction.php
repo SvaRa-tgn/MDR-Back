@@ -3,6 +3,7 @@
 namespace App\Actions\Admin\Excel;
 
 use App\Services\Admin\Excel\ExcelService;
+use Illuminate\View\View;
 
 class ExcelAction
 {
@@ -13,7 +14,7 @@ class ExcelAction
         $this->service = $service;
     }
 
-    public function execute()
+    public function execute(): View
     {
 
         $head = $this->service->title();

@@ -1,127 +1,40 @@
-<section class="main-block main-min-aside" id="catalog">
-    <aside class="aside aside-min bg">
-        <article class="aside-name-block">
-            <h2 class="aside-block-h2 ab-left color">
-                Каталог
-            </h2>
-        </article>
-    </aside>
+<section class="main-block" id="catalog">
+    <div class="wrap-img-background">
+        <div class="wrap-index-img-box">
+            <img class="index-img-box" src="{{asset('/img/static/catalog/hall.jpg')}}" alt="Мебель в Рязани">
+        </div>
+        <div class="wrap-white-bg">
+            <div class="wrap-blue-bg main-min-aside">
 
-    <div class="content-main-block">
-        <ul class="main-block-list block-4fr box-align-right">
-            <li class="main-block-item">
-                <a class="main-block-link" href="/html/catalog/livingroom.html">
-                    <img class="main-block-item-img" src="{{asset('/img/static/catalog/livingroom.jpg')}}" alt="Гостиные">
-                    <div class="filter-main" data-link="Посмотреть">
-                        <div class="main-block-box-content position-for-catalog">
-                            <div class="main-block-info">
-                                <article class="main-block-article">
-                                    Гостиные
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="main-block-item">
-                <a class="main-block-link" href="/html/catalog/child.html">
-                    <img class="main-block-item-img" src="{{asset('/img/static/catalog/child.jpg')}}" alt="Детские">
-                    <div class="filter-main" data-link="Посмотреть">
-                        <div class="main-block-box-content position-for-catalog">
-                            <div class="main-block-info">
-                                <article class="main-block-article">
-                                    Детские
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="main-block-item">
-                <a class="main-block-link" href="/html/catalog/kitchen.html">
-                    <img class="main-block-item-img" src="{{asset('/img/static/catalog/kitchen.jpg')}}" alt="Кухни">
-                    <div class="filter-main" data-link="Посмотреть">
-                        <div class="main-block-box-content position-for-catalog">
-                            <div class="main-block-info">
-                                <article class="main-block-article">
-                                    Кухни
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="main-block-item">
-                <a class="main-block-link" href="/html/catalog/hall.html">
-                    <img class="main-block-item-img" src="{{asset('/img/static/catalog/hall.jpg')}}" alt="Прихожие">
-                    <div class="filter-main" data-link="Посмотреть">
-                        <div class="main-block-box-content position-for-catalog">
-                            <div class="main-block-info">
-                                <article class="main-block-article">
-                                    Прихожие
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="main-block-item">
-                <a class="main-block-link" href="/html/catalog/sleep.html">
-                    <img class="main-block-item-img" src="{{asset('/img/static/catalog/sleep.jpg')}}" alt="Спальни">
-                    <div class="filter-main" data-link="Посмотреть">
-                        <div class="main-block-box-content position-for-catalog">
-                            <div class="main-block-info">
-                                <article class="main-block-article">
-                                    Спальни
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="main-block-item">
-                <a class="main-block-link" href="/html/catalog/cabinet.html">
-                    <img class="main-block-item-img" src="{{asset('/img/static/catalog/coupe.jpg')}}" alt="Шкафы">
-                    <div class="filter-main" data-link="Посмотреть">
-                        <div class="main-block-box-content position-for-catalog">
-                            <div class="main-block-info">
-                                <article class="main-block-article">
-                                    Шкафы
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="main-block-item">
-                <a class="main-block-link" href="/html/catalog/sleep.html">
-                    <img class="main-block-item-img" src="{{asset('/img/static/catalog/table.jpg')}}" alt="Домашний офис">
-                    <div class="filter-main" data-link="Посмотреть">
-                        <div class="main-block-box-content position-for-catalog">
-                            <div class="main-block-info">
-                                <article class="main-block-article">
-                                    Домашний офис
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="main-block-item">
-                <a class="main-block-link" href="/html/catalog/cabinet.html">
-                    <img class="main-block-item-img" src="{{asset('/img/static/catalog/divan.jpg')}}" alt="Мягкая мебель">{{asset('/img/static/catalog/divan.jpg')}}
-                    <div class="filter-main" data-link="Посмотреть">
-                        <div class="main-block-box-content position-for-catalog">
-                            <div class="main-block-info">
-                                <article class="main-block-article">
-                                    Мягкая мебель
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-        </ul>
+                <aside class="index-aside">
+                    <article class="article-catalog">
+                        Каталог
+                    </article>
+                </aside>
+
+                <div class="content-main-block">
+                    <ul class="main-block-list block-4fr box-align-right">
+                        @foreach($categories as $category)
+                        <li class="main-block-item">
+                            <a class="main-block-link" href="{{route('catalogSubcategories', $category->slug_category)}}">
+                                <img class="main-block-item-img" src="{{asset($category->link)}}" alt="Мебель в Рязани. {{$category->category}}">
+                                <div class="filter-main" data-link="Посмотреть">
+                                    <div class="main-block-box-content position-for-catalog">
+                                        <div class="main-block-info">
+                                            <article class="main-block-article">
+                                                {{$category->category}}
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+            </div>
+        </div>
     </div>
 </section>
 

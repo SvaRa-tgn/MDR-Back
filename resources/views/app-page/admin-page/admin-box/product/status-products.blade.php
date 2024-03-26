@@ -41,13 +41,13 @@
         <section class="admin-main-block">
             <div class="wrap-head-page bg-admin">
                 @if($page === 'v_prodazhe')
-                <h1 class="page-h1">Все товары в продаже</h1>
+                <h1 class="private-page-h1">Все товары в продаже</h1>
                 @elseif($page === 'rezerved')
-                <h1 class="page-h1">Все товары в резерве</h1>
+                <h1 class="private-page-h1">Все товары в резерве</h1>
                 @elseif($page === 'dont_display')
-                <h1 class="page-h1">Все не отображенные товары</h1>
+                <h1 class="private-page-h1">Все не отображенные товары</h1>
                 @else
-                <h1 class="page-h1">Все товары</h1>
+                <h1 class="private-page-h1">Все товары</h1>
                 @endif
             </div>
 
@@ -130,9 +130,15 @@
                                                 @endif
                                                     <article class="collect-article" >{{$product['full_name']}}</article>
                                                     <article class="collect-article" >{{$product['status']}}</article>
-                                                    <a class="mdr-button accept modul-button-delete" href="{{route('updateProduct', $product['slug_full_name'])}}">
+                                                    @if($product['type'] === 'Комплект')
+                                                    <a class="mdr-button accept modul-button-delete" href="{{route('editModulCompilation', $product['slug_full_name'])}}">
                                                         Редактировать
                                                     </a>
+                                                    @else
+                                                        <a class="mdr-button accept modul-button-delete" href="{{route('editProduct', $product['slug_full_name'])}}">
+                                                            Редактировать
+                                                        </a>
+                                                    @endif
                                                 </li>
                                             @endif
                                         @endforeach

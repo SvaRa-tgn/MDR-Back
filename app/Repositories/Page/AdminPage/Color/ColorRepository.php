@@ -31,7 +31,7 @@ class ColorRepository implements ColorRepositoryInterfaces
         return $color;
     }
 
-    public function editColor($slug_color): Color
+    public function editColor($slug_color): Color| null
     {
         return Color::where('slug_color', $slug_color)->first();
     }
