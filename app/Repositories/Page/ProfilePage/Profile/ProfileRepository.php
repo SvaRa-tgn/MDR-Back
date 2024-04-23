@@ -17,9 +17,8 @@ class ProfileRepository implements ProfileRepositoryInterface
         return User::find(Auth::id());
     }
 
-    public function updateProfile(DTOupdateUser $dto): User
+    public function updateProfile(DTOupdateUser $dto, User $user): User
     {
-        $user = User::find(Auth::id());
 
         if ($dto->name !== 'null'){
             $user->name = $dto->name;
@@ -50,19 +49,16 @@ class ProfileRepository implements ProfileRepositoryInterface
         return $user;
     }
 
-    public function updateProfilePassword(DTOupdateUserPassword $dto): User
+    public function updateProfilePassword(DTOupdateUserPassword $dto, User $user): User
     {
-        $user = User::find(Auth::id());
-
         $user->password = Hash::make($dto->password);
         $user->save();
 
         return $user;
     }
 
-    public function destroyProfile(): void
+    public function destroyProfile(User $user): void
     {
-        $user = User::find(Auth::id());
         $user->delete();
     }
 

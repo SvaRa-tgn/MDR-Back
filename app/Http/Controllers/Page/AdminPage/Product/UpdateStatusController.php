@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 
 class UpdateStatusController extends Controller
 {
-    public function updateStatus(UpdateStatusAction $action, UpdateStatusRequest $request, $id): RedirectResponse
+    public function updateStatus(UpdateStatusAction $action, UpdateStatusRequest $request, int $id): RedirectResponse
     {
         return $action->execute($request, $id);
     }

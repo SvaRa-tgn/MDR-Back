@@ -496,7 +496,7 @@
                                         Цвет корпуса:
                                     </article>
                                     <article class="relevant-info">
-                                        {{$product->color_fasad}}
+                                        {{$product->color_korpus}}
                                     </article>
                                 </li>
                                 <li class="relevant-info-item admin-block-1fr">
@@ -504,7 +504,7 @@
                                         Цвет фасада:
                                     </article>
                                     <article class="relevant-info">
-                                        {{$product->color_korpus}}
+                                        {{$product->color_fasad}}
                                     </article>
                                 </li>
                                 <li class="relevant-info-item admin-block-1fr">

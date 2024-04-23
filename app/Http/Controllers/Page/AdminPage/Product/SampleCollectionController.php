@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 class SampleCollectionController extends Controller
 {
-    public function sampleCollection(SampleCollectionAction $action, $type): JsonResponse
+    public function sampleCollection(SampleCollectionAction $action, string $type): JsonResponse
     {
         return $action->execute($type);
     }

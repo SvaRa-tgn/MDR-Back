@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 
 class UpdateStatusSlidersController extends Controller
 {
-    public function updateStatus(UpdateStatusSlidersAction $action, UpdateStatusRequest $request, $id): JsonResponse
+    public function updateStatus(UpdateStatusSlidersAction $action, UpdateStatusRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

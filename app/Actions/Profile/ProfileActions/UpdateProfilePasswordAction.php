@@ -11,16 +11,11 @@ use Transliterate;
 
 class UpdateProfilePasswordAction
 {
-    public $action;
-
-    public function __construct(ProfileRepository $action)
-    {
-        $this->action = $action;
-    }
+    public function __construct(private ProfileRepository $profile){}
 
     public function execute(UpdateUserPasswordRequest $request): JsonResponse
     {
-        $user = $this->action->updateProfilePassword(DTOupdateUserPassword::fromUpdateUserPasswordRequest($request));
+        $user = $this->profile->updateProfilePassword(DTOupdateUserPassword::fromUpdateUserPasswordRequest($request), $this->profile->profile());
 
         return response()->json(route('profile', ['name' => $user->slug_name, 'familia' => $user->slug_familia, 'father' => $user->slug_father_name]));
     }

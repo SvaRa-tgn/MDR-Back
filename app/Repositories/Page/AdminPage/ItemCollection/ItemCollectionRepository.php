@@ -16,6 +16,11 @@ class ItemCollectionRepository implements ItemCollectionRepositoryInterfaces
         return ItemCollection::all();
     }
 
+    public static function itemCollectionFind(int $id): ItemCollection
+    {
+        return ItemCollection::find($id);
+    }
+
     public function createItemCollection(DTOitemCollection $dto): ItemCollection
     {
         $itemCollection = new ItemCollection();
@@ -28,12 +33,12 @@ class ItemCollectionRepository implements ItemCollectionRepositoryInterfaces
         return $itemCollection;
     }
 
-    public function editItemCollection($slug_collection): ItemCollection|null
+    public function editItemCollection(string $slugCollection): ItemCollection
     {
-        return ItemCollection::where('slug_collection', $slug_collection)->first();
+        return ItemCollection::where('slug_collection', $slugCollection)->firstOrFail();
     }
 
-    public function updateItemCollection(DTOupdateItemCollection $dto, $id): ItemCollection
+    public function updateItemCollection(DTOupdateItemCollection $dto, int $id): ItemCollection
     {
         $itemCollection = ItemCollection::find($id);
         $itemCollection->type_collection = $dto->type_collection;
@@ -48,13 +53,12 @@ class ItemCollectionRepository implements ItemCollectionRepositoryInterfaces
         return $itemCollection;
     }
 
-    public function destroyItemCollection($id): void
+    public function destroyItemCollection(ItemCollection $itemCollection): void
     {
-        $itemCollection = ItemCollection::find($id);
         $itemCollection->delete();
     }
 
-    public function sampleCollections($type): array
+    public function sampleCollections(string $type): array
     {
         return ItemCollection::where('type_collection', $type)->get()->toArray();
     }

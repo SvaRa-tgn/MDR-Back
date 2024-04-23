@@ -65,8 +65,11 @@ use App\Http\Controllers\Page\AdminPage\Users\UpdateUserController;
 use App\Http\Controllers\Page\AdminPage\Users\UpdateUserRoleController;
 use App\Http\Controllers\Page\AdminPage\Users\UsersController;
 use App\Http\Controllers\Page\CatalogPage\CatalogController;
+use App\Http\Controllers\Page\CatalogPage\CatalogProductPageController;
+use App\Http\Controllers\Page\CatalogPage\CatalogProductsController;
 use App\Http\Controllers\Page\CatalogPage\CatalogSubcategoriesController;
 use App\Http\Controllers\Page\indexPage\IndexController;
+use App\Http\Controllers\Page\indexPage\IndexSearchController;
 use App\Http\Controllers\Page\InfoPage\CookiesController;
 use App\Http\Controllers\Page\InfoPage\HowDesignOrderController;
 use App\Http\Controllers\Page\InfoPage\InfoMainController;
@@ -79,7 +82,9 @@ use App\Http\Controllers\Page\ProfilePage\Profile\ProfileCheckController;
 use App\Http\Controllers\Page\ProfilePage\Profile\ProfileController;
 use App\Http\Controllers\Page\ProfilePage\Profile\UpdateProfileController;
 use App\Http\Controllers\Page\ProfilePage\Profile\UpdateProfilePasswordController;
+use App\Http\Controllers\Page\ProfilePage\ProfileCart\ProfileAddCartController;
 use App\Http\Controllers\Page\ProfilePage\ProfileCart\ProfileCartController;
+use App\Http\Controllers\Page\ProfilePage\ProfileCart\ProfileDestroyCartController;
 use App\Http\Controllers\Page\ProfilePage\ProfileFavorites\ProfileFavoritesController;
 use App\Http\Controllers\Page\ProfilePage\ProfilePurchased\ProfilePurchasedController;
 use App\Http\Controllers\Page\ServicePage\DeliveryController;
@@ -105,12 +110,14 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/', [IndexController::class, 'index'])->name('/.index');
+Route::post('search-product', [IndexSearchController::class, 'searchIndex'])->name('searchIndex');
 
 //Страница Каталог
 Route::prefix('catalog')->group(function(){
     Route::get('mdr', [CatalogController::class, 'catalogCategory'])->name('catalogCategory');
-    Route::get('{category}.mdr', [CatalogSubcategoriesController::class, 'catalogSubcategories'])->name('catalogSubcategories');
-
+    Route::get('{slugCategory}.mdr', [CatalogSubcategoriesController::class, 'catalogSubcategories'])->name('catalogSubcategories');
+    Route::get('{slugCategory}/{slugSubCategory}.mdr', [CatalogProductsController::class, 'catalogProducts'])->name('catalogProducts');
+    Route::get('{slugCategory}/{slugSubCategory}/{slugFullName}.mdr', [CatalogProductPageController::class, 'productPage'])->name('productPage');
 });
 
 //Страница Информация
@@ -142,7 +149,7 @@ Route::prefix('admin')->middleware('admin')->group(function (){
     Route::prefix('category')->group(function(){
         Route::get('mdr', [CategoryController::class, 'category'])->name('category');
         Route::post('create', [CreateCategoryController::class, 'createCategory'])->name('createCategory');
-        Route::get('{slug_category}.mdr', [EditCategoryController::class, 'editCategory'])->name('editCategory');
+        Route::get('{slugCategory}.mdr', [EditCategoryController::class, 'editCategory'])->name('editCategory');
         Route::put('update/{id}', [UpdateCategoryController::class, 'updateCategory'])->name('updateCategory');
         Route::delete('destroy/{id}', [DestroyCategoryController::class, 'destroyCategory'])->name('destroyCategory');
     });
@@ -151,7 +158,7 @@ Route::prefix('admin')->middleware('admin')->group(function (){
     Route::prefix('sub-category')->group(function(){
         Route::get('mdr', [SubCategoryController::class, 'subCategory'])->name('subCategory');
         Route::post('create', [CreateSubCategoryController::class, 'createSubCategory'])->name('createSubCategory');
-        Route::get('{slug_sub_category}.mdr', [EditSubCategoryController::class, 'editSubCategory'])->name('editSubCategory');
+        Route::get('{slugSubCategory}.mdr', [EditSubCategoryController::class, 'editSubCategory'])->name('editSubCategory');
         Route::put('update/{id}', [UpdateSubCategoryController::class, 'updateSubCategory'])->name('updateSubCategory');
         Route::delete('destroy/{id}', [DestroySubCategoryController::class, 'destroySubCategory'])->name('destroySubCategory');
     });
@@ -160,7 +167,7 @@ Route::prefix('admin')->middleware('admin')->group(function (){
     Route::prefix('collection')->group(function(){
         Route::get('mdr', [ItemCollectionController::class, 'itemCollection'])->name('itemCollection');
         Route::post('create', [CreateItemCollectionController::class, 'createCollection'])->name('createCollection');
-        Route::get('{slug_collection}.mdr', [EditItemCollectionController::class, 'editCollection'])->name('editCollection');
+        Route::get('{slugCollection}.mdr', [EditItemCollectionController::class, 'editCollection'])->name('editCollection');
         Route::put('update/{id}', [UpdateItemCollectionController::class, 'updateCollection'])->name('updateCollection');
         Route::delete('destroy/{id}.mdr', [DestroyItemCollectionController::class, 'destroyCollection'])->name('destroyCollection');
     });
@@ -169,7 +176,7 @@ Route::prefix('admin')->middleware('admin')->group(function (){
     Route::prefix('color')->group(function(){
         Route::get('mdr', [ColorController::class, 'color'])->name('color');
         Route::post('create', [CreateColorController::class, 'createColor'])->name('createColor');
-        Route::get('edit-color/{slug_color}.mdr', [EditColorController::class, 'editColor'])->name('editColor');
+        Route::get('edit-color/{slugColor}.mdr', [EditColorController::class, 'editColor'])->name('editColor');
         Route::put('update/{id}', [UpdateColorController::class, 'updateColor'])->name('updateColor');
         Route::delete('destroy/{id}', [DestroyColorController::class, 'destroyColor'])->name('destroyColor');
     });
@@ -184,13 +191,13 @@ Route::prefix('admin')->middleware('admin')->group(function (){
         //Создание и редактирование товаров и модулей
         Route::get('/create-product.mdr', [ProductController::class, 'productCreate'])->name('productCreate');
         Route::post('/create-product', [CreateProductController::class, 'createProduct'])->name('createProduct');
-        Route::get('/edit/{slug_full_name}.mdr', [EditProductController::class, 'editProduct'])->name('editProduct');
+        Route::get('/edit/{slugFullName}.mdr', [EditProductController::class, 'editProduct'])->name('editProduct');
         Route::put('/update-data/{id}', [UpdateProductController::class, 'updateProduct'])->name('updateProduct');
         Route::delete('/delete-product/{id}', [DestroyProductController::class, 'destroyProduct'])->name('destroyProduct');
         //Создание и редактирование  Модульных комплектов
         Route::get('/create-modul-compilation.mdr', [ModulCompilationController::class, 'createCompilation'])->name('createCompilation');
         Route::post('/create-modul-compilation', [CreateModulCompilationController::class, 'addCompilation'])->name('addCompilation');
-        Route::get('/edit-modul-compilation/{slug_full_name}.mdr', [EditModulCompilationController::class, 'editModulCompilation'])->name('editModulCompilation');
+        Route::get('/edit-modul-compilation/{slugFullName}.mdr', [EditModulCompilationController::class, 'editModulCompilation'])->name('editModulCompilation');
         Route::delete('/delete-modul-compilation/{id}', [DestroyModulCompilationController::class, 'destroyModulCompilation'])->name('destroyModulCompilation');
         //Загрузка, Обновление (фото статуса)
         Route::put('/update-status/{id}', [UpdateStatusController::class, 'updateStatus'])->name('updateStatus');
@@ -253,6 +260,8 @@ Route::prefix('profile')->middleware('auth')->group(function(){
     //Корзина пользователя (зарегестрированного)
     Route::prefix('cart')->group(function(){
         Route::get('mdr', [ProfileCartController::class, 'profileCartItems'])->name('profileCart');
+        Route::post('add-cart', [ProfileAddCartController::class, 'addCart'])->name('addCart');
+        Route::delete('destroy-cart/{id}', [ProfileDestroyCartController::class, 'destroyCart'])->name('destroyCart');
     });
 
     //Избранное пользователя (зарегестрированного)

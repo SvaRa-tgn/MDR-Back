@@ -3,21 +3,17 @@
 namespace App\Actions\Admin\SubCategory;
 
 use App\DTO\DTOupdateSubCategory;
+use App\Http\Requests\AdminPage\SubCategory\UpdateSubCategoryRequest;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 use Illuminate\Http\JsonResponse;
 
 class UpdateSubCategoryAction
 {
-    public $action;
+    public function __construct(private SubCategoryRepository $repository){}
 
-    public function __construct(SubCategoryRepository $action)
+    public function execute(UpdateSubCategoryRequest $request, int $id): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request, $id): JsonResponse
-    {
-        $subCategory = $this->action->updateSubCategory(DTOupdateSubCategory::fromUpdateSubCategoryRequest($request), $id);
+        $subCategory = $this->repository->updateSubCategory(DTOupdateSubCategory::fromUpdateSubCategoryRequest($request), $id);
 
         return response()->json(route('editSubCategory', $subCategory->slug_sub_category));
     }

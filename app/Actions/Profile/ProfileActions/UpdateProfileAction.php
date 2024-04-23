@@ -11,16 +11,11 @@ use Transliterate;
 
 class UpdateProfileAction
 {
-    public ProfileRepository $action;
-
-    public function __construct(ProfileRepository $action)
-    {
-        $this->action = $action;
-    }
+    public function __construct(private ProfileRepository $profile){}
 
     public function execute(UpdateUserRequest $request): JsonResponse
     {
-        $user = $this->action->updateProfile(DTOupdateUser::fromUpdateUserRequest($request));
+        $user = $this->profile->updateProfile(DTOupdateUser::fromUpdateUserRequest($request), $this->profile->profile());
 
         return response()->json(route('profile', ['name' => $user->slug_name, 'familia' => $user->slug_familia, 'father' => $user->slug_father_name]));
     }

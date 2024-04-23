@@ -6,39 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 use App\Services\Admin\SubCategory\EditSubCategoryService;
+use Illuminate\View\View;
 
 class EditSubCategoryAction extends Controller
 {
-    public $action;
+    public function __construct(private SubCategoryRepository $repository,
+                                private CategoryRepository $categoryRepository, private EditSubCategoryService $service){}
 
-    private $categoryRepository;
-
-    private $service;
-
-    public function __construct(SubCategoryRepository $action, CategoryRepository $categoryRepository, EditSubCategoryService $service)
-    {
-        $this->action = $action;
-
-        $this->categoryRepository = $categoryRepository;
-
-        $this->service = $service;
-    }
-
-    public function execute($slug_sub_category)
+    public function execute(string $slugSubCategory): View
     {
         $categories = $this->categoryRepository->category();
 
-        $subCategory = $this->action->editSubCategory($slug_sub_category);
+        $subCategory = $this->repository->getSubCategory($slugSubCategory);
 
-        if(empty($subCategory) OR $subCategory === null){
-            return abort(404);
-        } else {
-            $head = $this->service->editTitle($subCategory->subCategory);
+        $head = $this->service->editTitle($subCategory->sub_category);
 
-            return view ('/app-page/admin-page/admin-box/sub-category/edit-sub-category',
-                ['categories' => $categories, 'subCategory' => $subCategory, 'head' => $head]);
-        }
-
+        return view ('/app-page/admin-page/admin-box/sub-category/edit-sub-category',
+            ['categories' => $categories, 'subCategory' => $subCategory, 'head' => $head]);
     }
 
 }

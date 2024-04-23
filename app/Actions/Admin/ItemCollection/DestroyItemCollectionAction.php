@@ -4,20 +4,20 @@ namespace App\Actions\Admin\ItemCollection;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\AdminPage\ItemCollection\ItemCollectionRepository;
+use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use App\Services\Admin\DestroyService;
 use Illuminate\Http\JsonResponse;
 
 class DestroyItemCollectionAction extends Controller
 {
-    public $action;
+    public function __construct(private ItemCollectionRepository $repository, private DestroyService $service,
+                                private ProductRepository $productRepository){}
 
-    public function __construct(ItemCollectionRepository $action)
+    public function execute(int $id): JsonResponse
     {
-        $this->action = $action;
-    }
+        $this->service->destroyManyProducts($this->productRepository->productFindItemCollection($id));
 
-    public function execute($id): JsonResponse
-    {
-        $this->action->destroyItemCollection($id);
+        $this->repository->destroyItemCollection(ItemCollectionRepository::itemCollectionFind($id));
 
         return response()->json(route('itemCollection'));
     }

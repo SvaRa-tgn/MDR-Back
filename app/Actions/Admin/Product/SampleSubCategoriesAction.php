@@ -7,18 +7,11 @@ use Illuminate\Http\JsonResponse;
 
 class SampleSubCategoriesAction
 {
-    public $action;
+    public function __construct(private SubCategoryRepository $subCategory){}
 
-    public function __construct(SubCategoryRepository $action)
+    public function execute(int $id): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($id): JsonResponse
-    {
-        $subcategories = $this->action->sampleSubCategories($id);
-
-        return response()->json($subcategories);
+        return response()->json($this->subCategory->sampleSubCategories($id));
     }
 
 }

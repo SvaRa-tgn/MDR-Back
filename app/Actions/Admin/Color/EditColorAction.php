@@ -4,33 +4,18 @@ namespace App\Actions\Admin\Color;
 
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
 use App\Services\Admin\Color\EditColorService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use PHPUnit\Framework\MockObject\NeverReturningMethodException;
 
 class EditColorAction
 {
-    public $action;
+    public function __construct(private ColorRepository $colorRepository, private EditColorService $service){}
 
-    private $service;
-
-    public function __construct(ColorRepository $action, EditColorService$service)
+    public function execute(string $slugColor): View
     {
-        $this->action = $action;
+        $color = $this->colorRepository->editColor($slugColor);
 
-        $this->service = $service;
-    }
+        $head = $this->service->editTitle($color->color);
 
-    public function execute($slug_color)
-    {
-        $color = $this->action->editColor($slug_color);
-
-        if(empty($color) OR $color === null){
-            return abort(404);
-        } else {
-            $head = $this->service->editTitle($color->color);
-
-            return view ('/app-page/admin-page/admin-box/color/edit-color', ['color' => $color, 'head' => $head]);
-        }
+        return view ('/app-page/admin-page/admin-box/color/edit-color', ['color' => $color, 'head' => $head]);
     }
 }

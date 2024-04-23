@@ -8,7 +8,7 @@ use Illuminate\View\View;
 
 class AllProductsController extends Controller
 {
-    public function productsClass(AllProductsAction $action, $page): View
+    public function productsClass(AllProductsAction $action, string $page): View
     {
         return $action->execute($page);
     }

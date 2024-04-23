@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class UpdateColorController extends Controller
 {
-    public function updateColor(UpdateColorAction $action, UpdateColorRequest $request, $id): JsonResponse
+    public function updateColor(UpdateColorAction $action, UpdateColorRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

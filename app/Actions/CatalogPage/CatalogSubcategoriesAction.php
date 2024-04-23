@@ -2,6 +2,7 @@
 
 namespace App\Actions\CatalogPage;
 
+use App\Models\Category;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 use App\Services\Catalog\CatalogSubcategoriesService;
@@ -9,24 +10,18 @@ use Illuminate\View\View;
 
 class CatalogSubcategoriesAction
 {
-    public $action;
-    public $service;
-    public $category;
+    public function __construct(private SubCategoryRepository $subCategory, private CatalogSubcategoriesService $service,
+                                private CategoryRepository $category){}
 
-    public function __construct(SubCategoryRepository $action, CatalogSubcategoriesService $service, CategoryRepository $category)
+    public function execute(string $slugCategory): View
     {
-        $this->action = $action;
-        $this->category = $category;
-        $this->service = $service;
-    }
+        $category = $this->category->getCategory($slugCategory);
+        $subcategories = $this->subCategory->catalogSubcategories($category);
+        $head = $this->service->editTitlePage($category->category);
+        $article = $category->category;
 
-    public function execute($category): View
-    {
-        $article = $this->category->editCategory($category);
-        $subcategories = $this->action->catalogSubcategories($article);
-        $head = $this->service->editTitlePage($article->category);
-
-        return view('/app-page/catalog-page/catalog-box/catalog-sub-categories', ['subcategories' => $subcategories, 'head' => $head, 'article' => $article]);
+        return view('/app-page/catalog-page/catalog-box/catalog-sub-categories', ['subcategories' => $subcategories, 'head' => $head,
+            'category' => $category, 'article' => $article]);
     }
 
 }

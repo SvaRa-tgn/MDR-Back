@@ -47,7 +47,7 @@
                                     <label class="form-label">
                                         Поиск в базе: по названию или артиклю.
                                     </label>
-                                    <input class="admin-select input-sample-product" type="text" id="search-product" name="search" value="{{ old('search') }}"/>
+                                    <input class="admin-select input-sample-product" type="text" id="search-product" name="search" value=""/>
                                 </div>
                                 <div class="wrap-button" data-search="Ищем товар">
                                     <button class="button-auth accept" type="submit" name="submit-auth">Найти</button>

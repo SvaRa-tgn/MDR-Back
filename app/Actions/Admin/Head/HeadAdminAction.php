@@ -8,13 +8,7 @@ use Illuminate\View\View;
 
 class HeadAdminAction extends Controller
 {
-
-    public $service;
-
-    public function __construct(HeadAdminService $service)
-    {
-        $this->service = $service;
-    }
+    public function __construct(private HeadAdminService $service){}
 
     public function execute(): View
     {
@@ -22,5 +16,4 @@ class HeadAdminAction extends Controller
 
         return view('/app-page/admin-page/admin-box/head/head-admin', compact('head'));
     }
-
 }

@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class UpdateProductController extends Controller
 {
-    public function updateProduct(UpdateProductAction $action, UpdateProductRequest $request, $id): JsonResponse
+    public function updateProduct(UpdateProductAction $action, UpdateProductRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

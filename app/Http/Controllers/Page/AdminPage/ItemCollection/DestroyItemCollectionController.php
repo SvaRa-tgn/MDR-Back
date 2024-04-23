@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 class DestroyItemCollectionController extends Controller
 {
-    public function destroyCollection(DestroyItemCollectionAction $action, $id): JsonResponse
+    public function destroyCollection(DestroyItemCollectionAction $action, int $id): JsonResponse
     {
         return $action->execute($id);
     }

@@ -9,26 +9,13 @@ use Illuminate\View\View;
 
 class AllProductsAction
 {
-    public ProductRepository $action;
+    public function __construct(private ProductRepository $product, private AllProductsService $service, private SubCategoryRepository $subCategory){}
 
-    private AllProductsService $service;
-
-    private SubCategoryRepository $subCategory;
-
-    public function __construct(ProductRepository $action, AllProductsService $service, SubCategoryRepository $subCategory)
-    {
-        $this->action = $action;
-
-        $this->service = $service;
-
-        $this->subCategory = $subCategory;
-    }
-
-    public function execute($page): View
+    public function execute(string $page): View
     {
         $subCategories = $this->subCategory->subCategory();
 
-        $products = $this->action->productsClass($page);
+        $products = $this->product->productsClass($page);
 
         $head = $this->service->title($page);
 

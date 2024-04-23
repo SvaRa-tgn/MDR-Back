@@ -72,7 +72,7 @@
                                     @foreach($colors as $color)
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Цвет">
                                             <article class="collect-article" data-id="{{$color->id}}">{{$color->color}}</article>
-                                            <a class="mdr-button accept modul-button-delete" href="{{route('editColor', $name = $color->slug_color)}}">
+                                            <a class="mdr-button accept modul-button-delete" href="{{route('editColor', $color->slug_color)}}">
                                                 Редактировать
                                             </a>
                                         </li>

@@ -2,28 +2,23 @@
 
 namespace App\Actions\Admin\Product;
 
-use App\DTO\DTOdestroyImage;
-use App\Models\ModulCompilation;
 use App\Repositories\Page\AdminPage\ModulCompilation\ModulCompilationRepository;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use Illuminate\Http\JsonResponse;
 
 class DestroyModulAction
 {
-    public $action;
-    public $repository;
+    public function __construct(private ModulCompilationRepository $modul, private ProductRepository $product){}
 
-    public function __construct(ModulCompilationRepository $action, ProductRepository $repository)
+    public function execute(int $id, int $productId): JsonResponse
     {
-        $this->action = $action;
-        $this->repository = $repository;
-    }
+        $this->modul->destroyModul($id);
 
-    public function execute($id, $productId): JsonResponse
-    {
-        $this->action->destroyModul($id);
+        $product = ProductRepository::productFind($productId);
 
-        $product = $this->repository->updateModul($productId);
+        $moduls = $this->modul->showModulCompilation($product);
+
+        $this->product->updateModul($product, $moduls);
 
         return response()->json(route('editModulCompilation', $product->slug_full_name));
 

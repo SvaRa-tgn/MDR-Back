@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 class SampleSubCategoriesController extends Controller
 {
-    public function sampleSubCategories(SampleSubCategoriesAction $action, $id): JsonResponse
+    public function sampleSubCategories(SampleSubCategoriesAction $action, int $id): JsonResponse
     {
         return $action->execute($id);
     }

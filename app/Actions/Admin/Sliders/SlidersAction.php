@@ -8,22 +8,13 @@ use Illuminate\View\View;
 
 class SlidersAction
 {
-    public $action;
-
-    public $service;
-
-    public function __construct(SlidersRepository $action, SlidersService $service)
-    {
-        $this->action = $action;
-
-        $this->service = $service;
-    }
+    public function __construct(private SlidersRepository $repository, private SlidersService $service){}
 
     public function execute(): View
     {
-        $images = $this->action->image();
+        $images = $this->repository->image();
 
-        $sliders = $this->action->sliders();
+        $sliders = $this->repository->sliders();
 
         $head = $this->service->title();
 

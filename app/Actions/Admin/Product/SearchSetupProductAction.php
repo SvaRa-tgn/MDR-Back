@@ -3,23 +3,17 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOsearchProduct;
+use App\Http\Requests\AdminPage\Product\SearchProductRequest;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use Illuminate\Http\JsonResponse;
 
 class SearchSetupProductAction
 {
-    public $action;
+    public function __construct(private ProductRepository $repository){}
 
-    public function __construct(ProductRepository $action)
+    public function execute(SearchProductRequest $request, string $page): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request, $page): JsonResponse
-    {
-        $products = $this->action->searchSetupProduct(DTOsearchProduct::fromSearchProductRequest($request), $page);
-
-        return response()->json($products);
+        return response()->json($this->repository->searchSetupProduct(DTOsearchProduct::fromSearchProductRequest($request), $page));
     }
 
 }

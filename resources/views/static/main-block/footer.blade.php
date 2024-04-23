@@ -14,10 +14,10 @@
                             <a class="link-footer-nav" href="{{route('catalogSubcategories', $category->slug_category)}}">{{$category->category}}</a>
 
                         </li>
-                        @foreach($sub_categories as $sub_category)
-                            @if($category->id === $sub_category->category_id)
+                        @foreach($subCategories as $subCategory)
+                            @if($category->id === $subCategory->category_id)
                         <li class="footer-nav-item">
-                            <a class="link-footer-nav" href="#">{{$sub_category->sub_category}}</a>
+                            <a class="link-footer-nav" href="{{route('catalogProducts', ['slugCategory' => $category->slug_category, 'slugSubCategory' => $subCategory->slug_sub_category])}}">{{$subCategory->sub_category}}</a>
                         </li>
                             @endif
                         @endforeach

@@ -22,7 +22,7 @@ class SearchProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => ['required', 'string', 'max:30'],
+            'search' => ['required', 'string', 'max:50'],
         ];
 
     }

@@ -11,7 +11,7 @@ class UpdateStroageService
         Storage::delete($path);
     }
 
-    public static function updateImage($storage, $image): array
+    public static function updateImage(string $storage, $image): array
     {
         $path = Storage::putFile($storage, $image);
         $url = Storage::url($path);

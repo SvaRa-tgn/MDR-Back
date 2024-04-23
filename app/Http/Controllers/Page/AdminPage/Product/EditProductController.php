@@ -8,9 +8,9 @@ use Illuminate\View\View;
 
 class EditProductController extends Controller
 {
-    public function editProduct(EditProductAction $action, $slug_full_name): View
+    public function editProduct(EditProductAction $action, string $slugFullName): View
     {
-        return $action->execute($slug_full_name);
+        return $action->execute($slugFullName);
     }
 
 }

@@ -3,22 +3,17 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOupdateStatus;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminPage\Product\UpdateStatusRequest;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use Illuminate\Http\RedirectResponse;
 
 class UpdateStatusAction
 {
-    public $action;
+    public function __construct(private ProductRepository $product){}
 
-    public function __construct(ProductRepository $action)
+    public function execute(UpdateStatusRequest $request, int $id): RedirectResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request, $id): RedirectResponse
-    {
-        $product = $this->action->updateStatus(DTOupdateStatus::fromUpdateStatusRequest($request), $id);
+        $product = $this->product->updateStatus(DTOupdateStatus::fromUpdateStatusRequest($request), ProductRepository::productFind($id));
 
         if($product->type === 'Комплект'){
             return redirect()->route('editModulCompilation', $product->slug_full_name);

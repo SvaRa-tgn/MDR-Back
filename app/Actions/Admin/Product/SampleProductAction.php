@@ -3,23 +3,18 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOsampleProduct;
+use App\Http\Requests\AdminPage\Product\SampleProductRequest;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
+use App\Repositories\Page\AdminPage\SubCategory\SubCategoryRepository;
 use Illuminate\Http\JsonResponse;
 
 class SampleProductAction
 {
-    public $action;
+    public function __construct(private ProductRepository $repository){}
 
-    public function __construct(ProductRepository $action)
+    public function execute(SampleProductRequest $request): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request): JsonResponse
-    {
-        $products = $this->action->sampleProducts(DTOsampleProduct::fromSampleProductRequest($request));
-
-        return response()->json($products);
+        return response()->json($this->repository->sampleProducts(SubCategoryRepository::subCategoryFind(DTOsampleProduct::fromSampleProductRequest($request)->sub_category)));
     }
 
 }

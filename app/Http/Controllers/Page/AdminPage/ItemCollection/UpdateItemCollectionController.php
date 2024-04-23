@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class UpdateItemCollectionController extends Controller
 {
-    public function updateCollection(UpdateItemCollectionAction $action, UpdateItemCollectionRequest $request, $id): JsonResponse
+    public function updateCollection(UpdateItemCollectionAction $action, UpdateItemCollectionRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

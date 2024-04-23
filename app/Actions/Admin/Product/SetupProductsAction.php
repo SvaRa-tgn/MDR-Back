@@ -7,12 +7,7 @@ use Illuminate\View\View;
 
 class SetupProductsAction
 {
-    private SetupProductsService $service;
-
-    public function __construct(SetupProductsService $service)
-    {
-        $this->service = $service;
-    }
+    public function __construct(private SetupProductsService $service){}
 
     public function execute(): View
     {

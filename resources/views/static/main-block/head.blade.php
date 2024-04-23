@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{asset('/css/normalize.css?v=').time()}}">
     <link rel="stylesheet" href="{{asset('/css/styles.min.css?v=').time()}}">
     <link rel="stylesheet" href="{{asset('/css/modul.min.css?v=').time()}}">
+    <link rel="stylesheet" href="{{asset('/css/product.min.css?v=').time()}}">
     <link rel="stylesheet" href="{{asset('/css/page.min.css?v=').time()}}">
     <link rel="stylesheet" href="{{asset('/css/slider.min.css?v=').time()}}">
     @stack('styles')

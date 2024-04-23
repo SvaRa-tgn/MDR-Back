@@ -17,17 +17,22 @@ use Transliterate;
 
 class SlidersRepository
 {
+    public function sliderFind(int $id): Slider
+    {
+        return Slider::find($id);
+    }
+
     public function sliders(): Collection
     {
         return Slider::all()->sortBy('id');
     }
 
-    public function setupSlider($slider): Slider
+    public function setupSlider(string $slider): Slider
     {
         return Slider::where('slider', $slider)->first();
     }
 
-    public function updateStatus(DTOupdateStatus $dto, $id): Slider
+    public function updateStatus(DTOupdateStatus $dto, int $id): Slider
     {
         $deactives = Slider::all();
         foreach ($deactives as $deactive) {
@@ -56,68 +61,6 @@ class SlidersRepository
         $slider = Slider::find(2);
 
         return $slider->imageSlider->count();
-    }
-
-
-    public function addImage(DTOupdateImage $dto): Slider
-    {
-        $slider = Slider::find($dto->id);
-
-        $image = new SliderImage();
-        $storage = 'public/slider';
-        $res = UpdateStroageService::updateImage($storage, $dto->image);
-        $image->path = $res['path'];
-        $image->link = $res['url'];
-
-        $count = $slider->imageSlider->count();
-
-        if ($slider->slider === 'move') {
-            if($count === 0){
-                $image->slider = 2;
-            } elseif ($count === 1) {
-                $image->slider = 3;
-            } elseif ($count === 2){
-                $image->slider = 1;
-            }
-            $image->status = 'top';
-        } elseif ($slider->slider === 'flicker' and $count <= 2) {
-            $image->status = 'top';
-        } elseif ($slider->slider === 'flicker' and $count >= 3) {
-            $image->status = 'stock';
-        }
-
-        $slider->imageSlider()->save($image);
-
-        return $slider;
-    }
-
-    public function updateImage(DTOupdateImage $dto, $id): Slider
-    {
-        $slider = Slider::find($dto->id);
-        $image = SliderImage::find($id);
-
-        UpdateStroageService::deleteImage($image->path);
-        $storage = 'public/slider';
-        $res = UpdateStroageService::updateImage($storage, $dto->image);
-        $image->path = $res['path'];
-        $image->link = $res['url'];
-
-        $image->save();
-
-        return $slider;
-    }
-
-    public function deleteImage(DTOdestroyImage $dto, $id): Slider
-    {
-        $slider = Slider::find($dto->id);
-
-        $image = SliderImage::find($id);
-
-        UpdateStroageService::deleteImage($image->path);
-
-        $image->delete();
-
-        return $slider;
     }
 
     public function activeSlider(): Slider| null

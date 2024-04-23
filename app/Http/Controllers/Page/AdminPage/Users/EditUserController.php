@@ -8,7 +8,7 @@ use Illuminate\View\View;
 
 class EditUserController extends Controller
 {
-    public function editUser(EditUserAction $action, $id): View
+    public function editUser(EditUserAction $action, int $id): View
     {
         return $action->execute($id);
     }

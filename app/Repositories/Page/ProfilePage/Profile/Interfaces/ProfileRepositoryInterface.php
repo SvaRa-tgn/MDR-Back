@@ -12,9 +12,9 @@ interface ProfileRepositoryInterface
 {
     public function profile(): User;
 
-    public function updateProfile(DTOupdateUser $dto): User;
+    public function updateProfile(DTOupdateUser $dto, User $user): User;
 
-    public function updateProfilePassword(DTOupdateUserPassword $dto): User;
+    public function updateProfilePassword(DTOupdateUserPassword $dto, User $user): User;
 
-    public function destroyProfile(): void;
+    public function destroyProfile(User $user): void;
 }

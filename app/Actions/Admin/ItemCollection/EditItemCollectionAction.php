@@ -8,29 +8,17 @@ use Illuminate\View\View;
 
 class EditItemCollectionAction
 {
-    public $action;
+    public function __construct(private ItemCollectionRepository $repository, private ItemEditCollectionService $service){}
 
-    private $service;
-
-    public function __construct(ItemCollectionRepository $action, ItemEditCollectionService $service)
+    public function execute(string $slugCollection): View
     {
-        $this->action = $action;
+        $item_collection = $this->repository->editItemCollection($slugCollection);
 
-        $this->service = $service;
-    }
+        $head = $this->service->editTitle($item_collection->collection);
 
-    public function execute($slug_collection)
-    {
-        $item_collection = $this->action->editItemCollection($slug_collection);
+        return view('/app-page/admin-page/admin-box/item-collection/edit-item-collection',
+            ['item_collection' => $item_collection, 'head' => $head]);
 
-        if(empty($item_collection) OR $item_collection === null){
-            return abort(404);
-        } else {
-            $head = $this->service->editTitle($item_collection->collection);
-
-            return view ('/app-page/admin-page/admin-box/item-collection/edit-item-collection',
-                ['item_collection' => $item_collection, 'head' => $head]);
-        }
     }
 
 }

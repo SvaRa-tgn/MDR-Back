@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 
 class UpdateUserRoleController extends Controller
 {
-    public function updateUserRole(UpdateUserRoleAction $action, UpdateUserRoleRequest $request, $id): RedirectResponse
+    public function updateUserRole(UpdateUserRoleAction $action, UpdateUserRoleRequest $request, int $id): RedirectResponse
     {
         return $action->execute($request, $id);
     }

@@ -8,13 +8,7 @@ use Illuminate\View\View;
 
 class CatalogAction
 {
-    public $action;
-
-    public function __construct(CategoryRepository $action, CatalogService $service)
-    {
-        $this->action = $action;
-        $this->service = $service;
-    }
+    public function __construct(private CategoryRepository $action, private CatalogService $service){}
 
     public function execute(): View
     {

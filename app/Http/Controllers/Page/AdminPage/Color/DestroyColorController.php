@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class DestroyColorController extends Controller
 {
-    public function destroyColor(DestroyColorAction $action, $id): JsonResponse
+    public function destroyColor(DestroyColorAction $action, int $id): JsonResponse
     {
         return $action->execute($id);
     }

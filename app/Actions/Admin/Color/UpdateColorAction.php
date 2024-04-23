@@ -8,16 +8,11 @@ use Illuminate\Http\JsonResponse;
 
 class UpdateColorAction
 {
-    public $action;
+    public function __construct(private ColorRepository $colorRepository){}
 
-    public function __construct(ColorRepository $action)
+    public function execute($request, int $id): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request, $id): JsonResponse
-    {
-        $color = $this->action->updateColor(DTOupdateColor::fromUpdateColorRequest($request), $id );
+        $color = $this->colorRepository->updateColor(DTOupdateColor::fromUpdateColorRequest($request), $id );
 
         return response()->json(route('editColor', $color->slug_color));
     }

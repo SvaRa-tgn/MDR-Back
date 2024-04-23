@@ -17,6 +17,11 @@ class ColorRepository implements ColorRepositoryInterfaces
         return Color::all();
     }
 
+    public function noColor(): Color
+    {
+        return Color::where('color', 'Без Цвета')->first();
+    }
+
     public function createColor(DTOcreateColor $dto): Color
     {
         $color = New Color();
@@ -31,9 +36,9 @@ class ColorRepository implements ColorRepositoryInterfaces
         return $color;
     }
 
-    public function editColor($slug_color): Color| null
+    public function editColor(string $slugColor): Color
     {
-        return Color::where('slug_color', $slug_color)->first();
+        return Color::where('slug_color', $slugColor)->firstOrFail();
     }
 
     public function updateColor(DTOupdateColor $dto, $id): Color

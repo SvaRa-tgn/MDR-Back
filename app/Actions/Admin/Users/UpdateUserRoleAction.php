@@ -2,21 +2,19 @@
 namespace App\Actions\Admin\Users;
 
 use App\DTO\DTOupdateUserRole;
+use App\Http\Requests\AdminPage\Users\UpdateUserRoleRequest;
 use App\Repositories\Page\Users\UsersRepository;
 use Illuminate\Http\RedirectResponse;
 
 class UpdateUserRoleAction
 {
-    public $action;
+    public function __construct(private UsersRepository $repository){}
 
-    public function __construct(UsersRepository $action)
+    public function execute(UpdateUserRoleRequest $request, int $id): RedirectResponse
     {
-        $this->action = $action;
-    }
+        $user = $this->repository->userFind($id);
 
-    public function execute($request, $id): RedirectResponse
-    {
-        $user = $this->action->updateUserRole(DTOupdateUserRole::fromUpdateUserRoleRequest($request), $id);
+        $this->repository->updateUserRole(DTOupdateUserRole::fromUpdateUserRoleRequest($request), $user);
 
         return redirect()->route('editUser', $user->id);
     }

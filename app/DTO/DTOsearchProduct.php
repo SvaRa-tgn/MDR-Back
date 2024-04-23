@@ -22,5 +22,4 @@ class DTOsearchProduct extends DataTransferObject
             'search' => $f_name,
         ]);
     }
-
 }

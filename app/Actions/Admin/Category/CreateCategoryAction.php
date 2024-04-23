@@ -3,22 +3,17 @@
 namespace App\Actions\Admin\Category;
 
 use App\DTO\DTOcreateCategory;
+use App\Http\Requests\AdminPage\Category\CreateCategoryRequest;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
-use App\Services\Admin\Category\CreateCategoryService;
 use Illuminate\Http\RedirectResponse;
 
 class CreateCategoryAction
 {
-    public $action;
+    public function __construct(private CategoryRepository $repository){}
 
-    public function __construct(CategoryRepository $action)
+    public function execute(CreateCategoryRequest $request): RedirectResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request): RedirectResponse
-    {
-        $this->action->createCategory(DTOcreateCategory::fromCreateCategoryRequest($request));
+        $this->repository->createCategory(DTOcreateCategory::fromCreateCategoryRequest($request));
 
         return redirect()->route('category');
     }

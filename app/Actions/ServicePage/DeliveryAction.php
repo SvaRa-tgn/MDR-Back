@@ -3,14 +3,12 @@
 namespace App\Actions\ServicePage;
 
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 class DeliveryAction extends Controller
 {
-    public $action;
-
-    public function execute()
+    public function execute(): View
     {
-
         $head = [
             'title' => 'Доставка. My Decor Room - Мебель в Рязани. ',
             'description' => 'Услуги для потребителей интернет магазина My Decor Room. ',
@@ -19,5 +17,4 @@ class DeliveryAction extends Controller
 
         return view('/app-page/service-page/service-box/delivery', compact('head'));
     }
-
 }

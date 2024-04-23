@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class SearchSetupProductController extends Controller
 {
-    public function searchSetupProduct(SearchSetupProductAction $action, SearchProductRequest $request, $page): JsonResponse
+    public function searchSetupProduct(SearchSetupProductAction $action, SearchProductRequest $request, string $page): JsonResponse
     {
         return $action->execute($request, $page);
     }

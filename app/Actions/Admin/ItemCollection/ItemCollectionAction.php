@@ -8,20 +8,11 @@ use Illuminate\View\View;
 
 class ItemCollectionAction
 {
-    public $action;
-
-    private $service;
-
-    public function __construct(ItemCollectionRepository $action, ItemCollectionService $service)
-    {
-        $this->action = $action;
-
-        $this->service = $service;
-    }
+    public function __construct(private ItemCollectionRepository $repository, private ItemCollectionService $service){}
 
     public function execute(): View
     {
-        $itemCollections = $this->action->itemCollection();
+        $itemCollections = $this->repository->itemCollection();
 
         $head = $this->service->title();
 

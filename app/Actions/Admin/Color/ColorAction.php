@@ -8,20 +8,11 @@ use Illuminate\View\View;
 
 class ColorAction
 {
-    public $action;
-
-    private $service;
-
-    public function __construct(ColorRepository $action, ColorService $service)
-    {
-        $this->action = $action;
-
-        $this->service = $service;
-    }
+    public function __construct(private ColorRepository $colorRepository, private ColorService $service){}
 
     public function execute(): View
     {
-        $colors = $this->action->color();
+        $colors = $this->colorRepository->color();
 
         $head = $this->service->title();
 

@@ -3,12 +3,11 @@
 namespace App\Actions\InfoPage;
 
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 class InfoUserAction extends Controller
 {
-    public $action;
-
-    public function execute()
+    public function execute(): View
     {
 
         $head = [
@@ -19,5 +18,4 @@ class InfoUserAction extends Controller
 
         return view('/app-page/info-page/info-box/info-dlya-pokupateley', compact('head'));
     }
-
 }

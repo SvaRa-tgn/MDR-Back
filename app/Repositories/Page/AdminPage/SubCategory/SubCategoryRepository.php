@@ -18,6 +18,11 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
         return SubCategory::all()->sortBy('sub_category');
     }
 
+    public static function subCategoryFind(int $id): SubCategory
+    {
+        return SubCategory::find($id);
+    }
+
     public function createSubCategory(DTOcreateSubCategory $dto): SubCategory
     {
         $category = Category::where('category', $dto->category)->first();
@@ -36,14 +41,14 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
         return $subCategory;
     }
 
-    public function editSubCategory($slug_sub_category): SubCategory| null
+    public function getSubCategory(string $slugSubCategory): SubCategory
     {
         return SubCategory::join('categories', 'sub_categories.category_id', '=', 'categories.id')
             ->select('sub_categories.*', 'categories.category')
-            ->where('slug_sub_category', $slug_sub_category)->first();
+            ->where('slug_sub_category', $slugSubCategory)->firstOrFail();
     }
 
-    public function updateSubCategory(DTOupdateSubCategory $dto, $id): SubCategory
+    public function updateSubCategory(DTOupdateSubCategory $dto, int $id): SubCategory
     {
         $category = Category::where('category', $dto->category)->first();
         $subCategory = SubCategory::find($id);
@@ -74,43 +79,28 @@ class SubCategoryRepository implements SubcategoryRepositoryInterface
         return $subCategory;
     }
 
-    public function destroy($id): void
+    public function destroy(SubCategory $subCategory): void
     {
-        $subCategory = SubCategory::find($id);
-
-        $products = $subCategory->products;
-        foreach ($products as $product) {
-            $images = $product->image;
-
-            if (isset($images) && $images !== 'null') {
-                foreach ($images as $image) {
-                    UpdateStroageService::deleteImage($image->path);
-                    $image->delete();
-                }
-                $product->delete();
-            }
-        }
-
         UpdateStroageService::deleteImage($subCategory->path);
         $subCategory->delete();
     }
 
-    public function catalogSubcategories($article): Collection
+    public function catalogSubcategories(Category $category): Collection
     {
         return SubCategory::leftjoin('categories', 'sub_categories.category_id', '=', 'categories.id')
             ->select('sub_categories.*', 'categories.category')
             ->orderBy('sub_category')
-            ->where('category_id', $article->id)->get()->toArray();
+            ->where('category_id', $category->id)->get();
     }
 
-    public function sampleSubCategories($id): Collection
+    public function sampleSubCategories(int $id): Collection
     {
         return SubCategory::where('category_id', $id)->get();
     }
 
-    public function sampleSubCategoriesCreate($id, $type_item): Collection
+    public function sampleSubCategoriesCreate(int $id, string $typeItem): Collection
     {
-        return SubCategory::where('category_id', $id)->where('type_item', $type_item)->get();
+        return SubCategory::where('category_id', $id)->where('type_item', $typeItem)->get();
     }
 
 }

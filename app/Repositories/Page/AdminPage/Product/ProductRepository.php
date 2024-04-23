@@ -19,36 +19,44 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use App\Repositories\Page\AdminPage\Product\Interfaces\ProductRepositoryInterfaces;
 use App\Services\Admin\UpdateStroageService;
+use App\Services\Index\FormatPriceService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Transliterate;
 
 class ProductRepository implements ProductRepositoryInterfaces
 {
-    public function sampleProducts(DTOsampleProduct $dto): Collection
+    public static function productFind(int $id): Product
     {
-        $sub_category = SubCategory::find($dto->sub_category);
-        $products = $sub_category->products;
-
-        return $products;
+        return Product::find($id);
     }
 
-    public function createProduct(DTOcreateProduct $dto): Product
+    public static function productFindName (string $name): Product
+    {
+        return Product::where('full_name', $name)->first();
+    }
+
+    public function productFindItemCollection(int $id): Collection
+    {
+        return Product::where('collection_id', $id)->get();
+    }
+
+    public function sampleProducts(SubCategory $subCategory): Collection
+    {
+        return $subCategory->Product;
+    }
+
+    public function createProduct(DTOcreateProduct $dto, ItemCollection $collection): Product
     {
         $product = new Product();
         $product->category_id = $dto->category;
         $product->sub_category_id = $dto->sub_category;
         $product->type = $dto->type;
-        if($dto->collection !== 'null'){
-            $collection = ItemCollection::find($dto->collection);
-
-            $product->collection_type = $collection->type_collection;
-            $product->collection_id = $dto->collection;
-        }
+        $product->collection_type = $collection->type_collection;
+        $product->collection_id = $dto->collection;
         $product->full_name = $dto->full_name;
-        $product->slug_full_name = $dto->slug_full_name;;
+        $product->slug_full_name = $dto->slug_full_name;
         $product->small_name = $dto->small_name;
-        $product->slug_small_name = $dto->slug_small_name;;
+        $product->slug_small_name = $dto->slug_small_name;
         $product->article = 'ЦБ-'.$dto->article;
         $product->height = $dto->height;
         $product->width = $dto->width;
@@ -61,36 +69,17 @@ class ProductRepository implements ProductRepositoryInterfaces
         $product->price = $dto->price;
         $product->save();
 
-        foreach ($dto->imageArr as $key => $item){
-            if($item !== 'null'){
-                $image = new Image();
-                $storage = 'public/image';
-                $result = UpdateStroageService::updateImage($storage, $item);
-                $image->link = $result['url'];
-                $image->path = $result['path'];
-                if($key === 'image_top'){
-                    $image->status = 'top';
-                } else {
-                    $image->status = 'stock';
-                }
-                $product->image()->save($image);
-            }
-        };
-
         return $product;
     }
 
-    public function createCompilation(DTOcreateModulCompilation $dto): Product
+    public function createCompilation(DTOcreateModulCompilation $dto, ItemCollection $collection): Product
     {
         $product = new Product();
         $product->category_id = $dto->category;
         $product->sub_category_id = $dto->sub_category;
-        if($dto->collection !== 'null'){
-            $collection = ItemCollection::find($dto->collection);
-            $product->type = 'Комплект';
-            $product->collection_type = $collection->type_collection;
-            $product->collection_id = $dto->collection;
-        }
+        $product->type = 'Комплект';
+        $product->collection_type = $collection->type_collection;
+        $product->collection_id = $dto->collection;
         $product->full_name = $dto->full_name;
         $product->slug_full_name = $dto->slug_full_name;;
         $product->small_name = $dto->small_name;
@@ -103,112 +92,65 @@ class ProductRepository implements ProductRepositoryInterfaces
         $product->color_fasad_id = $dto->color_fasad_id;
         $product->save();
 
-        foreach ($dto->imageArr as $key => $item){
-            if($item !== 'null'){
-                $image = new Image();
-                $storage = 'public/image';
-                $result = UpdateStroageService::updateImage($storage, $item);
-                $image->link = $result['url'];
-                $image->path = $result['path'];
-                if($key === 'image_top'){
-                    $image->status = 'top';
-                } else {
-                    $image->status = 'stock';
-                }
-                $product->image()->save($image);
-            }
-        }
-
-        foreach ($dto->modul_items as $items){
-            $modul = Product::where('full_name', $items)->first();
-
-            if($product->height < $modul->height){
-                $product->height = $modul->height;
-            }
-
-            if($product->deep < $modul->deep){
-                $product->deep = $modul->deep;
-            }
-
-            $product->width = $product->width + $modul->width;
-            $product->price = $product->price + $modul->price;
-            $product->save();
-
-            $modul_compilation = new ModulCompilation();
-            $modul_compilation->compilation_id = $product->id;
-            $modul_compilation->product_id = $modul->id;
-            $modul_compilation->save();
-        }
-
         return $product;
     }
 
-    public function product($slug_full_name): Product| null
+    public function productAddModul(Product $product, Product $modul): Product
     {
-        $product = Product::join('colors as c1', 'products.color_fasad_id', '=', 'c1.id')
-            ->join('colors as c2', 'products.color_korpus_id', '=', 'c2.id')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->join('sub_categories', 'products.category_id', '=', 'sub_categories.id')
-            ->leftjoin('item_collections', 'products.collection_id', '=', 'item_collections.id')
-            ->select('products.*', 'categories.category', 'sub_categories.sub_category', 'c1.color as color_fasad', 'c1.link as link_fasad',
-                'c2.color as color_korpus', 'c2.link as link_korpus', 'item_collections.collection')
-            ->where('slug_full_name', $slug_full_name)->first();
+        if($product->height < $modul->height){
+            $product->height = $modul->height;
+        }
 
-        return $product;
-    }
+        if($product->deep < $modul->deep){
+            $product->deep = $modul->deep;
+        }
 
-    public function showImageProduct($slug_full_name): Collection
-    {
-        $id = Product::where('slug_full_name', $slug_full_name)->pluck('id')->collect();
-        $product = Product::find($id['0']);
-        $images = $product->image;
-        return $images;
-    }
-
-    public function updateStatus(DTOupdateStatus $dto, $id): Product
-    {
-        $product = Product::find($id);
-
-        $product->status = $dto->status;
+        $product->width = $product->width + $modul->width;
+        $product->price = $product->price + $modul->price;
         $product->save();
 
         return $product;
     }
 
-    public function addImage(DTOaddImage $dto, $id): Product
+    public function product(string $slugFullName): Product
     {
-        $product = Product::find($id);
-
-        $images = $product->image;
-
-        if($images->isEmpty()) {
-            $status = 'top';
-        } else {
-            $status = 'stock';
-        }
-
-        $image = new Image();
-        $storage = 'public/image';
-        $result = UpdateStroageService::updateImage($storage, $dto->image);
-        $image->link = $result['url'];
-        $image->path = $result['path'];
-        $image->status = $status;
-        $product->image()->save($image);
+        $product = Product::join('colors as c1', 'products.color_fasad_id', '=', 'c1.id')
+            ->join('colors as c2', 'products.color_korpus_id', '=', 'c2.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+            ->leftjoin('item_collections', 'products.collection_id', '=', 'item_collections.id')
+            ->leftjoin('carts','products.id', '=', 'carts.product_id' )
+            ->select('products.*', 'categories.category', 'sub_categories.sub_category', 'c1.color as color_fasad', 'c1.link as link_fasad',
+                'c2.color as color_korpus', 'c2.link as link_korpus', 'item_collections.collection', 'carts.user_id as cart')
+            ->where('slug_full_name', $slugFullName)->firstOrFail();
 
         return $product;
     }
 
-    public function updateImage(DTOupdateImage $dto, $id): Product
+    public function subCategoryProduct(int $id): Collection
     {
-        $product = Product::find($dto->id);
+        $products = Product::join('colors as c1', 'products.color_fasad_id', '=', 'c1.id')
+            ->join('colors as c2', 'products.color_korpus_id', '=', 'c2.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+            ->join('images', 'products.id', '=', 'images.product_id')
+            ->leftjoin('carts','products.id', '=', 'carts.product_id' )
+            ->select('products.*', 'c1.color as color_fasad', 'c2.color as color_korpus', 'images.link', 'images.status as stat', 'carts.user_id as cart')
+            ->where('sub_category_id', $id)->where('products.status', 'Продажа')->where('images.status', 'top')
+            ->orWhere('sub_category_id', $id)->where('products.status', 'Резерв')->where('images.status', 'top')->get();
 
-        $image = Image::find($id);
-        UpdateStroageService::deleteImage($image->path);
-        $storage = 'public/image';
-        $result = UpdateStroageService::updateImage($storage, $dto->image);
-        $image->link = $result['url'];
-        $image->path = $result['path'];
-        $image->save();
+        return $products;
+    }
+
+    public function showImageProduct(Product $product): Collection
+    {
+        return $product->image;
+    }
+
+    public function updateStatus(DTOupdateStatus $dto, Product $product): Product
+    {
+        $product->status = $dto->status;
+        $product->save();
 
         return $product;
     }
@@ -224,10 +166,8 @@ class ProductRepository implements ProductRepositoryInterfaces
         return $product;
     }
 
-    public function updateData(DTOupdateProduct $dto, $id): Product
+    public function updateData(DTOupdateProduct $dto, Product $product): Product
     {
-        $product = Product::find($id);
-
         if($dto->category != 'null'){
             $product->category_id = $dto->category;
         }
@@ -240,10 +180,11 @@ class ProductRepository implements ProductRepositoryInterfaces
             $product->type = $dto->type;
         }
 
-        if($dto->collection !== 'null'){
-            $collection = ItemCollection::find($dto->collection);
+        if($dto->type_collection != 'null'){
+            $product->collection_type = $dto->type_collection;
+        }
 
-            $product->collection_type = $collection->type_collection;
+        if($dto->collection != 'null'){
             $product->collection_id = $dto->collection;
         }
 
@@ -298,38 +239,44 @@ class ProductRepository implements ProductRepositoryInterfaces
         return $product;
     }
 
-    public function destroyProduct($id): void
+    public function productNoColor(int $id, int $noColor): Collection
     {
-        $product = Product::find($id);
+        $products = Product::where('color_korpus_id', $id)->orWhere('color_fasad_id', $id)->get();
 
-        $images = $product->image;
-        foreach ($images as $image){
-            UpdateStroageService::deleteImage($image->path);
-            $image->delete();
+        foreach($products as $product){
+            if($product->color_korpus_id === $id){
+                $product->color_korpus_id = $noColor;
+            }
+
+            if($product->color_fasad_id === $id){
+                $product->color_fasad_id = $noColor;
+            }
+
+            $product->status = 'Не отображать';
+
+            $product->save();
         }
-
-        $product->delete();
-    }
-
-    public function destroyModulCompilation($id): void
-    {
-        $moduls = ModulCompilation::where('compilation_id', $id)->get();
-
-        foreach ($moduls as $modul){
-            $modul->delete();
-        }
-
-    }
-
-    public function searchProduct(DTOsearchProduct $dto): array
-    {
-        $products = Product::where('full_name', 'LIKE', '%'.$dto->search.'%')
-            ->orWhere('article', 'LIKE', '%'.$dto->search.'%')->get()->toArray();
 
         return $products;
     }
 
-    public function searchSetupProduct(DTOsearchProduct $dto, $page): array
+    public function destroyProduct(Product $product): void
+    {
+        $product->delete();
+    }
+
+    public function searchProduct(DTOsearchProduct $dto): array
+    {
+        return Product::where('full_name', 'LIKE', '%'.$dto->search.'%')
+            ->orWhere('article', 'LIKE', '%'.$dto->search.'%')->get()->toArray();
+    }
+
+    public function searchIndexProducts(DTOsearchProduct $dto): Collection
+    {
+        return Product::where('full_name', 'LIKE', '%'.$dto->search.'%')->limit(6)->get();
+    }
+
+    public function searchSetupProduct(DTOsearchProduct $dto, string $page): array
     {
         if($page === 'v_prodazhe'){
             $products = Product::where('status', 'Продажа')->where('full_name', 'LIKE', '%'.$dto->search.'%')->get()->toArray();
@@ -344,7 +291,7 @@ class ProductRepository implements ProductRepositoryInterfaces
         return $products;
     }
 
-    public function productsClass($page): array
+    public function productsClass(string $page): array
     {
         if($page === 'all_products') {
             $products = Product::all()->toArray();
@@ -359,24 +306,13 @@ class ProductRepository implements ProductRepositoryInterfaces
         return $products;
     }
 
-    public function sampleModul($id): array
+    public function sampleModul(int $id): array
     {
-        return Product::where('collection_id', $id)->where('type', 'Модуль')->get()->toArray();
+        return Product::where('collection_id', $id)->where('type', 'Модуль')->where('status', '!=', 'Не отображать')->get()->toArray();
     }
 
-    public function productId(DTOaddModul $dto): Product
+    public function updateModul(Product $product, Collection $moduls): Product
     {
-        return Product::find($dto->modul_item);
-    }
-
-    public function updateModul($productId): Product
-    {
-        $moduls = ModulCompilation::leftjoin('products as p1', 'modul_compilations.compilation_id', '=', 'p1.id')
-            ->leftjoin('products as p2', 'modul_compilations.product_id', '=', 'p2.id')
-            ->select('modul_compilations.*', 'p1.slug_full_name as modul_name', 'p2.*')
-            ->where('compilation_id', $productId)->get();
-
-        $product = Product::find($productId);
         $product->width = 0;
         $product->price = 0;
 
@@ -394,7 +330,48 @@ class ProductRepository implements ProductRepositoryInterfaces
             $product->price = $product->price + $modul->price;
             $product->save();
         }
-
         return $product;
+    }
+
+    public function broColors(int $id, string $type): Collection
+    {
+        $broColors = Product::join('colors as c1', 'products.color_fasad_id', '=', 'c1.id')
+            ->join('colors as c2', 'products.color_korpus_id', '=', 'c2.id')
+            ->join('images', 'products.id', '=', 'images.product_id')
+            ->select('products.*', 'c1.link as color_fasad', 'c2.link as color_korpus', 'images.link', 'images.status as stat')
+            ->where('collection_id', $id)->where('type', $type)->where('images.status', 'top')->get();
+
+        return $broColors;
+    }
+
+    public function broProducts(Product $product): Collection
+    {
+        $broProducts = Product::join('images', 'products.id', '=', 'images.product_id')
+            ->select('products.*', 'images.link', 'images.status as stat')
+            ->where('sub_category_id', $product->sub_category_id)->where('products.status', '!=', 'Не отображать')->where('images.status', 'top')
+            ->inRandomOrder()->limit(6)->get();
+
+        return $broProducts;
+    }
+
+    public function allModuls(int $id): Collection
+    {
+        $allModuls = Product::join('images', 'products.id', '=', 'images.product_id')
+            ->select('products.*', 'images.link', 'images.status as stat')
+            ->where('collection_id', $id)->where('type', 'Модуль')->where('products.status', '!=', 'Не отображать')
+            ->where('images.status', 'top')->orderBy('small_name')->get();
+
+        return $allModuls;
+    }
+
+    public function recomendationProducts(Product $product): Collection
+    {
+        $rProducts = Product::join('images', 'products.id', '=', 'images.product_id')
+            ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+            ->select('products.*', 'images.link', 'sub_categories.sub_category', 'images.status as stat')
+            ->where('sub_category_id', '!=', $product->sub_category_id)->where('type', '!=', 'Модуль')->where('products.status', '!=', 'Не отображать')->where('images.status', 'top')
+            ->inRandomOrder()->limit(10)->get();
+
+        return $rProducts;
     }
 }

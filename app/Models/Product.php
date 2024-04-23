@@ -2,23 +2,24 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Product extends Model
 {
     use HasFactory;
 
+    use Searchable;
+
     protected $fillable = [
         'category_id',
         'sub_category_id',
         'type',
-        'type_modul',
-        'item_modul',
-        'item_ready',
+        'collection_type',
+        'collection_id',
         'full_name',
         'slug_full_name',
         'small_name',
@@ -55,7 +56,7 @@ class Product extends Model
         return $this->HasMany(Image::class);
     }
 
-    public function collection(): BelongsTo
+    public function itemCollection(): BelongsTo
     {
         return $this->BelongsTo(ItemCollection::class);
     }

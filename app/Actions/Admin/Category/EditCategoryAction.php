@@ -4,32 +4,20 @@ namespace App\Actions\Admin\Category;
 
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Services\Admin\Category\EditCategoryService;
-use Illuminate\Foundation\Application;
 use Illuminate\View\View;
 
 class EditCategoryAction
 {
-    public $action;
+    public function __construct(private CategoryRepository $repository, private EditCategoryService $service){}
 
-    public $service;
-
-    public function __construct(CategoryRepository $action, EditCategoryService $service)
+    public function execute(string $slugCategory): View
     {
-        $this->action = $action;
-        $this->service = $service;
-    }
+        $category = $this->repository->getCategory($slugCategory);
 
-    public function execute($slug_category)
-    {
-        $category = $this->action->editCategory($slug_category);
+        $head = $this->service->editTitle($category->category);
 
-        if(empty($category) OR $category === null){
-            return abort(404);
-        } else {
-            $head = $this->service->editTitle($category->category);
+        return view('/app-page/admin-page/admin-box/category/edit-category', ['category' => $category, 'head' => $head]);
 
-            return view('/app-page/admin-page/admin-box/category/edit-category', ['category' => $category, 'head' => $head]);
-        }
     }
 
 }

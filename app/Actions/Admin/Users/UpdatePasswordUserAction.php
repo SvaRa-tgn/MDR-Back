@@ -9,16 +9,11 @@ use Transliterate;
 
 class UpdatePasswordUserAction
 {
-    public $action;
+    public function __construct(private UsersRepository $repository){}
 
-    public function __construct(UsersRepository $action)
+    public function execute(UpdateUserPasswordRequest $request, int $id): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute(UpdateUserPasswordRequest $request, $id): JsonResponse
-    {
-        $this->action->updateUserPassword(DTOupdateUserPassword::fromUpdateUserPasswordRequest($request), $id);
+        $this->repository->updateUserPassword(DTOupdateUserPassword::fromUpdateUserPasswordRequest($request), $this->repository->userFind($id));
 
         return response()->json(route('editUser', $id));
     }

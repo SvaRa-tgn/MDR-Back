@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class AddModulController extends Controller
 {
-    public function addModul(AddModulAction $action, AddModulRequest $request, $id): JsonResponse
+    public function addModul(AddModulAction $action, AddModulRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

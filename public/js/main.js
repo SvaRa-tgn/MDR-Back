@@ -33,7 +33,9 @@ var appMaster = {
                 $('.nav-index').removeClass('nav-scroll');
                 $('.navigation-list-bottom').removeClass('navigation-down');
                 $('.auth-search').removeClass('auth-item-visible');
-                $('.search').removeClass('main-search');
+                if($('.input-search').val() === ''){
+                    $('.search').removeClass('main-search');
+                }
                 $('.index-search').addClass('start-search');
 
                 var m = 6;
@@ -91,6 +93,51 @@ var appMaster = {
         $('.auth-item').eq(0).click(function () {
             $('.search').toggleClass('main-search');
         });
+    },
+
+    searchHeight: function () {
+        var form = $('.form-search'),
+            link = form.attr('action'),
+            input = $('.input-search'),
+            search = $('.search');
+
+        input.focus(function(){
+            input.on('input', function(){
+                if(input.val() !== '') {
+                    console.log(input);
+                    let formData = new FormData(form[0]);
+                    $.ajax({
+                        method: "POST",
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        headers: {
+                            Accept: "application/json"
+                        },
+                        url: link,
+                        data: formData,
+                        success: (data) => {
+                            if (data.length){
+                                $('.form-search-item').remove();
+                                $.each(data, function(index, value) {
+                                    $('.form-search-list').append('<li class="form-search-item">' +
+                                        '                                <a class="form-search-link" href="">' + value['full_name'] + '</a>' +
+                                        '                             </li>');
+                                })
+                            }
+                            search.addClass('search-active');
+                            search.removeClass('start-search');
+                            search.addClass('main-search');
+                        }
+                    })
+
+                } else if (input.val() === '') {
+                    search.removeClass('search-active');
+                    search.removeClass('main-search');
+                    search.addClass('start-search');
+                }
+            })
+        })
     },
 
     callback: function () {
@@ -173,6 +220,11 @@ var appMaster = {
                         $('.modal-block').addClass('modal-block-open');
                         $('.js-link-2').addClass('open-box');
                         $('.modal-content').text('Вы успешно авторизировались на нашем сайте.');
+                        $('.js-close').click(function(){
+                            $('.js-reload-block').load(location.href + ' .js-reload-block>*', '', function (){
+                                appMaster.autoHeight();
+                            })
+                        })
                     },
                     error: (response) => {
                         if (response.status === 422) {
@@ -256,13 +308,59 @@ var appMaster = {
     },
 
     inCart: function () {
-        $('.button-page').click( function() {
-            $(this).toggleClass('in-cart');
+        $('.button-page').click( function(e) {
+            e.preventDefault();
+
+            var form = $(this),
+                link = $(this).attr('action'),
+                linkAdd = $(this).attr('data-add'),
+                linkDelete = $(this).attr('data-delete'),
+                dataForm = $(this).attr('data-form'),
+                name = $(this).find('.article-page-cart').attr('data-product');
 
             if($(this).hasClass('in-cart')){
-                $(this).find('.article-page-cart').text('Уже в корзине');
+                let formData = new FormData(form[0]);
+                $.ajax({
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    url: link,
+                    data: formData,
+                    success: () => {
+                        $(this).removeClass('in-cart');
+                        if(dataForm === 'product'){
+                            $(this).find('.article-page-cart').text('Добавить в корзину');
+                        } else {
+                            $(this).find('.article-page-cart').text('Добавить');
+                        }
+                        $(this).attr('action', linkAdd);
+                        $(this).find('input[name="_method"]').remove();
+                    }
+                })
             } else {
-                $(this).find('.article-page-cart').text('В корзину');
+                let formData = new FormData(form[0]);
+                formData.append('slug_full_name', name);
+                $.ajax({
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    url: link,
+                    data: formData,
+                    success: () => {
+                        $(this).addClass('in-cart');
+                        $(this).find('.article-page-cart').text('В корзине');
+                        $(this).attr('action', linkDelete);
+                        $(this).append('<input type="hidden" name="_method" value="DELETE">');
+                    }
+                })
             }
         });
     },
@@ -282,8 +380,8 @@ var appMaster = {
 
     productSlider: function () {
         $('.product-block-foto-mini-item').click(function () {
-            $('.product-block-foto-mini-item').removeClass('active');
-            $(this).addClass('active');
+            $('.product-block-foto-mini-item').removeClass('active-product');
+            $(this).addClass('active-product');
             var eq = $(this).index();
             $('.product-block-foto-item').removeClass('img-item-opacity');
             $('.product-block-foto-item').eq(eq).addClass('img-item-opacity');
@@ -291,19 +389,24 @@ var appMaster = {
     },
 
     productSliderOpacity: function () {
+        var item = $('.product-slider-foto-item'),
+            lenght = item.length;
+
         $('.filter-box').click(function () {
             $('.product-slider-foto').addClass('product-slider-visible');
-            var active = $('.active');
-            var num = active.index();
-            $('.product-slider-foto-item').eq(num).addClass('img-item-opacity');
+            var active = $('.active-product'),
+                num = active.index();
+            item.eq(num).addClass('img-item-opacity');
             $('.visible').addClass('noscroll');
+            console.log(lenght);
         });
 
         $('.fa-arrow-circle-left').click(function () {
             var point = $('.product-slider-foto-list').find('.img-item-opacity');
             var num = point.index();
+            console.log(num);
             if (num === 0) {
-                $('.product-slider-foto-item').eq(4).addClass('img-item-opacity');
+                $('.product-slider-foto-item').eq(-1).addClass('img-item-opacity');
                 point.removeClass('img-item-opacity');
             } else {
                 point.prev().addClass('img-item-opacity');
@@ -314,7 +417,8 @@ var appMaster = {
         $('.fa-arrow-circle-right').click(function () {
             var point = $('.product-slider-foto-list').find('.img-item-opacity');
             var num = point.index();
-            if (num === 4) {
+            console.log(num);
+            if (num === lenght - 1) {
                 $('.product-slider-foto-item').eq(0).addClass('img-item-opacity');
                 point.removeClass('img-item-opacity');
             } else {
@@ -518,6 +622,7 @@ $(window).on('load', function () {
     appMaster.linkMenu();
     appMaster.searchCall();
     appMaster.callback();
+    appMaster.searchHeight();
     appMaster.callbackBox();
     appMaster.authBox();
     appMaster.authBoxSlide();

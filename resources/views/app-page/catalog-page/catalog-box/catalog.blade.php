@@ -25,7 +25,10 @@
                 <div class="wrap-blue-bg-rv main-max-aside main-medium-aside">
                     @include('static.aside.catalog-aside')
 
-                    <div class="content-main-block catalog-block">
+                    <div class="catalog-main-block catalog-block">
+                        <div class="wrap-head-page">
+                            <h1 class="catalog-article-top">Каталог</h1>
+                        </div>
                         <ul class="main-block-list block-3fr-alt box-align-right">
                             @foreach($categories as $category)
                                 <li class="main-block-item">

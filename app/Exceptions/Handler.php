@@ -27,4 +27,13 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e) {
+        $message = $e->getMessage();
+
+        if ($e instanceof NotFoundException) {
+            $message = 'Страница не найдена';
+        }
+       return parent::render($request, $e);
+    }
 }

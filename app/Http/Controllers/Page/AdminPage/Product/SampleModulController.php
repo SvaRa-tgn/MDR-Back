@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 class SampleModulController extends Controller
 {
-    public function sampleModul(SampleModulAction $action, $id): JsonResponse
+    public function sampleModul(SampleModulAction $action, int $id): JsonResponse
     {
         return $action->execute($id);
     }

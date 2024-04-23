@@ -3,20 +3,18 @@
 namespace App\Actions\Admin\Color;
 
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
+use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use Illuminate\Http\JsonResponse;
 
 class DestroyColorAction
 {
-    public $action;
+    public function __construct(private ColorRepository $colorRepository, private ProductRepository $productRepository){}
 
-    public function __construct(ColorRepository $action)
+    public function execute(int $id): JsonResponse
     {
-        $this->action = $action;
-    }
+        $this->productRepository->productNoColor($id, $this->colorRepository->noColor()->id);
 
-    public function execute($id): JsonResponse
-    {
-        $this->action->destroyColor($id);
+        $this->colorRepository->destroyColor($id);
 
         return response()->json(route('color'));
     }

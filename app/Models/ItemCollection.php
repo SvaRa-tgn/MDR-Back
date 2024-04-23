@@ -10,7 +10,7 @@ class ItemCollection extends Model
 {
     use HasFactory;
 
-    public function collection(): HasMany
+    public function itemCollection(): HasMany
     {
         return $this->HasMany(Product::class);
     }

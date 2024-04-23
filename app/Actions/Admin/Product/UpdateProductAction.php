@@ -3,21 +3,18 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOupdateProduct;
+use App\Http\Requests\AdminPage\Product\UpdateProductRequest;
+use App\Repositories\Page\AdminPage\ItemCollection\ItemCollectionRepository;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use Illuminate\Http\JsonResponse;
 
 class UpdateProductAction
 {
-    public $action;
+    public function __construct(private ProductRepository $product){}
 
-    public function __construct(ProductRepository $action)
+    public function execute(UpdateProductRequest $request, int $id): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request, $id): JsonResponse
-    {
-        $product = $this->action->updateData(DTOupdateProduct::fromUpdateProductRequest($request), $id);
+        $product = $this->product->updateData(DTOupdateProduct::fromUpdateProductRequest($request), ProductRepository::productFind($id));
 
         if($product->type === 'Комплект'){
             return response()->json(route('editModulCompilation', $product->slug_full_name));

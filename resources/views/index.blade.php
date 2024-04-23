@@ -4,6 +4,7 @@
 @include('static.modal-block.auth-block')
 @include('static.modal-block.callback')
 @include('static.modal-block.modal')
+@include('static.modal-block.product-slider-foto')
 <main>
     @yield('content')
 </main>

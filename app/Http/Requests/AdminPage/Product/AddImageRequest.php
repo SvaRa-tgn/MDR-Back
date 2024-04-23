@@ -22,7 +22,7 @@ class AddImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,webp', 'max:20480']
+            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,webp', 'max:40480']
         ];
 
     }

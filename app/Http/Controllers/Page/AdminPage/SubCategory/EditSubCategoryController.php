@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Page\AdminPage\SubCategory;
 
 use App\Actions\Admin\SubCategory\EditSubCategoryAction;
+use Illuminate\View\View;
 
 class EditSubCategoryController extends EditSubCategoryAction
 {
-    public function editSubCategory(EditSubCategoryAction $action, $slug_sub_category)
+    public function editSubCategory(EditSubCategoryAction $action, string $slugSubCategory): View
     {
-        return $action->execute($slug_sub_category);
+        return $action->execute($slugSubCategory);
     }
 
 }

@@ -16,6 +16,11 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::all()->sortBy('category');
     }
 
+    public static function categoryFind(int $id): Category
+    {
+        return Category::find($id);
+    }
+
     public function createCategory(DTOcreateCategory $dto): Category
     {
         $category = New Category();
@@ -30,12 +35,12 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $category;
     }
 
-    public function editCategory($slug_category): Category| null
+    public function getCategory(string $slugCategory): Category
     {
-        return Category::where('slug_category', $slug_category)->first();
+        return Category::where('slug_category', $slugCategory)->firstOrFail();
     }
 
-    public function updateCategory(DTOupdateCategory $dto, $id): Category
+    public function updateCategory(DTOupdateCategory $dto, int $id): Category
     {
         $category = Category::find($id);
 
@@ -57,29 +62,8 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $category;
     }
 
-    public function destroy($id): void
+    public function destroy(Category $category): void
     {
-        $category = Category::find($id);
-
-        $products = $category->Product;
-        foreach ($products as $product) {
-            $images = $product->image;
-
-            if(isset($images) && $images !== 'null') {
-                foreach ($images as $image){
-                    UpdateStroageService::deleteImage($image->path);
-                    $image->delete();
-                }
-                $product->delete();
-            }
-        }
-
-        $sub_categories = $category->SubCategory;
-        foreach ($sub_categories as $sub_category) {
-            UpdateStroageService::deleteImage($sub_category->path);
-            $sub_category->delete();
-        }
-
         UpdateStroageService::deleteImage($category->path);
         $category->delete();
     }

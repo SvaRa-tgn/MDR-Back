@@ -9,19 +9,11 @@ use Illuminate\View\View;
 
 class ProfileAction
 {
-    public $action;
-    public $service;
-
-    public function __construct(ProfileRepository $action, ProfileService $service)
-    {
-        $this->action = $action;
-
-        $this->service = $service;
-    }
+    public function __construct(private ProfileRepository $profile, private ProfileService $service){}
 
     public function execute(): View
     {
-        $user = $this->action->profile();
+        $user = $this->profile->profile();
 
         if($user->date_of_birth === null){
             $data = 'Не указана';

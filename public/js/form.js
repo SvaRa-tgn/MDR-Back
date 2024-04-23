@@ -425,7 +425,7 @@ var appData = {
                         success: (data) => {
                             if (data.length){
                                 $('.sub-collection').remove();
-                                $('#collection').append('<option class="sub-collection-option" value="null">Без Коллекции или выберите коллекцию</option>');
+                                $('#collection').append('<option class="sub-collection-option" value="91">Без Коллекции или выберите коллекцию</option>');
                                 $.each(data, function(index, value){
                                     $('#collection').append('<option class="sub-collection-option" value="'+value['id']+'">'+value['collection']+'</option>');
                                 })
@@ -486,6 +486,7 @@ var appData = {
         $('.js-button').click(function(){
             var name = $('#modul_item option:selected').text();
             modul_items.push(name);
+            console.log(modul_items);
             $('.js-admin-input').removeClass('wrap-input-padding');
             $('.js-warning').css('display', 'none');
             $('.db-relevant-info-item').remove();

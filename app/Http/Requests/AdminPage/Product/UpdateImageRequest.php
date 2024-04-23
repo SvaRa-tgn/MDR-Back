@@ -23,7 +23,7 @@ class UpdateImageRequest extends FormRequest
     {
         return [
             'id' => ['required', 'int', 'max:10000'],
-            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,webp', 'max:20480000']
+            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,webp', 'max:204800']
         ];
 
     }

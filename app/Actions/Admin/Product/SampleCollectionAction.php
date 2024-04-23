@@ -7,18 +7,11 @@ use Illuminate\Http\JsonResponse;
 
 class SampleCollectionAction
 {
-    public $action;
+    public function __construct(private ItemCollectionRepository $repository){}
 
-    public function __construct(ItemCollectionRepository $action)
+    public function execute(string $type): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($type): JsonResponse
-    {
-        $collections = $this->action->sampleCollections($type);
-
-        return response()->json($collections);
+        return response()->json($this->repository->sampleCollections($type));
     }
 
 }

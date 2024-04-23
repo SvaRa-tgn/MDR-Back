@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class DestroyImageController extends Controller
 {
-    public function destroyImage(DestroyImageAction $action, DestroyImageRequest $request, $id): JsonResponse
+    public function destroyImage(DestroyImageAction $action, DestroyImageRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

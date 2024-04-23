@@ -6,38 +6,22 @@ use App\Repositories\Page\AdminPage\Color\ColorRepository;
 use App\Repositories\Page\AdminPage\ModulCompilation\ModulCompilationRepository;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use App\Services\Admin\Product\UpdateProductService;
+use App\Services\Index\FormatPriceService;
 use Illuminate\View\View;
 
 class EditModulCompilationAction
 {
-    public $action;
-    private ColorRepository $color;
-    private UpdateProductService $service;
-    private ModulCompilationRepository $modul;
+    public function __construct(private ProductRepository $product, private ColorRepository $color,
+                                private ModulCompilationRepository $modul, private UpdateProductService $service){}
 
-    public function __construct(ProductRepository $action,
-                                ColorRepository $color,
-                                ModulCompilationRepository $modul,
-                                UpdateProductService $service)
+    public function execute(string $slugFullName): View
     {
-        $this->action = $action;
-        $this->color = $color;
-        $this->service = $service;
-        $this->modul = $modul;
-    }
-
-    public function execute($slug_full_name)
-    {
-        $product = $this->action->product($slug_full_name);
-        if(isset($product)){
-            $colors = $this->color->color();
-            $images = $this->action->showImageProduct($slug_full_name);
-            $moduls = $this->modul->showModulCompilation($slug_full_name);
-            $sample_moduls = $this->action->sampleModul($product->collection_id);
-            $head = $this->service->editTitle($product->full_name);
-        } else {
-            return abort(404);
-        }
+        $product = $this->product->product($slugFullName);
+        $colors = $this->color->color();
+        $images = $this->product->showImageProduct($product);
+        $moduls = FormatPriceService::formatPrice($this->modul->showModulCompilation($product));
+        $sample_moduls = $this->product->sampleModul($product->collection_id);
+        $head = $this->service->editTitle($product->full_name);
 
         return view ('/app-page/admin-page/admin-box/product/update-modul-compilation',
             [

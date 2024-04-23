@@ -17,7 +17,7 @@ class SeoService
     }
 
     #[ArrayShape(['title' => "string", 'description' => "string"])]
-    public function editTitle($name): array
+    public function editTitle(string $name): array
     {
         return ['title' => static::TITLE. $name .'. Админка MDR',
             'description' => static::DESC. $name .'. Редактирование и удаление.'];
@@ -31,7 +31,7 @@ class SeoService
     }
 
     #[ArrayShape(['title' => "string", 'description' => "string"])]
-    public function editTitlePage($name): array
+    public function editTitlePage(string $name): array
     {
         return ['title' => $name. static::TITLE,
             'description' => $name. static::DESC];

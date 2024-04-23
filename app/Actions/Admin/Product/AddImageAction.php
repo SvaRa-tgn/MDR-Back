@@ -3,21 +3,20 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOaddImage;
+use App\Http\Requests\AdminPage\Product\AddImageRequest;
+use App\Repositories\Page\AdminPage\Image\ImageRepository;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use Illuminate\Http\JsonResponse;
 
 class AddImageAction
 {
-    public $action;
+    public function __construct(private ImageRepository $image){}
 
-    public function __construct(ProductRepository $action)
+    public function execute(AddImageRequest $request, int $id): JsonResponse
     {
-        $this->action = $action;
-    }
+        $product = ProductRepository::productFind($id);
 
-    public function execute($request, $id): JsonResponse
-    {
-        $product = $this->action->addImage(DTOaddImage::fromAddImageRequest($request), $id);
+        $this->image->addSingleImage(DTOaddImage::fromAddImageRequest($request), $product);
 
         if($product->type === 'Комплект'){
             return response()->json(route('editModulCompilation', $product->slug_full_name));

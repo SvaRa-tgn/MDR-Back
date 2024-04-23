@@ -9,7 +9,7 @@ use Transliterate;
 
 class UpdatePasswordUserController extends Controller
 {
-    public function updateUserPassword(UpdatePasswordUserAction $action, UpdateUserPasswordRequest $request, $id): JsonResponse
+    public function updateUserPassword(UpdatePasswordUserAction $action, UpdateUserPasswordRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

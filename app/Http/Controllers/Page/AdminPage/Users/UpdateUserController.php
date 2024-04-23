@@ -9,7 +9,7 @@ use Transliterate;
 
 class UpdateUserController extends Controller
 {
-    public function updateUser(UpdateUserRequest $request, UpdateUserAction $action, $id): JsonResponse
+    public function updateUser(UpdateUserRequest $request, UpdateUserAction $action, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

@@ -13,5 +13,4 @@ class CreateSubCategoryController extends Controller
     {
         return $action->execute($request);
     }
-
 }

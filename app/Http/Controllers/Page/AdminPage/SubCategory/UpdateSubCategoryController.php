@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class UpdateSubCategoryController extends Controller
 {
-    public function updateSubCategory(UpdateSubCategoryAction $action, UpdateSubCategoryRequest $request, $id): JsonResponse
+    public function updateSubCategory(UpdateSubCategoryAction $action, UpdateSubCategoryRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

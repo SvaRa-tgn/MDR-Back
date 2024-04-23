@@ -7,16 +7,11 @@ use Transliterate;
 
 class DestroyUserAction
 {
-    public $action;
+    public function __construct(private UsersRepository $repository){}
 
-    public function __construct(UsersRepository $action)
+    public function execute(int $id): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($id): JsonResponse
-    {
-        $this->action->destroyUser($id);
+        $this->repository->destroyUser($this->repository->userFind($id));
 
         return response()->Json(route('users'));
     }

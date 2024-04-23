@@ -3,6 +3,7 @@ namespace App\Repositories\Page\AdminPage\Product\Interfaces;
 
 use App\DTO\DTOaddImage;
 use App\DTO\DTOaddModul;
+use App\DTO\DTOcreateModulCompilation;
 use App\DTO\DTOcreateProduct;
 use App\DTO\DTOdestroyImage;
 use App\DTO\DTOsampleProduct;
@@ -10,38 +11,58 @@ use App\DTO\DTOsearchProduct;
 use App\DTO\DTOupdateImage;
 use App\DTO\DTOupdateProduct;
 use App\DTO\DTOupdateStatus;
+use App\Models\ItemCollection;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Collection;
 
 interface ProductRepositoryInterfaces
 {
-    public function sampleProducts(DTOsampleProduct $dto): Collection;
+    public static function productFind(int $id): Product;
 
-    public function createProduct(DTOcreateProduct $dto): Product;
+    public static function productFindName (string $name): Product;
 
-    public function product($slug_full_name): Product| null;
+    public function productFindItemCollection(int $id): Collection;
 
-    public function showImageProduct($slug_full_name): Collection;
+    public function sampleProducts(SubCategory $subCategory): Collection;
 
-    public function updateStatus(DTOupdateStatus $dto, $id): Product;
+    public function createProduct(DTOcreateProduct $dto, ItemCollection $collection): Product;
 
-    public function addImage(DTOaddImage $dto, $id): Product;
+    public function createCompilation(DTOcreateModulCompilation $dto, ItemCollection $collection): Product;
 
-    public function updateImage(DTOupdateImage $dto, $id): Product;
+    public function productAddModul(Product $product, Product $modul): Product;
+
+    public function product(string $slugFullName): Product;
+
+    public function subCategoryProduct(int $id): Collection;
+
+    public function showImageProduct(Product $product): Collection;
+
+    public function updateStatus(DTOupdateStatus $dto, Product $product): Product;
 
     public function destroyImage(DTOdestroyImage $dto, $id): Product;
 
-    public function updateData(DTOupdateProduct $dto, $id): Product;
+    public function updateData(DTOupdateProduct $dto, Product $product): Product;
 
-    public function destroyProduct($id): void;
+    public function productNoColor(int $id, int $noColor): Collection;
 
-    public function destroyModulCompilation($id): void;
+    public function destroyProduct(Product $product): void;
 
     public function searchProduct(DTOsearchProduct $dto): array;
 
-    public function searchSetupProduct(DTOsearchProduct $dto, $page): array;
+    public function searchSetupProduct(DTOsearchProduct $dto, string $page): array;
 
-    public function productId(DTOaddModul $dto): Product;
+    public function productsClass(string $page): array;
 
-    public function updateModul($productId): Product;
+    public function sampleModul(int $id): array;
+
+    public function updateModul(Product $product, Collection $moduls): Product;
+
+    public function broColors(int $id, string $type): Collection;
+
+    public function broProducts(Product $product): Collection;
+
+    public function allModuls(int $id): Collection;
+
+    public function recomendationProducts(Product $product): Collection;
 }

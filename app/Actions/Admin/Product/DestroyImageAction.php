@@ -3,21 +3,20 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOdestroyImage;
+use App\Http\Requests\AdminPage\Product\DestroyImageRequest;
+use App\Repositories\Page\AdminPage\Image\ImageRepository;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use Illuminate\Http\JsonResponse;
 
 class DestroyImageAction
 {
-    public $action;
+    public function __construct(private ImageRepository $image){}
 
-    public function __construct(ProductRepository $action)
+    public function execute(DestroyImageRequest $request, int $id): JsonResponse
     {
-        $this->action = $action;
-    }
+        $product = ProductRepository::productFind(DTOdestroyImage::fromDestroyImageRequest($request)->id);
 
-    public function execute($request, $id): JsonResponse
-    {
-        $product = $this->action->destroyImage(DTOdestroyImage::fromDestroyImageRequest($request), $id);
+        $this->image->destroyImageSingle($id);
 
         if($product->type === 'Комплект'){
             return response()->json(route('editModulCompilation', $product->slug_full_name));

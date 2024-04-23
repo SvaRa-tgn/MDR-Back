@@ -10,27 +10,14 @@ use Illuminate\View\View;
 
 class ModulCompilationAction
 {
-    public $action;
-    private CategoryRepository $category;
-    private ColorRepository $color;
-    private ProductCompilationService $service;
-
-    public function __construct(ItemCollectionRepository $action,
-                                CategoryRepository $category,
-                                ColorRepository $color,
-                                ProductCompilationService $service)
-    {
-        $this->action = $action;
-        $this->category = $category;
-        $this->color = $color;
-        $this->service = $service;
-    }
+    public function __construct(private ItemCollectionRepository $collection, private CategoryRepository $category,
+                                private ColorRepository $color, private ProductCompilationService $service){}
 
     public function execute(): View
     {
         $categories = $this->category->category();
         $colors = $this->color->color();
-        $item_collections = $this->action->modulCollections();
+        $item_collections = $this->collection->modulCollections();
         $head = $this->service->title();
 
         return view ('/app-page/admin-page/admin-box/product/modul-compilation',

@@ -8,9 +8,9 @@ use Illuminate\View\View;
 
 class EditModulCompilationController extends Controller
 {
-    public function editModulCompilation(EditModulCompilationAction $action, $slug_full_name): View
+    public function editModulCompilation(EditModulCompilationAction $action, string $slugFullName): View
     {
-        return $action->execute($slug_full_name);
+        return $action->execute($slugFullName);
     }
 
 }

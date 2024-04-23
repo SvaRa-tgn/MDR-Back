@@ -52,6 +52,14 @@ return [
             'throw' => false,
         ],
 
+        'proverka' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proverka'),
+            'url' => env('APP_URL').'/storage/proverka',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'color' => [
             'driver' => 'local',
             'root' => storage_path('app/public/color'),

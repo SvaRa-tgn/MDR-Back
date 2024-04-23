@@ -7,16 +7,10 @@ use Illuminate\View\View;
 
 class ExcelAction
 {
-    public $service;
-
-    public function __construct(ExcelService $service)
-    {
-        $this->service = $service;
-    }
+    public function __construct(private ExcelService $service){}
 
     public function execute(): View
     {
-
         $head = $this->service->title();
 
         return view ('/app-page/admin-page/admin-box/excel/excel', compact('head'));

@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class UpdateImageController extends Controller
 {
-    public function updateImage(UpdateImageAction $action, UpdateImageRequest $request, $id): JsonResponse
+    public function updateImage(UpdateImageAction $action, UpdateImageRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

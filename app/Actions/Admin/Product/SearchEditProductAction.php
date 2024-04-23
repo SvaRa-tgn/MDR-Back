@@ -8,16 +8,7 @@ use Illuminate\View\View;
 
 class SearchEditProductAction
 {
-    private CategoryRepository $category;
-
-    private EditProductService $service;
-
-    public function __construct(CategoryRepository $category, EditProductService $service)
-    {
-        $this->category = $category;
-
-        $this->service = $service;
-    }
+    public function __construct(private CategoryRepository $category, private EditProductService $service){}
 
     public function execute(): View
     {

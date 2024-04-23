@@ -3,21 +3,22 @@
 namespace App\Actions\Admin\Product;
 
 use App\DTO\DTOupdateImage;
+use App\Http\Requests\AdminPage\Product\UpdateImageRequest;
+use App\Repositories\Page\AdminPage\Image\ImageRepository;
 use App\Repositories\Page\AdminPage\Product\ProductRepository;
 use Illuminate\Http\JsonResponse;
 
 class UpdateImageAction
 {
-    public $action;
+    public function __construct(private ImageRepository $image){}
 
-    public function __construct(ProductRepository $action)
+    public function execute(UpdateImageRequest $request, int $id): JsonResponse
     {
-        $this->action = $action;
-    }
+        $dto = DTOupdateImage::fromUpdateImageRequest($request);
 
-    public function execute($request, $id): JsonResponse
-    {
-        $product = $this->action->updateImage(DTOupdateImage::fromUpdateImageRequest($request), $id);
+        $product = ProductRepository::productFind($dto->id);
+
+        $this->image->updateImage($dto, $id);
 
         if($product->type === 'Комплект'){
             return response()->json(route('editModulCompilation', $product->slug_full_name));

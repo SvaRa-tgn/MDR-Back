@@ -3,21 +3,17 @@
 namespace App\Actions\Admin\Color;
 
 use App\DTO\DTOcreateColor;
+use App\Http\Requests\AdminPage\Color\CreateColorRequest;
 use App\Repositories\Page\AdminPage\Color\ColorRepository;
 use Illuminate\Http\RedirectResponse;
 
 class CreateColorAction
 {
-    public $action;
+    public function __construct(private ColorRepository $colorRepository){}
 
-    public function __construct(ColorRepository $action)
+    public function execute(CreateColorRequest $request): RedirectResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request): RedirectResponse
-    {
-        $this->action->createColor(DTOcreateColor::fromCreateColorRequest($request));
+        $this->colorRepository->createColor(DTOcreateColor::fromCreateColorRequest($request));
 
         return redirect()->route('color');
     }

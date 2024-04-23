@@ -8,20 +8,11 @@ use Illuminate\View\View;
 
 class EditUserAction
 {
-    public $action;
+    public function __construct(private UsersRepository $repository, private EditUsersService $service){}
 
-    private $service;
-
-    public function __construct(UsersRepository $action, EditUsersService $service)
+    public function execute(int $id): View
     {
-        $this->action = $action;
-
-        $this->service = $service;
-    }
-
-    public function execute($id): View
-    {
-        $user = $this->action->editUser($id);
+        $user = $this->repository->userFind($id);
 
         $head = $this->service->title();
 

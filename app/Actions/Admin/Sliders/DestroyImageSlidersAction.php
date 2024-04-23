@@ -4,21 +4,20 @@ namespace App\Actions\Admin\Sliders;
 
 use App\DTO\DTOdestroyImage;
 use App\Http\Requests\AdminPage\Product\DestroyImageRequest;
+use App\Repositories\Page\AdminPage\SliderImage\SliderImageRepository;
 use App\Repositories\Page\AdminPage\Sliders\SlidersRepository;
 use Illuminate\Http\JsonResponse;
 
 class DestroyImageSlidersAction
 {
-    public $action;
+    public function __construct(private SlidersRepository $slider, private SliderImageRepository $image){}
 
-    public function __construct(SlidersRepository $action)
+    public function execute(DestroyImageRequest $request, int $id): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute(DestroyImageRequest $request, $id): JsonResponse
-    {
-        $slider = $this->action->deleteImage(DTOdestroyImage::fromDestroyImageRequest($request), $id);
+        $dto = DTOdestroyImage::fromDestroyImageRequest($request);
+        $slider = $this->slider->sliderFind($dto->id);
+        $image = $this->image->imageFind($id);
+        $this->image->deleteImage($image);
 
         return response()->json(route('setupSlider', $slider->slider));
     }

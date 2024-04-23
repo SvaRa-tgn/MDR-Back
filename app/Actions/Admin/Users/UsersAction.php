@@ -7,12 +7,8 @@ use Illuminate\View\View;
 
 class UsersAction
 {
-    public $service;
+    public function __construct(private UsersService $service){}
 
-    public function __construct(UsersService $service)
-    {
-        $this->service = $service;
-    }
     public function execute(): View
     {
         $head = $this->service->title();

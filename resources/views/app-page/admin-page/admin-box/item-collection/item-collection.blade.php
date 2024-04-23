@@ -77,12 +77,12 @@
                                 </div>
                             @else
                                 <ul class="relevant-info-list">
-                                    @if($itemCollections->contains('type_collection', 'Модульная коллекция'))
+                                    @if($itemCollections->contains('slug_type_collection', 'modul_collection'))
                                         <div class="db-admin-article db-admin-list">
                                             Модульная коллекция
                                         </div>
                                     @foreach($itemCollections as $itemCollection)
-                                        @if($itemCollection->type_collection === 'Модульная коллекция')
+                                        @if($itemCollection->slug_type_collection === 'modul_collection')
                                         <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Модульную коллекцию">
                                             <article class="collect-article" data-id="{{$itemCollection->id}}">{{$itemCollection->collection}}</article>
                                             <a class="mdr-button accept modul-button-delete" href="{{route('editCollection', $itemCollection->slug_collection)}}">
@@ -95,12 +95,12 @@
                                 </ul>
 
                                 <ul class="relevant-info-list">
-                                    @if($itemCollections->contains('type_collection', 'Готовая коллекция'))
+                                    @if($itemCollections->contains('slug_type_collection', 'ready_collection'))
                                         <div class="db-admin-article db-admin-list">
                                             Готовая коллекция
                                         </div>
                                     @foreach($itemCollections as $itemCollection)
-                                        @if($itemCollection->type_collection === 'Готовая коллекция')
+                                        @if($itemCollection->slug_type_collection === 'ready_collection')
                                             <li class="db-relevant-info-item form-label admin-block-2fr-db" data-action="Модульную коллекцию">
                                                 <article class="collect-article" data-id="{{$itemCollection->id}}">{{$itemCollection->collection}}</article>
                                                 <a class="mdr-button accept modul-button-delete" href="{{route('editCollection', $itemCollection->slug_collection)}}">

@@ -12,10 +12,10 @@
                     <div class="menu-link aside-nav-item-h2">{{$category->category}}</div>
 
                     <ul class="aside-nav-list-sub">
-                        @foreach($sub_categories as $sub_category)
-                            @if($category->id === $sub_category->category_id)
+                        @foreach($subCategories as $subCategory)
+                            @if($category->id === $subCategory->category_id)
                         <li class="aside-nav-item-sub">
-                            <a class="link-aside-nav" href="/html/catalog/catalog-item.html">{{$sub_category->sub_category}}</a>
+                            <a class="link-aside-nav" href="{{route('catalogProducts', ['slugCategory' => $category->slug_category, 'slugSubCategory' => $subCategory->slug_sub_category])}}">{{$subCategory->sub_category}}</a>
                         </li>
                             @endif
                         @endforeach
@@ -30,7 +30,7 @@
             @if(\Illuminate\Support\Facades\Route::currentRouteName() === 'catalogCategory')
                 Каталог
             @else
-                {{$article->category}}
+                {{$article}}
             @endif
         </h1>
     </div>

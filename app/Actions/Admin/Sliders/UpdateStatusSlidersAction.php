@@ -3,21 +3,17 @@
 namespace App\Actions\Admin\Sliders;
 
 use App\DTO\DTOupdateStatus;
+use App\Http\Requests\AdminPage\Product\UpdateStatusRequest;
 use App\Repositories\Page\AdminPage\Sliders\SlidersRepository;
 use Illuminate\Http\JsonResponse;
 
 class UpdateStatusSlidersAction
 {
-    public $action;
+    public function __construct(private SlidersRepository $repositoryn){}
 
-    public function __construct(SlidersRepository $action)
+    public function execute(UpdateStatusRequest $request, int $id): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request, $id): JsonResponse
-    {
-        $slider = $this->action->updateStatus(DTOupdateStatus::fromUpdateStatusRequest($request), $id);
+        $slider = $this->repositoryn->updateStatus(DTOupdateStatus::fromUpdateStatusRequest($request), $id);
 
         return response()->Json(route('setupSlider', $slider->slider));
     }

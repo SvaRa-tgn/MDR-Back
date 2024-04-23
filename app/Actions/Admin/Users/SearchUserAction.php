@@ -3,23 +3,17 @@
 namespace App\Actions\Admin\Users;
 
 use App\DTO\DTOsearchUser;
+use App\Http\Requests\AdminPage\Users\SearchUserRequest;
 use App\Repositories\Page\Users\UsersRepository;
 use Illuminate\Http\JsonResponse;
 
 class SearchUserAction
 {
-    public $action;
+    public function __construct(private UsersRepository $repository){}
 
-    public function __construct(UsersRepository $action)
+    public function execute(SearchUserRequest $request): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($request): JsonResponse
-    {
-        $users = $this->action->searchUsers(DTOsearchUser::fromSearchUserRequest($request));
-
-        return response()->json($users);
+        return response()->json($this->repository->searchUsers(DTOsearchUser::fromSearchUserRequest($request)));
     }
 
 }

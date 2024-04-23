@@ -2,26 +2,18 @@
 
 namespace App\Actions\Admin\Category;
 
+use App\Models\Category;
 use App\Repositories\Page\AdminPage\Category\CategoryRepository;
 use App\Services\Admin\Category\CategoryService;
 use Illuminate\View\View;
 
 class CategoryAction
 {
-    public $action;
-
-    public $service;
-
-    public function __construct(CategoryRepository $action, CategoryService $service)
-    {
-        $this->action = $action;
-
-        $this->service = $service;
-    }
+    public function __construct(private CategoryRepository $repository, private CategoryService $service){}
 
     public function execute(): View
     {
-        $categories = $this->action->category();
+        $categories = $this->repository->category();
 
         $head = $this->service->title();
 

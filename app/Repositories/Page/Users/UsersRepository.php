@@ -3,6 +3,7 @@
 
 namespace App\Repositories\Page\Users;
 
+use App\DTO\DTOsearchUser;
 use App\DTO\DTOupdateUser;
 use App\DTO\DTOupdateUserPassword;
 use App\DTO\DTOupdateUserRole;
@@ -12,20 +13,18 @@ use Transliterate;
 
 class UsersRepository
 {
-    public function searchUsers($data): array
+    public function userFind(int $id): User
     {
-        return User::where('email', 'LIKE', '%'.$data->search.'%')->get()->toArray();
+        return User::findOrFail($id);
     }
 
-    public function editUser($id): User| null
+    public function searchUsers(DTOsearchUser $dto): array
     {
-        return User::find($id);
+        return User::where('email', 'LIKE', '%'.$dto->search.'%')->get()->toArray();
     }
 
-    public function updateUser(DTOupdateUser $dto, $id): User
+    public function updateUser(DTOupdateUser $dto, User $user): User
     {
-        $user = User::find($id);
-
         if ($dto->name !== 'null'){
             $user->name = $dto->name;
             $user->slug_name = $dto->slug_name;
@@ -50,27 +49,21 @@ class UsersRepository
         return $user;
     }
 
-    public function updateUserPassword(DTOupdateUserPassword $dto, $id): User
+    public function updateUserPassword(DTOupdateUserPassword $dto, User $user): User
     {
-        $user = User::find($id);
-
         $user->password = Hash::make($dto->password);
         $user->save();
 
         return $user;
     }
 
-    public function destroyUser($id): void
+    public function destroyUser(User $user): void
     {
-        $user = User::find($id);
-
         $user->delete();
     }
 
-    public function updateUserRole(DTOupdateUserRole $dto, $id): User
+    public function updateUserRole(DTOupdateUserRole $dto, User $user): User
     {
-        $user = User::find($id);
-
         $user->role = $dto->role;
         $user->save();
 

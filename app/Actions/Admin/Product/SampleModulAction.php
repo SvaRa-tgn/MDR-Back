@@ -7,18 +7,11 @@ use Illuminate\Http\JsonResponse;
 
 class SampleModulAction
 {
-    public $action;
+    public function __construct(private ProductRepository $repository){}
 
-    public function __construct(ProductRepository $action)
+    public function execute(int $id): JsonResponse
     {
-        $this->action = $action;
-    }
-
-    public function execute($id): JsonResponse
-    {
-        $moduls = $this->action->sampleModul($id);
-
-        return response()->json($moduls);
+        return response()->json($this->repository->sampleModul($id));
     }
 
 }

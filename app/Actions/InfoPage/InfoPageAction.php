@@ -3,15 +3,12 @@
 namespace App\Actions\InfoPage;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Page\AdminPage\Category\CategoryRepository;
+use Illuminate\View\View;
 
 class InfoPageAction extends Controller
 {
-    public $action;
-
-    public function execute()
+    public function execute(): View
     {
-
         $head = [
             'title' => 'Информация. My Decor Room - Мебель в Рязани. ',
             'description' => 'Информация для потребителей интернет магазина My Decor Room. '

@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use App\Http\Requests\AdminPage\Product\UpdateProductRequest;
+use App\Repositories\Page\AdminPage\ItemCollection\ItemCollectionRepository;
 use Illuminate\Support\Str;
 use Spatie\DataTransferObject\DataTransferObject;
 use Transliterate;
@@ -13,6 +14,7 @@ class DTOupdateProduct extends DataTransferObject
     public string $sub_category;
     public string $type;
     public string $collection;
+    public string $type_collection;
     public string $full_name;
     public string $slug_full_name;
     public string $small_name;
@@ -51,7 +53,10 @@ class DTOupdateProduct extends DataTransferObject
 
         if(empty($data['collection'])){
             $collection = 'null';
+            $type_collection = 'null';
         } else {
+            $collection = ItemCollectionRepository::itemCollectionFind($data['collection']);
+            $type_collection = $collection->type_collection;
             $collection= $data['collection'];
         }
 
@@ -134,6 +139,7 @@ class DTOupdateProduct extends DataTransferObject
             'sub_category' => $sub_category,
             'type' => $type,
             'collection' => $collection,
+            'type_collection' => $type_collection,
             'full_name' => $full_name,
             'slug_full_name' => $slug_full_name,
             'small_name' => $small_name,

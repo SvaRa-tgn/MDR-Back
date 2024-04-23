@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class AddImageController extends Controller
 {
-    public function addImage(AddImageAction $action, AddImageRequest $request, $id): JsonResponse
+    public function addImage(AddImageAction $action, AddImageRequest $request, int $id): JsonResponse
     {
         return $action->execute($request, $id);
     }

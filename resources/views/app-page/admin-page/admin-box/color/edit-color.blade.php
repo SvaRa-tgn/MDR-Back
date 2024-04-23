@@ -53,13 +53,13 @@
                                 </article>
                                 <div class="wrap-input colorError" data-answer="">
                                     <label class="form-label">
-                                        Новое название Категории:
+                                        Новое название Цвета:
                                     </label>
                                     <input class="admin-select admin-input" type="text" id="new_color" name="color" value="{{ old('color') }}" />
                                 </div>
                                 <div class="wrap-input" data-answer="Вы не внесли изменения">
                                     <label class="form-label">
-                                        Выберите новое фото Категории:
+                                        Выберите новое фото Цвета:
                                     </label>
                                     <input class="admin-select admin-foto admin-input" type="file" id="foto" name="image" accept="image/*" />
                                 </div>

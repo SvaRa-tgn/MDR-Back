@@ -9,24 +9,15 @@ use Illuminate\View\View;
 
 class SetupSliderAction
 {
-    public $action;
+    public function __construct(private SlidersRepository $repository, private SetupSliderService $service){}
 
-    public $service;
-
-    public function __construct(SlidersRepository $action, SetupSliderService $service)
+    public function execute(string $slider): View
     {
-        $this->action = $action;
+        $images = $this->repository->image();
 
-        $this->service = $service;
-    }
+        $slider = $this->repository->setupSlider($slider);
 
-    public function execute($slider): View
-    {
-        $images = $this->action->image();
-
-        $slider = $this->action->setupSlider($slider);
-
-        $count = $this->action->countImage();
+        $count = $this->repository->countImage();
 
         $head = $this->service->editTitle($slider->name);
 

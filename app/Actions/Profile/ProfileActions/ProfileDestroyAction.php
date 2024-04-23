@@ -7,16 +7,11 @@ use Illuminate\Http\JsonResponse;
 
 class ProfileDestroyAction
 {
-    public $action;
-
-    public function __construct(ProfileRepository $action)
-    {
-        $this->action = $action;
-    }
+    public function __construct(private ProfileRepository $profile){}
 
     public function execute(): JsonResponse
     {
-        $this->action->destroyProfile();
+        $this->profile->destroyProfile($this->profile->profile());
 
         return response()->json(route('/.index'));
     }
