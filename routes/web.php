@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\ChangeMailController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\RecoveryRequestController;
+use App\Http\Controllers\Auth\ResetFormPasswordController;
+use App\Http\Controllers\Auth\VerificationNoticeController;
+use App\Http\Controllers\Auth\VerificationSendController;
+use App\Http\Controllers\Auth\VerificationVerifyController;
 use App\Http\Controllers\Page\AdminPage\Category\CategoryController;
 use App\Http\Controllers\Page\AdminPage\Category\CreateCategoryController;
 use App\Http\Controllers\Page\AdminPage\Category\DestroyCategoryController;
@@ -82,8 +89,11 @@ use App\Http\Controllers\Page\ProfilePage\Profile\ProfileCheckController;
 use App\Http\Controllers\Page\ProfilePage\Profile\ProfileController;
 use App\Http\Controllers\Page\ProfilePage\Profile\UpdateProfileController;
 use App\Http\Controllers\Page\ProfilePage\Profile\UpdateProfilePasswordController;
+use App\Http\Controllers\Page\ProfilePage\ProfileCart\CheckoutOrderController;
+use App\Http\Controllers\Page\ProfilePage\ProfileCart\CreateOrderController;
 use App\Http\Controllers\Page\ProfilePage\ProfileCart\ProfileAddCartController;
 use App\Http\Controllers\Page\ProfilePage\ProfileCart\ProfileCartController;
+use App\Http\Controllers\Page\ProfilePage\ProfileCart\ProfileDestroyAllCartController;
 use App\Http\Controllers\Page\ProfilePage\ProfileCart\ProfileDestroyCartController;
 use App\Http\Controllers\Page\ProfilePage\ProfileFavorites\ProfileFavoritesController;
 use App\Http\Controllers\Page\ProfilePage\ProfilePurchased\ProfilePurchasedController;
@@ -247,7 +257,7 @@ Route::prefix('admin')->middleware('admin')->group(function (){
 });
 
 //Страница Личный кабинет
-Route::prefix('profile')->middleware('auth')->group(function(){
+Route::prefix('profile')->middleware(['auth', 'verified'])->group(function(){
     //Личные данные
     Route::prefix('private')->group(function(){
         Route::get('mdr', [ProfileCheckController::class, 'profile'])->name('private');
@@ -262,6 +272,10 @@ Route::prefix('profile')->middleware('auth')->group(function(){
         Route::get('mdr', [ProfileCartController::class, 'profileCartItems'])->name('profileCart');
         Route::post('add-cart', [ProfileAddCartController::class, 'addCart'])->name('addCart');
         Route::delete('destroy-cart/{id}', [ProfileDestroyCartController::class, 'destroyCart'])->name('destroyCart');
+        Route::delete('destroy-cart', [ProfileDestroyAllCartController::class, 'destroyAllCart'])->name('destroyAllCart');
+
+        Route::get('checkout-order', [CheckoutOrderController::class, 'checkoutOrder'])->name('checkoutOrder');
+        Route::post('create-order.mdr', [CreateOrderController::class, 'createOrder'])->name('createOrder');
     });
 
     //Избранное пользователя (зарегестрированного)
@@ -275,6 +289,16 @@ Route::prefix('profile')->middleware('auth')->group(function(){
     });
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+//Подтверждение Email
+Route::get('/email/verify', [VerificationNoticeController::class, 'notice'])->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [VerificationVerifyController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+Route::put('/email/change', [ChangeMailController::class, 'change'])->middleware('auth')->name('change.mail');
+Route::post('/email/verification-notification', [VerificationSendController::class, 'send'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+//Восстановление пароля
+Route::post('/forgot-password', [RecoveryRequestController::class, 'recovery'])->middleware('guest')->name('recovery.email');
+Route::get('/reset-password/{token}', [ResetFormPasswordController::class, 'resetForm'])->middleware('guest')->name('passwordReset');
+Route::post('/new-password', [NewPasswordController::class, 'newPassword'])->middleware('guest')->name('newPassword');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

@@ -4,7 +4,7 @@
     <div class="wrap-breadcrumbs">
         <ul class="breadcrumbs-list">
             <li class="breadcrumbs-item">
-                <a class="breadcrumbs-link" href="/index.html">Главная</a>
+                <a class="breadcrumbs-link" href="{{route('/.index')}}">Главная</a>
             </li>
             <li class="breadcrumbs-item">
                 /

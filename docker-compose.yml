@@ -78,3 +78,8 @@ services:
             service: elasticsearch
         restart: on-failure
 
+    redis:
+        extends:
+            file: .docker/redis/redis-compose.yml
+            service: redis
+        restart: always

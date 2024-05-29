@@ -11,8 +11,6 @@ var appProfile = {
                 loader = $(this).find('.wrap-button').attr('data-search'),
                 input = form.find('.profile-input');
 
-            console.log(link);
-
             $.each(input, function (index, element) {
                 if ($(this).val() === '') {
                     error = true;

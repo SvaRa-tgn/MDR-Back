@@ -1,4 +1,50 @@
 var appData = {
+    emailVerification: function() {
+        $('.js-verify-mail').click(function(e){
+            e.preventDefault();
+            var link = $('.js-verify-mail').attr('href');
+
+            $('body').addClass('noscroll');
+            $('.preloader').addClass('preloader-load');
+            $('.loader-text').text('Отправляем письмо');
+
+            $.ajax({
+                method: "POST",
+                processData: false,
+                contentType: false,
+                cache: false,
+                headers: {
+                    Accept: "application/json"
+                },
+                url: link,
+                success: (data) => {
+                    console.log(data);
+                    $('body').removeClass('noscroll');
+                    $('.preloader').removeClass('preloader-load');
+                    var reload = $('.js-reload');
+
+                    $('.modal-block').addClass('modal-block-open');
+                    $('.js-link-1').addClass('open-box');
+                    $('.modal-content').text(data.text);
+                    if(data.href !== 'null'){
+                        reload.click(function() {
+                            window.location.href = data.href;
+                        });
+                    }
+                },
+                error: (response) => {
+
+                    $('body').removeClass('noscroll');
+                    $('.preloader').removeClass('preloader-load');
+
+                    $('.modal-block').addClass('modal-block-open');
+                    $('.js-link-1').addClass('open-box');
+                    $('.modal-content').text('Ошибка. Письмо не отправлено.');
+                }
+            })
+        });
+    },
+
     createFormData: function () {
         var modul_items = appData.modulItem();
         $('.create-form-data').submit(function (e) {
@@ -11,8 +57,6 @@ var appData = {
                 link = form.attr('action'),
                 success = $('.name-admin-block').attr('data-success');
 
-
-
             if(dataForm === 'create-product') {
                 if($('.js-image-input').val() === ''){
                     error = true;
@@ -20,7 +64,6 @@ var appData = {
                 } else {
                     $('.image-top').removeClass('js-warning-image');
                 }
-
             }
 
             if(dataForm === 'create-modul-product') {
@@ -203,12 +246,23 @@ var appData = {
                             }
                             reload.text('Отлично!');
                         } else {
-                            $('.modal-content').text(success);
+                            if(dataForm === 'email-change'){
+                                $('.modal-content').text(data.text);
+
+                                if(data.href !== 'null'){
+                                    console.log(data.href);
+                                    reload.click(function() {
+                                        window.location.href = data.href;
+                                    });
+                                }
+                            } else {
+                                $('.modal-content').text(success);
+                            }
                         }
                         reload.text('Отлично!');
                         form[0].reset();
                         reload.click(function (html) {
-                            if (dataForm === 'update-role' || dataForm === 'update-status') {
+                            if (dataForm === 'update-role' || dataForm === 'update-status' || dataForm === 'email-change') {
                                 $('.js-link-1').removeClass('open-box');
                                 $('.js-reload-block').load(location.href + ' .js-reload-block>*', '')
                             } else {
@@ -486,7 +540,7 @@ var appData = {
         $('.js-button').click(function(){
             var name = $('#modul_item option:selected').text();
             modul_items.push(name);
-            console.log(modul_items);
+
             $('.js-admin-input').removeClass('wrap-input-padding');
             $('.js-warning').css('display', 'none');
             $('.db-relevant-info-item').remove();
@@ -614,10 +668,40 @@ var appData = {
         });
     },
 
+    addOrder: function(){
+        $('.js-add-order').submit(function(e) {
+            e.preventDefault();
+            var products = Array(),
+                link = $('.js-add-order').attr('action');
 
+            $('.draw-up-item').each(function (){
+                if($(this).find('.addOrder').attr('data-name') !== undefined)
+                products.push($(this).find('.addOrder').attr('data-name'));
+            })
+
+            let formData = new FormData();
+            formData.append('products', JSON.stringify(products));
+
+            $.ajax({
+                method: "POST",
+                processData: false,
+                contentType: false,
+                cache: false,
+                headers: {
+                    Accept: "application/json"
+                },
+                url: link,
+                data: formData,
+                success: (data) => {
+                    window.location.href = data;
+                }
+            })
+        });
+    },
 };
 
 $(document).ready(function () {
+    appData.emailVerification();
     appData.modulItem();
     appData.createFormData();
     appData.updateFormData();
@@ -629,6 +713,5 @@ $(document).ready(function () {
     appData.changeTypeProduct();
     appData.changeCollection();
     appData.sampleProduct();
-
-
+    appData.addOrder();
 });

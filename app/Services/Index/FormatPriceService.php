@@ -22,6 +22,7 @@ class FormatPriceService
     {
         if($products !== null){
             foreach ($products as $product){
+                $product->cPrice = $product->price;
                 $price = Number::format($product->price, locale: 'ru');
                 $product->price = $price;
             }

@@ -13,11 +13,11 @@ interface CategoryRepositoryInterface
 
     public static function categoryFind(int $id): Category;
 
-    public function createCategory(DTOcreateCategory $dto): Category;
+    public function createCategory(DTOcreateCategory $dto, array $image): Category;
 
     public function getCategory(string $slugCategory): Category;
 
-    public function updateCategory(DTOupdateCategory $dto, int $id): Category;
+    public function updateCategory(Category $category, DTOupdateCategory $dto, array $image): Category;
 
     public function destroy(Category $category): void;
 }

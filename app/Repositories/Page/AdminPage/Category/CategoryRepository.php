@@ -21,13 +21,11 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::find($id);
     }
 
-    public function createCategory(DTOcreateCategory $dto): Category
+    public function createCategory(DTOcreateCategory $dto, array $image): Category
     {
         $category = New Category();
         $category->category = $dto->category;
         $category->slug_category = $dto->slug_category;
-        $storage = 'public/catalog';
-        $image = UpdateStroageService::updateImage($storage, $dto->image);
         $category->link = $image['url'];
         $category->path = $image['path'];
         $category->save();
@@ -40,19 +38,14 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::where('slug_category', $slugCategory)->firstOrFail();
     }
 
-    public function updateCategory(DTOupdateCategory $dto, int $id): Category
+    public function updateCategory(Category $category, DTOupdateCategory $dto, array $image): Category
     {
-        $category = Category::find($id);
-
         if($dto->category !== 'null'){
             $category->category = $dto->category;
             $category->slug_category = $dto->slug_category;
         }
 
         if($dto->image !== 'null'){
-            UpdateStroageService::deleteImage($category->path);
-            $storage = 'public/catalog';
-            $image = UpdateStroageService::updateImage($storage, $dto->image);
             $category->link = $image['url'];
             $category->path = $image['path'];
         }

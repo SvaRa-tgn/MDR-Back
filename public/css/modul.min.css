@@ -1555,7 +1555,7 @@ footer {
   margin: 10vh auto 0 auto;
 }
 
-.block-auth, .block-reg {
+.block-auth, .block-reg, .block-recovery {
   width: 100%;
   border: 2px solid #4c6373;
   border-radius: 40px 20px;
@@ -1634,6 +1634,10 @@ footer {
   position: relative;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+}
+
+.center {
+  margin: 0 auto 1vh auto;
 }
 
 .wrap-button {
@@ -1745,6 +1749,23 @@ footer {
           box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
   -webkit-transition: 0.3s;
   transition: 0.3s;
+}
+
+.button-relevant {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 3vh;
+  margin: 0 auto 4vh auto;
+}
+
+.button-relevant:hover {
+  color: #fff;
 }
 
 .form-list {

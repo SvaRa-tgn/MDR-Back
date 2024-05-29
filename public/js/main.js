@@ -27,13 +27,14 @@ var appMaster = {
                         n = n + 1;
                     }
                 }
+
                 setInterval(remove, 50)
 
             } else {
                 $('.nav-index').removeClass('nav-scroll');
                 $('.navigation-list-bottom').removeClass('navigation-down');
                 $('.auth-search').removeClass('auth-item-visible');
-                if($('.input-search').val() === ''){
+                if ($('.input-search').val() === '') {
                     $('.search').removeClass('main-search');
                 }
                 $('.index-search').addClass('start-search');
@@ -101,9 +102,9 @@ var appMaster = {
             input = $('.input-search'),
             search = $('.search');
 
-        input.focus(function(){
-            input.on('input', function(){
-                if(input.val() !== '') {
+        input.focus(function () {
+            input.on('input', function () {
+                if (input.val() !== '') {
                     console.log(input);
                     let formData = new FormData(form[0]);
                     $.ajax({
@@ -117,9 +118,9 @@ var appMaster = {
                         url: link,
                         data: formData,
                         success: (data) => {
-                            if (data.length){
+                            if (data.length) {
                                 $('.form-search-item').remove();
-                                $.each(data, function(index, value) {
+                                $.each(data, function (index, value) {
                                     $('.form-search-list').append('<li class="form-search-item">' +
                                         '                                <a class="form-search-link" href="">' + value['full_name'] + '</a>' +
                                         '                             </li>');
@@ -175,12 +176,20 @@ var appMaster = {
     authBoxSlide: function () {
         $('.registration-slide').click(function () {
             $('.block-auth').removeClass('visible-block-auth');
+            $('.block-recovery').removeClass('visible-block-auth');
             $('.block-reg').addClass('visible-block-auth');
         });
 
         $('.auth-slide').click(function () {
             $('.block-reg').removeClass('visible-block-auth');
+            $('.block-recovery').removeClass('visible-block-auth');
             $('.block-auth').addClass('visible-block-auth')
+        });
+
+        $('.recovery-slide').click(function () {
+            $('.block-reg').removeClass('visible-block-auth');
+            $('.block-auth').removeClass('visible-block-auth')
+            $('.block-recovery').addClass('visible-block-auth')
         });
     },
 
@@ -220,8 +229,8 @@ var appMaster = {
                         $('.modal-block').addClass('modal-block-open');
                         $('.js-link-2').addClass('open-box');
                         $('.modal-content').text('Вы успешно авторизировались на нашем сайте.');
-                        $('.js-close').click(function(){
-                            $('.js-reload-block').load(location.href + ' .js-reload-block>*', '', function (){
+                        $('.js-close').click(function () {
+                            $('.js-reload-block').load(location.href + ' .js-reload-block>*', '', function () {
                                 appMaster.autoHeight();
                             })
                         })
@@ -296,8 +305,62 @@ var appMaster = {
         });
     },
 
+    recoveryPassword: function(){
+        $('.form-recovery').submit(function (e) {
+            e.preventDefault();
+
+            let form = $('.form-recovery'),
+                input = form.find('.input-auth'),
+                link = form.attr('action');
+            var error = false;
+
+            $.each(input, function (index, element) {
+                if ($(this).val() === '') {
+                    error = true;
+                    $(this).addClass('input-error');
+                    $(this).parent().addClass('wrap-input-padding');
+                    $(this).parent().attr('data-answer', 'Введите email указанный при регистрации');
+                } else {
+                    $(this).removeClass('input-error');
+                    $(this).parent().removeClass('wrap-input-padding');
+                    $(this).parent().removeAttr('data-answer');
+                }
+            });
+
+            if (error === false) {
+                let formData = $(this).serializeArray();
+                $.ajax({
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    url: link,
+                    data: formData,
+                    success: (data) => {
+                        $('.auth-block').removeClass('callback-visible');
+                        $('.visible').removeClass('noscroll');
+                        $('.link-auth-item').removeClass('auth-item-slid');
+                        $('.modal-block').addClass('modal-block-open');
+                        $('.js-link-2').addClass('open-box');
+                        $('.modal-content').text(data.status);
+                    },
+                    error: (data) => {
+                        if (data.status === 422) {
+                            $('.auth-block').removeClass('callback-visible');
+                            $('.visible').removeClass('noscroll');
+                            $('.link-auth-item').removeClass('auth-item-slid');
+                            $('.modal-block').addClass('modal-block-open');
+                            $('.js-link-2').addClass('open-box');
+                            $('.modal-content').text(data.responseJSON.text);
+                        }
+                    }
+                })
+            }
+        });
+    },
+
     menu: function () {
-        $('.aside-nav-item').click( function() {
+        $('.aside-nav-item').click(function () {
             var ul = $(this).children('ul'),
                 parent = $('.aside-nav-list').find('.aside-nav-list-sub');
 
@@ -308,7 +371,7 @@ var appMaster = {
     },
 
     inCart: function () {
-        $('.button-page').click( function(e) {
+        $('.button-page').click(function (e) {
             e.preventDefault();
 
             var form = $(this),
@@ -318,7 +381,7 @@ var appMaster = {
                 dataForm = $(this).attr('data-form'),
                 name = $(this).find('.article-page-cart').attr('data-product');
 
-            if($(this).hasClass('in-cart')){
+            if ($(this).hasClass('in-cart')) {
                 let formData = new FormData(form[0]);
                 $.ajax({
                     method: "POST",
@@ -332,7 +395,7 @@ var appMaster = {
                     data: formData,
                     success: () => {
                         $(this).removeClass('in-cart');
-                        if(dataForm === 'product'){
+                        if (dataForm === 'product') {
                             $(this).find('.article-page-cart').text('Добавить в корзину');
                         } else {
                             $(this).find('.article-page-cart').text('Добавить');
@@ -365,10 +428,38 @@ var appMaster = {
         });
     },
 
+    deleteFromCart: function () {
+        $('.button-cart-delete').click(function (e) {
+            e.preventDefault();
+
+            var form = $(this),
+                link = $(this).attr('action');
+
+            let formData = new FormData(form[0]);
+            $.ajax({
+                method: "POST",
+                processData: false,
+                contentType: false,
+                cache: false,
+                headers: {
+                    Accept: "application/json"
+                },
+                url: link,
+                data: formData,
+                success: () => {
+                    $('.js-reload-block').load(location.href + ' .js-reload-block>*', '', function () {
+                        appMaster.autoHeight();
+                        appMaster.checkboxCart();
+                    })
+                }
+            })
+        });
+    },
+
     inFavorites: function () {
-        $('.button-heart').click( function() {
+        $('.button-heart').click(function () {
             var heart = $(this).find('.fa');
-            if(heart.hasClass('fa-heart-o')){
+            if (heart.hasClass('fa-heart-o')) {
                 heart.removeClass('fa-heart-o');
                 heart.addClass('fa-heart');
             } else {
@@ -398,13 +489,12 @@ var appMaster = {
                 num = active.index();
             item.eq(num).addClass('img-item-opacity');
             $('.visible').addClass('noscroll');
-            console.log(lenght);
         });
 
         $('.fa-arrow-circle-left').click(function () {
             var point = $('.product-slider-foto-list').find('.img-item-opacity');
             var num = point.index();
-            console.log(num);
+
             if (num === 0) {
                 $('.product-slider-foto-item').eq(-1).addClass('img-item-opacity');
                 point.removeClass('img-item-opacity');
@@ -417,7 +507,7 @@ var appMaster = {
         $('.fa-arrow-circle-right').click(function () {
             var point = $('.product-slider-foto-list').find('.img-item-opacity');
             var num = point.index();
-            console.log(num);
+
             if (num === lenght - 1) {
                 $('.product-slider-foto-item').eq(0).addClass('img-item-opacity');
                 point.removeClass('img-item-opacity');
@@ -539,7 +629,7 @@ var appMaster = {
             sum = 0;
 
         $('.cart-price-box').each(function (index, element) {
-            sum += parseInt($(element).text());
+            sum += parseInt($(element).attr('data-price'));
         });
         $('.total-cart').text(sum);
 
@@ -550,7 +640,7 @@ var appMaster = {
         $('.head-cart-checkbox').click(function () {
             var num = 0;
             $('.cart-price-box').each(function (index, element) {
-                num += parseInt($(element).text());
+                num += parseInt($(element).attr('data-price'));
                 sum = num;
             });
 
@@ -558,59 +648,71 @@ var appMaster = {
                 $('.cart-checkbox').prop('checked', true);
                 $('.lenght-cart').text(lenght);
                 $('.total-cart').text(num);
+                $('.draw-up-item').removeClass('draw-up-none');
+                $('.orderName').addClass('addOrder');
 
             } else {
                 $('.cart-checkbox').prop('checked', false);
                 $('.lenght-cart').text(0);
                 $('.total-cart').text(0);
+                $('.draw-up-item').addClass('draw-up-none');
+                $('.orderName').removeClass('addOrder');
+
                 sum = 0;
             }
         });
 
-        var a = $('.cart-checkbox');
+        var a = $('.cart-checkbox'),
+            item = $('.draw-up-item'),
+            name = $('.orderName');
+
         $(a).click(function () {
-            var m = $('.cart-checkbox:checked').length;
-            console.log(sum);
+            var m = $('.cart-checkbox:checked').length,
+                eq = $(this).parents('.cart-block-item').index();
+
             $('.lenght-cart').text(m);
 
+            var index = $(this).parents('.cart-block-item').index();
+            var elem = $('.cart-price-box');
+
             if ($(this).is(':checked')) {
-
-                var index = $(this).parents('.cart-block-item').index();
-                var elem = $('.cart-price-box');
-
-                sum = sum + parseInt($('.cart-price-box').eq(index).text());
+                sum = sum + parseInt(elem.eq(index).attr('data-price'));
                 $('.total-cart').text(sum);
+                item.eq(eq).removeClass('draw-up-none');
+                item.eq(eq).find(name).addClass('addOrder');
 
                 if (m === $(a).parents('.cart-block-item').length) {
                     $('.head-cart-checkbox').prop('checked', true);
+                    item.eq(eq).removeClass('draw-up-none');
+                    item.eq(eq).find(name).addClass('addOrder');
                 }
 
             } else {
                 $('.head-cart-checkbox').prop('checked', false);
-                var index = $(this).parents('.cart-block-item').index();
-                var elem = $('.cart-price-box');
-                sum = sum - parseInt($('.cart-price-box').eq(index).text());
+                sum = sum - parseInt(elem.eq(index).attr('data-price'));
                 $('.total-cart').text(sum);
+                item.eq(eq).addClass('draw-up-none');
+                item.eq(eq).find(name).removeClass('addOrder');
             }
         });
     },
 
     updateFoto: function () {
-        $('.js-image-change').click(function(){
+        $('.js-image-change').click(function () {
             var eq = $(this).parents('.edit-block-foto-item').find('.wrap-edit-image');
             eq.eq(0).addClass('js-visibality-form');
             eq.eq(1).removeClass('js-visibality-form');
         });
 
-        $('.js-image-back-change').click(function(){
+        $('.js-image-back-change').click(function () {
             var eq = $(this).parents('.edit-block-foto-item').find('.wrap-edit-image');
             eq.eq(0).removeClass('js-visibality-form');
             eq.eq(1).addClass('js-visibality-form');
         });
     },
 
-    createModulComplect: function(){
-        $('.type-modul').change(function (){
+    createModulComplect: function () {
+        $('.type-modul').change(function () {
 
         });
     },
@@ -628,8 +730,10 @@ $(window).on('load', function () {
     appMaster.authBoxSlide();
     appMaster.authBoxForm();
     appMaster.regBoxForm();
+    appMaster.recoveryPassword();
     appMaster.menu();
     appMaster.inCart();
+    appMaster.deleteFromCart();
     appMaster.inFavorites();
     appMaster.productSlider();
     appMaster.productSliderOpacity();

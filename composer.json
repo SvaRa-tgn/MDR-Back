@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
         "maatwebsite/excel": "^3.1",
+        "predis/predis": "*",
         "spatie/data-transfer-object": "^3.9"
     },
     "require-dev": {

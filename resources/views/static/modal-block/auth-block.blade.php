@@ -25,7 +25,7 @@
                         <article class="form-item-link registration-slide">Регистрация</article>
                     </li>
                     <li class="form-input">
-                        <a class="form-item-link" href="/html/auth/reg.html">Восстановление пароля</a>
+                        <article class="form-item-link recovery-slide">Восстановление пароля</article>
                     </li>
                 </ul>
             </div>
@@ -73,7 +73,35 @@
                         <article class="form-item-link auth-slide">Уже зарегестрированы?</article>
                     </li>
                     <li class="form-input">
-                        <a class="form-item-link" href="/html/auth/reg.html">Восстановление пароля</a>
+                        <article class="form-item-link recovery-slide">Восстановление пароля</article>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="block-recovery">
+            <article class="auth-cross">
+                <img class="img-cross" src="{{asset('/img/icon/cross.png')}}" alt="Cross" />
+            </article>
+            <div class="block-auth-head">
+                <img class="block-auth-logo" src="{{asset('/img/logo/logo.svg')}}" alt="Логотип" />
+            </div>
+
+            <div class="wrap-auth-item">
+                <h2 class="block-auth-h1">Восстановление пароля</h2>
+                <form class="form-recovery" method="POST" action="{{ route('recovery.email') }}">
+                    @csrf
+                    <div class="wrap-input wrap-input-auth" data-answer="">
+                        <input id="email-auth" type="email" name="email" placeholder="Введите свой email" value="{{ old('email') }}" class="input-auth"  autocomplete="email" autofocus />
+                    </div>
+                    <button class="button-auth accept" type="submit" name="submit-auth">Восстановить пароль</button>
+                </form>
+                <ul class="form-list">
+                    <li class="form-input">
+                        <article class="form-item-link auth-slide">Вход в личный кабинет</article>
+                    </li>
+                    <li class="form-input">
+                        <article class="form-item-link registration-slide">Регистрация</article>
                     </li>
                 </ul>
             </div>

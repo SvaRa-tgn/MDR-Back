@@ -3,6 +3,7 @@
 
 namespace App\Repositories\Page\Users;
 
+use App\DTO\DTOchangeMail;
 use App\DTO\DTOsearchUser;
 use App\DTO\DTOupdateUser;
 use App\DTO\DTOupdateUserPassword;
@@ -16,6 +17,15 @@ class UsersRepository
     public function userFind(int $id): User
     {
         return User::findOrFail($id);
+    }
+
+    public function changeMail(User $user, DTOchangeMail $dto): User
+    {
+        $user->email = $dto->email;
+
+        $user->save();
+
+        return $user;
     }
 
     public function searchUsers(DTOsearchUser $dto): array

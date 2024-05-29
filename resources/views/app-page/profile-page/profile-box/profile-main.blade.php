@@ -4,7 +4,7 @@
     <div class="wrap-breadcrumbs">
         <ul class="breadcrumbs-list">
             <li class="breadcrumbs-item">
-                <a class="breadcrumbs-link" href="/index.html">Главная</a>
+                <a class="breadcrumbs-link" href="{{route('/.index')}}">Главная</a>
             </li>
             <li class="breadcrumbs-item">
                 /
@@ -157,7 +157,7 @@
                     </form>
                     <form class="update-profile-data" method="POST" action="{{ route('updateProfilePassword') }}">
                         @csrf
-                        @method('DELETE')
+                        @method('PUT')
                         <article class="name-admin-block" data-success="Пароль обновлен">
                             Новый пароль:
                         </article>
